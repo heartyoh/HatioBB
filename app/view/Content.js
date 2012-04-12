@@ -1,31 +1,20 @@
 Ext.define('HatioBB.view.Content', {
-    extend: 'Ext.navigation.View',
+    extend : 'Ext.Panel',
 
-    xtype: 'content',
+    xtype : 'content',
 
-    config: {
-        items: [
+    config : {
+		title : 'HatioBB',
+		
+		layout : 'fit',
+
+        items : [
         {
-            id: 'launch',
-			title : 'Hatio BB',
-            cls: 'card',
-            scrollable: true,
-            html: '<div><h2>Welcome to Hatio BB.</h2></div>'
-        // },
-        // {
-        //     id: 'content',
-        //     xtype: 'titlebar',
-        //     docked: 'top',
-        //     title: 'Hatio BB',
-        //     items: [{
-        //         xtype: 'button',
-        //         id: 'btnSup',
-        //         hidden: true,
-        //         align: 'light',
-        //         ui: 'action',
-        //         action: 'viewSupplement',
-        //         text: 'Supplement'
-        //     }]
+            id : 'launch',
+            cls : 'launchscreen',
+            scrollable : true,
+			html : 'Hello, Hatio BB'
+            // html: '<div style="text-align:center;padding-top:20%"><img src="resources/images/intro.png"/></div>'
         }
         ]
     }

@@ -1,7 +1,15 @@
 Ext.define('HatioBB.view.Main', {
     extend: 'Ext.Container',
 
-    requires: ['Ext.TitleBar', 'HatioBB.view.Nav', 'HatioBB.view.Content'],
+    xtype: 'main',
+
+    requires: [
+    'Ext.navigation.View',
+    'Ext.navigation.Bar',
+    'HatioBB.view.Nav',
+    'HatioBB.view.Content',
+	'HatioBB.view.Header'
+    ],
 
     config: {
         fullscreen: true,
@@ -18,13 +26,19 @@ Ext.define('HatioBB.view.Main', {
         items: [
         {
             id: 'nav',
+			cls : 'nav',
             xtype: 'nav',
             docked: 'left',
-            width: 250
+            // navigationBar: false,
+            width: 255
         },
+		{
+			id: 'header',
+			xtype : 'header'
+		},
         {
             id: 'content',
-			xtype : 'content'
+            xtype: 'content'
         }
         ]
     }
