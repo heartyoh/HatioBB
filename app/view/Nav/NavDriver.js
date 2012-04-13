@@ -22,6 +22,6 @@ Ext.define('HatioBB.view.Nav.NavDriver', {
 
         store: 'Drivers',
 
-        itemTpl: '<div class="oper"><strong>{id}</strong> {name}</div>'
+        itemTpl: '<div class="oper"><strong>{driver_id}</strong> {name}</div>'
     }
 });

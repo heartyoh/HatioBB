@@ -27,20 +27,22 @@ Ext.define('HatioBB.view.Nav', {
 			cls: 'mainNav',
 			items : [{
 	            xtype: 'container',
-				id : 'nav_menu',
 				cls : 'navGroup',
 	            defaults: {
 	                xtype: 'button'
 	            },
 	            items: [{
+					id : 'nav_map',
 	                text: 'Map',
 					iconCls : 'iconMap'
 	            },
 	            {
+					id : 'nav_info',
 	                text: 'Information',
 					iconCls : 'iconInformation'
 	            },
 	            {
+					id : 'nav_incident',
 	                text: 'Incident',
 					iconCls : 'iconIncident'
 	            }]

@@ -1,7 +1,7 @@
 Ext.define('HatioBB.view.Nav.NavVehicle', {
     extend: 'Ext.dataview.List',
 
-    xtype: 'nav_driver',
+    xtype: 'nav_vehicle',
 
     requires: [
     'Ext.dataview.List'
@@ -22,6 +22,6 @@ Ext.define('HatioBB.view.Nav.NavVehicle', {
 
         store: 'Vehicles',
 
-        itemTpl: '<div class="oper"><strong>{id}</strong> {reg_number}</div>'
+        itemTpl: '<div class="oper"><strong>{vehicle_id}</strong> {reg_number}</div>'
     }
 });

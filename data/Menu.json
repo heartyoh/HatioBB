@@ -1,0 +1,175 @@
+[{
+    text: 'Map',
+    icon: 'setup',
+    index: 1,
+    children: [{
+        text: 'Factory Setup',
+        icon: 'factorySetup',
+		module : 'WIP : Work In Process',
+        index: 1
+    },{
+		text: 'Attribute Setup',
+        icon: 'attributeSetup',
+		module : 'BAS : Basic',
+        index: 12
+	},{
+		text: 'Message Setup',
+        icon: 'MessageSetup',
+		module : 'MSG : Message',
+        index: 16
+	}]
+},
+{
+    text: 'Information',
+    icon: 'transaction',
+    index: 2,
+    children: [{
+        text: 'Create Lot',
+        icon: 'createLot',
+		module : 'WIP : Work In Process',
+        index: 1
+    },
+    {
+        text: 'Start Lot',
+        icon: 'startLot',
+		module : 'WIP : Work In Process',
+        index: 2
+	},{	
+		text: 'Delete Resource Data History',
+        icon: '',
+		module : 'EDC : Engineering Data Collection',
+        index: 19
+	},{	
+		text: 'Assembly Lot',
+        icon: '',
+		module : 'BOM : Bill Of Material',
+        index: 20
+	}]
+},
+{
+    text: 'Incident',
+    icon: 'inquiry',
+    group: 'a',
+    index: 3,
+    children: [{
+        text: 'View Lot Status',
+        icon: 'viewLotStatus',
+		module : 'WIP : Work In Process',
+        index: 1
+    },{
+        text: 'View Lot History',
+        icon: 'viewLotHistory',
+		module : 'WIP : Work In Process',
+        index: 2
+	},{
+		text: 'View Tool List',
+        icon: 'viewToolList',
+		module : 'RAS : Resource Allocation and ..',
+        index: 16
+    }]
+},
+{
+    text: 'Vehicle',
+    icon: 'order',
+    group: 'a',
+    index: 4,
+    children: [{
+        text: 'Production Order Setup',
+        icon: 'productionOrderSetup',
+        index: 1
+    },{
+        text: 'Production Plan Setup',
+        icon: 'productionPlanSetup',
+        index: 2
+	},{
+		text: 'View Planned Lot',
+        icon: 'viewPlannedLot',
+        index: 11
+	},{
+		text: 'View Work Order',
+        icon: 'viewWorkOrder',
+        index: 12
+    }]
+},
+{
+    text: 'Driver',
+    icon: 'spc',
+    group: 'a',
+    index: 5,
+    children: [{
+        text: 'Chart Setup',
+        icon: 'chartSetup',
+		module : 'Setup',
+        index: 1
+    },{
+        text: 'Spec Management Setup',
+        icon: 'specManagementSetup',
+		module : 'Setup',
+        index: 2
+    },{
+        text: 'Attach User To Chart Setup',
+        icon: 'attachUserToChartSetup',
+		module : 'Setup',
+        index: 3
+    },{
+        text: 'Chart Set Setup',
+        icon: 'chartSetSetup',
+		module : 'Setup',
+        index: 4
+    },{
+        text: 'EDC Prompt Setup',
+        icon: 'EDCPromptSetup',
+		module : 'Setup',
+        index: 5
+    },{
+        text: 'Collect Lot Data',
+        icon: 'collectLotData',
+		module : 'Transaction',
+        index: 6
+    },{
+        text: 'Collect Resource Data',
+        icon: 'collectResourceData',
+		module : 'Transaction',
+        index: 7
+	},{
+		text: 'Clear Alarm',
+        icon: 'clearAlarm',
+		module : 'Transaction',
+        index: 8
+	},{
+		text: 'Collect EDC Data by Chart Set',
+        icon: 'collectEDCDataByChartSet',
+		module : 'Transaction',
+        index: 9
+	},{
+		text: 'Analysis Realtime Monitoring Control Chart',
+        icon: 'analysisRealtimeMonitoringControlChart',
+		module : 'Analysis',
+        index: 10
+	},{
+		text: 'Analysis Control Chart',
+        icon: 'analysisControlChart',
+		module : 'Analysis',
+        index: 11
+	},{
+		text: 'Analysis Capability Analysis',
+        icon: 'analysisCapabilityAnalysis',
+		module : 'Analysis',
+        index: 12
+	},{
+		text: 'View EDC Data',
+        icon: 'viewEDCData',
+		module : 'Inquiry',
+        index: 13
+	},{
+		text: 'View Spec History',
+        icon: 'viewSpecHistory',
+		module : 'Inquiry',
+        index: 14
+	},{
+		text: 'View OOC History',
+        icon: 'viewOOCHistory',
+		module : 'Inquiry',
+        index: 15
+    }]
+}]

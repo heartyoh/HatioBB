@@ -7,17 +7,25 @@ Ext.define('HatioBB.controller.Main', {
         refs: {
             main: 'main',
             nav: 'nav',
-            content: 'content',
-			nav1 :'nav1'
+            content: 'content'
         },
         control: {
-            '#nav_menu button' : {
-                tap: 'onMenu'
+			'#ext-viewport':{
+				orientationchange: 'onOC'
+			},
+            '#nav_map' : {
+                tap: 'onMap'
             },
-			'#nav_oper' : {
+            '#nav_info' : {
+                tap: 'onInfo'
+            },
+            '#nav_incident' : {
+                tap: 'onIncident'
+            },
+			'#nav_driver' : {
 				tap : 'onDriver'
 			},
-			'#nav_res' : {
+			'#nav_vehicle' : {
 				tap : 'onVehicle'
 			},
 			'#nav_report' : {
@@ -35,20 +43,40 @@ Ext.define('HatioBB.controller.Main', {
         }
     },
 
-    onMenu: function(button, e) {
-		this.getNav().setNavigationBar(true);
-		
-		var text = button.getText();
-		var topMenu = Ext.getStore('Menus').findRecord('text', text);
-		var store = Ext.create('HatioBB.store.SubMenus', {
-			data : topMenu.get('children')
-		});
-		
-		this.getNav().push({
-			xtype : 'nav_menu',
-			title : text,
-			store : store
-		});
+	onOC : function(me, newOrient,w,h) {
+		if(newOrient === 'portrait') {
+			Ext.Anim.run(this.getNav(), 'fade', {
+			    out: true,
+				direction : 'left',
+			    autoClear: false
+			});
+			// this.getNav().hide();
+			Ext.Msg.alert('hide');
+		} else {
+			Ext.Anim.run(this.getNav(), 'fade', {
+			    out: false,
+				direction : 'right',
+			    autoClear: false
+			});
+			// this.getNav().show();
+			Ext.Msg.alert('show');
+		}
+			
+		// Ext.Msg.alert('Orientation', newOrient + ':' + w + ':' + h);
+	},
+
+    onMap: function(button, e) {
+		this.getContent().removeAll();
+		this.getContent().add({
+			xtype: 'map',
+		    useCurrentLocation: false
+		})
+    },
+
+    onInfo: function(button, e) {
+    },
+
+    onIncident: function(button, e) {
     },
 
     onDriver: function(button, e) {

@@ -2,7 +2,7 @@ Ext.define('HatioBB.store.Vehicles', {
     extend: 'Ext.data.Store',
 
     config: {
-		fields : ['id', 'reg_number'],
+		fields : ['vehicle_id', 'reg_number'],
 
         autoLoad: false,
         sorters: 'id',

@@ -2,7 +2,7 @@ Ext.define('HatioBB.store.Drivers', {
     extend: 'Ext.data.Store',
 
     config: {
-		fields : ['id', 'name'],
+		fields : ['driver_id', 'name'],
 
         autoLoad: false,
         sorters: 'id',
