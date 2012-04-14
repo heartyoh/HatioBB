@@ -9,6 +9,11 @@ Ext.define('HatioBB.view.Content', {
 		layout : 'fit',
 
         items : [
+		{
+			id: 'header',
+			xtype : 'header',
+		            docked: 'top'
+		},
         {
             id : 'launch',
             cls : 'launchscreen',

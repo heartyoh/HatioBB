@@ -3,7 +3,6 @@ Ext.define('HatioBB.view.Header', {
 	
 	xtype : 'header',
 	config : {
-		docked :'top',
 		title : 'HatioBB',
 		items : [
 		        {

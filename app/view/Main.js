@@ -32,10 +32,11 @@ Ext.define('HatioBB.view.Main', {
             // navigationBar: false,
             width: 255
         },
-		{
-			id: 'header',
-			xtype : 'header'
-		},
+		// {
+		// 	id: 'header',
+		// 	xtype : 'header',
+		//             docked: 'top'
+		// },
         {
             id: 'content',
             xtype: 'content'

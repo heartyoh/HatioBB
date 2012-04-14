@@ -45,21 +45,25 @@ Ext.define('HatioBB.controller.Main', {
 
 	onOC : function(me, newOrient,w,h) {
 		if(newOrient === 'portrait') {
-			Ext.Anim.run(this.getNav(), 'fade', {
-			    out: true,
-				direction : 'left',
-			    autoClear: false
-			});
+			// this.getNav().setDocked('top');
+			// this.getNav().setDocked('bottom');
+			this.getNav().setDocked(null);
+			// Ext.Anim.run(this.getNav(), 'fade', {
+			//     out: true,
+			// 	direction : 'left',
+			//     autoClear: false
+			// });
 			// this.getNav().hide();
-			Ext.Msg.alert('hide');
+			// Ext.Msg.alert('hide');
 		} else {
-			Ext.Anim.run(this.getNav(), 'fade', {
-			    out: false,
-				direction : 'right',
-			    autoClear: false
-			});
+			this.getNav().setDocked('left');
+			// Ext.Anim.run(this.getNav(), 'fade', {
+			//     out: false,
+			// 	direction : 'right',
+			//     autoClear: false
+			// });
 			// this.getNav().show();
-			Ext.Msg.alert('show');
+			// Ext.Msg.alert('show');
 		}
 			
 		// Ext.Msg.alert('Orientation', newOrient + ':' + w + ':' + h);
