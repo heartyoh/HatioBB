@@ -23,36 +23,35 @@ Ext.define('HatioBB.view.monitor.Map', {
 		
 		var interval = null;
 		var vehicleMapStore = null;
-		var incidentStore = null;
+		// var incidentStore = null;
 		
-		// this.on('initialize', function() {
-			vehicleMapStore = Ext.getStore('VehicleMapStore');
-			incidentStore = Ext.getStore('RecentIncidentStore');
-			var vehicleFilteredStore = Ext.getStore('VehicleFilteredStore');
-			
-			vehicleFilteredStore.on('refresh', function() {
-				// if(self.isVisible()) {
-					// self.refreshMap(vehicleFilteredStore, self.sub('autofit').getValue());
-					self.refreshMap(vehicleFilteredStore, true);
-				// }
-			});
-			
-			vehicleMapStore.load();
-			
-			/*
-			 * TODO 디폴트로 1분에 한번씩 리프레쉬하도록 함.
-			 */
-			this.on('painted', function() {
-				interval = setInterval(function() {
-					vehicleMapStore.load();
-					incidentStore.load(); // TODO Incident Store는 Map과 관련이 없으므로, 다른 화면으로 이주시켜라.
-				}, 10000);
-			});
-			
-			this.on('erased', function() {
-				clearInterval(interval);
-				// this.resetMarkers();
-			});
+		vehicleMapStore = Ext.getStore('VehicleMapStore');
+		// incidentStore = Ext.getStore('RecentIncidentStore');
+		var vehicleFilteredStore = Ext.getStore('VehicleFilteredStore');
+		
+		vehicleFilteredStore.on('refresh', function() {
+			// if(self.isVisible()) {
+				// self.refreshMap(vehicleFilteredStore, self.sub('autofit').getValue());
+				self.refreshMap(vehicleFilteredStore, true);
+			// }
+		});
+		
+		vehicleMapStore.load();
+		
+		/*
+		 * TODO 디폴트로 1분에 한번씩 리프레쉬하도록 함.
+		 */
+		this.on('painted', function() {
+			interval = setInterval(function() {
+				vehicleMapStore.load();
+				// incidentStore.load(); // TODO Incident Store는 Map과 관련이 없으므로, 다른 화면으로 이주시켜라.
+			}, 10000);
+		});
+		
+		this.on('erased', function() {
+			clearInterval(interval);
+			// this.resetMarkers();
+		});
 		// });
 		
 		// this.on('show', function() {

@@ -14,39 +14,78 @@ Ext.define('HatioBB.view.Nav', {
 	'HatioBB.view.nav.NavReport'
     ],
 
-	layout : {
-		type : 'vbox'
+	initialize : function() {
+		var self = this;
+		
+		this.callParent();
+		
+		var incidentStore = Ext.getStore('RecentIncidentStore');
+
+		this.on('painted', function() {
+			console.log('painted');
+			// Ext.getStore('VehicleMapStore').on('load',self.refreshVehicleCounts, self);
+			Ext.getStore('RecentIncidentStore').on('load', self.refreshIncidents, self);			
+			// Ext.getStore('VehicleGroupStore').on('load', self.refreshVehicleGroups, self);
+		});
+		
+		this.on('painted', function() {
+			interval = setInterval(function() {
+				vehicleMapStore.load();
+				// incidentStore.load(); // TODO Incident Store는 Map과 관련이 없으므로, 다른 화면으로 이주시켜라.
+			}, 10000);
+		});
+		
+		this.on('erased', function() {
+			clearInterval(interval);
+			// this.resetMarkers();
+		});		
+	},
+	
+	refreshIncidents : function(store) {
+		console.log('refreshIncidents');
+		if (!store)
+			store = Ext.getStore('RecentIncidentStore');
+		
+		var incidents = this.sub('incidents');
+		if(!incidents)
+			incidents = this.up('viewport.east').sub('incidents');
+
+		incidents.removeAll();
+		var count = store.count() > 5 ? 5 : store.count();
+
+		for (var i = 0; i < count; i++) {			
+			var incident = store.getAt(i);
+			incidents.add(
+			{
+				xtype : 'button',
+				listeners : {
+					click : function(button) {
+						// GreenFleet.doMenu('monitor_incident');
+						// GreenFleet.getMenu('monitor_incident').setIncident(button.incident, true);
+					}
+				},
+				incident : incident,
+				html : '<a href="#">'
+						+ incident.get('vehicle_id')
+						+ ', '
+						+ incident.get('driver_id')
+						+ '<span>'
+						+ Ext.Date.format(incident.get('datetime'),
+								'D Y-m-d H:i:s') + '</span></a>'
+			});
+		}
 	},
 	
     config: {
         
-
         items: [
 		{
 			xtype : 'container',
 			cls: 'mainNav',
-			items : [{
-	            xtype: 'container',
-				cls : 'navGroup',
-	            defaults: {
-	                xtype: 'button'
-	            },
-	            items: [{
-					id : 'nav_map',
-	                text: 'Map',
-					iconCls : 'iconMap'
-	            },
-	            {
-					id : 'nav_info',
-	                text: 'Information',
-					iconCls : 'iconInformation'
-	            },
-	            {
-					id : 'nav_incident',
-	                text: 'Incident',
-					iconCls : 'iconIncident'
-	            }]
-	        },
+			layout : {
+				type : 'vbox'
+			},
+			items : [
 	        {
 	            xtype: 'container',
 				cls : 'navGroup',
@@ -90,8 +129,13 @@ Ext.define('HatioBB.view.Nav', {
 	                text: 'Notification',
 					iconCls : 'iconNotification'
 	            }]
-	        }]
-		}
-        ]
+	        },
+			{
+					xtype : 'panel',
+					title : T('title.incidents_alarm'),
+					itemId : 'incidents',
+					cls : 'incidentPanel'
+			}]
+		}]
     }
 });
