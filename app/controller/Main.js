@@ -70,17 +70,31 @@ Ext.define('HatioBB.controller.Main', {
 	},
 
     onMap: function(button, e) {
-		this.getContent().removeAll();
-		this.getContent().add({
-			xtype: 'map',
-		    useCurrentLocation: false
-		})
+		var monitor_map = this.getContent().getComponent('monitor_map');
+		if(!monitor_map)
+			monitor_map = this.getContent().add({
+				xtype : 'monitor_map'
+			});
+		monitor_map.show();
+		this.getContent().setActiveItem(monitor_map);
     },
 
     onInfo: function(button, e) {
+		var monitor_info = this.getContent().getComponent('monitor_info');
+		if(!monitor_info)
+			monitor_info = this.getContent().add({
+				xtype : 'monitor_info'
+			});
+		this.getContent().setActiveItem(monitor_info);
     },
 
     onIncident: function(button, e) {
+		var monitor_incident = this.getContent().getComponent('monitor_incident');
+		if(!monitor_incident)
+			monitor_incident = this.getContent().add({
+				xtype : 'monitor_incident'
+			});
+		this.getContent().setActiveItem(monitor_incident);
     },
 
     onDriver: function(button, e) {

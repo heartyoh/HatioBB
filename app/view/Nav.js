@@ -5,13 +5,13 @@ Ext.define('HatioBB.view.Nav', {
 
     requires: [
     'Ext.dataview.List',
-    'HatioBB.view.Nav.NavMenu',
-    'HatioBB.view.Nav.NavVehicle',
-    'HatioBB.view.Nav.NavDriver',
-    'HatioBB.view.Nav.NavFav',
-    'HatioBB.view.Nav.NavComm',
-    'HatioBB.view.Nav.NavNoti',
-	'HatioBB.view.Nav.NavReport'
+    'HatioBB.view.nav.NavMenu',
+    'HatioBB.view.nav.NavVehicle',
+    'HatioBB.view.nav.NavDriver',
+    'HatioBB.view.nav.NavFav',
+    'HatioBB.view.nav.NavComm',
+    'HatioBB.view.nav.NavNoti',
+	'HatioBB.view.nav.NavReport'
     ],
 
 	layout : {

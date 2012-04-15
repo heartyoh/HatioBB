@@ -1,4 +1,4 @@
-Ext.define('HatioBB.view.Nav.NavComm', {
+Ext.define('HatioBB.view.nav.NavComm', {
     extend: 'Ext.Panel',
     xtype: 'nav_comm',
 

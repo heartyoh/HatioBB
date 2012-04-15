@@ -1,8 +1,22 @@
 //<debug>
 Ext.Loader.setPath({
-    'Ext': 'sdk/src'
+    'Ext': 'sdk/src',
+	'HatioBB': 'app'
 });
 //</debug>
+
+Ext.define('HatioBB', {
+	singleton : true,
+	mixins : {
+		// msg : 'HatioBB.mixin.Msg',
+		user : 'HatioBB.mixin.User',
+		// mixin : 'HatioBB.mixin.Mixin',
+		// ui : 'HatioBB.mixin.UI',
+		// state : 'HatioBB.mixin.State',
+		// util : 'HatioBB.mixin.Import'
+		subitem : 'HatioBB.mixin.SubItem'
+	}
+});
 
 Ext.application({
     controllers: ["Main"],
@@ -15,7 +29,7 @@ Ext.application({
 
     controllers: ['Main', 'Vehicle', 'Driver','Report'],
     views: ['Main'],
-    stores: ['Menus', 'Vehicles', 'Drivers','Reports'],
+    stores: ['Menus', 'Vehicles', 'Drivers','Reports', 'VehicleFilteredStore', 'RecentIncidentStore', 'VehicleMapStore', 'DriverBriefStore'],
 
     icon: {
         57: 'resources/icons/Icon.png',

@@ -1,4 +1,4 @@
-Ext.define('HatioBB.view.Nav.NavNoti', {
+Ext.define('HatioBB.view.nav.NavNoti', {
     extend: 'Ext.Panel',
     xtype: 'nav_noti',
 

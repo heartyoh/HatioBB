@@ -1,4 +1,4 @@
-Ext.define('HatioBB.view.Nav.NavFav', {
+Ext.define('HatioBB.view.nav.NavFav', {
     extend: 'Ext.Panel',
     xtype: 'nav_fav',
 

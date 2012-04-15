@@ -1,4 +1,4 @@
-Ext.define('HatioBB.view.Nav.NavMenu', {
+Ext.define('HatioBB.view.nav.NavMenu', {
 	extend: 'Ext.dataview.List',
 	
     xtype: 'nav_menu',

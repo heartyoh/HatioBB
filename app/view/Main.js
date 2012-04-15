@@ -8,7 +8,10 @@ Ext.define('HatioBB.view.Main', {
     'Ext.navigation.Bar',
     'HatioBB.view.Nav',
     'HatioBB.view.Content',
-	'HatioBB.view.Header'
+	'HatioBB.view.Header',
+	'HatioBB.view.monitor.Map',
+	'HatioBB.view.monitor.Info',
+	'HatioBB.view.monitor.Incident'
     ],
 
     config: {
@@ -29,14 +32,8 @@ Ext.define('HatioBB.view.Main', {
 			cls : 'nav',
             xtype: 'nav',
             docked: 'left',
-            // navigationBar: false,
             width: 255
         },
-		// {
-		// 	id: 'header',
-		// 	xtype : 'header',
-		//             docked: 'top'
-		// },
         {
             id: 'content',
             xtype: 'content'
