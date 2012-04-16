@@ -9,5 +9,11 @@ Ext.define('HatioBB.view.monitor.Incident', {
 		scrollable : true,
 
 		html : 'Incident Detail Viewer'
+	},
+	
+	constructor : function(config) {
+		alert(config);
+
+		this.callParent(arguments);
 	}
 });

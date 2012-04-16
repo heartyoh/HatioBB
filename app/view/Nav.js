@@ -20,50 +20,54 @@ Ext.define('HatioBB.view.Nav', {
 		this.callParent();
 		
 		var incidentStore = Ext.getStore('RecentIncidentStore');
+		var interval;
 
 		this.on('painted', function() {
-			console.log('painted');
-			// Ext.getStore('VehicleMapStore').on('load',self.refreshVehicleCounts, self);
 			Ext.getStore('RecentIncidentStore').on('load', self.refreshIncidents, self);			
-			// Ext.getStore('VehicleGroupStore').on('load', self.refreshVehicleGroups, self);
 		});
+		
+		incidentStore.load();
 		
 		this.on('painted', function() {
 			interval = setInterval(function() {
-				vehicleMapStore.load();
-				// incidentStore.load(); // TODO Incident Store는 Map과 관련이 없으므로, 다른 화면으로 이주시켜라.
+				incidentStore.load(); // TODO Incident Store는 Map과 관련이 없으므로, 다른 화면으로 이주시켜라.
 			}, 10000);
 		});
 		
 		this.on('erased', function() {
 			clearInterval(interval);
-			// this.resetMarkers();
 		});		
 	},
 	
 	refreshIncidents : function(store) {
-		console.log('refreshIncidents');
 		if (!store)
 			store = Ext.getStore('RecentIncidentStore');
 		
 		var incidents = this.sub('incidents');
-		if(!incidents)
-			incidents = this.up('viewport.east').sub('incidents');
+		// if(!incidents)
+		// 	incidents = this.up('viewport.east').sub('incidents');
 
 		incidents.removeAll();
-		var count = store.count() > 5 ? 5 : store.count();
+		var count = store.getCount() > 5 ? 5 : store.getCount();
 
 		for (var i = 0; i < count; i++) {			
 			var incident = store.getAt(i);
 			incidents.add(
 			{
 				xtype : 'button',
-				listeners : {
-					click : function(button) {
-						// GreenFleet.doMenu('monitor_incident');
-						// GreenFleet.getMenu('monitor_incident').setIncident(button.incident, true);
-					}
-				},
+				// listeners : {
+				// 	tap : function(button) {
+				// 		// TODO move to controller
+				// 		var monitor_incident = Ext.getCmp('content').getComponent('monitor_incident');
+				// 		if(!monitor_incident)
+				// 			monitor_incident = Ext.getCmp('content').add({
+				// 				xtype : 'monitor_incident'
+				// 			});
+				// 		Ext.getCmp('content').setActiveItem(monitor_incident);
+				// 		// GreenFleet.doMenu('monitor_incident');
+				// 		// GreenFleet.getMenu('monitor_incident').setIncident(button.incident, true);
+				// 	}
+				// },
 				incident : incident,
 				html : '<a href="#">'
 						+ incident.get('vehicle_id')
@@ -133,6 +137,7 @@ Ext.define('HatioBB.view.Nav', {
 			{
 					xtype : 'panel',
 					title : T('title.incidents_alarm'),
+					flex : 1,
 					itemId : 'incidents',
 					cls : 'incidentPanel'
 			}]

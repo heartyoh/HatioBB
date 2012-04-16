@@ -39,6 +39,9 @@ Ext.define('HatioBB.controller.Main', {
 			},
 			'#nav_noti' : {
 				tap : 'onNoti'
+			},
+			'#nav #incidents button' : {
+				tap : 'onIncident'
 			}
         }
     },
@@ -92,7 +95,8 @@ Ext.define('HatioBB.controller.Main', {
 		var monitor_incident = this.getContent().getComponent('monitor_incident');
 		if(!monitor_incident)
 			monitor_incident = this.getContent().add({
-				xtype : 'monitor_incident'
+				xtype : 'monitor_incident',
+				incident : button.config.incident
 			});
 		this.getContent().setActiveItem(monitor_incident);
     },
