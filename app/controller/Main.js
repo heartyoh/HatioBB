@@ -95,9 +95,9 @@ Ext.define('HatioBB.controller.Main', {
 		var monitor_incident = this.getContent().getComponent('monitor_incident');
 		if(!monitor_incident)
 			monitor_incident = this.getContent().add({
-				xtype : 'monitor_incident',
-				incident : button.config.incident
+				xtype : 'monitor_incident'
 			});
+		monitor_incident.setIncident(button.config.incident);
 		this.getContent().setActiveItem(monitor_incident);
     },
 
