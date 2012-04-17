@@ -22,30 +22,38 @@ Ext.define('HatioBB.view.monitor.Incident', {
 		this.callParent(arguments);
 		
 		this.on('initialize', this.initialize);
-		
 	},
 	
 	initialize : function() {
-		
-		this.down('textfield[name=video_clip]').on('change', function(field, value) {
-			console.log('changed');
-			var url = '';
-			if (value != null && value.length > 1) {
-				if(value.indexOf('http') == 0)
-					url = 'src=' + value;
-				else
-					url = 'src="download?blob-key=' + value + '"';
-			}
-
-			self.sub('video').update({
-				value : url
-			});
-		});
+		// Doesn't work belows..
+		// this.down('textfield[name=video_clip]').on('updatedata', function(field, value) {
+		// 	console.log('updatedata');
+		// 	var url = '';
+		// 	if (value != null && value.length > 1) {
+		// 		if(value.indexOf('http') == 0)
+		// 			url = 'src=' + value;
+		// 		else
+		// 			url = 'src="download?blob-key=' + value + '"';
+		// 	}
+		// 
+		// 	self.sub('video').update({
+		// 		value : url
+		// 	});
+		// });
 	},
 	
 	setIncident : function(incident) {
-		console.log(incident);
 		this.sub('incident_form').setRecord(incident);
+
+		var url = '';
+		var video_clip = incident.get('video_clip');
+		if (video_clip != null && video_clip.length > 1) {
+			if(video_clip.indexOf('http') == 0)
+				url = video_clip;
+			else
+				url = 'download?blob-key=' + video_clip;
+		}
+		this.sub('video').updateUrl([url]);
 	},
 	
 	zInfo : {
@@ -108,10 +116,6 @@ Ext.define('HatioBB.view.monitor.Incident', {
 			uncheckedValue : 'off',
 			labelCls : 'labelStyle1',
 			cls : 'backgroundNone'
-		}, {
-			xtype : 'textfield',
-			name : 'video_clip',
-			hidden : true
 		} ]
 	},
 	

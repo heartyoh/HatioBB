@@ -78,8 +78,8 @@ Ext.define('HatioBB.controller.Main', {
 			monitor_map = this.getContent().add({
 				xtype : 'monitor_map'
 			});
-		monitor_map.show();
 		this.getContent().setActiveItem(monitor_map);
+		// monitor_map.show();
     },
 
     onInfo: function(button, e) {
@@ -97,8 +97,8 @@ Ext.define('HatioBB.controller.Main', {
 			monitor_incident = this.getContent().add({
 				xtype : 'monitor_incident'
 			});
-		monitor_incident.setIncident(button.config.incident);
 		this.getContent().setActiveItem(monitor_incident);
+		monitor_incident.setIncident(button.config.incident);
     },
 
     onDriver: function(button, e) {

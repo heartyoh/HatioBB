@@ -19,29 +19,28 @@ Ext.define('HatioBB.view.Nav', {
 		
 		this.callParent();
 		
-		var incidentStore = Ext.getStore('RecentIncidentStore');
 		var interval;
 
 		this.on('painted', function() {
-			Ext.getStore('RecentIncidentStore').on('load', self.refreshIncidents, self);			
-		});
-		
-		incidentStore.load();
-		
-		this.on('painted', function() {
+			var incidentStore = Ext.getStore('RecentIncidentStore');
+			
+			incidentStore.on('load', self.refreshIncidents, self);
+			incidentStore.load();
+
 			interval = setInterval(function() {
-				incidentStore.load(); // TODO Incident Store는 Map과 관련이 없으므로, 다른 화면으로 이주시켜라.
+				incidentStore.load();
 			}, 10000);
 		});
 		
 		this.on('erased', function() {
 			clearInterval(interval);
+			Ext.getStore('RecentIncidentStore').un('load', self.refreshIncidents, self);
 		});		
 	},
 	
 	refreshIncidents : function(store) {
-		if (!store)
-			store = Ext.getStore('RecentIncidentStore');
+		// if (!store)
+		// 	store = Ext.getStore('RecentIncidentStore');
 		
 		var incidents = this.sub('incidents');
 		// if(!incidents)
