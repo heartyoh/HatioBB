@@ -1,16 +1,12 @@
 Ext.define('HatioBB.view.monitor.Incident', {
-	extend : 'Ext.Panel',
+	extend : 'Ext.TabPanel',
 	
 	xtype : 'monitor_incident',
 	
 	id : 'monitor_incident',
 	
 	config : {
-		scrollable : true,
-		layout : {
-			type : 'vbox',
-			align : 'stretch'
-		},
+		tabBarPosition : 'bottom'
 	},
 	
 	constructor : function(config) {
@@ -20,31 +16,11 @@ Ext.define('HatioBB.view.monitor.Incident', {
 		];
 
 		this.callParent(arguments);
-		
-		this.on('initialize', this.initialize);
-	},
-	
-	initialize : function() {
-		// Doesn't work belows..
-		// this.down('textfield[name=video_clip]').on('updatedata', function(field, value) {
-		// 	console.log('updatedata');
-		// 	var url = '';
-		// 	if (value != null && value.length > 1) {
-		// 		if(value.indexOf('http') == 0)
-		// 			url = 'src=' + value;
-		// 		else
-		// 			url = 'src="download?blob-key=' + value + '"';
-		// 	}
-		// 
-		// 	self.sub('video').update({
-		// 		value : url
-		// 	});
-		// });
 	},
 	
 	setIncident : function(incident) {
 		this.sub('incident_form').setRecord(incident);
-
+		
 		var url = '';
 		var video_clip = incident.get('video_clip');
 		if (video_clip != null && video_clip.length > 1) {
@@ -58,8 +34,8 @@ Ext.define('HatioBB.view.monitor.Incident', {
 	
 	zInfo : {
 		xtype : 'formpanel',
+		title : '개요',
 		itemId : 'incident_form',
-		height : 400,
 		// cls : 'incidentSummary',
 		// height : 50,
 		// layout : {
@@ -121,7 +97,8 @@ Ext.define('HatioBB.view.monitor.Incident', {
 	
 	zVideo : {
 		xtype : 'panel',
-		flex : 1,
+		title : 'Movie',
+		layout : 'fit',
 		items : [{
 			xtype    : 'video',
 			itemId : 'video',
