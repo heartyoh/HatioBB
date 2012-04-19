@@ -30,6 +30,12 @@ Ext.define('HatioBB.view.monitor.Incident', {
 				url = 'download?blob-key=' + video_clip;
 		}
 		this.sub('video').updateUrl([url]);
+		
+		this.sub('brief').setData(incident.raw);
+		
+		var geo = this.sub('map').getGeo();
+		geo.latitude = incident.get('lattitude');
+		geo.longitude = incident.get('longitude');
 	},
 	
 	zInfo : {
@@ -56,8 +62,19 @@ Ext.define('HatioBB.view.monitor.Incident', {
 		}, {
 			xtype : 'image',
 			itemId : 'driverImage',
-			cls : 'imgDriverSmall',
-			height : 37
+			height : 64,
+			width : 64
+		}, {
+			xtype : 'image',
+			itemId : 'vehicleImage',
+			height : 64,
+			width : 64
+		}, {
+			xtype : 'panel',
+			itemId : 'brief',
+			tpl : [
+			'<div>{datetime}, {impulse_abs}, {engine_temp}</div>'
+			]
 		}, {
 			// xtype : 'datepickerfield',
 			// name : 'datetime',
@@ -77,14 +94,6 @@ Ext.define('HatioBB.view.monitor.Incident', {
 			name : 'driver_id',
 			label : T('label.driver')
 		}, {
-			xtype : 'textfield',
-			name : 'impulse_abs',
-			label : T('label.impulse')
-		}, {
-			xtype : 'textfield',
-			name : 'engine_temp',
-			label : T('label.engine_temp')
-		}, {
 			xtype : 'checkboxfield',
 			name : 'confirm',
 			itemId : 'confirm',
@@ -92,6 +101,11 @@ Ext.define('HatioBB.view.monitor.Incident', {
 			uncheckedValue : 'off',
 			labelCls : 'labelStyle1',
 			cls : 'backgroundNone'
+		}, {
+			xtype : 'map',
+			itemId : 'map',
+			height : 400,
+			width : 400
 		} ]
 	},
 	
