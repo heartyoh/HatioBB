@@ -206,7 +206,7 @@ Ext.define('HatioBB.view.Nav', {
             {
                 xtype: 'panel',
                 itemId: 'status',
-                height: 135,
+                height: 115,
                 layout: {
                     type: 'hbox',
                     align: 'stretch'
