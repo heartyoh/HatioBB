@@ -2,22 +2,23 @@ Ext.define('HatioBB.view.Header', {
 	extend : 'Ext.TitleBar',
 	
 	xtype : 'header',
+	
 	config : {
 		title : 'HatioBB',
 		items : [
 			{
-				id : 'nav_map',
+				itemId : 'map',
 				align : 'left',
 				cls : 'headerView navMap',
 				width : 50
 			},
 			{
-				id : 'nav_info',
+				itemId : 'info',
 				align : 'left',
 				cls : 'headerView navInfo'
 			},
 			{
-				id : 'nav_incident',
+				itemId : 'incident',
 				align : 'left',
 				cls : 'headerView navIncident'
 			},
@@ -42,10 +43,21 @@ Ext.define('HatioBB.view.Header', {
 	            align : 'right'
 	        },
 			{
+				itemId : 'collapse',
 	            iconCls : 'window',
 	            iconMask : true,
 	            align : 'right'
 	        }
 	    ]
+	},
+	
+	setActiveStatus : function(active) {
+		/* Header 내의 동일 그룹에서는 하나의 active 버튼이 있는 것으로 함. */
+		Ext.Array.each(active.up().query('button'), function(item) {
+			if(active === item)
+				item.addCls('active');
+			else
+				item.removeCls('active');
+		});
 	}
 });

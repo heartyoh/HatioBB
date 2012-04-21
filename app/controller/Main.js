@@ -7,21 +7,25 @@ Ext.define('HatioBB.controller.Main', {
         refs: {
             main: 'main',
             nav: 'nav',
-            content: 'content'
+            content: 'content',
+			header : 'header'
         },
         control: {
 			'#ext-viewport':{
 				orientationchange: 'onOC'
 			},
-            '#nav_map' : {
+            'header #map' : {
                 tap: 'onMap'
             },
-            '#nav_info' : {
+            'header #info' : {
                 tap: 'onInfo'
             },
-            '#nav_incident' : {
+            'header #incident' : {
                 tap: 'onIncident'
             },
+			'header #collapse' : {
+				tap : 'onCollapse'
+			},
 			'#nav_driver' : {
 				tap : 'onDriver'
 			},
@@ -48,12 +52,12 @@ Ext.define('HatioBB.controller.Main', {
 
 	onOC : function(me, newOrient,w,h) {
 		if(newOrient === 'portrait') {
-			this.getNav().setDocked(null);
+			this.getNav().setDocked(null).hide();
 		} else {
-			this.getNav().setDocked('left');
+			this.getNav().setDocked('left').show();
 		}
 	},
-
+	
     onMap: function(button, e) {
 		var monitor_map = this.getContent().getComponent('monitor_map');
 		if(!monitor_map)
@@ -61,6 +65,7 @@ Ext.define('HatioBB.controller.Main', {
 				xtype : 'monitor_map'
 			});
 		this.getContent().setActiveItem(monitor_map);
+		this.getHeader().setActiveStatus(button);
     },
 
     onInfo: function(button, e) {
@@ -70,6 +75,7 @@ Ext.define('HatioBB.controller.Main', {
 				xtype : 'monitor_info'
 			});
 		this.getContent().setActiveItem(monitor_info);
+		this.getHeader().setActiveStatus(button);
     },
 
     onIncident: function(button, e) {
@@ -79,8 +85,20 @@ Ext.define('HatioBB.controller.Main', {
 				xtype : 'monitor_incident'
 			});
 		this.getContent().setActiveItem(monitor_incident);
-		monitor_incident.setIncident(button.config.incident);
+		/* 여러 경로의 button동작을 통해서 들어오는 것을 감안함. */
+		if(button.config.incident)
+			monitor_incident.setIncident(button.config.incident);
+
+		this.getHeader().setActiveStatus(button);
     },
+
+	onCollapse : function(button, e) {
+		if(this.getNav().getDocked()) {
+			this.getNav().setDocked(null).hide();
+		} else {
+			this.getNav().setDocked('left').show();
+		}
+	},
 
     onDriver: function(button, e) {
 		this.getNav().setNavigationBar(true);

@@ -19,6 +19,12 @@ Ext.define('HatioBB.view.monitor.Incident', {
 	},
 	
 	setIncident : function(incident) {
+		if(!incident) {
+			incident = Ext.getStore('RecentIncidentStore').first();
+			if(!incident)
+				return;
+		}
+		
 		this.sub('incident_form').setRecord(incident);
 		
 		var url = '';
