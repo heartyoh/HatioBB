@@ -23,6 +23,7 @@ Ext.define('HatioBB.view.Header', {
 				cls : 'headerView navIncident'
 			},
 	        {
+				itemId : 'setting',
 	            iconCls : 'settings9',
 	            iconMask : true,
 	            align : 'right'

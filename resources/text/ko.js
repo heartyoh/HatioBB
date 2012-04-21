@@ -280,9 +280,11 @@ T({
 		second_s : '초',
 		minute_s : '분',
 		maintenence : '정비',
-		period_always : '기간 항상'
+		period_always : '기간 항상',
+		refresh_none : '자동갱신 하지않음',
+		setting : '설정'
 	},
-	
+
 	format : {
 		date : 'Y-m-d',
 		time : 'H:i:s',

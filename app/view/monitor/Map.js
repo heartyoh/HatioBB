@@ -21,8 +21,6 @@ Ext.define('HatioBB.view.monitor.Map', {
 		
 		var self = this;
 		
-		this.autofit = true;
-		
 		var vehicleFilteredStore = Ext.getStore('VehicleFilteredStore');
 		
 		this.on('painted', function() {
@@ -114,7 +112,7 @@ Ext.define('HatioBB.view.monitor.Map', {
 			this.getMap().setCenter(new google.maps.LatLng(System.props.lattitude, System.props.longitude));
 		} else if(bounds.isEmpty() || bounds.getNorthEast().equals(bounds.getSouthWest())) {
 			this.getMap().setCenter(bounds.getNorthEast());
-		} else if(this.autofit){ // 자동 스케일 조정 경우 
+		} else if(HatioBB.setting.get('autofit')){ // 자동 스케일 조정 경우 
 			this.getMap().fitBounds(bounds);
 //		} else { // 자동 스케일 조정이 아니어도, 센터에 맞추기를 한다면, 이렇게.
 //			this.getMap().setCenter(bounds.getCenter());

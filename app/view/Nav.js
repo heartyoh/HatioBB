@@ -23,19 +23,30 @@ Ext.define('HatioBB.view.Nav', {
         var incidentStore = Ext.getStore('RecentIncidentStore');
         incidentStore.load();
 
-        this.incidentInterval = setInterval(function() {
-            incidentStore.load();
-        },
-        10000);
-
         /* Vehicle 상태 처리 */
         var vehicleMapStore = Ext.getStore('VehicleMapStore');
         vehicleMapStore.load();
 
-        this.vehicleMapnterval = setInterval(function() {
-            vehicleMapStore.load();
-        },
-        10000);
+		/* 강제로 refreshTerm 이벤트를 발생시킴. */
+		HatioBB.setting.on({
+			refreshTerm : function(val) {
+				if(this.incidentInterval)
+					clearInterval(this.incidentInterval);
+				if(val > 0)
+					this.incidentInterval = setInterval(function() {
+			            incidentStore.load();
+			        }, val * 1000);
+
+				if(this.vehicleMapnterval)
+		        	clearInterval(this.vehicleMapnterval);
+				if(val > 0)
+			        this.vehicleMapnterval = setInterval(function() {
+			            vehicleMapStore.load();
+			        }, val * 1000);
+			}
+		});
+		
+		HatioBB.setting.set('refreshTerm', HatioBB.setting.get('refreshTerm'));
 
 		/* Vehicle 그룹 처리 */
 		var vehicleGroupStore = Ext.getStore('VehicleGroupStore');

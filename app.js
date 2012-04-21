@@ -8,13 +8,9 @@ Ext.Loader.setPath({
 Ext.define('HatioBB', {
 	singleton : true,
 	mixins : {
-		// msg : 'HatioBB.mixin.Msg',
 		user : 'HatioBB.mixin.User',
-		// mixin : 'HatioBB.mixin.Mixin',
-		// ui : 'HatioBB.mixin.UI',
-		// state : 'HatioBB.mixin.State',
-		// util : 'HatioBB.mixin.Import'
-		subitem : 'HatioBB.mixin.SubItem'
+		subitem : 'HatioBB.mixin.SubItem',
+		setting : 'HatioBB.mixin.Setting'
 	}
 });
 

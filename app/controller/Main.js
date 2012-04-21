@@ -26,6 +26,9 @@ Ext.define('HatioBB.controller.Main', {
 			'header #collapse' : {
 				tap : 'onCollapse'
 			},
+			'header #setting' : {
+				tap : 'onSetting'
+			},
 			'#nav_driver' : {
 				tap : 'onDriver'
 			},
@@ -55,7 +58,6 @@ Ext.define('HatioBB.controller.Main', {
 			'nav #groups button' : {
 				tap : 'onGroup'
 			}
-			
         }
     },
 
@@ -97,6 +99,11 @@ Ext.define('HatioBB.controller.Main', {
 		this.getHeader().setActiveStatus('incident');
     },
 
+	onSetting : function(button, e) {
+		var popup = Ext.create('HatioBB.view.Setting', {});
+		popup.showBy(button);
+	},
+	
 	onCollapse : function(button, e) {
 		if(this.getNav().getDocked()) {
 			this.getNav().setDocked(null).hide();
@@ -130,11 +137,7 @@ Ext.define('HatioBB.controller.Main', {
 		button.unfiltered = !(button.unfiltered);
 		
 		var store = Ext.getStore('VehicleFilteredStore');
-		// store.clearFilter();
-		// store.filter([ {
-		// 	property : 'status',
-		// 	value : /Incident|Running/
-		// } ]);
+
 		var filter = this.getNav().buildFilter();
 		
 		store.clearFilter();
@@ -165,11 +168,6 @@ Ext.define('HatioBB.controller.Main', {
 		this.showMonitor('monitor_map');
 	},
  
-
-
-
-
-
 
 
     onFav: function(button, e) {

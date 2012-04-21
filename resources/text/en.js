@@ -280,7 +280,9 @@ T({
 		second_s : 'sec.',
 		minute_s : 'min.',
 		maintenence : 'Maintenence',
-		period_always : 'Period Always'
+		period_always : 'Period Always',
+		refresh_none : 'No Refresh',
+		setting : 'Setting'
 	},
 	
 	format : {
