@@ -6,33 +6,43 @@ Ext.define('HatioBB.view.Header', {
 		title : 'HatioBB',
 		items : [
 			{
-				iconCls : 'add',
 				id : 'nav_map',
-	            iconMask : true,
 				align : 'left',
-				iconCls : 'iconMap'
+				cls : 'headerView navMap',
+				width : 50
 			},
 			{
-				iconCls : 'add',
 				id : 'nav_info',
-	            iconMask : true,
 				align : 'left',
-				iconCls : 'iconInfo'
+				cls : 'headerView navInfo'
 			},
 			{
-				iconCls : 'add',
 				id : 'nav_incident',
-	            iconMask : true,
 				align : 'left',
-				iconCls : 'iconIncident'
+				cls : 'headerView navIncident'
 			},
 	        {
-	            iconCls : 'add',
+	            iconCls : 'settings9',
 	            iconMask : true,
-	            align : 'left'
+	            align : 'right'
 	        },
-	        {
-	            iconCls : 'home',
+			{
+	            iconCls : 'chat3',
+	            iconMask : true,
+	            align : 'right'
+	        },
+			{
+	            iconCls : 'refresh',
+	            iconMask : true,
+	            align : 'right'
+	        },
+			{
+	            iconCls : 'search2',
+	            iconMask : true,
+	            align : 'right'
+	        },
+			{
+	            iconCls : 'window',
 	            iconMask : true,
 	            align : 'right'
 	        }

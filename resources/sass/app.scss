@@ -14,4 +14,13 @@
 @include sencha-form;
 @include sencha-msgbox;
 
-// Your custom code goes here...
+// pictos icon style
+@include pictos-iconmask('window');
+@include pictos-iconmask('settings9');
+@include pictos-iconmask('chat3');
+@include pictos-iconmask('refresh');
+@include pictos-iconmask('search2');
+
+// Hatio style
+body{background:url('../images/bgDarkDot.png');}
+.x-layout-card-item {background-color:transparent;}

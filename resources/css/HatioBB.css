@@ -1,98 +1,35 @@
-#appLoadingIndicator {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    margin-top: -10px;
-    margin-left: -50px;
-    width: 100px;
-    height: 20px;
-}
-
+/*loading indicator style*/
+#appLoadingIndicator{position:absolute;top:50%;left:50%;margin-top:-10px;margin-left:-50px;width:200px;height:25px;}
 #appLoadingIndicator > * {
-    background-color: #FFFFFF;
-    float: left;
-    height: 20px;
-    margin-left: 11px;
-    width: 20px;
+    float:left;width:25px;height:25px;margin-left:11px;
+	background:url('../images/iconLoading.png');
     -webkit-animation-name: appLoadingIndicator;
-    -webkit-border-radius: 13px;
     -webkit-animation-duration: 0.8s;
     -webkit-animation-iteration-count: infinite;
     -webkit-animation-direction: linear;
-    opacity: 0.3
+	opacity:0;
 }
-
-#appLoadingIndicator > :nth-child(1) {
-    -webkit-animation-delay: 0.18s;
-}
-
-#appLoadingIndicator > :nth-child(2) {
-    -webkit-animation-delay: 0.42s;
-}
-
-#appLoadingIndicator > :nth-child(3) {
-    -webkit-animation-delay: 0.54s;
-}
-
+#appLoadingIndicator > :nth-child(1){-webkit-animation-delay: 0.18s;}
+#appLoadingIndicator > :nth-child(2){-webkit-animation-delay: 0.42s;}
+#appLoadingIndicator > :nth-child(3){-webkit-animation-delay: 0.54s;}
 @-webkit-keyframes appLoadingIndicator{
-    0% {
-        opacity: 0.3
-    }
-
-    50% {
-        opacity: 1;
-        background-color:#1985D0
-    }
-
-    100% {
-        opacity:0.3
-    }
+    0% {opacity: 0.3}
+    50% {opacity: 1;}
+    100% {opacity:0.3}
 }
-/*navigation style*/
-.nav{background:url('../images/bgNav.png') repeat-y}
-.nav .x-toolbar.x-docked-top{border:none;}
-.nav .x-layout-card-item{background-color:transparent;}
-.nav .x-toolbar-dark{background:url('../images/bgNavTitlebar.png') repeat-x}
-.navGroup{
-	background-image: url('../images/bgNavGroupTop.png'), url('../images/bgNavGroupBottom.png');
-	background-position: left top, left bottom;
-	background-repeat: repeat-x;
-	margin:10px;padding:7px 0;border:1px solid #51555f;
-	-webkit-border-radius:7px;-moz-border-radius:7px;border-radius:7px;
-}
-.nav .x-list-item.x-item-selected .oper{color:#333;}
-.nav .x-toolbar-dark .x-title{color:#fff;}
-.nav .x-list-item{background-color:#272930;}
-.nav .x-list-normal .x-list-item .x-list-item-label,.nav .x-list-normal .x-list-item.x-item-selected .x-list-item-label{border-top:1px solid #3f4145;border-bottom:1px solid #1c1d22;}
-.nav .x-list .x-list-item.x-item-selected .x-list-item-label{background-color:#eee;background-image:none;}
-.nav .x-list .x-list-item .x-list-item-label{padding:8px 10px 5px 10px;color:#d7d7d7;}
-.nav .x-list-normal .x-list-header{background:url('../images/bgNavListHeader.png') repeat-x transparent;border:1px solid #2b2c34;border-width:1px 0;color:#93b9cf;}
-.nav .x-list-normal .x-item-selected .x-list-header{background:url('../images/bgNavListHeaderSelected.png') repeat-x transparent;border:1px solid #2b2c34;border-width:1px 0;color:#fff;}
-.nav .x-button.x-button-back{background:url('../images/bgNavTopButton.png') no-repeat;border:none;margin-left:3px;height:31px;}
-.nav .x-button.x-button-back .x-button-label{background:url('../images/iconArrowBack.png') 4px 1px no-repeat;width:17px;height:17px;font-size:0px;}
 
-.mainNav{padding-top:10px;}
-.nav .x-button{background:url('../images/bgNavListItem.png') 100% 50% no-repeat;padding:7px 10px;border:none;-webkit-border-radius:0;-moz-border-radius:0;border-radius:0}
-.nav .x-button-label{color:#b7b7b7;text-align:left;}
-.nav .x-button.x-button-pressing .x-button-label{color:#fff;}
+/*layout style*/
+#ext-viewport{background:url('../images/bgHeader.png') repeat-x;}
 
-.nav .x-button.x-button-pressing{background:url('../images/bgNavListItemPressing.png') 100% 50% no-repeat !important;}
-.nav .x-button-back::before,.nav .x-button-back::after{-webkit-mask:none;-webkit-mask-size:0;width:0;}
-.nav .x-button.x-button-back.x-button-pressing{background:url('../images/bgNavTopButton.png') no-repeat !important;}
-.x-list-normal .x-list-item:last-child .x-list-item-label{border-bottom:0 !important;}
+/*header style*/
+#header,.nav .x-navigation-bar.x-docked-top{height:40px;background:none;}
+#header .x-button{background-color:transparent;background-image:none;border:0;}
+.x-button.headerView,.x-button.headerView.x-button-pressing,.x-button.headerView.active{background:url('../images/iconHeaderView.png') no-repeat !important;border:0;width:50px !important;height:40px;border-radius:0;}
+.headerView.navMap{background-position:0 0 !important;}
+.headerView.navInfo{background-position:0 -40px !important}
+.headerView.navIncident{background-position:0 -80px !important}
+.headerView.navMap.x-button-pressing,.headerView.navMap.active{background-position:0 -120px !important;}
+.headerView.navInfo.x-button-pressing,.headerView.navInfo.active{background-position:0 -160px !important}
+.headerView.navIncident.x-button-pressing,.headerView.navIncident.active{background-position:0 -200px !important}
+#header .x-title{line-height:1.8;}
 
-.nav .oper{background:url('../icons/iconNavOper.png') 0 4px no-repeat;padding-left:22px;}
-.nav .res{background:url('../icons/iconNavRes.png') 0 4px no-repeat;padding-left:22px;}
-.nav .report{background:url('../icons/iconNavReport.png') 0 4px no-repeat;padding-left:22px;}
-.nav .x-button .x-button-icon{background-image:url('../icons/mainNav.png');margin-left:10px;width:40px !important;}
-.x-button .x-button-icon.iconSetup{background-position:0 0px;}
-.x-button .x-button-icon.iconTransaction{background-position:0 -48px;}
-.x-button .x-button-icon.iconInquiry{background-position:0 -98px;}
-.x-button .x-button-icon.iconSPC{background-position:0 -146px;}
-.x-button .x-button-icon.iconOrder{background-position:0 -196px;}
-.x-button .x-button-icon.iconOperation{background-position:0 -250px;}
-.x-button .x-button-icon.iconResource{background-position:0 -299px;}
-.x-button .x-button-icon.iconFavorite{background-position:0 -354px;}
-.x-button .x-button-icon.iconCommunication{background-position:0 -399px;}
-.x-button .x-button-icon.iconNotification{background-position:0 -449px;}
-.x-button .x-button-icon.iconReport{background-position:0 -497px;}
