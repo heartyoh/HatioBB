@@ -18,12 +18,7 @@ Ext.define('HatioBB.view.Main', {
         fullscreen: true,
 
         layout: {
-            type: 'card',
-            animation: {
-                type: 'slide',
-                direction: 'left',
-                duration: 250
-            }
+            type: 'card'
         },
 
         items: [

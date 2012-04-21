@@ -35,6 +35,7 @@ Ext.define('HatioBB.controller.Main', {
 			'#nav_report' : {
 				tap : 'onReport'
 			},
+
 			'#nav_fav' : {
 				tap : 'onFav'
 			},
@@ -44,9 +45,17 @@ Ext.define('HatioBB.controller.Main', {
 			'#nav_noti' : {
 				tap : 'onNoti'
 			},
-			'#nav #incidents button' : {
+
+			'nav #incidents button' : {
 				tap : 'onIncident'
+			},
+			'nav #status button' : {
+				tap : 'onStatus'
+			},
+			'nav #groups button' : {
+				tap : 'onGroup'
 			}
+			
         }
     },
 
@@ -58,38 +67,34 @@ Ext.define('HatioBB.controller.Main', {
 		}
 	},
 	
-    onMap: function(button, e) {
-		var monitor_map = this.getContent().getComponent('monitor_map');
-		if(!monitor_map)
-			monitor_map = this.getContent().add({
-				xtype : 'monitor_map'
+	showMonitor : function(monitor) {
+		var view = this.getContent().getComponent(monitor);
+		if(!view)
+			view = this.getContent().add({
+				xtype : monitor
 			});
-		this.getContent().setActiveItem(monitor_map);
+		this.getContent().setActiveItem(view);
+		return view;
+	},
+	
+    onMap: function(button, e) {
+		var view = this.showMonitor('monitor_map');
 		this.getHeader().setActiveStatus(button);
     },
 
     onInfo: function(button, e) {
-		var monitor_info = this.getContent().getComponent('monitor_info');
-		if(!monitor_info)
-			monitor_info = this.getContent().add({
-				xtype : 'monitor_info'
-			});
-		this.getContent().setActiveItem(monitor_info);
+		var view = this.showMonitor('monitor_info');
 		this.getHeader().setActiveStatus(button);
     },
 
     onIncident: function(button, e) {
-		var monitor_incident = this.getContent().getComponent('monitor_incident');
-		if(!monitor_incident)
-			monitor_incident = this.getContent().add({
-				xtype : 'monitor_incident'
-			});
-		this.getContent().setActiveItem(monitor_incident);
+		var view = this.showMonitor('monitor_incident');
+
 		/* 여러 경로의 button동작을 통해서 들어오는 것을 감안함. */
 		if(button.config.incident)
-			monitor_incident.setIncident(button.config.incident);
+			view.setIncident(button.config.incident);
 
-		this.getHeader().setActiveStatus(button);
+		this.getHeader().setActiveStatus('incident');
     },
 
 	onCollapse : function(button, e) {
@@ -120,6 +125,52 @@ Ext.define('HatioBB.controller.Main', {
 			xtype : 'nav_report'
 		});
     },
+
+	onStatus : function(button, e) {
+		button.unfiltered = !(button.unfiltered);
+		
+		var store = Ext.getStore('VehicleFilteredStore');
+		// store.clearFilter();
+		// store.filter([ {
+		// 	property : 'status',
+		// 	value : /Incident|Running/
+		// } ]);
+		var filter = this.getNav().buildFilter();
+		
+		store.clearFilter();
+		
+		if(filter)
+			store.filter([filter]);
+		
+		this.showMonitor('monitor_map');
+	},
+ 
+	onGroup : function(button, e) {
+
+		// this.sub('search').setValue('');  //TODO.. clear search item..
+		this.getNav().clearFilter();
+
+		var groupId = button.config.group.get('id');
+		var group = Ext.getStore('VehicleGroupStore').findRecord('id', groupId);
+		var vehicles = group ? group.get('vehicles') : [];
+
+		var store = Ext.getStore('VehicleFilteredStore');
+		store.clearFilter();
+		store.filter([ {
+			filterFn : function(record) {
+				return Ext.Array.indexOf(vehicles, record.get('id')) >= 0;
+			}
+		} ]);
+
+		this.showMonitor('monitor_map');
+	},
+ 
+
+
+
+
+
+
 
     onFav: function(button, e) {
 		this.getNav().setNavigationBar(true);

@@ -149,6 +149,29 @@ Ext.define('HatioBB.view.Nav', {
 		});
 	},
 	
+	clearFilter : function() {
+		Ext.Array.each(this.sub('status').query('button'), function(button) {
+			button.unfiltered = false;
+		});
+	},
+	
+	buildFilter : function() {
+		var values = [];
+
+		Ext.Array.each(this.sub('status').query('button'), function(button) {
+			if(!button.unfiltered)
+				values.push(button.config.state);
+		});
+		
+		if(values.length == 4 || values.length == 0)
+			return null; /* Filter를 설정할 필요가 없다. */
+			
+		return {
+			property : 'status',
+			value : new RegExp(values.join('|'))
+		}
+	},
+	
     config: {
 
         items: [
@@ -192,28 +215,28 @@ Ext.define('HatioBB.view.Nav', {
                     itemId: 'state_running',
                     flex: 1,
                     cls: 'btnDriving',
-                    title: 'running'
+					state : 'Running'
                 },
                 {
                     xtype: 'button',
                     itemId: 'state_idle',
                     flex: 1,
                     cls: 'btnStop',
-                    title: 'running'
+					state : 'Idle'
                 },
                 {
                     xtype: 'button',
                     itemId: 'state_incident',
                     flex: 1,
                     cls: 'btnIncident',
-                    title: 'running'
+					state : 'Incident'
                 },
                 {
                     xtype: 'button',
                     itemId: 'state_maint',
                     flex: 1,
                     cls: 'btnMaint',
-                    title: 'running'
+					state : 'Maint'
                 }]
             },
             {

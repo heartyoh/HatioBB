@@ -52,6 +52,9 @@ Ext.define('HatioBB.view.Header', {
 	},
 	
 	setActiveStatus : function(active) {
+		if(typeof(active) === 'string')
+			active = this.down('#' + active);
+			
 		/* Header 내의 동일 그룹에서는 하나의 active 버튼이 있는 것으로 함. */
 		Ext.Array.each(active.up().query('button'), function(item) {
 			if(active === item)
