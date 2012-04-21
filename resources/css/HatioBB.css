@@ -23,6 +23,7 @@
 
 /*header style*/
 #header,.nav .x-navigation-bar.x-docked-top{height:40px;background:none;}
+#header .x-title{line-height:1.8;text-shadow: 1px 2px #10223b;}
 #header .x-button{background-color:transparent;background-image:none;border:0;}
 .x-button.headerView,.x-button.headerView.x-button-pressing,.x-button.headerView.active{background:url('../images/iconHeaderView.png') no-repeat !important;border:0;width:50px !important;height:40px;border-radius:0;}
 .headerView.navMap{background-position:0 0 !important;}
@@ -31,5 +32,33 @@
 .headerView.navMap.x-button-pressing,.headerView.navMap.active{background-position:0 -120px !important;}
 .headerView.navInfo.x-button-pressing,.headerView.navInfo.active{background-position:0 -160px !important}
 .headerView.navIncident.x-button-pressing,.headerView.navIncident.active{background-position:0 -200px !important}
-#header .x-title{line-height:1.8;}
 
+/*nav style*/
+.nav .x-button{border-radius:0;border:0;color:#b7b7b7;background:none;}
+.nav .statusPanel{background:url('../images/bgNavPanel.png') 0 100% repeat-x}
+.nav .x-carousel{background:url('../images/bgNavCarousel.png') 0 100% repeat-x}
+.navBtn{background:url('../images/bgNavMenu.png') repeat-x !important;height:50px;}
+.navBtn.x-button-pressing{background:url('../images/bgNavMenuActive.png') repeat-x transparent !important;}
+.navBtn .x-button-icon{background:url('../images/iconNavMenu.png') no-repeat !important;}
+.navBtn .x-button-icon.iconVehicle{background-position:0 5px !important;}
+.navBtn .x-button-icon.iconDriver{background-position:0 -35px !important;}
+.navBtn .x-button-icon.iconReport{background-position:0 -75px !important;}
+.navBtn .x-button-label{text-align:left;text-indent:7px;}
+.statusPanel .x-container{background:url('../images/arrowNavPanel.png') 0 12px no-repeat;position:absolute;display:block;padding:10px 0 5px 15px;color:#95bcea;font-size:13px;}
+.nav .incidentPanel .x-innerhtml,.nav .groupPanel .x-innerhtml{background:url('../images/arrowNavPanel.png') 0 12px no-repeat;padding:10px 0 5px 15px;color:#95bcea;font-size:13px;font-weight:bold;}
+.nav .x-button.btnDriving{background:url('../images/statusDriving.png') 50% 40px no-repeat;padding:75px 0 0 0;}
+.nav .x-button.btnStop{background:url('../images/statusStop.png') 50% 40px no-repeat;padding:75px 0 0 0;}
+.nav .x-button.btnIncident{background:url('../images/statusIncident.png') 50% 40px no-repeat;padding:75px 0 0 0;}
+.nav .x-button.btnMaint{background:url('../images/statusMaint.png') 50% 40px no-repeat;padding:75px 0 0 0;}
+.nav .statusPanel .x-button-label{font-size:13px;color:#ccc;font-family:'Trebuchet MS';}
+.nav .statusPanel .x-button-label span{font-size:24px;color:#fff;line-height:1.3;}
+.nav .x-carousel-item{overflow:hidden;}
+.nav .x-carousel-item .x-button-label a{color:#eee;text-decoration:none;font-size:17px;}
+.nav .x-carousel-item .x-button-label a span{color:#bfbfbf;font-size:13px;}
+.nav .x-carousel-item .incidentPanel .x-button-label a span{display:block;}
+.nav .x-carousel-item .x-button-label{text-align:left;width:100px;text-overflow:ellipsis;}
+.nav .incidentPanel .x-button{background:url('../images/iconNavIncident.png') 15px 9px no-repeat;padding-left:40px;padding-bottom:3px;}
+.nav .groupPanel .x-button{background:url('../images/iconNavGroup.png') 15px 4px no-repeat;padding-left:42px;padding-bottom:3px;}
+.x-carousel-indicator span{width:7px;height:7px;}
+.nav .x-carousel-indicator-dark span.x-carousel-indicator-active{background-color:#fff;opacity:0.9;}
+.nav .x-carousel-indicator-dark span{background-color:#fff;opacity:0.3;}

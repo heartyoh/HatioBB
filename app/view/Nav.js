@@ -186,25 +186,27 @@ Ext.define('HatioBB.view.Nav', {
                 xtype: 'button',
                 id: 'nav_vehicle',
                 text: 'Vehicle',
+				cls : 'navBtn',
                 iconCls: 'iconVehicle'
             },
             {
                 xtype: 'button',
                 id: 'nav_driver',
                 text: 'Driver',
+				cls : 'navBtn',
                 iconCls: 'iconDriver'
             },
             {
                 xtype: 'button',
                 id: 'nav_report',
                 text: 'Report',
+				cls : 'navBtn',
                 iconCls: 'iconReport'
             },
             {
                 xtype: 'panel',
-                title: T('title.vehicle_status'),
                 itemId: 'status',
-                height: 100,
+                height: 135,
                 layout: {
                     type: 'hbox',
                     align: 'stretch'
@@ -245,15 +247,15 @@ Ext.define('HatioBB.view.Nav', {
                 flex: 1,
                 items: [{
                     xtype: 'panel',
-                    title: T('title.incidents_alarm'),
                     itemId: 'incidents',
-                    cls: 'incidentPanel'
+                    cls: 'incidentPanel',
+					html : T('title.incidents_alarm'),
                 },
                 {
                     xtype: 'panel',
-                    title: T('title.vehicle_groups'),
                     itemId: 'groups',
-                    cls: 'incidentPanel'
+                    cls: 'groupPanel',
+					html: T('title.vehicle_groups'),
                 }]
             }]
         }]
