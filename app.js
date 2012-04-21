@@ -29,7 +29,7 @@ Ext.application({
 
     controllers: ['Main', 'Vehicle', 'Driver','Report'],
     views: ['Main'],
-    stores: ['Menus', 'Vehicles', 'Drivers','Reports', 'VehicleFilteredStore', 'RecentIncidentStore', 'VehicleMapStore', 'DriverBriefStore'],
+    stores: ['Menus', 'Vehicles', 'Drivers','Reports', 'VehicleFilteredStore', 'RecentIncidentStore', 'VehicleMapStore', 'DriverBriefStore', 'VehicleGroupStore'],
 
     icon: {
         57: 'resources/icons/Icon.png',

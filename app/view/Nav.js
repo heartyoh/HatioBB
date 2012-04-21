@@ -11,135 +11,228 @@ Ext.define('HatioBB.view.Nav', {
     'HatioBB.view.nav.NavFav',
     'HatioBB.view.nav.NavComm',
     'HatioBB.view.nav.NavNoti',
-	'HatioBB.view.nav.NavReport'
+    'HatioBB.view.nav.NavReport'
     ],
 
-	initialize : function() {
-		var self = this;
-		
-		this.callParent();
-		
-		var interval;
+    initialize: function() {
+        var self = this;
 
-		this.on('painted', function() {
-			var incidentStore = Ext.getStore('RecentIncidentStore');
-			
-			incidentStore.on('load', self.refreshIncidents, self);
-			incidentStore.load();
+        this.callParent();
 
-			interval = setInterval(function() {
-				incidentStore.load();
-			}, 10000);
+        /* Incident 상태 처리 */
+        var incidentStore = Ext.getStore('RecentIncidentStore');
+        incidentStore.load();
+
+        this.incidentInterval = setInterval(function() {
+            incidentStore.load();
+        },
+        10000);
+
+        /* Vehicle 상태 처리 */
+        var vehicleMapStore = Ext.getStore('VehicleMapStore');
+        vehicleMapStore.load();
+
+        this.vehicleMapnterval = setInterval(function() {
+            vehicleMapStore.load();
+        },
+        10000);
+
+		/* Vehicle 그룹 처리 */
+		var vehicleGroupStore = Ext.getStore('VehicleGroupStore');
+
+        /* 자동 리프레쉬 처리 */
+        this.sub('incidents').on({
+            painted: function() {
+				self.refreshIncidents(incidentStore);
+                incidentStore.on('load', self.refreshIncidents, self);
+            },
+            erased: function() {
+                incidentStore.un('load', self.refreshIncidents, self);
+            },
+            scope: self
+        });
+
+        this.sub('status').on({
+            painted: function() {
+				self.refreshStatus(vehicleMapStore);
+                vehicleMapStore.on('load', self.refreshStatus, self);
+            },
+            erased: function() {
+                vehicleMapStore.un('load', self.refreshStatus, self);
+            },
+            scope: self
+        });
+
+		this.sub('groups').on({
+            painted: function() {
+                vehicleGroupStore.on('load', self.refreshGroups, self);
+				vehicleGroupStore.load();
+            },
+            erased: function() {
+                vehicleGroupStore.un('load', self.refreshStatus, self);
+            },
+            scope: self
 		});
-		
-		this.on('erased', function() {
-			clearInterval(interval);
-			Ext.getStore('RecentIncidentStore').un('load', self.refreshIncidents, self);
-		});		
-	},
-	
-	refreshIncidents : function(store) {
-		// if (!store)
-		// 	store = Ext.getStore('RecentIncidentStore');
-		
-		var incidents = this.sub('incidents');
-		// if(!incidents)
-		// 	incidents = this.up('viewport.east').sub('incidents');
+    },
 
-		incidents.removeAll();
-		var count = store.getCount() > 5 ? 5 : store.getCount();
+    destroy: function() {
+        clearInterval(this.incidentInterval);
+        clearInterval(this.vehicleMapnterval);
+    },
 
-		for (var i = 0; i < count; i++) {			
-			var incident = store.getAt(i);
-			incidents.add(
-			{
+    refreshStatus: function(store) {
+        var running = 0;
+        var idle = 0;
+        var incident = 0;
+        var maint = 0;
+
+        store.each(function(record) {
+            switch (record.get('status')) {
+            case 'Running':
+                running++;
+                break;
+            case 'Idle':
+                idle++;
+                break;
+            case 'Incident':
+                incident++;
+                break;
+            case 'Maint':
+                maint++;
+                break;
+            }
+        });
+
+        this.sub('state_running').setHtml(T('label.state_driving') + '</br><span>' + running + '</span>');
+        this.sub('state_idle').setHtml(T('label.state_idle') + '</br><span>' + idle + '</span>');
+        this.sub('state_incident').setHtml(T('label.state_incident') + '</br><span>' + incident + '</span>');
+        this.sub('state_maint').setHtml(T('label.state_maint') + '</br><span>' + maint + '</span>');
+    },
+
+    refreshIncidents: function(store) {
+        var incidents = this.sub('incidents');
+
+        incidents.removeAll();
+        var count = store.getCount() > 5 ? 5: store.getCount();
+
+        for (var i = 0; i < count; i++) {
+            var incident = store.getAt(i);
+            incidents.add(
+            {
+                xtype: 'button',
+                incident: incident,
+                html: '<a href="#">'
+                + incident.get('vehicle_id')
+                + ', '
+                + incident.get('driver_id')
+                + '<span>'
+                + Ext.Date.format(incident.get('datetime'),
+                'D Y-m-d H:i:s') + '</span></a>'
+            });
+        }
+    },
+
+	refreshGroups : function(store) {
+		var groups = this.sub('groups');
+		groups.removeAll();
+		
+		store.each(function(record) {
+			groups.add({
 				xtype : 'button',
-				// listeners : {
-				// 	tap : function(button) {
-				// 		// TODO move to controller
-				// 		var monitor_incident = Ext.getCmp('content').getComponent('monitor_incident');
-				// 		if(!monitor_incident)
-				// 			monitor_incident = Ext.getCmp('content').add({
-				// 				xtype : 'monitor_incident'
-				// 			});
-				// 		Ext.getCmp('content').setActiveItem(monitor_incident);
-				// 		// GreenFleet.doMenu('monitor_incident');
-				// 		// GreenFleet.getMenu('monitor_incident').setIncident(button.incident, true);
-				// 	}
-				// },
-				incident : incident,
+				group : record,
 				html : '<a href="#">'
-						+ incident.get('vehicle_id')
-						+ ', '
-						+ incident.get('driver_id')
-						+ '<span>'
-						+ Ext.Date.format(incident.get('datetime'),
-								'D Y-m-d H:i:s') + '</span></a>'
-			});
-		}
+						+ record.data.desc
+						+ '<span>('
+						+ record.data.vehicles.length
+						+ ')</span></a>'
+			});			
+		});
 	},
 	
     config: {
-        
+
         items: [
-		{
-			xtype : 'container',
-			cls: 'mainNav',
-			layout : {
-				type : 'vbox'
-			},
-			items : [
-	        {
-	            xtype: 'container',
-				cls : 'navGroup',
-	            defaults: {
-	                xtype: 'button'
-	            },
-	            items: [{
-					id : 'nav_vehicle',
-	                text: 'Vehicle',
-					iconCls : 'iconVehicle'
-	            },
-	            {
-					id : 'nav_driver',
-	                text: 'Driver',
-					iconCls : 'iconDriver'
-	            },
-				{
-					id : 'nav_report',
-	                text: 'Report',
-					iconCls : 'iconReport'
-				}]
-	        },
-	        {
-	            xtype: 'container',
-				cls : 'navGroup',
-	            defaults: {
-	                xtype: 'button'
-	            },
-	            items: [{
-					id : 'nav_fav',
-	                text: 'Favorite',
-					iconCls : 'iconFavorite'
-	            },
-	            {
-					id : 'nav_comm',
-	                text: 'Communication',
-					iconCls : 'iconCommunication'
-	            },
-	            {
-					id : 'nav_noti',
-	                text: 'Notification',
-					iconCls : 'iconNotification'
-	            }]
-	        },
-			{
-					xtype : 'panel',
-					title : T('title.incidents_alarm'),
-					flex : 1,
-					itemId : 'incidents',
-					cls : 'incidentPanel'
-			}]
-		}]
+        {
+            xtype: 'container',
+            cls: 'mainNav',
+            layout: {
+                type: 'vbox'
+            },
+            items: [
+            {
+                xtype: 'button',
+                id: 'nav_vehicle',
+                text: 'Vehicle',
+                iconCls: 'iconVehicle'
+            },
+            {
+                xtype: 'button',
+                id: 'nav_driver',
+                text: 'Driver',
+                iconCls: 'iconDriver'
+            },
+            {
+                xtype: 'button',
+                id: 'nav_report',
+                text: 'Report',
+                iconCls: 'iconReport'
+            },
+            {
+                xtype: 'panel',
+                title: T('title.vehicle_status'),
+                itemId: 'status',
+                height: 100,
+                layout: {
+                    type: 'hbox',
+                    align: 'stretch'
+                },
+                cls: 'statusPanel',
+                items: [{
+                    xtype: 'button',
+                    itemId: 'state_running',
+                    flex: 1,
+                    cls: 'btnDriving',
+                    title: 'running'
+                },
+                {
+                    xtype: 'button',
+                    itemId: 'state_idle',
+                    flex: 1,
+                    cls: 'btnStop',
+                    title: 'running'
+                },
+                {
+                    xtype: 'button',
+                    itemId: 'state_incident',
+                    flex: 1,
+                    cls: 'btnIncident',
+                    title: 'running'
+                },
+                {
+                    xtype: 'button',
+                    itemId: 'state_maint',
+                    flex: 1,
+                    cls: 'btnMaint',
+                    title: 'running'
+                }]
+            },
+            {
+                xtype: 'carousel',
+                direction: 'horizontal',
+                flex: 1,
+                items: [{
+                    xtype: 'panel',
+                    title: T('title.incidents_alarm'),
+                    itemId: 'incidents',
+                    cls: 'incidentPanel'
+                },
+                {
+                    xtype: 'panel',
+                    title: T('title.vehicle_groups'),
+                    itemId: 'groups',
+                    cls: 'incidentPanel'
+                }]
+            }]
+        }]
     }
 });

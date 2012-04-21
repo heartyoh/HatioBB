@@ -90,7 +90,8 @@ T({
 		location_details : 'Location Details',
 		set_the_location : 'Set the Location',
 		alarm_list : 'Alarm List',
-		alarm_details : 'Alarm Details'
+		alarm_details : 'Alarm Details',
+		vehicle_groups : 'Vehicle Groups'
 	},
 	
 	tab : {

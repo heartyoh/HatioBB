@@ -48,28 +48,10 @@ Ext.define('HatioBB.controller.Main', {
 
 	onOC : function(me, newOrient,w,h) {
 		if(newOrient === 'portrait') {
-			// this.getNav().setDocked('top');
-			// this.getNav().setDocked('bottom');
 			this.getNav().setDocked(null);
-			// Ext.Anim.run(this.getNav(), 'fade', {
-			//     out: true,
-			// 	direction : 'left',
-			//     autoClear: false
-			// });
-			// this.getNav().hide();
-			// Ext.Msg.alert('hide');
 		} else {
 			this.getNav().setDocked('left');
-			// Ext.Anim.run(this.getNav(), 'fade', {
-			//     out: false,
-			// 	direction : 'right',
-			//     autoClear: false
-			// });
-			// this.getNav().show();
-			// Ext.Msg.alert('show');
 		}
-			
-		// Ext.Msg.alert('Orientation', newOrient + ':' + w + ':' + h);
 	},
 
     onMap: function(button, e) {
@@ -79,7 +61,6 @@ Ext.define('HatioBB.controller.Main', {
 				xtype : 'monitor_map'
 			});
 		this.getContent().setActiveItem(monitor_map);
-		// monitor_map.show();
     },
 
     onInfo: function(button, e) {

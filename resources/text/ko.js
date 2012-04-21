@@ -90,7 +90,8 @@ T({
 		location_details : '위치 상세',
 		set_the_location : '위치 지정',
 		alarm_list : '알람 리스트',
-		alarm_details : '알람 상세'
+		alarm_details : '알람 상세',
+		vehicle_groups : '차량 관리 그룹'
 	},
 	
 	tab : {

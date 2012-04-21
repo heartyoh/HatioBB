@@ -1,0 +1,101 @@
+{
+"total": 5,
+"items": [
+{
+"id": "3000 (강화터미널 ~ 신촌역)",
+"updated_at": 1331504641016,
+"desc": "3000 (강화터미널 ~ 신촌역)",
+"created_at": 1331504641016,
+"vehicles": [
+"V040",
+"V041",
+"V042",
+"V043",
+"V044",
+"V045",
+"V046",
+"V047",
+"V048",
+"V049"
+],
+"key": "ag5zfmdyZWVuLWZsZWV0c3JICxIHQ29tcGFueSIHdml0aXplbgwLEgxWZWhpY2xlR3JvdXAiIjMwMDAgKOqwle2ZlO2EsOuvuOuEkCB-IOyLoOy0jOyXrSkM"
+},
+{
+"id": "5012 (가산동 ~ 용산역)",
+"updated_at": 1331504457863,
+"desc": "5012 (가산동 ~ 용산역)",
+"created_at": 1331504457863,
+"vehicles": [
+"V020",
+"V021",
+"V022",
+"V023",
+"V024",
+"V025",
+"V026",
+"V027",
+"V028",
+"V029"
+],
+"key": "ag5zfmdyZWVuLWZsZWV0c3JCCxIHQ29tcGFueSIHdml0aXplbgwLEgxWZWhpY2xlR3JvdXAiHDUwMTIgKOqwgOyCsOuPmSB-IOyaqeyCsOyXrSkM"
+},
+{
+"id": "6001 (인천공항 ~ 명동역)",
+"updated_at": 1331504540076,
+"desc": "6001 (인천공항 ~ 명동역)",
+"created_at": 1331504540076,
+"vehicles": [
+"V030",
+"V031",
+"V032",
+"V033",
+"V034",
+"V035",
+"V036",
+"V037",
+"V038",
+"V039"
+],
+"key": "ag5zfmdyZWVuLWZsZWV0c3JFCxIHQ29tcGFueSIHdml0aXplbgwLEgxWZWhpY2xlR3JvdXAiHzYwMDEgKOyduOyynOqzte2VrSB-IOuqheuPmeyXrSkM"
+},
+{
+"id": "9401 (성남 분당 ~ 서울역)",
+"updated_at": 1331504213373,
+"desc": "9401 (성남 분당 ~ 서울역)",
+"created_at": 1331504213373,
+"vehicles": [
+"V001",
+"V002",
+"V003",
+"V004",
+"V005",
+"V006",
+"V007",
+"V008",
+"V009",
+"V050"
+],
+"key": "ag5zfmdyZWVuLWZsZWV0c3JGCxIHQ29tcGFueSIHdml0aXplbgwLEgxWZWhpY2xlR3JvdXAiIDk0MDEgKOyEseuCqCDrtoTri7kgfiDshJzsmrjsl60pDA"
+},
+{
+"id": "9404 (용인 하갈동 ~ 신사역)",
+"updated_at": 1331504385285,
+"desc": "9404 (용인 하갈동 ~ 신사역)",
+"created_at": 1331504372162,
+"vehicles": [
+"V010",
+"V011",
+"V012",
+"V013",
+"V014",
+"V015",
+"V016",
+"V017",
+"V018",
+"V019"
+],
+"key": "ag5zfmdyZWVuLWZsZWV0c3JJCxIHQ29tcGFueSIHdml0aXplbgwLEgxWZWhpY2xlR3JvdXAiIzk0MDQgKOyaqeyduCDtlZjqsIjrj5kgfiDsi6Dsgqzsl60pDA"
+}
+],
+"success": true
+}
