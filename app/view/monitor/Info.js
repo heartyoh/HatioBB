@@ -89,7 +89,32 @@ Ext.define('HatioBB.view.monitor.Info', {
         this.sub('briefInfo').setData(vehicle.getData());
 
 		/* Map */
-		this.refreshMap(vehicle);
+		/*
+		 * TrackStore를 다시 로드함.
+		 */
+		this.getTrackStore().load({
+			params : {
+				vehicle_id : vehicle.get('id'),
+				/* for Unix timestamp (in seconds) */
+				date : Math.round((new Date().getTime() - (60 * 60 * 24 * 1000)) / 1000),
+				start : 0,
+				limit : 1000
+			},
+			callback : this.refreshMap(vehicle),
+			scope : this
+		});
+
+		/*
+		 * IncidentStore를 다시 로드함.
+		 */
+		this.getIncidentStore().load({
+			params : {
+				vehicle_id : vehicle.get('id'),
+				confirm : false,
+				start : 0,
+				limit : 4
+			}
+		});
     },
 
 	getLocation : function(latitude, longitude, callback) {
