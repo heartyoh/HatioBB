@@ -18,10 +18,10 @@ Ext.define('HatioBB.view.nav.NavDriver', {
 
         disclosure: true,
 
-        grouped: true,
+        // grouped: true,
 
-        store: 'Drivers',
+        store: 'DriverBriefStore',
 
-        itemTpl: '<div class="oper"><strong>{driver_id}</strong> {name}</div>'
+        itemTpl: '<div class="oper"><strong>{id}</strong> {name}</div>'
     }
 });

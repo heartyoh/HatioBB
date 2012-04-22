@@ -5,9 +5,31 @@ Ext.define('HatioBB.view.monitor.Info', {
 	
 	id : 'monitor_info',
 	
-	config : {
-		scrollable : true,
+	layout : 'fit',
+	
+	constructor : function(config) {
+		config.items = [
+			this.buildInfo()
+		];
 
-		html : 'Vehicle Detail Information'
+		this.callParent(arguments);
+	},
+	
+	config : {
+		scrollable : true
+	},
+	
+	buildInfo : function() {
+		return {
+			xtype : 'panel',
+			html : 'Hello, BB'
+		}
+	},
+	
+	setVehicle : function(vehicle) {
+		if(!vehicle)
+			return;
+			
+		this.down('panel').setHtml('Hello, ' + vehicle.get('id'));
 	}
 });

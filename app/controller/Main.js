@@ -57,6 +57,10 @@ Ext.define('HatioBB.controller.Main', {
 			},
 			'nav #groups button' : {
 				tap : 'onGroup'
+			},
+			
+			'monitor_map' : {
+				vehicletap : 'onVehicleInfo'
 			}
         }
     },
@@ -87,6 +91,12 @@ Ext.define('HatioBB.controller.Main', {
     onInfo: function(button, e) {
 		var view = this.showMonitor('monitor_info');
 		this.getHeader().setActiveStatus(button);
+    },
+
+    onVehicleInfo: function(vehicle) {
+		var view = this.showMonitor('monitor_info');
+		this.getHeader().setActiveStatus('info');
+		view.setVehicle(vehicle);
     },
 
     onIncident: function(button, e) {

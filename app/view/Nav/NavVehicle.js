@@ -18,10 +18,10 @@ Ext.define('HatioBB.view.nav.NavVehicle', {
 
         disclosure: true,
 
-        grouped: true,
+        // grouped: true,
 
-        store: 'Vehicles',
+        store: 'VehicleMapStore',
 
-        itemTpl: '<div class="oper"><strong>{vehicle_id}</strong> {reg_number}</div>'
+        itemTpl: '<div class="oper"><strong>{id}</strong> {registration_number}</div>'
     }
 });

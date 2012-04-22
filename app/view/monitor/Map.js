@@ -68,6 +68,8 @@ Ext.define('HatioBB.view.monitor.Map', {
 	},
 	
 	refreshMap : function(store) {
+		var self = this;
+		
 		this.resetMarkers();
 		
 		var images = {
@@ -103,8 +105,10 @@ Ext.define('HatioBB.view.monitor.Map', {
 			this.getMarkers()[vehicle] = marker;
 
 			google.maps.event.addListener(marker, 'click', function() {
-				GreenFleet.doMenu('information');
-				GreenFleet.getMenu('information').setVehicle(record);
+				self.fireEvent('vehicletap', record);
+				// var view = this.showMonitor('monitor_info');
+				// Ext.getCmp('header').setActiveStatus('info');
+				// view.setVehicle(record);
 			});
 		}, this);
 		
