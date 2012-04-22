@@ -8,17 +8,20 @@ Ext.define('HatioBB.view.Header', {
 		items : [
 			{
 				itemId : 'map',
+				target : 'monitor_map',
 				align : 'left',
 				cls : 'headerView navMap',
 				width : 50
 			},
 			{
 				itemId : 'info',
+				target : 'monitor_info',
 				align : 'left',
 				cls : 'headerView navInfo'
 			},
 			{
 				itemId : 'incident',
+				target : 'monitor_incident',
 				align : 'left',
 				cls : 'headerView navIncident'
 			},
@@ -53,12 +56,12 @@ Ext.define('HatioBB.view.Header', {
 	},
 	
 	setActiveStatus : function(active) {
-		if(typeof(active) === 'string')
-			active = this.down('#' + active);
-			
+		/* active : active content view id */
+		var button = this.down('button[target=' + active + ']');
+		
 		/* Header 내의 동일 그룹에서는 하나의 active 버튼이 있는 것으로 함. */
-		Ext.Array.each(active.up().query('button'), function(item) {
-			if(active === item)
+		Ext.Array.each(button.up().query('button'), function(item) {
+			if(button === item)
 				item.addCls('active');
 			else
 				item.removeCls('active');

@@ -14,6 +14,9 @@ Ext.define('HatioBB.controller.Main', {
 			'#ext-viewport':{
 				orientationchange: 'onOC'
 			},
+			'#content' : {
+				painted : 'onHome'
+			},
             'header #map' : {
                 tap: 'onMap'
             },
@@ -73,6 +76,10 @@ Ext.define('HatioBB.controller.Main', {
 		}
 	},
 	
+	onHome : function() {
+		this.showMonitor('monitor_map');
+	},
+	
 	showMonitor : function(monitor) {
 		var view = this.getContent().getComponent(monitor);
 		if(!view)
@@ -80,22 +87,21 @@ Ext.define('HatioBB.controller.Main', {
 				xtype : monitor
 			});
 		this.getContent().setActiveItem(view);
+		this.getHeader().setActiveStatus(view.getId());
+		
 		return view;
 	},
 	
     onMap: function(button, e) {
 		var view = this.showMonitor('monitor_map');
-		this.getHeader().setActiveStatus(button);
     },
 
     onInfo: function(button, e) {
 		var view = this.showMonitor('monitor_info');
-		this.getHeader().setActiveStatus(button);
     },
 
     onVehicleInfo: function(vehicle) {
 		var view = this.showMonitor('monitor_info');
-		this.getHeader().setActiveStatus('info');
 		view.setVehicle(vehicle);
     },
 
@@ -105,8 +111,6 @@ Ext.define('HatioBB.controller.Main', {
 		/* 여러 경로의 button동작을 통해서 들어오는 것을 감안함. */
 		if(button.config.incident)
 			view.setIncident(button.config.incident);
-
-		this.getHeader().setActiveStatus('incident');
     },
 
 	onSetting : function(button, e) {
