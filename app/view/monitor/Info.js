@@ -5,47 +5,231 @@ Ext.define('HatioBB.view.monitor.Info', {
 
     id: 'monitor_info',
 
-    layout: 'fit',
+    config: {
+        scrollable: true,
+	    layout: 'fit'
+    },
 
     constructor: function(config) {
         config.items = [{
             xtype: 'container',
-            height: 320,
             layout: {
-                type: 'hbox',
+                type: 'vbox',
                 align: 'stretch'
             },
             items: [{
                 xtype: 'container',
-                width: 620,
+				height : 160,
                 layout: {
-                    type: 'vbox',
+                    type: 'hbox',
                     align: 'stretch'
                 },
                 items: [
                 this.buildVehicleInfo(),
                 this.buildIncidents()
                 ]
-            },
-            this.buildMap()
+            }, {
+	            xtype: 'map',
+				// height : 200,
+			    useCurrentLocation: false,
+				flex : 1,
+				mapOptions : {
+					zoom : 10,
+					maxZoom : 19,
+					minZoom : 3,
+					center : new google.maps.LatLng(System.props.lattitude, System.props.longitude),
+					mapTypeId : google.maps.MapTypeId.ROADMAP
+				}	
+	        }
+            // this.buildMap()
             ]
         }];
 
         this.callParent(arguments);
     },
 
-    config: {
-        scrollable: true
-    },
-
     setVehicle: function(vehicle) {
         if (!vehicle)
-        return;
+	        return;
 
-        // this.sub('vehicleImage').
-        // this.sub('driverImage).
+		var self = this;
+		vehicle = Ext.clone(vehicle);
+		
+		/*
+		 * Get Vehicle Information (Image, Registration #, ..) from
+		 * VehicleStore
+		 */
+		var vehicleStore = Ext.getStore('VehicleBriefStore');
+		var vehicleRecord = vehicleStore.findRecord('id', vehicle.get('id'));
+		var vehicleImageClip = vehicleRecord.get('image_clip');
+		if (vehicleImageClip) {
+			self.sub('vehicleImage').setSrc('download?blob-key=' + vehicleImageClip);
+		} else {
+			self.sub('vehicleImage').setSrc('resources/images/bgVehicle.png');
+		}
+
+		/*
+		 * Get Driver Information (Image, Name, ..) from DriverStore
+		 */
+		var driverStore = Ext.getStore('DriverBriefStore');
+		var driverRecord = driverStore.findRecord('id', vehicle.get('driver_id'));
+		var driver = driverRecord.get('id');
+		var driverImageClip = driverRecord.get('image_clip');
+		if (driverImageClip) {
+			self.sub('driverImage').setSrc('download?blob-key=' + driverImageClip);
+		} else {
+			self.sub('driverImage').setSrc('resources/images/bgDriver.png');
+		}
+		vehicle.set('driver_id', vehicle.get('id') + ' (' + driverRecord.get('name') + ')');
+
+		this.getLocation(vehicle.get('lattitude'), vehicle.get('longitude'), function(location) {
+			vehicle.set('location', location);
+			self.sub('briefInfo').setData(vehicle.getData());
+		});
         this.sub('briefInfo').setData(vehicle.getData());
+
+		/* Map */
+		this.refreshMap(vehicle);
     },
+
+	getLocation : function(latitude, longitude, callback) {
+		if (latitude !== undefined && longitude !== undefined) {
+			var latlng = new google.maps.LatLng(latitude, longitude);
+
+			geocoder = new google.maps.Geocoder();
+			geocoder.geocode({
+				'latLng' : latlng
+			}, function(results, status) {
+				if (status == google.maps.GeocoderStatus.OK) {
+					if (results[0]) {
+						callback(results[0].formatted_address);
+					}
+				} else {
+					console.log("Geocoder failed due to: " + status);
+				}
+			});
+		}
+	},
+	
+	getTrackLine : function() {
+		return this.trackline;
+	},
+
+	setTrackLine : function(trackline) {
+		if (this.trackline)
+			this.trackline.setMap(null);
+		this.trackline = trackline;
+	},
+
+	getMarkers : function() {
+		return this.markers;
+	},
+
+	setMarkers : function(markers) {
+		if (this.markers) {
+			Ext.each(this.markers, function(marker) {
+				marker.setMap(null);
+			});
+		}
+
+		this.markers = markers;
+	},
+
+	resetMarkers : function() {
+		if (this.markers) {
+			Ext.each(this.markers, function(marker) {
+				marker.setMap(null);
+			});
+		}
+
+		this.markers = null;
+	},
+
+	getTrackStore : function() {
+		if (!this.trackStore)
+			this.trackStore = Ext.getStore('TrackByVehicleStore');
+		return this.trackStore;
+	},
+
+	getIncidentStore : function() {
+		if (!this.incidentStore)
+			this.incidentStore = Ext.getStore('IncidentByVehicleStore');
+		return this.incidentStore;
+	},
+
+	getMap : function() {
+		if (!this.map)
+			this.map = this.down('map').getMap();
+		return this.map;
+	},
+	
+	refreshMap : function(record) {
+		this.setTrackLine(new google.maps.Polyline({
+			map : this.getMap(),
+			strokeColor : '#FF0000',
+			strokeOpacity : 1.0,
+			strokeWeight : 4
+		}));
+		this.setMarkers(null);
+
+		var path = this.getTrackLine().getPath();
+		var bounds;
+		var latlng;
+
+		this.getTrackStore().each(function(record) {
+			var lat = record.get('lattitude');
+			var lng = record.get('longitude');
+
+			if(lat !== 0 || lng !== 0) {
+				latlng = new google.maps.LatLng(lat, lng);
+				path.push(latlng);
+				if (!bounds)
+					bounds = new google.maps.LatLngBounds(latlng, latlng);
+				else
+					bounds.extend(latlng);
+			}
+		});
+
+		if (path.getLength() === 0) {
+			var lat = record.get('lattitude');
+			var lng = record.get('longitude');
+			var defaultLatlng = null;
+			
+			if(lat === 0 && lng === 0) {
+				defaultLatlng = new google.maps.LatLng(System.props.lattitude, System.props.longitude);
+			} else {
+				defaultLatlng = new google.maps.LatLng(lat, lng);
+			}
+			path.push(defaultLatlng);
+			bounds = new google.maps.LatLngBounds(defaultLatlng, defaultLatlng);
+		}
+
+		if (bounds.isEmpty() || bounds.getNorthEast().equals(bounds.getSouthWest())) {
+			this.getMap().setCenter(bounds.getNorthEast());
+		} else {
+			this.getMap().fitBounds(bounds);
+		}
+
+		var first = path.getAt(0);
+
+		if (first) {
+			var start = new google.maps.Marker({
+				position : new google.maps.LatLng(first.lat(), first.lng()),
+				map : this.getMap()
+			});
+
+			var last = path.getAt(path.getLength() - 1);
+
+			var end = new google.maps.Marker({
+				position : new google.maps.LatLng(last.lat(), last.lng()),
+				icon : 'resources/images/iconStartPoint.png',
+				map : this.getMap()
+			});
+
+			this.setMarkers([ start, end ]);
+		}
+		
+	},
 
     buildVehicleInfo: function() {
         return {
@@ -76,12 +260,10 @@ Ext.define('HatioBB.view.monitor.Info', {
                 data: null,
                 flex: 1,
                 tpl: [
-                '<div>ID : {id}</div>',
+                '<div>ID : {id} ({registration_number})</div>',
                 '<div>Driver ID : {driver_id}</div>',
-                '<div>Terminal ID : {terminal_id}</div>',
                 '<div>Location : {location}</div>',
-                '<div>Distance : {distance}</div>',
-                '<div>Running Time : {running_time}</div>'
+				'<div>Status : {status}</div>'
                 ]
             }]
         }
@@ -96,8 +278,17 @@ Ext.define('HatioBB.view.monitor.Info', {
 
     buildMap: function() {
         return {
-            xtype: 'panel',
-            html: 'Map'
+            xtype: 'map',
+			// height : 200,
+		    useCurrentLocation: false,
+			flex : 1,
+			mapOptions : {
+				zoom : 10,
+				maxZoom : 19,
+				minZoom : 3,
+				center : new google.maps.LatLng(System.props.lattitude, System.props.longitude),
+				mapTypeId : google.maps.MapTypeId.ROADMAP
+			}	
         }
     }
 

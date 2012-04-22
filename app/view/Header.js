@@ -4,7 +4,7 @@ Ext.define('HatioBB.view.Header', {
 	xtype : 'header',
 	
 	config : {
-		title : 'HatioBB',
+		title : 'GreenFleets',
 		items : [
 			{
 				itemId : 'map',
