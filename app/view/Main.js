@@ -14,19 +14,26 @@ Ext.define('HatioBB.view.Main', {
 	'HatioBB.view.monitor.Incident'
     ],
 
-    config: {
-        fullscreen: true,
+	constructor : function(config) {
+		config = config || {};
+		config.items = this.buildItems();
+		
+		this.callParent([config]);
+		
+		var self = this;
+		
+		HatioBB.setting.on('dockPosition', function(value) {
+			Ext.getCmp('nav').setDocked(HatioBB.setting.get('dockPosition')).show();
+		});
+	},
 
-        layout: {
-            type: 'card'
-        },
-
-        items: [
+	buildItems : function() {
+        return [
         {
             id: 'nav',
 			cls : 'nav',
             xtype: 'nav',
-            docked: 'left',
+            docked: HatioBB.setting.get('dockPosition'),
             width: 255
         },
         {
@@ -34,5 +41,13 @@ Ext.define('HatioBB.view.Main', {
             xtype: 'content'
         }
         ]
+	},
+	
+    config: {
+        fullscreen: true,
+
+        layout: {
+            type: 'card'
+        }
     }
 });

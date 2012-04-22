@@ -27,11 +27,11 @@
 #header .x-button{background-color:transparent;background-image:none;border:0;}
 .x-button.headerView,.x-button.headerView.x-button-pressing,.x-button.headerView.active{background:url('../images/iconHeaderView.png') no-repeat !important;border:0;width:50px !important;height:40px;border-radius:0;}
 .headerView.navMap{background-position:0 0 !important;}
-.headerView.navInfo{background-position:0 -40px !important}
-.headerView.navIncident{background-position:0 -80px !important}
+.headerView.navIncident{background-position:0 -40px !important}
+.headerView.navInfo{background-position:0 -80px !important}
 .headerView.navMap.x-button-pressing,.headerView.navMap.active{background-position:0 -120px !important;}
-.headerView.navInfo.x-button-pressing,.headerView.navInfo.active{background-position:0 -160px !important}
-.headerView.navIncident.x-button-pressing,.headerView.navIncident.active{background-position:0 -200px !important}
+.headerView.navIncident.x-button-pressing,.headerView.navIncident.active{background-position:0 -160px !important}
+.headerView.navInfo.x-button-pressing,.headerView.navInfo.active{background-position:0 -200px !important}
 
 /*nav style*/
 .nav .x-button{border-radius:0;border:0;color:#b7b7b7;background:none;}

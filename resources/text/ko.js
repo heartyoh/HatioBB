@@ -282,7 +282,10 @@ T({
 		maintenence : '정비',
 		period_always : '기간 항상',
 		refresh_none : '자동갱신 하지않음',
-		setting : '설정'
+		setting : '설정',
+		dockPosition : '현황패널 도킹 위치',
+		left : '왼쪽',
+		right : '오른쪽'
 	},
 
 	format : {

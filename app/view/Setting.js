@@ -69,6 +69,29 @@ Ext.define('HatioBB.view.Setting', {
                     display: '5' + T('label.minute_s')
                 }]
             }
+        },
+        {
+            xtype: 'selectfield',
+            label: T('label.dockPosition'),
+            name: 'dockPosition',
+            valueField: 'value',
+            displayField: 'display',
+			value : HatioBB.setting.get('dockPosition'),
+			listeners : {
+				change : function(field, newVal) {
+					HatioBB.setting.set(field.getName(), newVal.get('value'));
+				}
+			},
+            store: {
+                data: [{
+                    value: 'left',
+                    display: T('label.left')
+                },
+                {
+                    value: 'right',
+                    display: T('label.right')
+                }]
+            }
         }
         ]
 	},

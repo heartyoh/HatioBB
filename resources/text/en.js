@@ -282,7 +282,10 @@ T({
 		maintenence : 'Maintenence',
 		period_always : 'Period Always',
 		refresh_none : 'No Refresh',
-		setting : 'Setting'
+		setting : 'Setting',
+		dockPosition : 'Docking Position',
+		left : 'left',
+		right : 'right'
 	},
 	
 	format : {

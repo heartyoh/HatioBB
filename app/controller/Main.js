@@ -65,7 +65,7 @@ Ext.define('HatioBB.controller.Main', {
 		if(newOrient === 'portrait') {
 			this.getNav().setDocked(null).hide();
 		} else {
-			this.getNav().setDocked('left').show();
+			this.getNav().setDocked(HatioBB.setting.get('dockPosition')).show();
 		}
 	},
 	
@@ -108,7 +108,7 @@ Ext.define('HatioBB.controller.Main', {
 		if(this.getNav().getDocked()) {
 			this.getNav().setDocked(null).hide();
 		} else {
-			this.getNav().setDocked('left').show();
+			this.getNav().setDocked(HatioBB.setting.get('dockPosition')).show();
 		}
 	},
 

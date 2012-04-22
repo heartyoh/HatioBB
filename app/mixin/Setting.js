@@ -1,7 +1,8 @@
 Ext.define('HatioBB.mixin.Setting', function() {
 	var settings = {
 		autofit : true,
-		refreshTerm : 10
+		refreshTerm : 10,
+		dockPosition : 'right'
 	};
 	
 	Ext.define('HatioBB.mixin.Setting.Inner', {
