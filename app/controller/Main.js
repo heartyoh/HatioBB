@@ -32,6 +32,9 @@ Ext.define('HatioBB.controller.Main', {
 			'header #setting' : {
 				tap : 'onSetting'
 			},
+			'header #refresh' : {
+				tap : 'onRefresh'
+			},
 			'#nav_driver' : {
 				tap : 'onDriver'
 			},
@@ -118,6 +121,12 @@ Ext.define('HatioBB.controller.Main', {
 		popup.showBy(button);
 	},
 	
+	onRefresh : function(button, e) {
+		var active = this.getContent().getActiveItem();
+		if(typeof(active.refresh) === 'function')
+			active.refresh();
+	},
+  	
 	onCollapse : function(button, e) {
 		if(this.getNav().getDocked()) {
 			this.getNav().setDocked(null).hide();

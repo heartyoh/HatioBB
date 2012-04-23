@@ -37,6 +37,7 @@ Ext.define('HatioBB.view.Header', {
 	            align : 'right'
 	        },
 			{
+				itemId : 'refresh',
 	            iconCls : 'refresh',
 	            iconMask : true,
 	            align : 'right'

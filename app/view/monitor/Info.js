@@ -41,19 +41,23 @@ Ext.define('HatioBB.view.monitor.Info', {
 					mapTypeId : google.maps.MapTypeId.ROADMAP
 				}	
 	        }
-            // this.buildMap()
             ]
         }];
 
         this.callParent(arguments);
     },
 
+	refresh : function() {
+		this.setVehicle(this.vehicle);
+	},
+
     setVehicle: function(vehicle) {
         if (!vehicle)
 	        return;
-
+	
+		this.vehicle = vehicle;
+		
 		var self = this;
-		vehicle = Ext.clone(vehicle);
 		
 		/*
 		 * Get Vehicle Information (Image, Registration #, ..) from
@@ -80,7 +84,7 @@ Ext.define('HatioBB.view.monitor.Info', {
 		} else {
 			self.sub('driverImage').setSrc('resources/images/bgDriver.png');
 		}
-		vehicle.set('driver_id', vehicle.get('id') + ' (' + driverRecord.get('name') + ')');
+		vehicle.set('driver_name', driverRecord.get('name'));
 
 		this.getLocation(vehicle.get('lattitude'), vehicle.get('longitude'), function(location) {
 			vehicle.set('location', location);
@@ -100,8 +104,9 @@ Ext.define('HatioBB.view.monitor.Info', {
 				start : 0,
 				limit : 1000
 			},
-			callback : this.refreshMap(vehicle),
-			scope : this
+			callback : function() {
+				self.refreshMap(this, vehicle);
+			}
 		});
 
 		/*
@@ -188,7 +193,7 @@ Ext.define('HatioBB.view.monitor.Info', {
 		return this.map;
 	},
 	
-	refreshMap : function(record) {
+	refreshMap : function(store, record) {
 		this.setTrackLine(new google.maps.Polyline({
 			map : this.getMap(),
 			strokeColor : '#FF0000',
@@ -201,7 +206,7 @@ Ext.define('HatioBB.view.monitor.Info', {
 		var bounds;
 		var latlng;
 
-		this.getTrackStore().each(function(record) {
+		store.each(function(record) {
 			var lat = record.get('lattitude');
 			var lng = record.get('longitude');
 
@@ -286,7 +291,7 @@ Ext.define('HatioBB.view.monitor.Info', {
                 flex: 1,
                 tpl: [
                 '<div>ID : {id} ({registration_number})</div>',
-                '<div>Driver ID : {driver_id}</div>',
+                '<div>Driver ID : {driver_id} ({driver_name})</div>',
                 '<div>Location : {location}</div>',
 				'<div>Status : {status}</div>'
                 ]
@@ -298,22 +303,6 @@ Ext.define('HatioBB.view.monitor.Info', {
         return {
             xtype: 'panel',
             html: 'incident info'
-        }
-    },
-
-    buildMap: function() {
-        return {
-            xtype: 'map',
-			// height : 200,
-		    useCurrentLocation: false,
-			flex : 1,
-			mapOptions : {
-				zoom : 10,
-				maxZoom : 19,
-				minZoom : 3,
-				center : new google.maps.LatLng(System.props.lattitude, System.props.longitude),
-				mapTypeId : google.maps.MapTypeId.ROADMAP
-			}	
         }
     }
 
