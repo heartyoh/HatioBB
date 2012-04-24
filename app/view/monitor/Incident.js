@@ -45,74 +45,100 @@ Ext.define('HatioBB.view.monitor.Incident', {
 	},
 	
 	zInfo : {
-		xtype : 'formpanel',
+		xtype : 'panel',
 		title : '개요',
-		itemId : 'incident_form',
 		// cls : 'incidentSummary',
 		// height : 50,
-		// layout : {
-		// 	type : 'hbox',
-		// 	align : 'stretch'
-		// },
-		autoScroll : true,
-		// defaults : {
-		// 	anchor : '100%',
-		// 	// labelAlign : 'top',
-		// 	// cls : 'summaryCell'
-		// },
+		layout : {
+			type : 'vbox',
+			align : 'stretch'
+		},
 		items : [ {
-			xtype : 'textfield',
-			name : 'key',
-			label : 'Key',
-			hidden : true
-		}, {
-			xtype : 'image',
-			itemId : 'driverImage',
-			height : 64,
-			width : 64
-		}, {
-			xtype : 'image',
-			itemId : 'vehicleImage',
-			height : 64,
-			width : 64
-		}, {
 			xtype : 'panel',
 			itemId : 'brief',
-			tpl : [
-			'<div>{datetime}, {impulse_abs}, {engine_temp}</div>'
-			]
+			layout : 'hbox',
+			items : [{
+				xtype : 'image',
+				itemId : 'driverImage',
+				height : 64,
+				width : 64
+			}, {
+				xtype : 'image',
+				itemId : 'vehicleImage',
+				height : 64,
+				width : 64
+			}, {
+				xtype : 'panel',
+				flex : 1,
+				data : {
+					driver_name : 'xxx',
+					vehicle_name : 'yyy',
+					location : 'zzz',
+					datetime : 'vvv'
+				},
+				tpl : [
+				'<div>{driver_name}이 운전한 {vehicle_name}차량이</div>',
+				'<div>{location} 부근에서</div>',
+				'<div>{datetime} 경에 발생한 이상 상황임</div>'
+				]
+			}]
 		}, {
-			// xtype : 'datepickerfield',
-			// name : 'datetime',
-			// hidden : true,
-			// format : 'd-m-Y H:i:s'
-		// }, {
-			xtype : 'textfield',
-			itemId : 'incident_time',
-			name : 'datetime',
-			label : T('label.x_time', {x : T('label.incident')})
-		}, {
-			xtype : 'textfield',
-			name : 'vehicle_id',
-			label : T('label.vehicle')
-		}, {
-			xtype : 'textfield',
-			name : 'driver_id',
-			label : T('label.driver')
-		}, {
-			xtype : 'checkboxfield',
-			name : 'confirm',
-			itemId : 'confirm',
-			label : T('label.confirm'),
-			uncheckedValue : 'off',
-			labelCls : 'labelStyle1',
-			cls : 'backgroundNone'
-		}, {
-			xtype : 'map',
-			itemId : 'map',
+			xtype : 'panel',
 			height : 400,
-			width : 400
-		} ]
+			layout : {
+				type : 'hbox',
+				align : 'stretch'
+			},
+			items : [{
+				xtype : 'formpanel',
+				itemId : 'incident_form',
+				flex : 1,
+				items : [{
+					xtype : 'textfield',
+					name : 'key',
+					label : 'Key',
+					hidden : true
+				}, {
+					xtype : 'textfield',
+					label : 'Latitude',
+					name : 'lattitude'
+				}, {
+					xtype : 'textfield',
+					label : 'Longitude',
+					name : 'longitude'
+				}, {
+					xtype : 'textfield',
+					label : 'Impulse',
+					name : 'impulse_abs'
+				}, {
+					xtype : 'textfield',
+					label : 'Engine Temp.',
+					name : 'engine_temp'
+				}, {
+					xtype : 'togglefield',
+					itemId : 'confirm',
+					name : 'confirm',
+					label : T('label.confirm')
+				}]
+			}, {
+				xtype : 'map',
+				itemId : 'map',
+				flex : 1,
+			    useCurrentLocation: false,
+				mapOptions : {
+					zoom : 10,
+					maxZoom : 19,
+					minZoom : 3,
+					center : new google.maps.LatLng(System.props.lattitude, System.props.longitude),
+					mapTypeId : google.maps.MapTypeId.ROADMAP
+				}	
+			} ]
+		}, {
+			xtype : 'panel',
+			itemId : 'chart',
+			flex : 1,
+			html : 'chart here'
+		}]
 	},
 	
 	zVideo : {
