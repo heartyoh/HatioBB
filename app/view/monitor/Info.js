@@ -6,7 +6,6 @@ Ext.define('HatioBB.view.monitor.Info', {
     id: 'monitor_info',
 
     config: {
-        scrollable: true,
 	    layout: 'fit'
     },
 
@@ -21,16 +20,12 @@ Ext.define('HatioBB.view.monitor.Info', {
                 xtype: 'container',
 				height : 160,
                 layout: {
-                    type: 'hbox',
+                    type: 'vbox',
                     align: 'stretch'
                 },
-                items: [
-                this.buildVehicleInfo(),
-                this.buildIncidents()
-                ]
+                items: this.buildVehicleInfo()
             }, {
 	            xtype: 'map',
-				// height : 200,
 			    useCurrentLocation: false,
 				flex : 1,
 				mapOptions : {
@@ -45,6 +40,12 @@ Ext.define('HatioBB.view.monitor.Info', {
         }];
 
         this.callParent(arguments);
+
+		var self = this;
+
+		this.on('resize', function() {
+			google.maps.event.trigger(self.getMap(), 'resize');
+		});
     },
 
 	refresh : function() {
@@ -104,8 +105,8 @@ Ext.define('HatioBB.view.monitor.Info', {
 				start : 0,
 				limit : 1000
 			},
-			callback : function() {
-				self.refreshMap(this, vehicle);
+			callback : function(records) {
+				self.refreshMap(records, vehicle);
 			}
 		});
 
@@ -118,7 +119,9 @@ Ext.define('HatioBB.view.monitor.Info', {
 				confirm : false,
 				start : 0,
 				limit : 4
-			}
+			},
+			callback : this.refreshIncidents,
+			scope : this
 		});
     },
 
@@ -193,7 +196,7 @@ Ext.define('HatioBB.view.monitor.Info', {
 		return this.map;
 	},
 	
-	refreshMap : function(store, record) {
+	refreshMap : function(records, record) {
 		this.setTrackLine(new google.maps.Polyline({
 			map : this.getMap(),
 			strokeColor : '#FF0000',
@@ -206,7 +209,7 @@ Ext.define('HatioBB.view.monitor.Info', {
 		var bounds;
 		var latlng;
 
-		store.each(function(record) {
+		Ext.Array.each(records, function(record) {
 			var lat = record.get('lattitude');
 			var lng = record.get('longitude');
 
@@ -261,13 +264,42 @@ Ext.define('HatioBB.view.monitor.Info', {
 		
 	},
 
+	refreshIncidents : function(records) {
+		var incidents = this.sub('incidents');
+		incidents.removeAll();
+		var min = Math.min(records.length, 4);
+		for ( var i = 0; i < 4; i++) {
+			var incident = records[i];
+			if(incident) {
+				incidents.add({
+		                xtype: 'button',
+						flex : 1,
+						maxWidth : 160,
+		                incident: incident,
+		                html: '<a href="#">'
+		                + incident.get('vehicle_id')
+		                + ', '
+		                + incident.get('driver_id')
+		                + '</a></br><span>'
+		                + Ext.Date.format(incident.get('datetime'),
+		                'D Y-m-d H:i:s') + '</span>'
+				})
+			} else {
+				incidents.add({
+					xtype : 'container',
+					flex : 1
+				})
+			}
+		}
+	},
+
     buildVehicleInfo: function() {
         return {
             xtype: 'panel',
             title: T('title.vehicle_information'),
-            // cls : 'paddingPanel',
             layout: {
-                type: 'hbox'
+                type: 'hbox',
+				align : 'stretch'
             },
             items: [{
                 xtype: 'image',
@@ -283,26 +315,34 @@ Ext.define('HatioBB.view.monitor.Info', {
                 height: 160,
                 cls: 'imgDriver'
             },
-            {
-                xtype: 'panel',
-                itemId: 'briefInfo',
-                height: 160,
-                data: null,
-                flex: 1,
-                tpl: [
-                '<div>ID : {id} ({registration_number})</div>',
-                '<div>Driver ID : {driver_id} ({driver_name})</div>',
-                '<div>Location : {location}</div>',
-				'<div>Status : {status}</div>'
-                ]
-            }]
-        }
-    },
-
-    buildIncidents: function() {
-        return {
-            xtype: 'panel',
-            html: 'incident info'
+			{
+				xtype : 'container',
+				flex : 1,
+				layout : {
+					type : 'vbox',
+					align : 'stretch'
+				},
+				items : [{
+	                xtype: 'panel',
+	                itemId: 'briefInfo',
+	                height: 100,
+	                data: null,
+	                tpl: [
+	                '<div>ID : {id} ({registration_number})</div>',
+	                '<div>Driver ID : {driver_id} ({driver_name})</div>',
+	                '<div>Location : {location}</div>',
+					'<div>Status : {status}</div>'
+	                ]
+	            }, {
+		            xtype: 'panel',
+					itemId : 'incidents',
+					flex : 1,
+					layout : {
+						type : 'hbox',
+						align : 'stretch'
+					}
+				}]
+			}]
         }
     }
 

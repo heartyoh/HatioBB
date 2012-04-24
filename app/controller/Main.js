@@ -67,6 +67,9 @@ Ext.define('HatioBB.controller.Main', {
 			
 			'monitor_map' : {
 				vehicletap : 'onVehicleInfo'
+			},
+			'monitor_info #incidents button' : {
+				tap : 'onIncident'
 			}
         }
     },
@@ -108,12 +111,12 @@ Ext.define('HatioBB.controller.Main', {
 		view.setVehicle(vehicle);
     },
 
-    onIncident: function(button, e) {
+    onIncident: function(comp, e) {
 		var view = this.showMonitor('monitor_incident');
 
 		/* 여러 경로의 button동작을 통해서 들어오는 것을 감안함. */
-		if(button.config.incident)
-			view.setIncident(button.config.incident);
+		if(comp.config.incident)
+			view.setIncident(comp.config.incident);
     },
 
 	onSetting : function(button, e) {

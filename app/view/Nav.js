@@ -128,8 +128,7 @@ Ext.define('HatioBB.view.Nav', {
 
         for (var i = 0; i < count; i++) {
             var incident = store.getAt(i);
-            incidents.add(
-            {
+            incidents.add({
                 xtype: 'button',
                 incident: incident,
                 html: '<a href="#">'

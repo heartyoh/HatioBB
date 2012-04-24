@@ -32,6 +32,10 @@ Ext.define('HatioBB.view.monitor.Map', {
 			vehicleFilteredStore.un('refresh', self.refreshMap, self);
 		});
 		
+		this.on('resize', function() {
+			google.maps.event.trigger(self.getMap(), 'resize');
+		});
+		
 		// this.sub('autofit').on('change', function(check, newValue) {
 		// 	if(newValue)
 		// 		self.refreshMap(Ext.getStore('VehicleFilteredStore'), newValue);
@@ -46,6 +50,10 @@ Ext.define('HatioBB.view.monitor.Map', {
 		// 		}, newValue * 1000);
 		// 	}
 		// });
+	},
+	
+	refresh : function() {
+		Ext.getStore('VehicleMapStore').load();
 	},
 	
 	destroy : function() {
