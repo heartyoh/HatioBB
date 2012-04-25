@@ -18,13 +18,24 @@ Ext.define('HatioBB.view.monitor.Info', {
             },
             items: [{
                 xtype: 'container',
-				height : 160,
+				height : 135,
+				cls : 'incidentInfo',
                 layout: {
                     type: 'vbox',
                     align: 'stretch'
                 },
                 items: this.buildVehicleInfo()
             }, {
+				xtype: 'panel',
+				height : 45,
+				itemId : 'incidents',
+				cls : 'incidentList',
+				flex : 1,
+				layout : {
+					type : 'hbox',
+					align : 'stretch'
+				}
+			}, {
 	            xtype: 'map',
 			    useCurrentLocation: false,
 				flex : 1,
@@ -280,7 +291,7 @@ Ext.define('HatioBB.view.monitor.Info', {
 		                + incident.get('vehicle_id')
 		                + ', '
 		                + incident.get('driver_id')
-		                + '</a></br><span>'
+		                + '</a><span>'
 		                + Ext.Date.format(incident.get('datetime'),
 		                'D Y-m-d H:i:s') + '</span>'
 				})
@@ -304,44 +315,23 @@ Ext.define('HatioBB.view.monitor.Info', {
             items: [{
                 xtype: 'image',
                 itemId: 'vehicleImage',
-                width: 160,
-                height: 160,
                 cls: 'imgVehicle'
             },
             {
                 xtype: 'image',
                 itemId: 'driverImage',
-                width: 160,
-                height: 160,
                 cls: 'imgDriver'
             },
 			{
-				xtype : 'container',
-				flex : 1,
-				layout : {
-					type : 'vbox',
-					align : 'stretch'
-				},
-				items : [{
-	                xtype: 'panel',
-	                itemId: 'briefInfo',
-	                height: 100,
-	                data: null,
-	                tpl: [
-	                '<div>ID : {id} ({registration_number})</div>',
-	                '<div>Driver ID : {driver_id} ({driver_name})</div>',
-	                '<div>Location : {location}</div>',
-					'<div>Status : {status}</div>'
-	                ]
-	            }, {
-		            xtype: 'panel',
-					itemId : 'incidents',
-					flex : 1,
-					layout : {
-						type : 'hbox',
-						align : 'stretch'
-					}
-				}]
+				xtype: 'panel',
+                itemId: 'briefInfo',
+                height: 100,
+                data: null,
+                tpl: [
+                '<div class="infoID {status}">{id} ({registration_number})</div>',
+                '<div class="infoText">Driver ID : {driver_id} ({driver_name})</div>',
+                '<div class="infoText">Location : {location}</div>'
+                ]
 			}]
         }
     }

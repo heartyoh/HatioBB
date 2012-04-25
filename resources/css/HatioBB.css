@@ -35,7 +35,7 @@
 
 /*nav style*/
 .nav .x-button{border-radius:0;border:0;color:#b7b7b7;background:none;}
-.nav .statusPanel{background:url('../images/bgNavPanel.png') 0 100% repeat-x}
+.nav .statusPanel{background:url('../images/bgNavPanel.png') 0 100% repeat-x;border-top:1px solid #1e2127;}
 .nav .x-carousel{background:url('../images/bgNavCarousel.png') 0 100% repeat-x}
 .navBtn{background:url('../images/bgNavMenu.png') repeat-x !important;height:50px;}
 .navBtn.x-button-pressing{background:url('../images/bgNavMenuActive.png') repeat-x transparent !important;}
@@ -57,8 +57,29 @@
 .nav .x-carousel-item .x-button-label a span{color:#bfbfbf;font-size:13px;}
 .nav .x-carousel-item .incidentPanel .x-button-label a span{display:block;}
 .nav .x-carousel-item .x-button-label{text-align:left;width:100px;text-overflow:ellipsis;}
-.nav .incidentPanel .x-button{background:url('../images/iconNavIncident.png') 15px 9px no-repeat;padding-left:40px;padding-bottom:3px;}
-.nav .groupPanel .x-button{background:url('../images/iconNavGroup.png') 15px 4px no-repeat;padding-left:42px;padding-bottom:3px;}
+.nav .incidentPanel .x-button{background:url('../images/iconStatusIncident.png') 15px 9px no-repeat;padding-left:40px;padding-bottom:3px;}
+.nav .groupPanel .x-button{background:url('../images/iconNavGroup.png') 15px 4px no-repeat;padding-left:42px;padding-bottom:10px;}
 .x-carousel-indicator span{width:7px;height:7px;}
 .nav .x-carousel-indicator-dark span.x-carousel-indicator-active{background-color:#fff;opacity:0.9;}
 .nav .x-carousel-indicator-dark span{background-color:#fff;opacity:0.3;}
+.nav .x-button .x-button-icon{width:45px;}
+
+/*incident information panel view style*/
+.incidentInfo{background:url('../images/bgWhiteShadowPanel.png') repeat-x #e8edef;padding:10px;}
+.imgVehicle,.imgDriver{
+	border:5px solid #fff;-webkit-border-radius:5px;border-radius: 5px;
+	width:110px;height:115px;background-position:50% 50%;margin-right:10px;
+	box-shadow: 1px 2px 2px #888888;
+}
+.infoID, .infoText{border-bottom:1px solid #dfdfdf;padding:7px 10px 4px 5px;color:#585858;}
+.infoID{font-size:120%;color:#000;font-weight:bold;}
+.infoID.Incident{background:url('../images/iconStatusIncident.png') 3px 55% no-repeat;padding-left:25px;}
+.infoID.Running{background:url('../images/iconStatusDriving.png') 3px 55% no-repeat;padding-left:25px;}
+.infoID.Idle{background:url('../images/iconStatusIdle.png') 3px 55% no-repeat;padding-left:25px;}
+.infoID.Maint{background:url('../images/iconStatusMaint.png') 3px 55% no-repeat;padding-left:25px;}
+.incidentList{background:url('../images/bgInfoIncident.png') repeat-x;border-top:1px solid #fff;border-bottom:1px solid #9da2a5;}
+.incidentList .x-button{background:none;border:0;}
+.incidentList .x-button{background:url('../images/iconHeaderView.png') 0 -40px no-repeat !important;padding-left:45px;border-right:1px dotted #999;}
+.incidentList .x-button-label{text-align:left;line-height:1em;}
+.incidentList .x-button-label a{text-decoration:none;color:#333;}
+.incidentList .x-button-label span{display:block;font-size:13px;color:#666;}
