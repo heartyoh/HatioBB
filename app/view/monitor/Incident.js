@@ -25,8 +25,46 @@ Ext.define('HatioBB.view.monitor.Incident', {
 				return;
 		}
 		
+		var self = this;
+		
 		this.sub('incident_form').setRecord(incident);
 		
+		/*
+		 * Get Vehicle Information (Image, Registration #, ..) from
+		 * VehicleStore
+		 */
+		var vehicleStore = Ext.getStore('VehicleBriefStore');
+		var vehicleRecord = vehicleStore.findRecord('id', incident.get('vehicle_id'));
+		var vehicleImageClip = vehicleRecord.get('image_clip');
+		if (vehicleImageClip) {
+			this.sub('vehicleImage').setSrc('download?blob-key=' + vehicleImageClip);
+		} else {
+			this.sub('vehicleImage').setSrc('resources/images/bgVehicle.png');
+		}
+
+		/*
+		 * Get Driver Information (Image, Name, ..) from DriverStore
+		 */
+		var driverStore = Ext.getStore('DriverBriefStore');
+		var driverRecord = driverStore.findRecord('id', incident.get('driver_id'));
+		var driver = driverRecord.get('id');
+		var driverImageClip = driverRecord.get('image_clip');
+		if (driverImageClip) {
+			this.sub('driverImage').setSrc('download?blob-key=' + driverImageClip);
+		} else {
+			this.sub('driverImage').setSrc('resources/images/bgDriver.png');
+		}
+		incident.set('driver_name', driverRecord.get('name'));
+
+		this.getLocation(incident.get('lattitude'), incident.get('longitude'), function(location) {
+			incident.set('location', location);
+			self.sub('briefInfo').setData(incident.getData());
+		});
+        this.sub('briefInfo').setData(incident.getData());
+
+		/*
+		 * 동영상 정보를 업데이트 함.
+		 */
 		var url = '';
 		var video_clip = incident.get('video_clip');
 		if (video_clip != null && video_clip.length > 1) {
@@ -36,12 +74,48 @@ Ext.define('HatioBB.view.monitor.Incident', {
 				url = 'download?blob-key=' + video_clip;
 		}
 		this.sub('video').updateUrl([url]);
+
+		/* Map */
+		/*
+		 * TrackStore를 다시 로드함.
+		 */
+		// this.getTrackStore().load({
+		// 	params : {
+		// 		vehicle_id : vehicle.get('id'),
+		// 		/* for Unix timestamp (in seconds) */
+		// 		date : Math.round((new Date().getTime() - (60 * 60 * 24 * 1000)) / 1000),
+		// 		start : 0,
+		// 		limit : 1000
+		// 	},
+		// 	callback : function(records) {
+		// 		self.refreshMap(records, vehicle);
+		// 	}
+		// });
+
 		
-		this.sub('brief').setData(incident.raw);
 		
-		var geo = this.sub('map').getGeo();
-		geo.latitude = incident.get('lattitude');
-		geo.longitude = incident.get('longitude');
+		
+		
+		
+	},
+	
+	getLocation : function(latitude, longitude, callback) {
+		if (latitude !== undefined && longitude !== undefined) {
+			var latlng = new google.maps.LatLng(latitude, longitude);
+
+			geocoder = new google.maps.Geocoder();
+			geocoder.geocode({
+				'latLng' : latlng
+			}, function(results, status) {
+				if (status == google.maps.GeocoderStatus.OK) {
+					if (results[0]) {
+						callback(results[0].formatted_address);
+					}
+				} else {
+					console.log("Geocoder failed due to: " + status);
+				}
+			});
+		}
 	},
 	
 	zInfo : {
@@ -69,6 +143,7 @@ Ext.define('HatioBB.view.monitor.Incident', {
 				width : 64
 			}, {
 				xtype : 'panel',
+				itemId : 'briefInfo',
 				flex : 1,
 				data : {
 					driver_name : 'xxx',
@@ -77,7 +152,7 @@ Ext.define('HatioBB.view.monitor.Incident', {
 					datetime : 'vvv'
 				},
 				tpl : [
-				'<div>{driver_name}이 운전한 {vehicle_name}차량이</div>',
+				'<div>{driver_name} 님이 운전한 {vehicle_name} 차량이</div>',
 				'<div>{location} 부근에서</div>',
 				'<div>{datetime} 경에 발생한 이상 상황임</div>'
 				]
@@ -100,20 +175,39 @@ Ext.define('HatioBB.view.monitor.Incident', {
 					hidden : true
 				}, {
 					xtype : 'textfield',
+					label : 'Driver Id.',
+					name : 'driver_id',
+					disabled : true
+				}, {
+					xtype : 'textfield',
+					label : 'Vehicle Id.',
+					name : 'vehicle_id',
+					disabled : true
+				}, {
+					xtype : 'textfield',
 					label : 'Latitude',
-					name : 'lattitude'
+					name : 'lattitude',
+					disabled : true
 				}, {
 					xtype : 'textfield',
 					label : 'Longitude',
-					name : 'longitude'
+					name : 'longitude',
+					disabled : true
 				}, {
 					xtype : 'textfield',
 					label : 'Impulse',
-					name : 'impulse_abs'
+					name : 'impulse_abs',
+					disabled : true
 				}, {
 					xtype : 'textfield',
 					label : 'Engine Temp.',
-					name : 'engine_temp'
+					name : 'engine_temp',
+					disabled : true
+				}, {
+					xtype : 'textfield',
+					label : 'Date/Time',
+					name : 'datetime',
+					disabled : true
 				}, {
 					xtype : 'togglefield',
 					itemId : 'confirm',
@@ -148,7 +242,6 @@ Ext.define('HatioBB.view.monitor.Incident', {
 		items : [{
 			xtype    : 'video',
 			itemId : 'video',
-			url      : "http://commondatastorage.googleapis.com/green-fleets/vitizen/v.mp4",
 			posterUrl: 'porsche.png'
 		}]
 	}
