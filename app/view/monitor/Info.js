@@ -29,7 +29,7 @@ Ext.define('HatioBB.view.monitor.Info', {
 				xtype: 'panel',
 				height : 45,
 				itemId : 'incidents',
-				cls : 'incidentList',
+				cls : 'shotHList',
 				flex : 1,
 				layout : {
 					type : 'hbox',
@@ -308,6 +308,7 @@ Ext.define('HatioBB.view.monitor.Info', {
         return {
             xtype: 'panel',
             title: T('title.vehicle_information'),
+			cls : 'marginT10 marginL10',
             layout: {
                 type: 'hbox',
 				align : 'stretch'

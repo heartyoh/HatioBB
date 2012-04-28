@@ -12,7 +12,8 @@ Ext.define('HatioBB.view.monitor.Incident', {
 	constructor : function(config) {
 		config.items = [
 			this.zInfo,
-			this.zVideo
+			this.zVideo,
+			this.zChart
 		];
 
 		this.callParent(arguments);
@@ -27,7 +28,7 @@ Ext.define('HatioBB.view.monitor.Incident', {
 		
 		var self = this;
 		
-		this.sub('incident_form').setRecord(incident);
+		// this.sub('incident_form').setRecord(incident);
 		
 		/*
 		 * Get Vehicle Information (Image, Registration #, ..) from
@@ -130,7 +131,8 @@ Ext.define('HatioBB.view.monitor.Incident', {
 			xtype : 'panel',
 			itemId : 'brief',
 			layout : 'hbox',
-			height :135,
+			cls : 'marginT10 marginL10',
+			height :125,
 			items : [{
 				xtype : 'image',
 				itemId : 'driverImage',
@@ -158,91 +160,97 @@ Ext.define('HatioBB.view.monitor.Incident', {
 		}, {
 			xtype: 'panel',
 			height : 45,
-			itemId : 'incidents',
-			cls : 'incidentList',
-			flex : 1,
-			layout : {
-				type : 'hbox',
-				align : 'stretch'
-			}
-		}, {
-			xtype : 'panel',
-			height : 400,
+			cls : 'shotHList',
 			layout : {
 				type : 'hbox',
 				align : 'stretch'
 			},
 			items : [{
-				xtype : 'formpanel',
-				itemId : 'incident_form',
-				width : 230,
-				items : [{
-					xtype : 'textfield',
-					name : 'key',
-					label : 'Key',
-					hidden : true
-				}, {
-					xtype : 'textfield',
-					label : 'Driver Id.',
-					name : 'driver_id',
-					disabled : true
-				}, {
-					xtype : 'textfield',
-					label : 'Vehicle Id.',
-					name : 'vehicle_id',
-					disabled : true
-				}, {
-					xtype : 'textfield',
-					label : 'Latitude',
-					name : 'lattitude',
-					disabled : true
-				}, {
-					xtype : 'textfield',
-					label : 'Longitude',
-					name : 'longitude',
-					disabled : true
-				}, {
-					xtype : 'textfield',
-					label : 'Impulse',
-					name : 'impulse_abs',
-					disabled : true
-				}, {
-					xtype : 'textfield',
-					label : 'Engine Temp.',
-					name : 'engine_temp',
-					disabled : true
-				}, {
-				  // xtype : 'textfield',
-				  // 				label : 'Date/Time',
-				  // 				name : 'datetime',
-				  // 				disabled : true
-				  // 			}, {
 					xtype : 'togglefield',
 					itemId : 'confirm',
 					name : 'confirm',
-					label : T('label.confirm')
-				}]
-			}, {
-				xtype : 'map',
-				itemId : 'map',
-				cls : 'marginL10',
-				flex : 1,
-			    useCurrentLocation: false,
-				mapOptions : {
-					zoom : 10,
-					maxZoom : 19,
-					minZoom : 3,
-					center : new google.maps.LatLng(System.props.lattitude, System.props.longitude),
-					mapTypeId : google.maps.MapTypeId.ROADMAP
-				}	
-			} ]
+				}, {
+					xtype : 'container',
+					html : '<div>Impulse <span>1,000</span></div>'
+				}, {
+					xtype : 'container',
+					html : '<div>Engine Temp <span>100</span></div>'
+				}
+			]	
 		}, {
-			xtype : 'panel',
-			itemId : 'chart',
+			xtype : 'map',
+			itemId : 'map',
 			flex : 1,
-			html : 'chart here'
+		    useCurrentLocation: false,
+			mapOptions : {
+				zoom : 10,
+				maxZoom : 19,
+				minZoom : 3,
+				center : new google.maps.LatLng(System.props.lattitude, System.props.longitude),
+				mapTypeId : google.maps.MapTypeId.ROADMAP
+			}	
 		}]
 	},
+			// 
+			// 
+			// xtype : 'panel',
+			// height : 400,
+			// layout : {
+			// 	type : 'hbox',
+			// 	align : 'stretch'
+			// },
+			// items : [{
+			// 	xtype : 'formpanel',
+			// 	itemId : 'incident_form',
+			// 	width : 230,
+			// 	items : [{
+			// 		xtype : 'textfield',
+			// 		name : 'key',
+			// 		label : 'Key',
+			// 		hidden : true
+			// 	}, {
+			// 		xtype : 'textfield',
+			// 		label : 'Driver Id.',
+			// 		name : 'driver_id',
+			// 		disabled : true
+			// 	}, {
+			// 		xtype : 'textfield',
+			// 		label : 'Vehicle Id.',
+			// 		name : 'vehicle_id',
+			// 		disabled : true
+			// 	}, {
+			// 		xtype : 'textfield',
+			// 		label : 'Latitude',
+			// 		name : 'lattitude',
+			// 		disabled : true
+			// 	}, {
+			// 		xtype : 'textfield',
+			// 		label : 'Longitude',
+			// 		name : 'longitude',
+			// 		disabled : true
+			// 	}, {
+			// 		xtype : 'textfield',
+			// 		label : 'Impulse',
+			// 		name : 'impulse_abs',
+			// 		disabled : true
+			// 	}, {
+			// 		xtype : 'textfield',
+			// 		label : 'Engine Temp.',
+			// 		name : 'engine_temp',
+			// 		disabled : true
+			// 	}, {
+			// 	  // xtype : 'textfield',
+			// 	  // 				label : 'Date/Time',
+			// 	  // 				name : 'datetime',
+			// 	  // 				disabled : true
+			// 	  // 			}, {
+			// 		xtype : 'togglefield',
+			// 		itemId : 'confirm',
+			// 		name : 'confirm',
+			// 		label : T('label.confirm')
+			// 	}]
+			// }, {
+			// } ]
 	
 	zVideo : {
 		xtype : 'panel',
@@ -253,6 +261,13 @@ Ext.define('HatioBB.view.monitor.Incident', {
 			itemId : 'video',
 			posterUrl: 'porsche.png'
 		}]
+	},
+	
+	zChart : {
+		xtype : 'panel',
+		title : 'Chart',
+		itemId : 'chart',
+		html : 'chart here'
 	}
 // 	,
 // 
