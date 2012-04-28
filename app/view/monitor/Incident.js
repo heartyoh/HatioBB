@@ -121,8 +121,7 @@ Ext.define('HatioBB.view.monitor.Incident', {
 	zInfo : {
 		xtype : 'panel',
 		title : '개요',
-		// cls : 'incidentSummary',
-		// height : 50,
+		cls : 'grayBg',
 		layout : {
 			type : 'vbox',
 			align : 'stretch'
@@ -131,16 +130,15 @@ Ext.define('HatioBB.view.monitor.Incident', {
 			xtype : 'panel',
 			itemId : 'brief',
 			layout : 'hbox',
+			height :135,
 			items : [{
 				xtype : 'image',
 				itemId : 'driverImage',
-				height : 64,
-				width : 64
+				cls: 'imgDriver'
 			}, {
 				xtype : 'image',
 				itemId : 'vehicleImage',
-				height : 64,
-				width : 64
+				cls: 'imgVehicle'
 			}, {
 				xtype : 'panel',
 				itemId : 'briefInfo',
@@ -152,11 +150,21 @@ Ext.define('HatioBB.view.monitor.Incident', {
 					datetime : 'vvv'
 				},
 				tpl : [
-				'<div>{driver_name} 님이 운전한 {vehicle_name} 차량이</div>',
-				'<div>{location} 부근에서</div>',
-				'<div>{datetime} 경에 발생한 이상 상황임</div>'
+				'<div class="infoID">{driver_name} , {vehicle_id}</div>',
+                '<div class="infoText">Location : {location}</div>',
+                '<div class="infoText">Data Time : {datetime} </div>'
 				]
 			}]
+		}, {
+			xtype: 'panel',
+			height : 45,
+			itemId : 'incidents',
+			cls : 'incidentList',
+			flex : 1,
+			layout : {
+				type : 'hbox',
+				align : 'stretch'
+			}
 		}, {
 			xtype : 'panel',
 			height : 400,
@@ -167,7 +175,7 @@ Ext.define('HatioBB.view.monitor.Incident', {
 			items : [{
 				xtype : 'formpanel',
 				itemId : 'incident_form',
-				flex : 1,
+				width : 230,
 				items : [{
 					xtype : 'textfield',
 					name : 'key',
@@ -204,11 +212,11 @@ Ext.define('HatioBB.view.monitor.Incident', {
 					name : 'engine_temp',
 					disabled : true
 				}, {
-					xtype : 'textfield',
-					label : 'Date/Time',
-					name : 'datetime',
-					disabled : true
-				}, {
+				  // xtype : 'textfield',
+				  // 				label : 'Date/Time',
+				  // 				name : 'datetime',
+				  // 				disabled : true
+				  // 			}, {
 					xtype : 'togglefield',
 					itemId : 'confirm',
 					name : 'confirm',
@@ -217,6 +225,7 @@ Ext.define('HatioBB.view.monitor.Incident', {
 			}, {
 				xtype : 'map',
 				itemId : 'map',
+				cls : 'marginL10',
 				flex : 1,
 			    useCurrentLocation: false,
 				mapOptions : {

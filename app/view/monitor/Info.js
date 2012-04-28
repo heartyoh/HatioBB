@@ -19,7 +19,7 @@ Ext.define('HatioBB.view.monitor.Info', {
             items: [{
                 xtype: 'container',
 				height : 135,
-				cls : 'incidentInfo',
+				cls : 'grayBg',
                 layout: {
                     type: 'vbox',
                     align: 'stretch'

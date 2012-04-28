@@ -18,6 +18,15 @@
     100% {opacity:0.3}
 }
 
+/*common style*/
+.marginT10{margin-top:10px !important;}
+.marginR10{margin-right:10px !important;}
+.marginB10{margin-bottom:10px !important;}
+.marginL10{margin-left:10px !important;}
+.marginAll10{margin:10px !important;}
+
+.borderRBlack{border-right:1px solid #000;}
+
 /*layout style*/
 #ext-viewport{background:url('../images/bgHeader.png') repeat-x;}
 
@@ -65,7 +74,7 @@
 .nav .x-button .x-button-icon{width:45px;}
 
 /*incident information panel view style*/
-.incidentInfo{background:url('../images/bgWhiteShadowPanel.png') repeat-x #e8edef;padding:10px;}
+.grayBg{background:url('../images/bgWhiteShadowPanel.png') repeat-x #e8edef;padding:10px;}
 .imgVehicle,.imgDriver{
 	border:5px solid #fff;-webkit-border-radius:5px;border-radius: 5px;
 	width:110px;height:115px;background-position:50% 50%;margin-right:10px;
