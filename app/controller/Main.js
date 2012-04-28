@@ -160,17 +160,17 @@ Ext.define('HatioBB.controller.Main', {
     },
 
 	onStatus : function(button, e) {
-		button.unfiltered = !(button.unfiltered);
-		
 		var store = Ext.getStore('VehicleFilteredStore');
-
-		var filter = this.getNav().buildFilter();
 		
+		var status = this.getNav().down('#status');
+		status['_filtered'] = !status['_filtered'];
+
 		store.clearFilter();
 		
-		if(filter)
-			store.filter([filter]);
-		
+		if(status._filtered) {
+			store.filter('status', button.config.state);
+		}
+
 		this.showMonitor('monitor_map');
 	},
  
@@ -185,11 +185,9 @@ Ext.define('HatioBB.controller.Main', {
 
 		var store = Ext.getStore('VehicleFilteredStore');
 		store.clearFilter();
-		store.filter([ {
-			filterFn : function(record) {
-				return Ext.Array.indexOf(vehicles, record.get('id')) >= 0;
-			}
-		} ]);
+		store.filterBy(function(record) {
+			return Ext.Array.indexOf(vehicles, record.get('id')) >= 0;
+		});
 
 		this.showMonitor('monitor_map');
 	},

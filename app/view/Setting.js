@@ -36,7 +36,7 @@ Ext.define('HatioBB.view.Setting', {
 			value : HatioBB.setting.get('refreshTerm'),
 			listeners : {
 				change : function(field, newVal) {
-					HatioBB.setting.set(field.getName(), newVal.get('value'));
+					HatioBB.setting.set(field.getName(), newVal);
 				}
 			},
             store: {
@@ -79,7 +79,7 @@ Ext.define('HatioBB.view.Setting', {
 			value : HatioBB.setting.get('dockPosition'),
 			listeners : {
 				change : function(field, newVal) {
-					HatioBB.setting.set(field.getName(), newVal.get('value'));
+					HatioBB.setting.set(field.getName(), newVal);
 				}
 			},
             store: {

@@ -165,23 +165,6 @@ Ext.define('HatioBB.view.Nav', {
 		});
 	},
 	
-	buildFilter : function() {
-		var values = [];
-
-		Ext.Array.each(this.sub('status').query('button'), function(button) {
-			if(!button.unfiltered)
-				values.push(button.config.state);
-		});
-		
-		if(values.length == 4 || values.length == 0)
-			return null; /* Filter를 설정할 필요가 없다. */
-			
-		return {
-			property : 'status',
-			value : new RegExp(values.join('|'))
-		}
-	},
-	
     config: {
 
         items: [
