@@ -23,6 +23,13 @@ Ext.define('HatioBB.view.monitor.Incident', {
 		];
 
 		this.callParent(arguments);
+		
+		var self = this;
+		
+		this.getLogStore().on('load', function(store, records) {
+			self.refreshTrack(store, records);
+			self.refreshChart(store, records);
+		});
 	},
 	
 	setIncident : function(incident) {
@@ -68,10 +75,24 @@ Ext.define('HatioBB.view.monitor.Incident', {
 			self.sub('briefInfo').setData(incident.getData());
 		});
         this.sub('briefInfo').setData(incident.getData());
-		console.log(incident);
 		this.sub('detailInfo').setData(incident.getData());
 		this.sub('confirm').setValue(incident.get('confirm'));
 		
+		/*
+		 * LogStore를 다시 로드함.
+		 */
+		this.getLogStore().clearFilter(true);
+		this.getLogStore().filter([ {
+			property : 'incident',
+			value : incident.get('key')
+		} ]);
+		
+		this.getLogStore().load();
+		
+		/* Now, It's turn to chart */
+
+
+
 		/*
 		 * 동영상 정보를 업데이트 함.
 		 */
@@ -85,36 +106,6 @@ Ext.define('HatioBB.view.monitor.Incident', {
 		}
 		this.sub('video').updateUrl([url]);
 
-		/*
-		 * LogStore를 다시 로드함.
-		 */
-		this.getLogStore().clearFilter(true);
-		this.getLogStore().filter([ {
-			property : 'incident',
-			value : incident.get('key')
-		} ]);
-		
-		this.getLogStore().load({
-			callback : function(records) {
-				self.refreshMap(records);
-				self.refreshTrack(records);
-				self.refreshChart(records);
-			}
-		});
-		// this.getTrackStore().load({
-		// 	params : {
-		// 		vehicle_id : vehicle.get('id'),
-		// 		/* for Unix timestamp (in seconds) */
-		// 		date : Math.round((new Date().getTime() - (60 * 60 * 24 * 1000)) / 1000),
-		// 		start : 0,
-		// 		limit : 1000
-		// 	},
-		// 	callback : function(records) {
-		// 		self.refreshMap(records, vehicle);
-		// 	}
-		// });
-		
-		/* Now, It's turn to chart */
 	},
 	
 	getIncident : function() {
@@ -153,28 +144,27 @@ Ext.define('HatioBB.view.monitor.Incident', {
 		this.marker = marker;
 	},
 	
-	refreshMap : function(records) {
-		this.setMarker(null);
+	setMarkers : function(markers) {
+		if (this.markers) {
+			Ext.each(this.markers, function(marker) {
+				marker.setMap(null);
+			});
+		}
 
-		var incident = this.getIncident();
-		var location = null;
-		if (!incident)
-			location = new google.maps.LatLng(System.props.lattitude, System.props.longitude);
-		else
-			location = new google.maps.LatLng(incident.get('lattitude'), incident.get('longitude'));
-
-		this.getMap().setCenter(location);
-
-		if (!incident)
-			return;
-
-		this.setMarker(new google.maps.Marker({
-			position : location,
-			map : this.getMap()
-		}));
+		this.markers = markers;
 	},
 
-	refreshTrack : function(records) {
+	resetMarkers : function() {
+		if (this.markers) {
+			Ext.each(this.markers, function(marker) {
+				marker.setMap(null);
+			});
+		}
+
+		this.markers = null;
+	},
+
+	refreshTrack : function(store, records) {
 		this.setTrackLine(new google.maps.Polyline({
 			map : this.getMap(),
 			strokeColor : '#FF0000',
@@ -203,9 +193,37 @@ Ext.define('HatioBB.view.monitor.Incident', {
 		} else {
 			this.getMap().fitBounds(bounds);
 		}
+		
+		/* Start-End Marker */
+		var first = path.getAt(0);
+
+		if (first) {
+			var start = new google.maps.Marker({
+				position : new google.maps.LatLng(first.lat(), first.lng()),
+				map : this.getMap()
+			});
+
+			var last = path.getAt(path.getLength() - 1);
+
+			var end = new google.maps.Marker({
+				position : new google.maps.LatLng(last.lat(), last.lng()),
+				icon : 'resources/images/iconStartPoint.png',
+				map : this.getMap()
+			});
+
+			this.setMarkers([ start, end ]);
+		}
+
+		/* Incident Marker */
+		var location = new google.maps.LatLng(this.getIncident().get('lattitude'), this.getIncident().get('longitude'));
+		this.setMarker(new google.maps.Marker({
+			position : location,
+			icon : 'resources/images/iconIncidentPoint.png',
+			map : this.getMap()
+		}));
 	},
 
-	refreshChart : function(records) {
+	refreshChart : function(store, records) {
 		
 	},
 
@@ -292,13 +310,6 @@ Ext.define('HatioBB.view.monitor.Incident', {
 					'<div>Engine Temp Threshold <span>{engine_temp_threshold}</span></div>',
 					'<div>Velocity <span>{velocity}</span></div>',
 					'<div>OBD Connected <span>{obd_connected}</span></div>']
-				// }, {
-				// 	xtype : 'container',
-				// 	itemId : 'engine_temp',
-				// 	data : {
-				// 		engine_temp : ''
-				// 	},
-				// 	tpl : '<div>Engine Temp <span>{engine_temp}</span></div>'
 				}
 			]	
 		}, {
@@ -310,7 +321,7 @@ Ext.define('HatioBB.view.monitor.Incident', {
 				zoom : 10,
 				maxZoom : 19,
 				minZoom : 3,
-				center : new google.maps.LatLng(System.props.lattitude, System.props.longitude),
+				// center : new google.maps.LatLng(System.props.lattitude, System.props.longitude),
 				mapTypeId : google.maps.MapTypeId.ROADMAP
 			}	
 		}]
