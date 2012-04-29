@@ -34,6 +34,8 @@ Ext.define('HatioBB.view.monitor.Incident', {
 		
 		var self = this;
 		
+		this.incident = incident;
+		
 		/*
 		 * Get Vehicle Information (Image, Registration #, ..) from
 		 * VehicleStore
@@ -83,10 +85,22 @@ Ext.define('HatioBB.view.monitor.Incident', {
 		}
 		this.sub('video').updateUrl([url]);
 
-		/* Map */
 		/*
-		 * TrackStore를 다시 로드함.
+		 * LogStore를 다시 로드함.
 		 */
+		this.getLogStore().clearFilter(true);
+		this.getLogStore().filter([ {
+			property : 'incident',
+			value : incident.get('key')
+		} ]);
+		
+		this.getLogStore().load({
+			callback : function(records) {
+				self.refreshMap(records);
+				self.refreshTrack(records);
+				self.refreshChart(records);
+			}
+		});
 		// this.getTrackStore().load({
 		// 	params : {
 		// 		vehicle_id : vehicle.get('id'),
@@ -99,8 +113,102 @@ Ext.define('HatioBB.view.monitor.Incident', {
 		// 		self.refreshMap(records, vehicle);
 		// 	}
 		// });
+		
+		/* Now, It's turn to chart */
 	},
 	
+	getIncident : function() {
+		return this.incident;
+	},
+
+	getLogStore : function() {
+		if (!this.logStore)
+			this.logStore = Ext.getStore('IncidentLogStore');
+		return this.logStore;	
+	},
+	
+	getMap : function() {
+		if(!this.map)
+			this.map = this.down('#map').getMap();
+		return this.map;
+	},
+
+	getTrackLine : function() {
+		return this.trackline;
+	},
+
+	setTrackLine : function(trackline) {
+		if (this.trackline)
+			this.trackline.setMap(null);
+		this.trackline = trackline;
+	},
+
+	getMarker : function() {
+		return this.marker;
+	},
+
+	setMarker : function(marker) {
+		if (this.marker)
+			this.marker.setMap(null);
+		this.marker = marker;
+	},
+	
+	refreshMap : function(records) {
+		this.setMarker(null);
+
+		var incident = this.getIncident();
+		var location = null;
+		if (!incident)
+			location = new google.maps.LatLng(System.props.lattitude, System.props.longitude);
+		else
+			location = new google.maps.LatLng(incident.get('lattitude'), incident.get('longitude'));
+
+		this.getMap().setCenter(location);
+
+		if (!incident)
+			return;
+
+		this.setMarker(new google.maps.Marker({
+			position : location,
+			map : this.getMap()
+		}));
+	},
+
+	refreshTrack : function(records) {
+		this.setTrackLine(new google.maps.Polyline({
+			map : this.getMap(),
+			strokeColor : '#FF0000',
+			strokeOpacity : 1.0,
+			strokeWeight : 4
+		}));
+
+		var path = this.getTrackLine().getPath();
+		var bounds;
+		var latlng;
+
+		Ext.Array.each(records, function(record) {
+			latlng = new google.maps.LatLng(record.get('lattitude'), record.get('longitude'));
+			path.push(latlng);
+			if (!bounds)
+				bounds = new google.maps.LatLngBounds(latlng, latlng);
+			else
+				bounds.extend(latlng);
+		});
+
+		if (!bounds)
+			return;
+
+		if (bounds.isEmpty() || bounds.getNorthEast().equals(bounds.getSouthWest())) {
+			this.getMap().setCenter(bounds.getNorthEast());
+		} else {
+			this.getMap().fitBounds(bounds);
+		}
+	},
+
+	refreshChart : function(records) {
+		
+	},
+
 	getLocation : function(latitude, longitude, callback) {
 		if (latitude !== undefined && longitude !== undefined) {
 			var latlng = new google.maps.LatLng(latitude, longitude);
