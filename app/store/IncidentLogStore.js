@@ -1,23 +1,29 @@
-Ext.define('HatioBB.store.RecentIncidentStore', {
+Ext.define('HatioBB.store.IncidentLogStore', {
 	extend : 'Ext.data.Store',
 	
 	config : {
 		autoLoad : false,
 
-		pageSize : 5,
+		pageSize : 1000,
 
 		fields : [ {
 			name : 'key',
 			type : 'string'
 		}, {
+			name : 'incident',
+			type : 'string'
+		}, {
 			name : 'datetime',
 			type : 'date',
-			dateFormat : 'time'
+			dateFormat:'time'
 		}, {
-			name : 'driver_id',
+			name : 'terminal_id',
 			type : 'string'
 		}, {
 			name : 'vehicle_id',
+			type : 'string'
+		}, {
+			name : 'driver_id',
 			type : 'string'
 		}, {
 			name : 'lattitude',
@@ -26,36 +32,36 @@ Ext.define('HatioBB.store.RecentIncidentStore', {
 			name : 'longitude',
 			type : 'float'
 		}, {
-			name : 'impulse_abs',
+			name : 'velocity',
 			type : 'float'
 		}, {
-			name : 'engine_temp',
+			name : 'accelate_x',
 			type : 'float'
 		}, {
-			name : 'video_clip',
-			type : 'string'
+			name : 'accelate_y',
+			type : 'float'
+		}, {
+			name : 'accelate_z',
+			type : 'float'
 		}, {
 			name : 'created_at',
 			type : 'date',
-			dateFormat : 'time'
+			dateFormat:'time'
 		}, {
 			name : 'updated_at',
 			type : 'date',
-			dateFormat : 'time'
+			dateFormat:'time'
 		} ],
 
 		sorters : [ {
 			property : 'datetime',
-			direction : 'DESC'
+			direction : 'ASC'
 		} ],
 
 		proxy : {
 			type : 'ajax',
-			// url : 'incident',
-			url : 'data/incident.json',
-			extraParams : {
-				confirm : false
-			},
+			// url : 'incident_log',
+			url : 'data/incident_log.json',
 			reader : {
 				type : 'json',
 				rootProperty : 'items',

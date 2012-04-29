@@ -1,6 +1,12 @@
 Ext.define('HatioBB.view.monitor.Incident', {
 	extend : 'Ext.TabPanel',
 	
+	requires: ['Ext.chart.Chart',
+        'Ext.chart.axis.Numeric',
+        'Ext.chart.axis.Category',
+        'Ext.chart.series.Area',
+		'Ext.chart.series.Line'],
+		
 	xtype : 'monitor_incident',
 	
 	id : 'monitor_incident',
@@ -13,7 +19,7 @@ Ext.define('HatioBB.view.monitor.Incident', {
 		config.items = [
 			this.zInfo,
 			this.zVideo,
-			this.zChart
+			this.zChart()
 		];
 
 		this.callParent(arguments);
@@ -27,8 +33,6 @@ Ext.define('HatioBB.view.monitor.Incident', {
 		}
 		
 		var self = this;
-		
-		// this.sub('incident_form').setRecord(incident);
 		
 		/*
 		 * Get Vehicle Information (Image, Registration #, ..) from
@@ -62,7 +66,10 @@ Ext.define('HatioBB.view.monitor.Incident', {
 			self.sub('briefInfo').setData(incident.getData());
 		});
         this.sub('briefInfo').setData(incident.getData());
-
+		console.log(incident);
+		this.sub('detailInfo').setData(incident.getData());
+		this.sub('confirm').setValue(incident.get('confirm'));
+		
 		/*
 		 * 동영상 정보를 업데이트 함.
 		 */
@@ -92,12 +99,6 @@ Ext.define('HatioBB.view.monitor.Incident', {
 		// 		self.refreshMap(records, vehicle);
 		// 	}
 		// });
-
-		
-		
-		
-		
-		
 	},
 	
 	getLocation : function(latitude, longitude, callback) {
@@ -146,15 +147,15 @@ Ext.define('HatioBB.view.monitor.Incident', {
 				itemId : 'briefInfo',
 				flex : 1,
 				data : {
-					driver_name : 'xxx',
-					vehicle_name : 'yyy',
-					location : 'zzz',
-					datetime : 'vvv'
+					driver_name : '',
+					vehicle_name : '',
+					location : '',
+					datetime : ''
 				},
 				tpl : [
 				'<div class="infoID">{driver_name} , {vehicle_id}</div>',
                 '<div class="infoText">Location : {location}</div>',
-                '<div class="infoText">Data Time : {datetime} </div>'
+                '<div class="infoText">Time : {datetime} </div>'
 				]
 			}]
 		}, {
@@ -168,13 +169,28 @@ Ext.define('HatioBB.view.monitor.Incident', {
 			items : [{
 					xtype : 'togglefield',
 					itemId : 'confirm',
-					name : 'confirm',
+					label : T('label.confirm'),
+					name : 'confirm'
 				}, {
 					xtype : 'container',
-					html : '<div>Impulse <span>1,000</span></div>'
-				}, {
-					xtype : 'container',
-					html : '<div>Engine Temp <span>100</span></div>'
+					itemId : 'detailInfo',
+					flex : 1,
+					data : {
+						impulse_abs : '',
+						engine_temp : ''
+					},
+					tpl : ['<div>Impulse <span>{impulse_abs}({impulse_x},{impulse_y},{impulse_z})</span></div>',
+					'<div>Engine Temp <span>{engine_temp}</span></div>',
+					'<div>Engine Temp Threshold <span>{engine_temp_threshold}</span></div>',
+					'<div>Velocity <span>{velocity}</span></div>',
+					'<div>OBD Connected <span>{obd_connected}</span></div>']
+				// }, {
+				// 	xtype : 'container',
+				// 	itemId : 'engine_temp',
+				// 	data : {
+				// 		engine_temp : ''
+				// 	},
+				// 	tpl : '<div>Engine Temp <span>{engine_temp}</span></div>'
 				}
 			]	
 		}, {
@@ -191,66 +207,6 @@ Ext.define('HatioBB.view.monitor.Incident', {
 			}	
 		}]
 	},
-			// 
-			// 
-			// xtype : 'panel',
-			// height : 400,
-			// layout : {
-			// 	type : 'hbox',
-			// 	align : 'stretch'
-			// },
-			// items : [{
-			// 	xtype : 'formpanel',
-			// 	itemId : 'incident_form',
-			// 	width : 230,
-			// 	items : [{
-			// 		xtype : 'textfield',
-			// 		name : 'key',
-			// 		label : 'Key',
-			// 		hidden : true
-			// 	}, {
-			// 		xtype : 'textfield',
-			// 		label : 'Driver Id.',
-			// 		name : 'driver_id',
-			// 		disabled : true
-			// 	}, {
-			// 		xtype : 'textfield',
-			// 		label : 'Vehicle Id.',
-			// 		name : 'vehicle_id',
-			// 		disabled : true
-			// 	}, {
-			// 		xtype : 'textfield',
-			// 		label : 'Latitude',
-			// 		name : 'lattitude',
-			// 		disabled : true
-			// 	}, {
-			// 		xtype : 'textfield',
-			// 		label : 'Longitude',
-			// 		name : 'longitude',
-			// 		disabled : true
-			// 	}, {
-			// 		xtype : 'textfield',
-			// 		label : 'Impulse',
-			// 		name : 'impulse_abs',
-			// 		disabled : true
-			// 	}, {
-			// 		xtype : 'textfield',
-			// 		label : 'Engine Temp.',
-			// 		name : 'engine_temp',
-			// 		disabled : true
-			// 	}, {
-			// 	  // xtype : 'textfield',
-			// 	  // 				label : 'Date/Time',
-			// 	  // 				name : 'datetime',
-			// 	  // 				disabled : true
-			// 	  // 			}, {
-			// 		xtype : 'togglefield',
-			// 		itemId : 'confirm',
-			// 		name : 'confirm',
-			// 		label : T('label.confirm')
-			// 	}]
-			// }, {
-			// } ]
 	
 	zVideo : {
 		xtype : 'panel',
@@ -263,103 +219,87 @@ Ext.define('HatioBB.view.monitor.Incident', {
 		}]
 	},
 	
-	zChart : {
-		xtype : 'panel',
-		title : 'Chart',
-		itemId : 'chart',
-		html : 'chart here'
+	zChart : function() {
+		return {
+			xtype : 'panel',
+			title : 'Chart',
+			html : 'XXX'
+		}
+	},
+	
+	zzChart : function() {
+		var store = Ext.getStore('IncidentLogStore');
+		
+		return {
+			xtype : 'chart',
+			itemId : 'chart',
+			legend : {
+				position: {
+	                portrait: 'right',
+	                landscape: 'bottom'
+	            },
+	            labelFont: '20px Arial',
+				itemSpacing:5,
+				padding:0,
+				boxStroke:"transparent",
+				boxFill : "transparent"
+			},
+			store : store,
+			axes : [ {
+				title : T('title.acceleration'),
+				type : 'Numeric',
+				position : 'left',
+				fields : [ 'accelate_x', 'accelate_y', 'accelate_z' ]
+	//			minimum : -2,
+	//			maximum : 2
+			}, {
+				title : T('label.time'),
+				type : 'Category',
+				position : 'bottom',
+				fields : [ 'datetime' ]
+	//			dateFormat : 'M d g:i:s',
+	//			step : [Ext.Date.SECOND, 1]
+			} ],
+			series : [ {
+				type : 'line',
+	            highlight: {
+	                size: 7,
+	                radius: 7
+	            },
+	            fill: true,
+	            smooth: true,
+	            axis: 'left',
+	            title: 'Accelate X',
+
+				xField : 'datetime',
+				yField : 'accelate_x'
+			}, {
+				type : 'line',
+	            highlight: {
+	                size: 7,
+	                radius: 7
+	            },
+	            fill: true,
+	            smooth: true,
+	            axis: 'left',
+	            title: 'Accelate Y',
+
+				xField : 'datetime',
+				yField : 'accelate_y'
+			}, {
+				type : 'line',
+	            highlight: {
+	                size: 7,
+	                radius: 7
+	            },
+	            fill: true,
+	            smooth: true,
+	            axis: 'left',
+	            title: 'Accelate Z',
+
+				xField : 'datetime',
+				yField : 'accelate_z'
+			} ]
+		}
 	}
-// 	,
-// 
-// 	zVideoAndMap : {
-// 		xtype : 'container',
-// 		layout : {
-// 			type : 'hbox',
-// 			align : 'stretch'
-// 		},
-// 		flex : 1,
-// 		items : [
-// 		{
-// 			xtype : 'panel',
-// 		 // title : T('title.incident_details'),
-// 			cls : 'paddingAll10 incidentVOD',
-// 			width : 690,
-// 			layout : {
-// 				type : 'vbox',
-// 				align : 'stretch'
-// 			},
-// 			items : [
-// 					{
-// 						xtype : 'box',
-// 						itemId : 'fullscreen',
-// 						html : '<div class="btnFullscreen"></div>'
-// 					},
-// 					{
-// 						xtype : 'box',
-// 						cls : 'incidentDetail',
-// 						itemId : 'video',
-// 						tpl : [ '<video width="100%" height="100%" controls="controls">', '<source {value} type="video/mp4" />',
-// 								'Your browser does not support the video tag.', '</video>' ]
-// 					} ]
-// 		}, {
-// 			xtype : 'panel',
-// 			//title : T('title.position_of_incident'),
-// 			cls : 'backgroundGray borderLeftGray',
-// 			flex : 1,
-// 			layout : {
-// 				type : 'vbox',
-// 				align : 'stretch'
-// 			},
-// 			items : [
-// 			{
-// 				xtype : 'box',
-// 				itemId : 'map',
-// 				html : '<div class="map"></div>',
-// 				flex : 3
-// 			},
-// 			{
-// 				xtype : 'chart',
-// 				itemId : 'chart',
-// 				flex : 1,
-// 				legend : {
-// 					position: 'bottom',
-// 					itemSpacing:5,
-// 					padding:0,
-// 					labelFont : "10px Helvetica, sans-serif",
-// 					boxStroke:"transparent",
-// 					boxFill : "transparent"
-// 				},
-// 				store : 'IncidentLogStore',
-// 				axes : [ {
-// //					title : T('title.acceleration'),
-// 					type : 'Numeric',
-// 					position : 'left',
-// 					fields : [ 'accelate_x', 'accelate_y', 'accelate_z' ]
-// //					minimum : -2,
-// //					maximum : 2
-// 				}, {
-// 					title : T('label.time'),
-// 					type : 'Category',
-// 					position : 'bottom',
-// 					fields : [ 'datetime' ]
-// //					dateFormat : 'M d g:i:s',
-// //					step : [Ext.Date.SECOND, 1]
-// 				} ],
-// 				series : [ {
-// 					type : 'line',
-// 					xField : 'datetime',
-// 					yField : 'accelate_x'
-// 				}, {
-// 					type : 'line',
-// 					xField : 'datetime',
-// 					yField : 'accelate_y'
-// 				}, {
-// 					type : 'line',
-// 					xField : 'datetime',
-// 					yField : 'accelate_z'
-// 				} ],
-// 				flex : 2
-// 			}]
-// 		} ]
-// 	}
 });

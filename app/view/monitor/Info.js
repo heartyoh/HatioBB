@@ -104,7 +104,6 @@ Ext.define('HatioBB.view.monitor.Info', {
 		});
         this.sub('briefInfo').setData(vehicle.getData());
 
-		/* Map */
 		/*
 		 * TrackStore를 다시 로드함.
 		 */
