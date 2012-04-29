@@ -55,6 +55,7 @@ Ext.define('HatioBB.view.monitor.Incident', {
 		} else {
 			this.sub('vehicleImage').setSrc('resources/images/bgVehicle.png');
 		}
+		incident.set('registration_number', vehicleRecord.get('registration_number'));
 
 		/*
 		 * Get Driver Information (Image, Name, ..) from DriverStore
@@ -279,7 +280,7 @@ Ext.define('HatioBB.view.monitor.Incident', {
 					datetime : ''
 				},
 				tpl : [
-				'<div class="infoID">{driver_name} , {vehicle_id}</div>',
+				'<div class="infoID">{driver_id}({driver_name}) , {vehicle_id}({registration_number})</div>',
                 '<div class="infoText">Location : {location}</div>',
                 '<div class="infoText">Time : {datetime} </div>'
 				]
@@ -305,9 +306,8 @@ Ext.define('HatioBB.view.monitor.Incident', {
 						impulse_abs : '',
 						engine_temp : ''
 					},
-					tpl : ['<div>Impulse <span>{impulse_abs}({impulse_x},{impulse_y},{impulse_z})</span></div>',
-					'<div>Engine Temp <span>{engine_temp}</span></div>',
-					'<div>Engine Temp Threshold <span>{engine_temp_threshold}</span></div>',
+					tpl : ['<div>Impulse <span>{impulse_abs}({impulse_x},{impulse_y},{impulse_z})/{impulse_threshold}</span></div>',
+					'<div>Engine Temp <span>{engine_temp}/{engine_temp_threshold}</span></div>',
 					'<div>Velocity <span>{velocity}</span></div>',
 					'<div>OBD Connected <span>{obd_connected}</span></div>']
 				}

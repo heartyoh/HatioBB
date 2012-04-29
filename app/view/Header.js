@@ -32,6 +32,10 @@ Ext.define('HatioBB.view.Header', {
 	            align : 'right'
 	        },
 			{
+				xtype : 'setting',
+				id : 'settingPopup'
+			},
+			{
 	            iconCls : 'chat3',
 	            iconMask : true,
 	            align : 'right'
@@ -43,10 +47,15 @@ Ext.define('HatioBB.view.Header', {
 	            align : 'right'
 	        },
 			{
+				itemId : 'search',
 	            iconCls : 'search2',
 	            iconMask : true,
 	            align : 'right'
 	        },
+			{
+				xtype : 'search',
+				id : 'searchPopup'
+			},
 			{
 				itemId : 'collapse',
 	            iconCls : 'window',

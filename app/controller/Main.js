@@ -1,7 +1,7 @@
 Ext.define('HatioBB.controller.Main', {
     extend: 'Ext.app.Controller',
 
-	requires : ['HatioBB.store.SubMenus'],
+	requires : ['HatioBB.store.SubMenus', 'HatioBB.view.Setting', 'HatioBB.view.Search'],
 	
     config: {
         refs: {
@@ -34,6 +34,12 @@ Ext.define('HatioBB.controller.Main', {
 			},
 			'header #refresh' : {
 				tap : 'onRefresh'
+			},
+			'header #search' : {
+				tap : 'onSearch'
+			},
+			'search list' : {
+				itemtap : 'onSearchItemTap'
 			},
 			'#nav_driver' : {
 				tap : 'onDriver'
@@ -120,8 +126,11 @@ Ext.define('HatioBB.controller.Main', {
     },
 
 	onSetting : function(button, e) {
-		var popup = Ext.create('HatioBB.view.Setting', {});
-		popup.showBy(button);
+		Ext.getCmp('settingPopup').showBy(button);
+	},
+	
+	onSearch : function(button, e) {
+		Ext.getCmp('searchPopup').showBy(button);
 	},
 	
 	onRefresh : function(button, e) {
@@ -175,10 +184,6 @@ Ext.define('HatioBB.controller.Main', {
 	},
  
 	onGroup : function(button, e) {
-
-		// this.sub('search').setValue('');  //TODO.. clear search item..
-		this.getNav().clearFilter();
-
 		var groupId = button.config.group.get('id');
 		var group = Ext.getStore('VehicleGroupStore').findRecord('id', groupId);
 		var vehicles = group ? group.get('vehicles') : [];
@@ -191,9 +196,15 @@ Ext.define('HatioBB.controller.Main', {
 
 		this.showMonitor('monitor_map');
 	},
+	
+	onSearchItemTap : function(view, index, target, record) {
+		var store = Ext.getStore('VehicleFilteredStore');
+		store.clearFilter();
+		store.filter('id', record.get('id'));
+
+		this.showMonitor('monitor_map');
+	},
  
-
-
     onFav: function(button, e) {
 		this.getNav().setNavigationBar(true);
 		this.getNav().push({

@@ -159,12 +159,6 @@ Ext.define('HatioBB.view.Nav', {
 		});
 	},
 	
-	clearFilter : function() {
-		Ext.Array.each(this.sub('status').query('button'), function(button) {
-			button.unfiltered = false;
-		});
-	},
-	
     config: {
 
         items: [
