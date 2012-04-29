@@ -1,7 +1,9 @@
+Ext.require('HatioBB.view.report.Report1');
+
 Ext.define('HatioBB.controller.Report', {
     extend: 'Ext.app.Controller',
 
-	requires : [ ],
+	requires : [  ],
 
     config: {
         refs: {
@@ -10,24 +12,24 @@ Ext.define('HatioBB.controller.Report', {
         },
         control: {
             'nav_report' : {
-                itemtap: 'onItemTap',
-				disclose : 'onDisclose'
+                itemtap: 'onItemTap'
             }
         }
     },
 
     onItemTap: function(view, index, target, record) {
-        // Ext.Msg.alert('ItemTap', record.get('reportId') + ':' + record.get('desc'));
-		this.getContent().removeAll();
-		this.getContent().add({
-			// xtype : 'sample'
-			// xtype : 'content_col'
-		});
+		console
+        this.showReport(record.get('reportId'));
     },
 
-
-    onDisclose: function(record, item, index, e) {
-        e.stopEvent();
-        Ext.Msg.alert('Disclose', 'Disclose more info for ' + record.get('reportId'));
-    }
+	showReport : function(report) {
+		var view = this.getContent().getComponent(report);
+		if(!view)
+			view = this.getContent().add({
+				xtype : report
+			});
+		this.getContent().setActiveItem(view);
+		
+		return view;
+	}
 });
