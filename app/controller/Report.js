@@ -1,5 +1,3 @@
-Ext.require('HatioBB.view.report.Report1');
-
 Ext.define('HatioBB.controller.Report', {
     extend: 'Ext.app.Controller',
 
@@ -18,7 +16,6 @@ Ext.define('HatioBB.controller.Report', {
     },
 
     onItemTap: function(view, index, target, record) {
-		console
         this.showReport(record.get('reportId'));
     },
 
