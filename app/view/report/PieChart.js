@@ -1,4 +1,4 @@
-Ext.define('HatioBB.view.Chart.PieChart', {
+Ext.define('HatioBB.view.report.PieChart', {
 	extend : 'Ext.Carousel',
 	
 	xtype : 'report5',

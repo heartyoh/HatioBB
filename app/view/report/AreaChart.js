@@ -1,4 +1,4 @@
-Ext.define('HatioBB.view.Chart.AreaChart', {
+Ext.define('HatioBB.view.report.AreaChart', {
 	extend : 'Ext.Carousel',
 	
 	xtype : 'report4',

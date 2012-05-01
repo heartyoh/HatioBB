@@ -1,7 +1,13 @@
 Ext.define('HatioBB.controller.Report', {
     extend: 'Ext.app.Controller',
 
-	requires : [  ],
+	requires : [ 
+		'HatioBB.view.report.AreaChart',
+		'HatioBB.view.report.BarChart',
+		'HatioBB.view.report.ColumnChart',
+		'HatioBB.view.report.LineChart',
+		'HatioBB.view.report.PieChart'
+	 ],
 
     config: {
         refs: {
