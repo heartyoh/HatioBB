@@ -321,6 +321,7 @@ Ext.define('HatioBB.view.monitor.Incident', {
 				zoom : 10,
 				maxZoom : 19,
 				minZoom : 3,
+				center : null,
 				// center : new google.maps.LatLng(System.props.lattitude, System.props.longitude),
 				mapTypeId : google.maps.MapTypeId.ROADMAP
 			}	

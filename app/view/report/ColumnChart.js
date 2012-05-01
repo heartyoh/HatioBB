@@ -171,7 +171,8 @@ Ext.define('HatioBB.view.Chart.ColumnChart', {
             //         type: 'panzoom',
             //         axes: ['bottom']
             //     }
-            ]		};
+            ]
+		};	
 	},
 
 	buildTable : function(store){

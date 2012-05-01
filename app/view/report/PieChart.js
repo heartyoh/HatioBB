@@ -70,26 +70,26 @@ Ext.define('HatioBB.view.Chart.PieChart', {
             legend: {
                 position: 'left'
             },
-            // interactions: [
-            //     {
-            //         type: 'reset',
-            //         confirm: true
-            //     },
-            //     {
-            //         type: 'rotate'
-            //     },
-            //     'itemhighlight',
-            //     {
-            //         type: 'iteminfo',
-            //         gesture: 'longpress',
-            //         listeners: {
-            //             show: function (interaction, item, panel) {
-            //                 var storeItem = item.storeItem;
-            //                 panel.setHtml(['<ul><li><b>Month: </b>' + storeItem.get('name') + '</li>', '<li><b>Value: </b> ' + storeItem.get('2007') + '</li></ul>'].join(''));
-            //             }
-            //         }
-            //     }
-            // ],
+            interactions: [
+                {
+                    type: 'reset',
+                    confirm: true
+                },
+                {
+                    type: 'rotate'
+                },
+                'itemhighlight',
+                {
+                    type: 'iteminfo',
+                    gesture: 'longpress',
+                    listeners: {
+                        show: function (interaction, item, panel) {
+                            var storeItem = item.storeItem;
+                            panel.setHtml(['<ul><li><b>Month: </b>' + storeItem.get('name') + '</li>', '<li><b>Value: </b> ' + storeItem.get('2007') + '</li></ul>'].join(''));
+                        }
+                    }
+                }
+            ],
             series: [
                 {
                     type: 'pie',
