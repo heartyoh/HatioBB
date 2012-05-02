@@ -44,12 +44,18 @@
      *      }
      */
     "css": [
-            /**
 	        {
 			"path": "resources/css/app.css",
             "update": "delta"
+	        },
+	        {
+			"path": "resources/css/HatioBB.css",
+            "update": "delta"
+	        },
+	        {
+			"path": "resources/css/touch-charts.css",
+            "update": "delta"
 	        }
-			*/
     ],
 
     /**
@@ -78,9 +84,12 @@
      * Extra resources to be copied along when build
      */
     "extras": [
+		"lib",
         "resources/images",
         "resources/icons",
-        "resources/loading"
+        "resources/loading",
+        "resources/text",
+		"data"
     ],
 
     /**

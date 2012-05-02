@@ -5,13 +5,19 @@
 	 * This is the name of your application, which is displayed on the device when the app is installed. On IOS, this should match
 	 * the name of your application in the Apple Provisioning Portal.
 	 */
-	"applicationName":"My Application",
+	"applicationName":"MESTouch",
 
 	/**
 	 * @cfg {String} applicationId
 	 * This is the name namespace for your application. On IOS, this should match the name of your application in the Apple Provisioning Portal.
 	 */
-	"applicationId":"com.mycompany.myAppID",
+	"applicationId":"com.mesplus.mestouch",
+
+	/**
+	 * @cfg {String} bundleSeedId
+	 * A ten character string which stands before aplication ID in Apple Provisioning Portal
+	 */
+	"bundleSeedId":"8Q5N44586D",
 
 	/**
 	 * @cfg {String} versionString
@@ -30,14 +36,14 @@
 	 * For Android, please refer to the Google Launcher icons guide:
 	 * http://developer.android.com/guide/practices/ui_guidelines/icon_design_launcher.html
 	 */
-	"iconName":"resources/icons/Icon~ipad.png",
+	"iconName":"icon.png",
 
 	/**
 	 * @cfg {String} inputPath
 	 * @required
 	 * This is location of your Sencha Touch 2 application, relative to this configuration file.
 	 */
-	"inputPath":"build/native",
+	"inputPath":"./",
 
 	/**
 	 * @cfg {String} outputPath
@@ -63,7 +69,7 @@
 	 *  - Android
 	 *  - AndroidEmulator
 	 */
-	"platform":"iOSSimulator",
+	"platform":"iOS",
 
 	/**
 	 * @cfg {String} deviceType
@@ -84,7 +90,7 @@
 	 * This is the location of your certificate.
 	 * This is required when you are developing for Android or you are developing on Windows.
 	 */
-	"certificatePath":"/path/to/certificate.file",
+	"certificatePath":"./Cert/Certificates.p12",
 
 	/**
 	 * @cfg {String} certificateAlias
@@ -98,22 +104,22 @@
 	 * When using a certificatePath on Windows, you do not need to specify this.
 	 */
 	"certificateAlias":"",
-	
 	/**
 	 * @cfg {String} sdkPath
 	 * This is the path to the Android SDK, if you are developing an Android application.
 	 */
 	"sdkPath":"/path/to/android-sdk",
-	
+
 	/**
-	 * @cfg  androidAPILevel
+	/**
+	 * @cfg {String} androidAPILevel
 	 * This is android API level, the version of Android SDK to use, you can read more about it here: http://developer.android.com/guide/appendix/api-levels.html.
 	 * Be sure to install corresponding platform API in android SDK manager (android_sdk/tools/android)
 	 */
-	"androidAPILevel":"15",
+	"androidAPILevel":"7",
 
 	/**
-	 * @cfg  orientations
+	 * @cfg {Array[String]} orientations
 	 * @required
 	 * This is orientations that this application can run.
 	 */
