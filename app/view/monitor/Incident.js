@@ -302,12 +302,13 @@ Ext.define('HatioBB.view.monitor.Incident', {
 					xtype : 'container',
 					itemId : 'detailInfo',
 					flex : 1,
+					cls : 'divHAlign',
 					data : {
 						impulse_abs : '',
 						engine_temp : ''
 					},
-					tpl : ['<div>Impulse <span>{impulse_abs}({impulse_x},{impulse_y},{impulse_z})/{impulse_threshold}</span></div>',
-					'<div>Engine Temp <span>{engine_temp}/{engine_temp_threshold}</span></div>',
+					tpl : ['<div class="iconImplus">Impulse <span>{impulse_abs}({impulse_x},{impulse_y},{impulse_z})/{impulse_threshold}</span></div>',
+					'<div class="iconETemp">Engine Temp <span>{engine_temp}/{engine_temp_threshold}</span></div>',
 					'<div>Velocity <span>{velocity}</span></div>',
 					'<div>OBD Connected <span>{obd_connected}</span></div>']
 				}
