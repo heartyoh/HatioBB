@@ -1,12 +1,12 @@
 Ext.define('HatioBB.mixin.Setting', function() {
 	var defaultSettings = [{
-		key : 'autofit',
+		id : 'autofit',
 		value : false
 	}, {
-		key : 'refreshTerm',
-		value : 0
+		id : 'refreshTerm',
+		value : -1
 	}, {
-		key : 'dockPosition',
+		id : 'dockPosition',
 		value : 'right'
 	}];
 	
@@ -14,7 +14,7 @@ Ext.define('HatioBB.mixin.Setting', function() {
 	    extend: 'Ext.data.Model',
 	    config: {
 	        fields: [{
-				name : 'key',
+				name : 'id',
 				type : 'string'
 			}, {
 				name : 'value',
@@ -33,7 +33,7 @@ Ext.define('HatioBB.mixin.Setting', function() {
 	});
 	
 	function getLocalSetting(name) {
-		var record = store.findRecord('key', name);
+		var record = store.getById(name);
 		if(record)
 			return record.get('value');
 		else
@@ -41,43 +41,48 @@ Ext.define('HatioBB.mixin.Setting', function() {
 	};
 	
 	function setLocalSetting(name, value) {
-		var record = store.findRecord('key', name);
-		if(record) {
-			record.set('value', value);
-			record.commit();
-		} else {
+		var record = store.getById(name);
+		var old;
+		if(!record) {
 			var set = Ext.create('HatioBB.mixin.LocalSetting.Model', {
-				key : name,
-				value : value
+				id : name,
+				value : undefined
 			});
 			store.add(set);
+			record = store.getById(name);
 		}
+
+		record.set('value', value);
+		record.commit();
+		
+		return old;
 	};
 	
 	Ext.define('HatioBB.mixin.Setting.Inner', {
 		mixins: ['Ext.mixin.Observable'],
 		
-		set : function(key, val) {
-			var old = getLocalSetting(key);
-			setLocalSetting(key, val);
-			this.fireEvent(key, val, old);
+		set : function(id, val) {
+			var old = setLocalSetting(id, val);
+			this.fireEvent(id, val, old);
 		},
 		
-		get : function(key) {
-			return getLocalSetting(key);
+		get : function(id) {
+			return getLocalSetting(id);
 		}
 	});
 	
 	store.on('load', function(store, records) {
 		for(var i = 0;i < defaultSettings.length;i++) {
-			if(store.find('key', defaultSettings[i].key) === -1) {
-				store.add(defaultSettings[i]);
+			if(!store.getById(defaultSettings[i].id)) {
+				setLocalSetting(defaultSettings[i].id, defaultSettings[i].value);
+				// store.add(defaultSettings[i]);
 			}
 		}
+		// console.log(store.sync());
 	});
 	
 	store.load();
-	
+
 	return {
 		setting : Ext.create('HatioBB.mixin.Setting.Inner')
 	}

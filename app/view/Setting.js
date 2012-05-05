@@ -10,7 +10,6 @@ Ext.define('HatioBB.view.Setting', {
 	},
 	
 	buildItems : function() {
-		console.log()
 		return [
         {
             xtype: 'toolbar',
@@ -37,12 +36,12 @@ Ext.define('HatioBB.view.Setting', {
 			value : HatioBB.setting.get('refreshTerm'),
 			listeners : {
 				change : function(field, newVal) {
-					HatioBB.setting.set(field.getName(), newVal.get('value'));
+					HatioBB.setting.set(field.getName(), newVal);
 				}
 			},
             store: {
                 data: [{
-                    value: 0,
+                    value: -1,
                     display: T('label.refresh_none')
                 },
                 {
@@ -80,7 +79,7 @@ Ext.define('HatioBB.view.Setting', {
 			value : HatioBB.setting.get('dockPosition'),
 			listeners : {
 				change : function(field, newVal) {
-					HatioBB.setting.set(field.getName(), newVal.get('value'));
+					HatioBB.setting.set(field.getName(), newVal);
 				}
 			},
             store: {

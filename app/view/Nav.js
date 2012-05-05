@@ -36,10 +36,10 @@ Ext.define('HatioBB.view.Nav', {
 		            incidentStore.load();
 		        }, val * 1000);
 
-			if(this.vehicleMapnterval)
-	        	clearInterval(this.vehicleMapnterval);
+			if(this.vehicleMapInterval)
+	        	clearInterval(this.vehicleMapInterval);
 			if(val > 0)
-		        this.vehicleMapnterval = setInterval(function() {
+		        this.vehicleMapInterval = setInterval(function() {
 		            vehicleMapStore.load();
 		        }, val * 1000);
 		}
@@ -47,7 +47,7 @@ Ext.define('HatioBB.view.Nav', {
 		HatioBB.setting.on({
 			refreshTerm : onRefreshTerm
 		});
-		
+
 		onRefreshTerm(HatioBB.setting.get('refreshTerm'));
 
 		/* Vehicle 그룹 처리 */
@@ -90,7 +90,7 @@ Ext.define('HatioBB.view.Nav', {
 
     destroy: function() {
         clearInterval(this.incidentInterval);
-        clearInterval(this.vehicleMapnterval);
+        clearInterval(this.vehicleMapInterval);
     },
 
     refreshStatus: function(store) {
