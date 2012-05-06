@@ -35,6 +35,13 @@ Ext.define('HatioBB.view.monitor.Map', {
 		this.on('resize', function() {
 			google.maps.event.trigger(self.getMap(), 'resize');
 		});
+		
+		this.element.on({
+			delegate : 'div.showVehicleInfo',
+			tap : function() {
+				self.fireEvent('vehicletap', self.selectedMarker.record);
+			}
+		});
 	},
 	
 	refresh : function() {
@@ -53,11 +60,17 @@ Ext.define('HatioBB.view.monitor.Map', {
 	},
 	
 	resetMarkers : function() {
-		for ( var vehicle in this.markers) {
+		for(var vehicle in this.markers) {
 			google.maps.event.clearListeners(this.markers[vehicle]);
 			this.markers[vehicle].setMap(null);
 		}
+		this.clearInfoWindow();
 		this.markers = {};
+	},
+	
+	clearInfoWindow : function() {
+		if(this.infowindow)
+			this.infowindow.close();
 	},
 	
 	refreshMap : function(store) {
@@ -74,20 +87,40 @@ Ext.define('HatioBB.view.monitor.Map', {
 
 		var bounds;
 		
+		var markerHandler = function() {
+			self.clearInfoWindow();
+			
+			/* 'this' should be marker */
+			var marker = this;
+			var vr = marker.record;
+			var dr = Ext.getStore('DriverBriefStore').getById(vr.get('driver_id'));
+			
+			self.selectedMarker = marker;
+			
+			var content = [
+				'<div>vehicle : ' + vr.get('id') + '('+ vr.get('registration_number') + ')</div>',
+				'<div>driver : ' + dr.get('id') + '('+ dr.get('name') + ')</div>',
+				'<div>status : '+ vr.get('status') +'</div>',
+				'<div class="showVehicleInfo">Show Details</div>'
+			].join('');
+
+			self.infowindow = new google.maps.InfoWindow({ 
+				content: content
+			});
+
+			self.infowindow.open(self.getMap(), marker);
+		}
+
 		store.each(function(record) {
 			var vehicle = record.get('id');
-			var driver = record.get('driver_id');
-			var driverRecord = Ext.getStore('DriverBriefStore').findRecord('id', driver);
 			
 			var latlng = new google.maps.LatLng(record.get('lattitude'), record.get('longitude'));
 			
 			var marker = new google.maps.Marker({
 				position : latlng,
-				map : this.getMap(),
-				status : record.get('status'),
+				map : self.getMap(),
 				icon : images[record.get('status')],
-				title : driverRecord ? driverRecord.get('name') : driver,
-				tooltip : record.get('registration_number') + "(" + (driverRecord ? driverRecord.get('name') : driver) + ")"
+				record : record
 			});
 
 			if(!bounds)
@@ -95,14 +128,9 @@ Ext.define('HatioBB.view.monitor.Map', {
 			else
 				bounds.extend(latlng);
 			
-			this.getMarkers()[vehicle] = marker;
+			self.getMarkers()[vehicle] = marker;
 
-			google.maps.event.addListener(marker, 'click', function() {
-				self.fireEvent('vehicletap', record);
-				// var view = this.showMonitor('monitor_info');
-				// Ext.getCmp('header').setActiveStatus('info');
-				// view.setVehicle(record);
-			});
+			google.maps.event.addListener(marker, 'click', markerHandler);
 		}, this);
 		
 		if(!bounds) {
