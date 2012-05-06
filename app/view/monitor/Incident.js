@@ -32,14 +32,26 @@ Ext.define('HatioBB.view.monitor.Incident', {
 		});
 	},
 	
+	refresh : function() {
+		this.setIncident();
+	},
+	
 	setIncident : function(incident) {
-		if(!incident) {
-			incident = Ext.getStore('RecentIncidentStore').first();
-			if(!incident)
-				return;
-		}
-		
 		var self = this;
+		
+		if(!incident) {
+			if(this.incident) {
+				incident = this.incident;
+			} else {
+				incident = Ext.getStore('RecentIncidentStore').first();
+				if(!incident && !this.isHidden()) {
+					setTimeout(function() {
+						self.setIncident();
+					}, 3000);
+					return;
+				}
+			}
+		}
 		
 		this.incident = incident;
 		

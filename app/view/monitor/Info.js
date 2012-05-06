@@ -61,17 +61,29 @@ Ext.define('HatioBB.view.monitor.Info', {
     },
 
 	refresh : function() {
-		this.setVehicle(this.vehicle);
+		this.setVehicle();
 	},
 
     setVehicle: function(vehicle) {
-        if (!vehicle)
-	        return;
-	
-		this.vehicle = vehicle;
-		
 		var self = this;
 		
+        if (!vehicle) {
+			var vid = HatioBB.setting.get('monitoring_vehicle');
+			if(vid) {
+				vehicle = Ext.getStore('VehicleMapStore').findRecord('id', vid);
+				if(!vehicle && !this.isHidden()) {
+					setTimeout(function() {
+						self.setVehicle();
+					}, 3000);
+					return;
+				}
+			} else {
+	        	return;
+			}
+		}
+	
+		HatioBB.setting.set('monitoring_vehicle', vehicle.get('id'));
+
 		/*
 		 * Get Vehicle Information (Image, Registration #, ..) from
 		 * VehicleStore

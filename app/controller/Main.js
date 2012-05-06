@@ -4,6 +4,11 @@ Ext.define('HatioBB.controller.Main', {
 	requires : ['HatioBB.store.SubMenus', 'HatioBB.view.Setting', 'HatioBB.view.Search'],
 	
     config: {
+		routes : {
+			map : 'onMap',
+			info : 'onInfo',
+			incident : 'onIncident'
+		},
         refs: {
             main: 'main',
             nav: 'nav',
@@ -110,6 +115,7 @@ Ext.define('HatioBB.controller.Main', {
 
     onInfo: function(button, e) {
 		var view = this.showMonitor('monitor_info');
+		view.setVehicle();
     },
 
     onVehicleInfo: function(vehicle) {
@@ -121,8 +127,10 @@ Ext.define('HatioBB.controller.Main', {
 		var view = this.showMonitor('monitor_incident');
 
 		/* 여러 경로의 button동작을 통해서 들어오는 것을 감안함. */
-		if(comp.config.incident)
+		if(comp && comp.config && comp.config.incident)
 			view.setIncident(comp.config.incident);
+		else
+			view.setIncident();
     },
 
 	onSetting : function(button, e) {
