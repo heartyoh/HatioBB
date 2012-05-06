@@ -99,6 +99,7 @@ Ext.define('HatioBB.view.monitor.Info', {
 		}
 		vehicle.set('driver_name', driverRecord.get('name'));
 
+		vehicle.set('location', 'Resolving ..');
 		this.getLocation(vehicle.get('lattitude'), vehicle.get('longitude'), function(location) {
 			vehicle.set('location', location);
 			self.sub('briefInfo').setData(vehicle.getData());

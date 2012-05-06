@@ -71,6 +71,7 @@ Ext.define('HatioBB.view.monitor.Incident', {
 		}
 		incident.set('driver_name', driverRecord.get('name'));
 
+		incident.set('location', 'Resolving ..');
 		this.getLocation(incident.get('lattitude'), incident.get('longitude'), function(location) {
 			incident.set('location', location);
 			self.sub('briefInfo').setData(incident.getData());
