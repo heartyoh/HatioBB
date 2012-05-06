@@ -102,6 +102,7 @@ Ext.define('HatioBB.view.Setting', {
 
         modal: true,
         hideOnMaskTap: true,
+		hideAnimation : 'fadeOut',
         hidden: true,
 
         width: 400,
