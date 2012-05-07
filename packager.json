@@ -5,19 +5,19 @@
 	 * This is the name of your application, which is displayed on the device when the app is installed. On IOS, this should match
 	 * the name of your application in the Apple Provisioning Portal.
 	 */
-	"applicationName":"MESTouch",
+	"applicationName":"GFPad",
 
 	/**
 	 * @cfg {String} applicationId
 	 * This is the name namespace for your application. On IOS, this should match the name of your application in the Apple Provisioning Portal.
 	 */
-	"applicationId":"com.mesplus.mestouch",
+	"applicationId":"net.hatio.gfpad",
 
 	/**
 	 * @cfg {String} bundleSeedId
 	 * A ten character string which stands before aplication ID in Apple Provisioning Portal
 	 */
-	"bundleSeedId":"8Q5N44586D",
+	"bundleSeedId":"",
 
 	/**
 	 * @cfg {String} versionString
@@ -58,7 +58,7 @@
 	 * This is configuration for your application. `Debug` should always be used unless you are submitting your app to an online
 	 * store - in which case `Release` should be specified.
 	 */
-	"configuration":"Debug",
+	"configuration":"Release",
 
 	/**
 	 * @cfg {String} platform
@@ -91,7 +91,6 @@
 	 * This is required when you are developing for Android or you are developing on Windows.
 	 */
 	/* "certificatePath":"./Cert/Certificates.p12", */
-	/* "certificatePath":"", */
 
 	/**
 	 * @cfg {String} certificateAlias
@@ -104,8 +103,7 @@
 	 *
 	 * When using a certificatePath on Windows, you do not need to specify this.
 	 */
-	"certificateAlias":"iPhone Distribution: Miracom, Inc.",
-	/* "certificateAlias":"", */
+	"certificateAlias":"iPhone Developer",
 	
 	/**
 	 * @cfg {String} sdkPath

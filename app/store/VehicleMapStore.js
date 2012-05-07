@@ -32,7 +32,7 @@ Ext.define('HatioBB.store.VehicleMapStore', {
 		proxy : {
 			type : 'ajax',
 			// url : 'vehicle',
-			url : 'data/vehicle.json',
+			url : 'data/vehicle',
 			extraParams : {
 				select : [ 'id', 'registration_number', 'status', 'driver_id', 'lattitude', 'longitude' ]
 			},

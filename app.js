@@ -1,7 +1,8 @@
 //<debug>
 Ext.Loader.setPath({
     'Ext': 'sdk/src',
-	'HatioBB': 'app'
+	'HatioBB': 'app',
+	'HatioBB.mixin': 'app/mixin'
 });
 //</debug>
 

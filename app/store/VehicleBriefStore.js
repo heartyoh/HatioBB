@@ -20,7 +20,7 @@ Ext.define('HatioBB.store.VehicleBriefStore', {
 		proxy : {
 			type : 'ajax',
 			// url : 'vehicle',
-			url : 'data/vehicle.json',
+			url : 'data/vehicle',
 			extraParams : {
 				select : [ 'id', 'registration_number', 'image_clip' ]
 			},
