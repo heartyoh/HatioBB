@@ -10,6 +10,8 @@ Ext.define('HatioBB.view.Search', {
         top: 0,
 
         modal: true,
+
+		showAnimation : 'fadeIn',
         hideOnMaskTap: true,
 		hideAnimation : 'fadeOut',
         hidden: true,

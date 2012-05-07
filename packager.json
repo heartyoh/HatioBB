@@ -36,8 +36,8 @@
 	 * For Android, please refer to the Google Launcher icons guide:
 	 * http://developer.android.com/guide/practices/ui_guidelines/icon_design_launcher.html
 	 */
-	"iconName":"icon.png",
-
+	"iconName":"resources/icons/Icon~ipad@2x.png",
+	
 	/**
 	 * @cfg {String} inputPath
 	 * @required
@@ -90,7 +90,8 @@
 	 * This is the location of your certificate.
 	 * This is required when you are developing for Android or you are developing on Windows.
 	 */
-	"certificatePath":"./Cert/Certificates.p12",
+	/* "certificatePath":"./Cert/Certificates.p12", */
+	/* "certificatePath":"", */
 
 	/**
 	 * @cfg {String} certificateAlias
@@ -103,7 +104,9 @@
 	 *
 	 * When using a certificatePath on Windows, you do not need to specify this.
 	 */
-	"certificateAlias":"iPhone Developer",
+	"certificateAlias":"iPhone Distribution: Miracom, Inc.",
+	/* "certificateAlias":"", */
+	
 	/**
 	 * @cfg {String} sdkPath
 	 * This is the path to the Android SDK, if you are developing an Android application.

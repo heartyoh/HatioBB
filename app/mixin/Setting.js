@@ -75,13 +75,17 @@ Ext.define('HatioBB.mixin.Setting', function() {
 		for(var i = 0;i < defaultSettings.length;i++) {
 			if(!store.getById(defaultSettings[i].id)) {
 				setLocalSetting(defaultSettings[i].id, defaultSettings[i].value);
-				// store.add(defaultSettings[i]);
 			}
 		}
-		// console.log(store.sync());
 	});
 	
-	store.load();
+	try {
+		store.load();
+	} catch(e) {
+		/* 잘못된 형식의 local cache인 경우 로컬스토리지를 클리어시킴 */
+		store.getProxy().clear();
+		store.load();
+	}
 
 	return {
 		setting : Ext.create('HatioBB.mixin.Setting.Inner')

@@ -232,7 +232,6 @@ Ext.define('HatioBB.view.monitor.Incident', {
 		var location = new google.maps.LatLng(this.getIncident().get('lattitude'), this.getIncident().get('longitude'));
 		this.setMarker(new google.maps.Marker({
 			position : location,
-			// icon : 'resources/images/iconIncidentPoint.png',
 			icon : new google.maps.MarkerImage('resources/images/iconIncidentPoint.png',
 				null, null, new google.maps.Point(60, 80)),
 			map : this.getMap()
