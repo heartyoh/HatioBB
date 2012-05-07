@@ -43,6 +43,8 @@
 .headerView.navInfo.x-button-pressing,.headerView.navInfo.active{background-position:0 -200px !important}
 
 /*nav style*/
+.nav{background:url('../images/bgHeaderDark.png') repeat-x;}
+.nav .x-toolbar.x-docked-top{border-bottom:0;}
 .nav .x-button{border-radius:0;border:0;color:#b7b7b7;background:none;}
 .nav .statusPanel{background:url('../images/bgNavPanel.png') 0 100% repeat-x;border-top:1px solid #1e2127;}
 .nav .x-carousel{background:url('../images/bgNavCarousel.png') 0 100% repeat-x}
@@ -92,10 +94,13 @@
 .shotHList .x-button-label{text-align:left;line-height:1em;}
 .shotHList .x-button-label a{text-decoration:none;color:#333;}
 .shotHList .x-button-label span{display:block;font-size:13px;color:#666;}
-.divHAlign .x-innerhtml div{float:left;padding:0 15px 0 40px;margin:5px 0 0 10px;border-right:1px dotted #999;font-size:11px;font-weight:bold;color:#666;}
+.divHAlign .x-innerhtml div{float:left;padding:0 15px 0 37px;margin:5px 0 0 10px;border-right:1px dotted #999;font-size:11px;font-weight:bold;color:#666;}
 .divHAlign .x-innerhtml div span{display:block;font-size:16px;color:#111;}
 .divHAlign .iconImplus{background:url('../images/iconImpluse.png') no-repeat;}
 .divHAlign .iconETemp{background:url('../images/iconETemp.png') no-repeat;}
+.divHAlign .iconVelocity{background:url('../images/iconVelocity.png') no-repeat;}
+.shotHList .x-field{background-color:transparent;}
+.shotHList .x-toggle-field .x-component-outer{padding:0.4em 0.5em;}
 
 @-webkit-keyframes flickflick{
 	from {opacity:0;}

@@ -310,7 +310,6 @@ Ext.define('HatioBB.view.monitor.Incident', {
 			items : [{
 					xtype : 'togglefield',
 					itemId : 'confirm',
-					label : T('label.confirm'),
 					name : 'confirm'
 				}, {
 					xtype : 'container',
@@ -323,7 +322,7 @@ Ext.define('HatioBB.view.monitor.Incident', {
 					},
 					tpl : ['<div class="iconImplus">Impulse <span>{impulse_abs}({impulse_x},{impulse_y},{impulse_z})/{impulse_threshold}</span></div>',
 					'<div class="iconETemp">Engine Temp <span>{engine_temp}/{engine_temp_threshold}</span></div>',
-					'<div>Velocity <span>{velocity}</span></div>',
+					'<div class="iconVelocity">Velocity <span>{velocity}</span></div>',
 					'<div>OBD Connected <span>{obd_connected}</span></div>']
 				}
 			]	

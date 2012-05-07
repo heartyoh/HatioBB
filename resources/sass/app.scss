@@ -26,5 +26,8 @@ body{background:url('../images/bgDarkDot.png');font-family:'Candara',"Helvetica-
 .x-layout-card-item {background-color:transparent;}
 .x-form .x-scroll-container > .x-inner{padding:0}
 
-.x-toggle{background:url('../images/bgSwitch.png') repeat-x;height:30px;border-bottom:1px solid #eff3f4}
-.x-toggle .x-thumb::before{background:url('../images/btnSwitch.png') no-repeat;width:29px;height:28px;border:0;top:0;left:0}
+.x-toggle{background:url('../images/bgSwitch.png') 100% 0 repeat-x;height:30px;border-bottom:1px solid #eff3f4;width:110px}
+.x-toggle-on{background:url('../images/bgSwitchOn.png') 0 0 repeat-x;}
+.x-toggle .x-thumb{width:29px;height:28px;}
+.x-toggle .x-thumb::before{background:url('../images/btnSwitch.png') no-repeat;border:0;top:0;left:0}
+.x-toggle-on .x-thumb::before{background:url('../images/btnSwitchOn.png') no-repeat;}
