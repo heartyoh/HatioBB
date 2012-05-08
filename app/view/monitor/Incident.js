@@ -214,6 +214,7 @@ Ext.define('HatioBB.view.monitor.Incident', {
 		if (first) {
 			var start = new google.maps.Marker({
 				position : new google.maps.LatLng(first.lat(), first.lng()),
+				icon : 'resources/images/iconStartPoint.png',
 				map : this.getMap()
 			});
 
@@ -221,7 +222,6 @@ Ext.define('HatioBB.view.monitor.Incident', {
 
 			var end = new google.maps.Marker({
 				position : new google.maps.LatLng(last.lat(), last.lng()),
-				icon : 'resources/images/iconStartPoint.png',
 				map : this.getMap()
 			});
 
@@ -234,7 +234,8 @@ Ext.define('HatioBB.view.monitor.Incident', {
 			position : location,
 			icon : new google.maps.MarkerImage('resources/images/iconIncidentPoint.png',
 				null, null, new google.maps.Point(60, 80)),
-			map : this.getMap()
+			map : this.getMap(),
+			title:"incidentPoint"
 		}));
 	},
 
@@ -323,7 +324,7 @@ Ext.define('HatioBB.view.monitor.Incident', {
 					tpl : ['<div class="iconImplus">Impulse <span>{impulse_abs}({impulse_x},{impulse_y},{impulse_z})/{impulse_threshold}</span></div>',
 					'<div class="iconETemp">Engine Temp <span>{engine_temp}/{engine_temp_threshold}</span></div>',
 					'<div class="iconVelocity">Velocity <span>{velocity}</span></div>',
-					'<div>OBD Connected <span>{obd_connected}</span></div>']
+					'<div class="iconOBD">OBD Connected <span>{obd_connected}</span></div>']
 				}
 			]	
 		}, {

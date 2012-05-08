@@ -99,6 +99,7 @@
 .divHAlign .iconImplus{background:url('../images/iconImpluse.png') no-repeat;}
 .divHAlign .iconETemp{background:url('../images/iconETemp.png') no-repeat;}
 .divHAlign .iconVelocity{background:url('../images/iconVelocity.png') no-repeat;}
+.divHAlign .iconOBD{background:url('../images/iconOBD.png') no-repeat;}
 .shotHList .x-field{background-color:transparent;}
 .shotHList .x-toggle-field .x-component-outer{padding:0.4em 0.5em;}
 
@@ -107,7 +108,7 @@
 	to   {opacity:1;}
 }
 
-.gmnoprint img{
+.gmnoprint[title='incidentPoint']{
 	-webkit-animation-name:flickflick;
 	-webkit-animation-duration: 0.5s;
 	-webkit-animation-iteration-count: infinite;
