@@ -50,8 +50,9 @@ Ext.define('HatioBB.view.Nav', {
 
 		onRefreshTerm(HatioBB.setting.get('refreshTerm'));
 
-		/* Vehicle 그룹 처리 */
+		/* Vehicle, Driver 그룹 처리 */
 		var vehicleGroupStore = Ext.getStore('VehicleGroupStore');
+		var driverGroupStore = Ext.getStore('DriverGroupStore');
 
         /* 자동 리프레쉬 처리 */
         this.sub('incidents').on({
@@ -76,13 +77,24 @@ Ext.define('HatioBB.view.Nav', {
             scope: self
         });
 
-		this.sub('groups').on({
+		this.sub('vgroups').on({
             painted: function() {
-                vehicleGroupStore.on('load', self.refreshGroups, self);
+                vehicleGroupStore.on('load', self.refreshVGroups, self);
 				vehicleGroupStore.load();
             },
             erased: function() {
-                vehicleGroupStore.un('load', self.refreshStatus, self);
+                vehicleGroupStore.un('load', self.refreshVGroups, self);
+            },
+            scope: self
+		});
+
+		this.sub('dgroups').on({
+            painted: function() {
+                driverGroupStore.on('load', self.refreshDGroups, self);
+				driverGroupStore.load();
+            },
+            erased: function() {
+                driverGroupStore.un('load', self.refreshDGroups, self);
             },
             scope: self
 		});
@@ -144,8 +156,8 @@ Ext.define('HatioBB.view.Nav', {
         }
     },
 
-	refreshGroups : function(store) {
-		var groups = this.sub('groups');
+	refreshVGroups : function(store) {
+		var groups = this.sub('vgroups');
 		groups.removeAll();
 		
 		store.each(function(record) {
@@ -156,6 +168,23 @@ Ext.define('HatioBB.view.Nav', {
 						+ record.data.desc
 						+ '<span>('
 						+ record.data.vehicles.length
+						+ ')</span></a>'
+			});			
+		});
+	},
+	
+	refreshDGroups : function(store) {
+		var groups = this.sub('dgroups');
+		groups.removeAll();
+		
+		store.each(function(record) {
+			groups.add({
+				xtype : 'button',
+				group : record,
+				html : '<a href="#">'
+						+ record.data.desc
+						+ '<span>('
+						+ record.data.drivers.length
 						+ ')</span></a>'
 			});			
 		});
@@ -242,9 +271,15 @@ Ext.define('HatioBB.view.Nav', {
                 },
                 {
                     xtype: 'panel',
-                    itemId: 'groups',
+                    itemId: 'vgroups',
                     cls: 'groupPanel',
 					html: T('title.vehicle_groups'),
+                },
+				{
+                    xtype: 'panel',
+                    itemId: 'dgroups',
+                    cls: 'groupPanel',
+					html: T('title.driver_groups'),
                 }]
             }]
         }]

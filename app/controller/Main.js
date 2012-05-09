@@ -72,8 +72,11 @@ Ext.define('HatioBB.controller.Main', {
 			'nav #status button' : {
 				tap : 'onStatus'
 			},
-			'nav #groups button' : {
-				tap : 'onGroup'
+			'nav #vgroups button' : {
+				tap : 'onVGroup'
+			},
+			'nav #dgroups button' : {
+				tap : 'onDGroup'
 			},
 			
 			'monitor_map' : {
@@ -191,7 +194,7 @@ Ext.define('HatioBB.controller.Main', {
 		this.showMonitor('monitor_map');
 	},
  
-	onGroup : function(button, e) {
+	onVGroup : function(button, e) {
 		var groupId = button.config.group.get('id');
 		var group = Ext.getStore('VehicleGroupStore').findRecord('id', groupId);
 		var vehicles = group ? group.get('vehicles') : [];
@@ -200,6 +203,20 @@ Ext.define('HatioBB.controller.Main', {
 		store.clearFilter();
 		store.filterBy(function(record) {
 			return Ext.Array.indexOf(vehicles, record.get('id')) >= 0;
+		});
+
+		this.showMonitor('monitor_map');
+	},
+	
+	onDGroup : function(button, e) {
+		var groupId = button.config.group.get('id');
+		var group = Ext.getStore('DriverGroupStore').findRecord('id', groupId);
+		var drivers = group ? group.get('drivers') : [];
+
+		var store = Ext.getStore('VehicleFilteredStore');
+		store.clearFilter();
+		store.filterBy(function(record) {
+			return Ext.Array.indexOf(drivers, record.get('driver_id')) >= 0;
 		});
 
 		this.showMonitor('monitor_map');
