@@ -39,11 +39,11 @@
 .headerView.navIncident{background-position:0 -40px !important}
 .headerView.navInfo{background-position:0 -80px !important}
 .headerView.navMap.x-button-pressing,.headerView.navMap.active{background-position:0 -120px !important;}
-.headerView.navIncident.x-button-pressing,.headerView.navIncident.active{background-position:0 -160px !important}
+.headerView.navIncident.xbutton-pressing,.headerView.navIncident.active{background-position:0 -160px !important}
 .headerView.navInfo.x-button-pressing,.headerView.navInfo.active{background-position:0 -200px !important}
 
 /*nav style*/
-.nav{background:url('../images/bgHeaderDark.png') repeat-x;}
+.nav .x-navigation-bar.x-docked-top{background:url('../images/darkGradient.png') 0 80% repeat-x !important;}
 .nav .x-toolbar.x-docked-top{border-bottom:0;}
 .nav .x-button{border-radius:0;border:0;color:#b7b7b7;background:none;}
 .nav .statusPanel{background:url('../images/bgNavPanel.png') 0 100% repeat-x;border-top:1px solid #1e2127;}
@@ -74,6 +74,16 @@
 .nav .x-carousel-indicator-dark span.x-carousel-indicator-active{background-color:#fff;opacity:0.9;}
 .nav .x-carousel-indicator-dark span{background-color:#fff;opacity:0.3;}
 .nav .x-button .x-button-icon{width:45px;}
+.nav .x-list-item{background:url('../images/bgNavMenu.png') 0 100% repeat-x}
+.nav .x-list-normal .x-list-item .x-list-item-label{border:0;}
+.nav .x-list .x-list-item{color:#d0d0d0;}
+.nav .x-list .x-list-item.x-item-selected .x-list-item-label,.nav .x-list .x-list-item.x-item-pressed .x-list-item-label
+{background:url('../images/bgNavCarousel.png') 0 75% repeat-x !important;border-top:1px solid #111;border-bottom:1px solid #000;}
+.nav .x-list .x-list-item.x-item-selected,.nav .x-list .x-list-item.x-item-pressed{color:#fff;}
+.nav .x-button-back{background:url('../images/btnBack.png') no-repeat 1px 50% !important;margin-left:0;padding-left:25px;width:65px !important;}
+.nav .x-button-back.x-button-pressing{background:url('../images/btnBackPressed.png') no-repeat 1px 50% !important;margin-left:0;padding-left:25px;width:65px !important;color:#fff;}
+.nav .x-button-back .x-button-label{width:35px;text-align:left;}
+.nav .x-button-forward::before, .nav .x-button-forward::after,.nav .x-button-back::before, .nav .x-button-back::after{width:0;}
 
 /*incident information panel view style*/
 .grayBg{background:url('../images/bgWhiteShadowPanel.png') repeat-x #e8edef;}
@@ -115,3 +125,19 @@
     -webkit-animation-timing-function: ease;
     -webkit-animation-direction: alternate;
 }
+
+/*tab style*/
+.x-tabbar-dark.x-docked-bottom .x-tab .x-button-icon{background-color:transparent !important;background-image:none;width:32px;height:32px;}
+.x-button-icon.iconsTab{background-image:url('../images/iconsTab.png') !important;}
+.x-button-icon.iconsTab.tabMap{background-position:2px 2px}
+.x-button-icon.iconsTab.tabMovie{background-position:5px -30px}
+.x-button-icon.iconsTab.tabChart{background-position:0px -62px}
+.x-tab-active .x-button-icon.iconsTab.tabMap{background-position:-30px 2px}
+.x-tab-active .x-button-icon.iconsTab.tabMovie{background-position:-27px -30px}
+.x-tab-active .x-button-icon.iconsTab.tabChart{background-position:-32px -62px}
+
+/*chart table style*/
+.dataGrid{width:100%;}
+.dataGrid th{background:url('../images/bgDatagridTh.png') repeat-x;height:35px;color:#fff;text-align:center;}
+.dataGrid tr td{padding:7px 5px;border-bottom:1px solid #ccc;}
+.dataGrid tr td:first-child{background-color:#d4d4d4;}

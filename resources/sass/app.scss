@@ -22,6 +22,9 @@
 @include pictos-iconmask('search2');
 
 // Hatio style
+
+$base-color: #3f69a3 !default;
+
 body{background:url('../images/bgDarkDot.png');font-family:'Candara',"Helvetica-Neue", Helvetica, "BBAlpha Sans", sans-serif}
 .x-layout-card-item {background-color:transparent;}
 .x-form .x-scroll-container > .x-inner{padding:0}

@@ -15,6 +15,7 @@ Ext.define('HatioBB.view.nav.NavVehicle', {
 
     config: {
         title: 'Vehicles',
+		cls : 'x-button-icon iconVehicle',
 
         disclosure: true,
 

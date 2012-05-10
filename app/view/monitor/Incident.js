@@ -265,6 +265,7 @@ Ext.define('HatioBB.view.monitor.Incident', {
 	zInfo : {
 		xtype : 'panel',
 		title : '개요',
+		iconCls : 'iconsTab tabMap',
 		cls : 'grayBg',
 		layout : {
 			type : 'vbox',
@@ -347,6 +348,7 @@ Ext.define('HatioBB.view.monitor.Incident', {
 		xtype : 'panel',
 		title : 'Movie',
 		layout : 'fit',
+		iconCls : 'iconsTab tabMovie',
 		items : [{
 			xtype    : 'video',
 			itemId : 'video',
@@ -358,6 +360,8 @@ Ext.define('HatioBB.view.monitor.Incident', {
 		return {
 			xtype : 'panel',
 			title : 'Chart',
+			cls : 'grayBg',
+			iconCls : 'iconsTab tabChart',
 			html : 'XXX'
 		}
 	},

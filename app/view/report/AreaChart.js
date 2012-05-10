@@ -12,7 +12,8 @@ Ext.define('HatioBB.view.report.AreaChart', {
 		'Ext.data.JsonStore'],
 		
 	config : {
-	    direction : 'vertical'
+	    direction : 'vertical',
+		cls : 'grayBg'
 	},
 	
 	constructor : function(config) {

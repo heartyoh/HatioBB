@@ -10,9 +10,10 @@ Ext.define('HatioBB.view.report.LineChart', {
         'Ext.chart.series.Area',
 		'Ext.chart.series.Line',
 		'Ext.data.JsonStore'],
-		
+	
 	config : {
-	    direction : 'vertical'
+	    direction : 'vertical',
+		cls : 'grayBg'
 	},
 	
 	constructor : function(config) {
