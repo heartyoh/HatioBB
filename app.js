@@ -28,7 +28,7 @@ Ext.application({
     views: ['Main', 'Search', 'Setting'],
     stores: ['Menus', 'VehicleFilteredStore', 'RecentIncidentStore', 'VehicleMapStore', 
 			'VehicleBriefStore', 'DriverBriefStore', 'VehicleGroupStore', 'DriverGroupStore', 'TrackByVehicleStore', 
-			'IncidentByVehicleStore', 'IncidentLogStore'],
+			'IncidentByVehicleStore', 'IncidentLogStore', 'DashboardVehicleStore'],
 
     icon: {
         57: 'resources/icons/Icon.png',

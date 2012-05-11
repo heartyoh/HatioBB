@@ -1,0 +1,81 @@
+{
+"total": 3,
+"items": [
+{
+"summary": [
+{
+"name": "Healthy",
+"value": 1
+},
+{
+"name": "Impending",
+"value": 2
+},
+{
+"name": "Overdue",
+"value": 47
+}
+],
+"name": "health"
+},
+{
+"summary": [
+{
+"name": "~ 1Y",
+"value": 0
+},
+{
+"name": "1Y ~ 2Y",
+"value": 7
+},
+{
+"name": "2Y ~ 3Y",
+"value": 7
+},
+{
+"name": "3Y ~ 5Y",
+"value": 8
+},
+{
+"name": "5Y ~ 10Y",
+"value": 20
+},
+{
+"name": "10Y ~",
+"value": 8
+}
+],
+"name": "age"
+},
+{
+"summary": [
+{
+"name": "~ 10K",
+"value": 0
+},
+{
+"name": "10K ~ 30K",
+"value": 3
+},
+{
+"name": "30K ~ 50K",
+"value": 10
+},
+{
+"name": "50K ~ 100K",
+"value": 17
+},
+{
+"name": "100K ~ 200K",
+"value": 18
+},
+{
+"name": "200K ~",
+"value": 2
+}
+],
+"name": "mileage"
+}
+],
+"success": true
+}
