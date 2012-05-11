@@ -69,7 +69,8 @@
 .nav .x-carousel-item .incidentPanel .x-button-label a span{display:block;}
 .nav .x-carousel-item .x-button-label{text-align:left;width:100px;text-overflow:ellipsis;}
 .nav .incidentPanel .x-button{background:url('../images/iconStatusIncident.png') 15px 9px no-repeat;padding-left:40px;padding-bottom:3px;}
-.nav .groupPanel .x-button{background:url('../images/iconNavGroup.png') 15px 4px no-repeat;padding-left:42px;padding-bottom:10px;}
+.nav .groupPanel.vGroup .x-button{background:url('../images/iconNavVGroup.png') 15px 4px no-repeat;padding-left:42px;padding-bottom:10px;}
+.nav .groupPanel.dGroup .x-button{background:url('../images/iconNavDGroup.png') 15px 4px no-repeat;padding-left:42px;padding-bottom:10px;}
 .x-carousel-indicator span{width:7px;height:7px;}
 .nav .x-carousel-indicator-dark span.x-carousel-indicator-active{background-color:#fff;opacity:0.9;}
 .nav .x-carousel-indicator-dark span{background-color:#fff;opacity:0.3;}
@@ -84,6 +85,9 @@
 .nav .x-button-back.x-button-pressing{background:url('../images/btnBackPressed.png') no-repeat 1px 50% !important;margin-left:0;padding-left:25px;width:65px !important;color:#fff;}
 .nav .x-button-back .x-button-label{width:35px;text-align:left;}
 .nav .x-button-forward::before, .nav .x-button-forward::after,.nav .x-button-back::before, .nav .x-button-back::after{width:0;}
+.x-list-item .iconVehicle{background:url('../images/iconNavVGroup.png') no-repeat;padding-left:30px;}
+.x-list-item .iconDriver{background:url('../images/iconNavDGroup.png') no-repeat;padding-left:30px;}
+.x-list-item .iconChart{background:url('../images/iconNavChart.png') no-repeat;padding-left:30px;}
 
 /*incident information panel view style*/
 .grayBg{background:url('../images/bgWhiteShadowPanel.png') repeat-x #e8edef;}

@@ -272,13 +272,13 @@ Ext.define('HatioBB.view.Nav', {
                 {
                     xtype: 'panel',
                     itemId: 'vgroups',
-                    cls: 'groupPanel',
+                    cls: 'groupPanel vGroup',
 					html: T('title.vehicle_group'),
                 },
 				{
                     xtype: 'panel',
                     itemId: 'dgroups',
-                    cls: 'groupPanel',
+                    cls: 'groupPanel dGroup',
 					html: T('title.driver_group'),
                 }]
             }]

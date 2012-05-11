@@ -15,7 +15,7 @@ Ext.define('HatioBB.view.nav.NavVehicle', {
 
     config: {
         title: 'Vehicles',
-		cls : 'x-button-icon iconVehicle',
+		cls : 'x-button-icon',
 
         disclosure: true,
 
@@ -23,6 +23,6 @@ Ext.define('HatioBB.view.nav.NavVehicle', {
 
         store: 'VehicleMapStore',
 
-        itemTpl: '<div class="oper"><strong>{id}</strong> {registration_number}</div>'
+        itemTpl: '<div class="iconVehicle"><strong>{id}</strong> {registration_number}</div>'
     }
 });

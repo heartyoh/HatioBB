@@ -34,6 +34,6 @@ Ext.define('HatioBB.view.nav.NavReport', {
 						}]
 					}),
 
-        itemTpl: '<div class="report"><strong>{reportId}</strong> {desc}</div>'
+        itemTpl: '<div class="iconChart"><strong>{reportId}</strong> {desc}</div>'
     }
 });
