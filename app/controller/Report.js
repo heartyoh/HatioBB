@@ -6,7 +6,8 @@ Ext.define('HatioBB.controller.Report', {
 		'HatioBB.view.report.BarChart',
 		'HatioBB.view.report.ColumnChart',
 		'HatioBB.view.report.LineChart',
-		'HatioBB.view.report.PieChart'
+		'HatioBB.view.report.PieChart',
+		'HatioBB.view.chart.vehicle.VehicleHealth'
 	 ],
 
     config: {
@@ -17,7 +18,13 @@ Ext.define('HatioBB.controller.Report', {
         control: {
             'nav_report' : {
                 itemtap: 'onItemTap'
-            }
+            },
+			'chart_v_health #xxx' : {
+				itemtap : function(series, item) {
+					Ext.Msg.alert('ItemTap', item);
+					this.showReport('rpt_pie');
+				}
+			}
         }
     },
 

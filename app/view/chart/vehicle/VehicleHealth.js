@@ -46,10 +46,11 @@ Ext.define('HatioBB.view.chart.vehicle.VehicleHealth', {
 	buildChart : function() {
 		return {
 			xtype : 'chart',
+			itemId : 'xxx',
 		    themeCls: 'pie1',
 		    theme: 'Demo',
 		    // theme: 'Base:gradients',
-		    shadow: true,
+		    shadow: false,
 		    animate: true,
 			toolbar : null,
 		    insetPadding: 20,
@@ -63,6 +64,29 @@ Ext.define('HatioBB.view.chart.vehicle.VehicleHealth', {
 			    fields: ['name', 'value'],
 				data : []
 			}),
+
+            interactions: [
+				'reset',
+				'rotate',
+				'itemhighlight',
+				{
+					type : 'iteminfo',
+					gesture : 'longpress',
+					listeners : {
+						show : function(interaction, item, panel) {
+							var record = item.storeItem;
+							console.log(panel);
+							panel.setHtml([
+				                '<b>Vehicles in the ' + record.get('name') + ' state :</b>',
+				                '<ul>' +
+				                    '<li> Count : ' + record.get('value') + '</li>' +
+				                '</ul>'
+								].join('')
+				            );
+						}
+					}
+				}
+            ],
 
 		    series: [{
 		        type: 'pie',
@@ -85,6 +109,7 @@ Ext.define('HatioBB.view.chart.vehicle.VehicleHealth', {
 		        	  this.setTitle(name + ' : ' + count + '(' + percent + '%)');
 		          }
 		        },
+				colorSet : ['#00aa00', '#ffff00', '#aa0000'],
 		        highlight: {
 		          segment: {
 		            margin: 20
