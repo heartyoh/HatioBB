@@ -1,11 +1,9 @@
 Ext.define('HatioBB.view.monitor.Incident', {
 	extend : 'Ext.TabPanel',
 	
-	requires: ['Ext.chart.Chart',
-        'Ext.chart.axis.Numeric',
-        'Ext.chart.axis.Category',
-        'Ext.chart.series.Area',
-		'Ext.chart.series.Line'],
+	requires: [
+	'HatioBB.view.chart.vehicle.Accel'
+	],
 		
 	xtype : 'monitor_incident',
 	
@@ -19,7 +17,7 @@ Ext.define('HatioBB.view.monitor.Incident', {
 		config.items = [
 			this.zInfo,
 			this.zVideo,
-			this.zChart()
+			this.zChart
 		];
 
 		this.callParent(arguments);
@@ -28,7 +26,6 @@ Ext.define('HatioBB.view.monitor.Incident', {
 		
 		this.getLogStore().on('load', function(store, records) {
 			self.refreshTrack(store, records);
-			self.refreshChart(store, records);
 		});
 	},
 	
@@ -54,6 +51,7 @@ Ext.define('HatioBB.view.monitor.Incident', {
 		}
 		
 		this.incident = incident;
+		this.incident.set('obd_connected_text', this.incident.get('obd_connected') ? 'connected' : 'disconnected');
 		
 		/*
 		 * Get Vehicle Information (Image, Registration #, ..) from
@@ -103,10 +101,6 @@ Ext.define('HatioBB.view.monitor.Incident', {
 		
 		this.getLogStore().load();
 		
-		/* Now, It's turn to chart */
-
-
-
 		/*
 		 * 동영상 정보를 업데이트 함.
 		 */
@@ -133,8 +127,9 @@ Ext.define('HatioBB.view.monitor.Incident', {
 	},
 	
 	getMap : function() {
+		/* chart 가 문제가 없을 때까지는 아래처럼 해야한다. */
 		if(!this.map)
-			this.map = this.down('#map').getMap();
+			this.map = this.items.items[0].down('#map').getMap();
 		return this.map;
 	},
 
@@ -240,7 +235,8 @@ Ext.define('HatioBB.view.monitor.Incident', {
 	},
 
 	refreshChart : function(store, records) {
-		
+		console.log('ZZZ');
+		this.down('#chart').refresh();
 	},
 
 	getLocation : function(latitude, longitude, callback) {
@@ -325,7 +321,7 @@ Ext.define('HatioBB.view.monitor.Incident', {
 					tpl : ['<div class="iconImplus">Impulse <span>{impulse_abs}({impulse_x},{impulse_y},{impulse_z})/{impulse_threshold}</span></div>',
 					'<div class="iconETemp">Engine Temp <span>{engine_temp}/{engine_temp_threshold}</span></div>',
 					'<div class="iconVelocity">Velocity <span>{velocity}</span></div>',
-					'<div class="iconOBD">OBD Connected <span>{obd_connected}</span></div>']
+					'<div class="iconOBD">OBD Connected <span>{obd_connected_text}</span></div>']
 				}
 			]	
 		}, {
@@ -356,89 +352,10 @@ Ext.define('HatioBB.view.monitor.Incident', {
 		}]
 	},
 	
-	zChart : function() {
-		return {
-			xtype : 'panel',
-			title : 'Chart',
-			cls : 'grayBg',
-			iconCls : 'iconsTab tabChart',
-			html : 'XXX'
-		}
-	},
-	
-	zzChart : function() {
-		var store = Ext.getStore('IncidentLogStore');
-		
-		return {
-			xtype : 'chart',
-			itemId : 'chart',
-			legend : {
-				position: {
-	                portrait: 'right',
-	                landscape: 'bottom'
-	            },
-	            labelFont: '20px Arial',
-				itemSpacing:5,
-				padding:0,
-				boxStroke:"transparent",
-				boxFill : "transparent"
-			},
-			store : store,
-			axes : [ {
-				title : T('title.acceleration'),
-				type : 'Numeric',
-				position : 'left',
-				fields : [ 'accelate_x', 'accelate_y', 'accelate_z' ]
-	//			minimum : -2,
-	//			maximum : 2
-			}, {
-				title : T('label.time'),
-				type : 'Category',
-				position : 'bottom',
-				fields : [ 'datetime' ]
-	//			dateFormat : 'M d g:i:s',
-	//			step : [Ext.Date.SECOND, 1]
-			} ],
-			series : [ {
-				type : 'line',
-	            highlight: {
-	                size: 7,
-	                radius: 7
-	            },
-	            fill: true,
-	            smooth: true,
-	            axis: 'left',
-	            title: 'Accelate X',
-
-				xField : 'datetime',
-				yField : 'accelate_x'
-			}, {
-				type : 'line',
-	            highlight: {
-	                size: 7,
-	                radius: 7
-	            },
-	            fill: true,
-	            smooth: true,
-	            axis: 'left',
-	            title: 'Accelate Y',
-
-				xField : 'datetime',
-				yField : 'accelate_y'
-			}, {
-				type : 'line',
-	            highlight: {
-	                size: 7,
-	                radius: 7
-	            },
-	            fill: true,
-	            smooth: true,
-	            axis: 'left',
-	            title: 'Accelate Z',
-
-				xField : 'datetime',
-				yField : 'accelate_z'
-			} ]
-		}
+	zChart : {
+		xtype : 'chart_v_accel',
+		title : 'Chart',
+		layout : 'fit',
+		iconCls : 'iconsTab tabChart',
 	}
 });
