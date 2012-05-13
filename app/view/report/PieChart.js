@@ -1,7 +1,7 @@
 Ext.define('HatioBB.view.report.PieChart', {
 	extend : 'Ext.Carousel',
 	
-	xtype : 'report5',
+	xtype : 'rpt_pie',
 	
 	requires: ['Ext.Carousel',
 		'Ext.chart.Chart',

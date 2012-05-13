@@ -1,7 +1,7 @@
 Ext.define('HatioBB.view.report.LineChart', {
 	extend : 'Ext.Carousel',
 	
-	xtype : 'report1',
+	xtype : 'rpt_line',
 	
 	requires: ['Ext.Carousel',
 		'Ext.chart.Chart',

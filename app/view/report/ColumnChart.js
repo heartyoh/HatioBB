@@ -1,7 +1,7 @@
 Ext.define('HatioBB.view.report.ColumnChart', {
 	extend : 'Ext.Carousel',
 	
-	xtype : 'report2',
+	xtype : 'rpt_column',
 	
 	requires: ['Ext.Carousel',
 		'Ext.chart.Chart',
