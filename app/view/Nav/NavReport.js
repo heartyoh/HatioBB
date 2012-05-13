@@ -22,28 +22,23 @@ Ext.define('HatioBB.view.nav.NavReport', {
 				name : 'Vehicle Health',
 				desc : 'Vehicle Health'
 			}, {
-				reportId : 'report1',
-				name : 'Line Chart',
-				desc : 'Report Type 1'
+				reportId : 'rpt_line',
+				desc : 'Line Chart'
 			}, {
-				reportId : 'report2',
-				name : 'Bar Chart I',
-				desc : 'Report Type 2'
+				reportId : 'rpt_bar',
+				desc : 'Bar Chart'
 			}, {
-				reportId : 'report3',
-				name : 'Bar Chart II',
-				desc : 'Report Type 3'
+				reportId : 'rpt_column',
+				desc : 'Column Chart'
 			}, {
-				reportId : 'report4',
-				name : 'Area Chart',
-				desc : 'Report Type 4'
+				reportId : 'rpt_area',
+				desc : 'Area Chart'
 			}, {
-				reportId : 'report5',
-				name : 'Pie Chart',
-				desc : 'Report Type 5'
+				reportId : 'rpt_pie',
+				desc : 'Pie Chart'
 			}]
 		}),
 
-        itemTpl: '<div class="iconChart"><strong>{name}</strong> {desc}</div>'
+        itemTpl: '<div class="iconChart"><strong>{desc}</strong></div>'
     }
 });

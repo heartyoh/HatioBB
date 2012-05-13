@@ -130,7 +130,8 @@ Ext.define('HatioBB.view.report.PieChart', {
                         field: 'name'
                     }
                 }
-            ]		};
+            ]
+		};
 	},
 
 	buildTable : function(store){
