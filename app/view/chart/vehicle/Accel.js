@@ -22,12 +22,20 @@ Ext.define('HatioBB.view.chart.vehicle.Accel', {
 		this.callParent(arguments);	
 		
 		var chart = this.add(this.buildChart());
-		
-		Ext.getStore('IncidentLogStore').on('load', function(store, records, success) {
+
+		this.loadHandler = function(store, records, success) {
 			chart.getStore().setData(records);
-		});
+		};
+		
+		Ext.getStore('IncidentLogStore').on('load', this.loadHandler);
 	},
 
+	destroy : function() {
+		Ext.getStore('IncidentLogStore').un('load', this.loadHandler);
+		
+		this.callParent(arguments);
+	},
+	
 	buildChart : function() {
 		var store = Ext.create('Ext.data.JsonStore', {
 			fields : [
@@ -44,7 +52,7 @@ Ext.define('HatioBB.view.chart.vehicle.Accel', {
             animate: true,
 			legend : {
 				position: {
-	                portrait: 'right',
+	                portrait: 'bottom',
 	                landscape: 'bottom'
 	            },
 	            labelFont: '20px Arial',
@@ -53,18 +61,18 @@ Ext.define('HatioBB.view.chart.vehicle.Accel', {
 				boxStroke:"transparent",
 				boxFill : "transparent"
 			},
-			store : store, //'IncidentLogStore',
+			store : store,
 			axes : [ {
 				title : T('title.acceleration'),
 				type : 'Numeric',
 				position : 'left',
 				fields : [ 'accelate_x', 'accelate_y', 'accelate_z' ]
-				// minimum : -100,
-				// maximum : 100,
-				// minorTickSteps: 1,
-				// roundToDecimal: false,
-				// decimals : 0
 			}, {
+					title : T('title.velocity'),
+					type : 'Numeric',
+					position : 'right',
+					fields : [ 'velocity' ]
+				}, {
 				title : T('label.time'),
 				type : 'Time',
 				position : 'bottom',
@@ -116,6 +124,19 @@ Ext.define('HatioBB.view.chart.vehicle.Accel', {
 
 				xField : 'datetime',
 				yField : 'accelate_z'
+			}, {
+				type : 'line',
+	            highlight: {
+	                size: 7,
+	                radius: 7
+	            },
+	            fill: false,
+	            smooth: true,
+	            axis: 'right',
+	            title: 'Velocity',
+
+				xField : 'datetime',
+				yField : 'velocity'
 			} ]
 		}
 	}

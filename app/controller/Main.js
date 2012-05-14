@@ -102,10 +102,12 @@ Ext.define('HatioBB.controller.Main', {
 	
 	showMonitor : function(monitor) {
 		var view = this.getContent().getComponent(monitor);
-		if(!view)
+		if(!view) {
+			this.getContent().removeAll();
 			view = this.getContent().add({
 				xtype : monitor
 			});
+		}
 		this.getContent().setActiveItem(view);
 		this.getHeader().setActiveStatus(view.getId());
 		

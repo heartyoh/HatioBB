@@ -34,10 +34,12 @@ Ext.define('HatioBB.controller.Report', {
 
 	showReport : function(report) {
 		var view = this.getContent().getComponent(report);
-		if(!view)
+		if(!view) {
+			this.getContent().removeAll();
 			view = this.getContent().add({
 				xtype : report
 			});
+		}
 		this.getContent().setActiveItem(view);
 		
 		return view;

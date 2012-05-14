@@ -14,7 +14,6 @@ Ext.define('HatioBB.controller.Vehicle', {
     },
 
     onItemTap: function(view, index, target, record) {
-        Ext.Msg.alert('ItemTap', record.get('id') + ':' + record.get('name'));
     },
 
 

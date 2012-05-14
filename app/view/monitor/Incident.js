@@ -24,9 +24,22 @@ Ext.define('HatioBB.view.monitor.Incident', {
 		
 		var self = this;
 		
-		this.getLogStore().on('load', function(store, records) {
+		this.storeHandler = function(store, records) {
 			self.refreshTrack(store, records);
+		};
+		
+		self.getLogStore().on('load', this.storeHandler);
+		
+		/* chart 가 문제가 없을 때까지는 아래처럼 해야한다. - self.down(..)이 안된다. 아마도 차트 때문이다. */
+		self.items.items[0].on('activate', function() {
+			self.refresh();
 		});
+	},
+	
+	destroy : function() {
+		this.getLogStore().un('load', this.storeHandler);
+		
+		this.callParent(arguments);
 	},
 	
 	refresh : function() {
@@ -61,7 +74,9 @@ Ext.define('HatioBB.view.monitor.Incident', {
 		var vehicleRecord = vehicleStore.findRecord('id', incident.get('vehicle_id'));
 		var vehicleImageClip = vehicleRecord.get('image_clip');
 		if (vehicleImageClip) {
-			this.sub('vehicleImage').setSrc('download?blob-key=' + vehicleImageClip);
+			this.sub('vehicleImage').setSrc(vehicleImageClip);
+			// TODO AppEngine 으로 올리려면 아래와 같이 수정해 주어야 함.
+			// this.sub('vehicleImage').setSrc('download?blob-key=' + vehicleImageClip);
 		} else {
 			this.sub('vehicleImage').setSrc('resources/images/bgVehicle.png');
 		}
@@ -75,7 +90,9 @@ Ext.define('HatioBB.view.monitor.Incident', {
 		var driver = driverRecord.get('id');
 		var driverImageClip = driverRecord.get('image_clip');
 		if (driverImageClip) {
-			this.sub('driverImage').setSrc('download?blob-key=' + driverImageClip);
+			this.sub('driverImage').setSrc(driverImageClip);
+			// TODO AppEngine 으로 올리려면 아래와 같이 수정해 주어야 함.
+			// this.sub('driverImage').setSrc('download?blob-key=' + driverImageClip);
 		} else {
 			this.sub('driverImage').setSrc('resources/images/bgDriver.png');
 		}
@@ -260,6 +277,7 @@ Ext.define('HatioBB.view.monitor.Incident', {
 	
 	zInfo : {
 		xtype : 'panel',
+		itemId : 'info',
 		title : '개요',
 		iconCls : 'iconsTab tabMap',
 		cls : 'grayBg',

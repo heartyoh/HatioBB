@@ -4,52 +4,52 @@ items: [
 {
 id: "D001",
 name: "오현석",
-image_clip: null
+image_clip: 'data/image/D001.jpg'
 },
 {
 id: "D002",
 name: "김상혁",
-image_clip: null
+image_clip: 'data/image/D002.jpg'
 },
 {
 id: "D003",
 name: "정봉주",
-image_clip: null
+image_clip: 'data/image/D003.jpg'
 },
 {
 id: "D004",
 name: "이상근",
-image_clip: null
+image_clip: 'data/image/D004.jpg'
 },
 {
 id: "D005",
 name: "김현희",
-image_clip: null
+image_clip: 'data/image/D005.jpg'
 },
 {
 id: "D006",
 name: "이근철",
-image_clip: null
+image_clip: 'data/image/D006.jpg'
 },
 {
 id: "D007",
 name: "마이클",
-image_clip: null
+image_clip: 'data/image/D007.jpg'
 },
 {
 id: "D008",
 name: "김이철",
-image_clip: null
+image_clip: 'data/image/D008.jpg'
 },
 {
 id: "D009",
 name: "박수철",
-image_clip: null
+image_clip: 'data/image/D009.jpg'
 },
 {
 id: "D010",
 name: "양회근",
-image_clip: null
+image_clip: 'data/image/D010.jpg'
 },
 {
 id: "D011",
@@ -79,7 +79,7 @@ image_clip: null
 {
 id: "D016",
 name: "박수쳐",
-image_clip: null
+image_clip: 'data/image/D016.jpg'
 },
 {
 id: "D017",
