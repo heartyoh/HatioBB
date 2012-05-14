@@ -13,8 +13,6 @@ Ext.define('HatioBB.view.nav.NavReport', {
 
         disclosure: true,
 
-        // grouped: false,
-
         store: Ext.create('Ext.data.Store', {
 			fields : ['reportId', 'desc'],
 			data : [{

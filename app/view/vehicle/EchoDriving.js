@@ -4,6 +4,6 @@ Ext.define('HatioBB.view.vehicle.EchoDriving', {
 	xtype : 'vehicle_echo_driving',
 	
 	config : {
-		
+		html : 'Echo Driving'
 	}
 });

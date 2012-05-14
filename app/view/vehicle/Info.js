@@ -4,6 +4,6 @@ Ext.define('HatioBB.view.vehicle.Info', {
 	xtype : 'vehicle_info',
 	
 	config : {
-		
+		html : 'Info'
 	}
 });

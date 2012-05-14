@@ -4,6 +4,6 @@ Ext.define('HatioBB.view.vehicle.Consumable', {
 	xtype : 'vehicle_consumable',
 	
 	config : {
-		
+		html : 'Consumable'
 	}
 });

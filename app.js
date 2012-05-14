@@ -25,7 +25,7 @@ Ext.application({
     ],
 
     controllers: ['Main', 'Vehicle', 'Driver','Report'],
-    views: ['Main', 'Search', 'Setting'],//, 'vehicle.Vehicle'],
+    views: ['Main', 'Search', 'Setting'],
     stores: ['Menus', 'VehicleFilteredStore', 'RecentIncidentStore', 'VehicleMapStore', 
 			'VehicleBriefStore', 'DriverBriefStore', 'VehicleGroupStore', 'DriverGroupStore', 'TrackByVehicleStore', 
 			'IncidentByVehicleStore', 'IncidentLogStore', 'DashboardVehicleStore'],

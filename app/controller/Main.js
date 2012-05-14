@@ -1,7 +1,7 @@
 Ext.define('HatioBB.controller.Main', {
     extend: 'Ext.app.Controller',
 
-	requires : ['HatioBB.store.SubMenus', 'HatioBB.view.Setting', 'HatioBB.view.Search'],
+	requires : ['HatioBB.store.SubMenus', 'HatioBB.view.Setting', 'HatioBB.view.Search', 'HatioBB.view.vehicle.Vehicle'],
 	
     config: {
 		routes : {
@@ -9,12 +9,14 @@ Ext.define('HatioBB.controller.Main', {
 			info : 'onInfo',
 			incident : 'onIncident'
 		},
+		
         refs: {
             main: 'main',
             nav: 'nav',
             content: 'content',
 			header : 'header'
         },
+
         control: {
 			'#ext-viewport':{
 				orientationchange: 'onOC'

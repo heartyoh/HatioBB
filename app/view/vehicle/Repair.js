@@ -4,6 +4,6 @@ Ext.define('HatioBB.view.vehicle.Repair', {
 	xtype : 'vehicle_repair',
 	
 	config : {
-		
+		html : 'Repair'
 	}
 });
