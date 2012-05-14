@@ -42,7 +42,8 @@ Ext.define('HatioBB.view.chart.vehicle.Accel', {
 			'datetime',
 			'accelate_x', 
 			'accelate_y', 
-			'accelate_z'
+			'accelate_z',
+			'velocity'
  			]
 		});
 		
@@ -63,12 +64,12 @@ Ext.define('HatioBB.view.chart.vehicle.Accel', {
 			},
 			store : store,
 			axes : [ {
-				title : T('title.acceleration'),
+				title : T('label.acceleration'),
 				type : 'Numeric',
 				position : 'left',
 				fields : [ 'accelate_x', 'accelate_y', 'accelate_z' ]
 			}, {
-					title : T('title.velocity'),
+					title : T('label.velocity'),
 					type : 'Numeric',
 					position : 'right',
 					fields : [ 'velocity' ]
@@ -94,8 +95,7 @@ Ext.define('HatioBB.view.chart.vehicle.Accel', {
 	            fill: false,
 	            smooth: true,
 	            axis: 'left',
-	            title: 'Accelate X',
-
+	            title: T('label.accelerate_x', {x:'x'}),
 				xField : 'datetime',
 				yField : 'accelate_x'
 			}, {
@@ -107,8 +107,7 @@ Ext.define('HatioBB.view.chart.vehicle.Accel', {
 	            fill: false,
 	            smooth: true,
 	            axis: 'left',
-	            title: 'Accelate Y',
-
+	            title: T('label.accelerate_x', {x:'y'}),
 				xField : 'datetime',
 				yField : 'accelate_y'
 			}, {
@@ -120,8 +119,7 @@ Ext.define('HatioBB.view.chart.vehicle.Accel', {
 	            fill: false,
 	            smooth: true,
 	            axis: 'left',
-	            title: 'Accelate Z',
-
+	            title: T('label.accelerate_x', {x:'z'}),
 				xField : 'datetime',
 				yField : 'accelate_z'
 			}, {
@@ -133,8 +131,7 @@ Ext.define('HatioBB.view.chart.vehicle.Accel', {
 	            fill: false,
 	            smooth: true,
 	            axis: 'right',
-	            title: 'Velocity',
-
+	            title: T('label.velocity'),
 				xField : 'datetime',
 				yField : 'velocity'
 			} ]

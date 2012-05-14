@@ -76,5 +76,11 @@ Ext.define('HatioBB.view.Header', {
 			else
 				item.removeCls('active');
 		});
+	},
+
+	clearActiveStatus : function() {
+		Ext.Array.each(this.query('button'), function(item) {
+			item.removeCls('active');
+		});
 	}
 });

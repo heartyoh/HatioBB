@@ -12,7 +12,8 @@ Ext.define('HatioBB.controller.Report', {
 
     config: {
         refs: {
-			content : '#content',
+			content : 'content',
+			header : 'header',
 			navReport :'nav_report'
         },
         control: {
@@ -41,6 +42,7 @@ Ext.define('HatioBB.controller.Report', {
 			});
 		}
 		this.getContent().setActiveItem(view);
+		this.getHeader().clearActiveStatus();
 		
 		return view;
 	}
