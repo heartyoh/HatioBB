@@ -30,7 +30,12 @@ Ext.define('HatioBB.view.chart.vehicle.Accel', {
 
 	buildChart : function() {
 		var store = Ext.create('Ext.data.JsonStore', {
-			fields : ['datetime', 'accelate_x', 'accelate_y', 'accelate_z' ]
+			fields : [
+			'datetime',
+			'accelate_x', 
+			'accelate_y', 
+			'accelate_z'
+ 			]
 		});
 		
 		return {
@@ -50,23 +55,27 @@ Ext.define('HatioBB.view.chart.vehicle.Accel', {
 			},
 			store : store, //'IncidentLogStore',
 			axes : [ {
-				// title : T('title.acceleration'),
-				title : 'Accel',
+				title : T('title.acceleration'),
 				type : 'Numeric',
 				position : 'left',
-				fields : [ 'accelate_x', 'accelate_y', 'accelate_z' ],
-				minimum : -100,
-				maximum : 100,
-				minorTickSteps: 1,
-				roundToDecimal: false,
-				decimals : 0
+				fields : [ 'accelate_x', 'accelate_y', 'accelate_z' ]
+				// minimum : -100,
+				// maximum : 100,
+				// minorTickSteps: 1,
+				// roundToDecimal: false,
+				// decimals : 0
 			}, {
 				title : T('label.time'),
-				type : 'Category',
+				type : 'Time',
 				position : 'bottom',
 				fields : [ 'datetime' ],
-				dateFormat : 'M d g:i:s',
-				step : [Ext.Date.SECOND, 1]
+				dateFormat : 'H:i:s',
+				step : [Ext.Date.SECOND, 1],
+				label: {
+                    rotate: {
+                        degrees: 45
+                    }
+                }
 			} ],
 			series : [ {
 				type : 'line',
@@ -74,7 +83,7 @@ Ext.define('HatioBB.view.chart.vehicle.Accel', {
 	                size: 7,
 	                radius: 7
 	            },
-	            fill: true,
+	            fill: false,
 	            smooth: true,
 	            axis: 'left',
 	            title: 'Accelate X',
@@ -87,7 +96,7 @@ Ext.define('HatioBB.view.chart.vehicle.Accel', {
 	                size: 7,
 	                radius: 7
 	            },
-	            fill: true,
+	            fill: false,
 	            smooth: true,
 	            axis: 'left',
 	            title: 'Accelate Y',
@@ -100,7 +109,7 @@ Ext.define('HatioBB.view.chart.vehicle.Accel', {
 	                size: 7,
 	                radius: 7
 	            },
-	            fill: true,
+	            fill: false,
 	            smooth: true,
 	            axis: 'left',
 	            title: 'Accelate Z',
