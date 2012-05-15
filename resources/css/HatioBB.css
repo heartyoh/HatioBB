@@ -116,7 +116,7 @@
 .divHAlign .iconOBD{background:url('../images/iconOBD.png') no-repeat;}
 .shotHList .x-field{background-color:transparent;}
 .shotHList .x-toggle-field .x-component-outer{padding:0.4em 0.5em;}
-
+.x-img.imgVehicle,.x-img.imgDriver{background-size:110px 115px;}
 @-webkit-keyframes flickflick{
 	from {opacity:0;}
 	to   {opacity:1;}
