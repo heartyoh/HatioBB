@@ -1,6 +1,8 @@
 Ext.define('HatioBB.controller.Vehicle', {
     extend: 'Ext.app.Controller',
 
+	requires : ['HatioBB.view.vehicle.Vehicle'],
+
     config: {
         refs: {
 			navOper :'nav_vehicle',
@@ -30,7 +32,8 @@ Ext.define('HatioBB.controller.Vehicle', {
 	},
 	
     onItemTap: function(view, index, target, record) {
-		this.showVehicle();
+		console.log(record);
+		this.showVehicle(record);
     },
 
     onDisclose: function(record, item, index, e) {

@@ -1,9 +1,13 @@
 Ext.define('HatioBB.controller.Driver', {
     extend: 'Ext.app.Controller',
 
+	requires : ['HatioBB.view.driver.Driver'],
+
     config: {
         refs: {
-			navOper :'nav_driver'
+			navOper :'nav_driver',
+			content : 'content',
+			header : 'header'
         },
         control: {
             'nav_driver' : {
@@ -13,10 +17,23 @@ Ext.define('HatioBB.controller.Driver', {
         }
     },
 
+	showDriver: function(driver) {
+		var view = this.getContent().getComponent('driver');
+		if(!view) {
+			this.getContent().removeAll();
+			view = this.getContent().add({
+				xtype : 'driver'
+			});
+		}
+		this.getContent().setActiveItem(view);
+		this.getHeader().clearActiveStatus();
+		
+		return view;
+	},
+	
     onItemTap: function(view, index, target, record) {
-        Ext.Msg.alert('ItemTap', record.get('id') + ':' + record.get('reg_number'));
+		this.showDriver(record);
     },
-
 
     onDisclose: function(record, item, index, e) {
         e.stopEvent();
