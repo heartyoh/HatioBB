@@ -8,6 +8,8 @@ Ext.define('HatioBB.view.driver.Driver', {
 	
 	xtype : 'driver',
 	
+	id : 'driver',
+	
 	config : {
 		tabBarPosition: 'bottom',
 	    

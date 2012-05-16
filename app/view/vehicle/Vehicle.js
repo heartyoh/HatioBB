@@ -10,6 +10,8 @@ Ext.define('HatioBB.view.vehicle.Vehicle', {
 	
 	xtype : 'vehicle',
 	
+	id : 'vehicle',
+	
 	config : {
 		tabBarPosition: 'bottom',
 	    

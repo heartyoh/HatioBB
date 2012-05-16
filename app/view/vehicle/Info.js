@@ -10,14 +10,16 @@ Ext.define('HatioBB.view.vehicle.Info', {
 
 		var self = this;
 
-		Ext.getStore('VehicleStore').on('load', this.refreshVehicle, self);
+		Ext.getStore('VehicleStore').on('load', this.refresh, self);
 	},
 	
 	destroy : function() {
-		Ext.getStore('VehicleStore').un('load', this.refreshVehicle, self);
+		Ext.getStore('VehicleStore').un('load', this.refresh, self);
+
+		this.callParent(arguments);
 	},
 	
-	refreshVehicle : function(store) {
+	refresh : function(store) {
 		this.setRecord(store.first());
 	},
 	

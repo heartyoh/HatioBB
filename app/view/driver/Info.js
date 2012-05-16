@@ -15,6 +15,8 @@ Ext.define('HatioBB.view.driver.Info', {
 	
 	destroy : function() {
 		Ext.getStore('DriverStore').un('load', this.refresh, self);
+
+		this.callParent(arguments);
 	},
 	
 	refresh : function(store) {
