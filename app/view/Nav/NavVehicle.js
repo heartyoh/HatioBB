@@ -9,8 +9,6 @@ Ext.define('HatioBB.view.nav.NavVehicle', {
 
     initialize: function() {
         this.callParent();
-
-        this.getStore().load();
     },
 
     config: {
@@ -18,8 +16,6 @@ Ext.define('HatioBB.view.nav.NavVehicle', {
 		cls : 'x-button-icon',
 
         disclosure: true,
-
-        // grouped: true,
 
         store: 'VehicleMapStore',
 

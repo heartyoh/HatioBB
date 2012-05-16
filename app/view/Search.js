@@ -30,7 +30,7 @@ Ext.define('HatioBB.view.Search', {
 			
 	        indexBar: true,
 
-	        store: 'VehicleBriefStore'
+	        store: 'VehicleMapStore'
 		}
 	}
 });

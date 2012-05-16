@@ -9,15 +9,11 @@ Ext.define('HatioBB.view.nav.NavDriver', {
 
     initialize: function() {
         this.callParent();
-
-        this.getStore().load();
     },
 
     config: {
         title: 'Drivers',
         disclosure: true,
-
-        // grouped: true,
 
         store: 'DriverBriefStore',
 

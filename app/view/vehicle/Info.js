@@ -1,14 +1,90 @@
 Ext.define('HatioBB.view.vehicle.Info', {
 	extend : 'Ext.form.Panel',
+
+	requires: ['Ext.form.FieldSet'],
 	
 	xtype : 'vehicle_info',
 	
+	constructor : function(config) {
+        this.callParent(arguments);
+
+		var self = this;
+
+		Ext.getStore('VehicleStore').on('load', this.refreshVehicle, self);
+	},
+	
+	destroy : function() {
+		Ext.getStore('VehicleStore').un('load', this.refreshVehicle, self);
+	},
+	
+	refreshVehicle : function(store) {
+		this.setRecord(store.first());
+	},
+	
 	config : {
-		defaults : {
-			   		xtype : 'textfield',
-			   		anchor : '100%'
-			   	},
+		scrollable : true,
+		
+		cls : 'paddingAll15',
+		
 		items : [{
+			xtype : 'fieldset',
+			defaults : {
+				xtype : 'textfield'
+			},
+			items : [{
+	    		name : 'key',
+	    		label : 'Key',
+	    		hidden : true				
+			}, {
+				name : 'id',
+				label : T('label.id')
+			}, {
+				name : 'registration_number',
+				label : T('label.reg_no')
+			}, {
+				name : 'manufacturer',
+				label : T('label.manufacturer')
+			}, {
+				name : 'vehicle_type',
+				label : T('label.x_type', {x : T('label.vehicle')})
+			}, {
+				name : 'fuel_type',
+				label : T('label.fuel_type')
+			}, {
+				name : 'birth_year',
+				label : T('label.birth_year')
+			}, {
+				name : 'ownership_type',
+				label : T('label.x_type', {x : T('label.ownership')})
+			}, {
+				name : 'status',
+				label : T('label.status')
+			}, {
+				name : 'total_distance',
+				label : T('label.total_x', {x : T('label.distance')})
+			}, {
+				name : 'remaining_fuel',
+				label : T('label.remaining_fuel')
+			}, {
+				name : 'driver_id',
+				label : T('label.driver'),
+				disabled : true
+			}, {
+				name : 'terminal_id',
+				label : T('label.terminal'),
+				disabled : true
+			}, {
+				name : 'lattitude',
+				label : T('label.lattitude'),
+				disabled : true
+			}, {
+				name : 'longitude',
+				label : T('label.longitude'),
+				disabled : true				
+			}]
+		}]
+		
+		// {
 			    	//     	    	xtype : 'image',
 			    	//     	    	anchor : '25%',
 			    	//     	    	height : '150',
@@ -16,15 +92,6 @@ Ext.define('HatioBB.view.vehicle.Info', {
 			    	//     	    	cls : 'paddingBottom10'
 			    	//     	    },			    	         
 			    	// {
-			    		name : 'key',
-			    		label : 'Key',
-			    		hidden : true
-			}, {
-				name : 'id',
-				label : T('label.id')
-			}, {
-				name : 'registration_number',
-				label : T('label.reg_no')
 			// }, {
 			// 	xtype : 'codecombo',
 			// 	name : 'manufacturer',
@@ -69,31 +136,6 @@ Ext.define('HatioBB.view.vehicle.Info', {
 			// 	displayField : 'desc',
 			// 	valueField : 'status',
 			// 	label : T('label.status')
-			}, {
-				name : 'health_status',
-				label : T('label.health')							
-			}, {
-				name : 'total_distance',
-				label : T('label.total_x', {x : T('label.distance')})
-			}, {
-				name : 'remaining_fuel',
-				label : T('label.remaining_fuel')
-			}, {
-				name : 'driver_id',
-				label : T('label.driver'),
-				disabled : true
-			}, {
-				name : 'terminal_id',
-				label : T('label.terminal'),
-				disabled : true
-			}, {
-				name : 'lattitude',
-				label : T('label.lattitude'),
-				disabled : true
-			}, {
-				name : 'longitude',
-				label : T('label.longitude'),
-				disabled : true
 			// }, {
 			// 	xtype : 'datefield',
 			// 	name : 'updated_at',
@@ -111,7 +153,6 @@ Ext.define('HatioBB.view.vehicle.Info', {
 			// 	name : 'image_clip',
 			// 	itemId : 'image_clip',
 			// 	hidden : true
-			} 
-		]
+			// } 
 	}
 });

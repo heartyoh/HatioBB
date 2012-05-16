@@ -50,10 +50,6 @@ Ext.define('HatioBB.view.Nav', {
 
 		onRefreshTerm(HatioBB.setting.get('refreshTerm'));
 
-		/* Vehicle, Driver 그룹 처리 */
-		var vehicleGroupStore = Ext.getStore('VehicleGroupStore');
-		var driverGroupStore = Ext.getStore('DriverGroupStore');
-
         /* 자동 리프레쉬 처리 */
         this.sub('incidents').on({
             painted: function() {
@@ -77,26 +73,13 @@ Ext.define('HatioBB.view.Nav', {
             scope: self
         });
 
-		this.sub('vgroups').on({
-            painted: function() {
-                vehicleGroupStore.on('load', self.refreshVGroups, self);
-				vehicleGroupStore.load();
-            },
-            erased: function() {
-                vehicleGroupStore.un('load', self.refreshVGroups, self);
-            },
-            scope: self
+		/* Vehicle, Driver 그룹 처리 */
+		Ext.getStore('VehicleGroupStore').load(function(store) {
+			self.refreshVGroups(this);
 		});
 
-		this.sub('dgroups').on({
-            painted: function() {
-                driverGroupStore.on('load', self.refreshDGroups, self);
-				driverGroupStore.load();
-            },
-            erased: function() {
-                driverGroupStore.un('load', self.refreshDGroups, self);
-            },
-            scope: self
+		Ext.getStore('DriverGroupStore').load(function(store) {
+			self.refreshDGroups(this);
 		});
     },
 

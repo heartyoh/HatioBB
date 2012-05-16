@@ -88,7 +88,7 @@ Ext.define('HatioBB.view.monitor.Info', {
 		 * Get Vehicle Information (Image, Registration #, ..) from
 		 * VehicleStore
 		 */
-		var vehicleStore = Ext.getStore('VehicleBriefStore');
+		var vehicleStore = Ext.getStore('VehicleMapStore');
 		var vehicleRecord = vehicleStore.findRecord('id', vehicle.get('id'));
 		var vehicleImageClip = vehicleRecord.get('image_clip');
 		if (vehicleImageClip) {
