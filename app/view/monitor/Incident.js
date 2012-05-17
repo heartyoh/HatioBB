@@ -146,7 +146,7 @@ Ext.define('HatioBB.view.monitor.Incident', {
 	getMap : function() {
 		/* chart 가 문제가 없을 때까지는 아래처럼 해야한다. */
 		if(!this.map)
-			this.map = this.items.items[0].down('#map').getMap();
+			this.map = this.getAt(0).down('#map').getMap();
 		return this.map;
 	},
 
@@ -252,7 +252,6 @@ Ext.define('HatioBB.view.monitor.Incident', {
 	},
 
 	refreshChart : function(store, records) {
-		console.log('ZZZ');
 		this.down('#chart').refresh();
 	},
 

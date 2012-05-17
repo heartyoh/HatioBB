@@ -23,17 +23,37 @@ Ext.define('HatioBB.view.chart.vehicle.Consumable', {
 		
 		var chart = this.add(this.buildChart());
 
-		Ext.getStore('IncidentLogStore').on('load', this.refresh, this);
+		this.on('painted', function() {
+			HatioBB.setting.on('vehicle', this.refresh, this);
+			this.refresh();
+		});
+		
+		this.on('erased', function() {
+			HatioBB.setting.un('vehicle', this.refresh, this);
+		});
 	},
 
-	destroy : function() {
-		Ext.getStore('IncidentLogStore').un('load', this.refresh, this);
-		
-		this.callParent(arguments);
+	getChart : function() {
+		/* chart 가 문제가 없을 때까지는 아래처럼 해야한다. */
+		if(!this.chart)
+			this.chart = this.getAt(0);
+		return this.chart;
 	},
 	
 	refresh : function(store, records) {
-		chart.getStore().setData(records);
+		console.log('refresh called');
+		var self = this;
+		var store = Ext.getStore('VehicleConsumableStore');
+		
+		if(HatioBB.setting.get('vehicle') === this.vehicle) 
+			return;
+			
+		this.vehicle = HatioBB.setting.get('vehicle');
+		
+		store.filter('vehicle_id', this.vehicle);
+		store.load(function(records) {
+			self.getChart().getStore().setData(records);
+		});
 	},
 	
 	buildChart : function(store) {
@@ -60,10 +80,10 @@ Ext.define('HatioBB.view.chart.vehicle.Consumable', {
                         0: {
                             color: 'rgb(212, 40, 40)'
                         },
-						90: {
+						0.9: {
 							color: 'rgb(180, 216, 42)'
 						},
-                        100: {
+                        1: {
                             color: 'rgb(117, 14, 14)'
                         }
                     }
@@ -73,21 +93,21 @@ Ext.define('HatioBB.view.chart.vehicle.Consumable', {
                 {
                     type: 'Numeric',
                     position: 'left',
-                    fields: ['2009'],
+                    fields: ['health_rate'],
                     minimum: 0,
-                    maximum: 100,
+                    maximum: 1,
                     label: {
                         renderer: function (v) {
                             return v.toFixed(0);
                         }
                     },
-                    title: 'Number of Hits'
+                    title: 'Health Rate'
                 },
                 {
                     type: 'Category',
                     position: 'bottom',
-                    fields: ['name'],
-                    title: 'Month of the Year'
+                    fields: ['consumable_item'],
+                    title: 'Consumable Item'
                 }
             ],
             series: [
@@ -100,10 +120,10 @@ Ext.define('HatioBB.view.chart.vehicle.Consumable', {
                         return barAttr;
                     },
                     label: {
-                        field: '2009'
+                        field: 'status'
                     },
-                    xField: 'name',
-                    yField: '2009'
+                    xField: 'consumable_item',
+                    yField: 'health_rate'
                 }
             // ],
             // interactions: [
