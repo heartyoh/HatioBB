@@ -5,10 +5,6 @@ Ext.define('HatioBB.view.vehicle.Consumable', {
 	
 	xtype : 'vehicle_consumable',
 	
-	// constructor : function(config) {
-	// 	this.callParent(arguments);
-	// },
-	
 	config : {
 		layout : 'fit',
 		

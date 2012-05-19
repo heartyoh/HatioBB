@@ -2,7 +2,7 @@
 "total": 11,
 "items": [
 {
-"health_rate": 0,
+"health_rate": 0.1,
 "repl_unit": "Time",
 "status": "Healthy",
 "next_repl_mileage": 0,
@@ -18,7 +18,7 @@
 "key": "ag5zfmdyZWVuLWZsZWV0c3I8CxIHQ29tcGFueSIHdml0aXplbgwLEhFWZWhpY2xlQ29uc3VtYWJsZSIRVjAxNUBBaXJjb25GaWx0ZXIM"
 },
 {
-"health_rate": 0,
+"health_rate": 0.14,
 "repl_unit": "MileageTime",
 "status": "Healthy",
 "next_repl_mileage": 0,

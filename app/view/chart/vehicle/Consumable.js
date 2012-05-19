@@ -41,7 +41,6 @@ Ext.define('HatioBB.view.chart.vehicle.Consumable', {
 	},
 	
 	refresh : function(store, records) {
-		console.log('refresh called');
 		var self = this;
 		var store = Ext.getStore('VehicleConsumableStore');
 		
@@ -72,42 +71,68 @@ Ext.define('HatioBB.view.chart.vehicle.Consumable', {
             },
             shadow: false,
 			toolbar : null,
-            gradients: [
-                {
-                    'id': 'v',
-                    'angle': 0,
-                    stops: {
-                        0: {
-                            color: 'rgb(212, 40, 40)'
-                        },
-						0.9: {
-							color: 'rgb(180, 216, 42)'
-						},
-                        1: {
-                            color: 'rgb(117, 14, 14)'
-                        }
-                    }
-                }
-            ],
+            gradients: [ {
+				'id': 'overdue',
+				'angle': 0,
+				stops: {
+					0: {
+						color: 'rgb(212, 40, 40)'
+					},
+					70: {
+						color: 'rgb(212, 216, 42)'
+					},
+					100: {
+						color: 'rgb(14, 117, 14)'
+					}
+				}
+			}, {
+				'id': 'impending',
+				'angle': 0,
+				stops: {
+					0: {
+						color: 'rgb(242, 176, 40)'
+					},
+					20: {
+						color: 'rgb(212, 216, 42)'
+					},
+					100: {
+						color: 'rgb(14, 117, 14)'
+					}
+				}
+			}, {
+				'id': 'healthy',
+				'angle': 0,
+				stops: {
+					100: {
+						color: 'rgb(14, 117, 14)'
+					}
+				}
+			} ],
             axes: [
                 {
                     type: 'Numeric',
                     position: 'left',
                     fields: ['health_rate'],
-                    minimum: 0,
-                    maximum: 1,
+                    // minimum: 0,
+                    // maximum: 1,
                     label: {
                         renderer: function (v) {
-                            return v.toFixed(0);
+                            return v.toFixed(1) * 100;
                         }
                     },
-                    title: 'Health Rate'
+                    title: 'Health Rate',
+					majorTickSteps : 10
                 },
                 {
                     type: 'Category',
                     position: 'bottom',
                     fields: ['consumable_item'],
-                    title: 'Consumable Item'
+                    title: 'Consumable Item',
+					label: {
+				        rotate: {
+				            degrees: 315
+				        }
+				    }
                 }
             ],
             series: [
@@ -116,11 +141,24 @@ Ext.define('HatioBB.view.chart.vehicle.Consumable', {
                     axis: 'left',
                     highlight: true,
                     renderer: function (sprite, storeItem, barAttr, i, store) {
-                        barAttr.fill = "url(#v)";
+						var health_rate = storeItem.get('health_rate');
+						if(health_rate > 1) {
+	                        barAttr.fill = "url(#overdue)";
+						} else if(health_rate > 0.9) {
+	                        barAttr.fill = "url(#impending)";
+						} else {
+	                        barAttr.fill = "url(#healthy)";
+						}
+
                         return barAttr;
                     },
+					listeners : {
+						itemtap : function(series, item) {
+							;
+						}
+					},
                     label: {
-                        field: 'status'
+                        field: 'health_rate'
                     },
                     xField: 'consumable_item',
                     yField: 'health_rate'

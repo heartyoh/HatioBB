@@ -75,7 +75,6 @@ Ext.define('HatioBB.view.chart.vehicle.VehicleHealth', {
 					listeners : {
 						show : function(interaction, item, panel) {
 							var record = item.storeItem;
-							console.log(panel);
 							panel.setHtml([
 				                '<b>Vehicles in the ' + record.get('name') + ' state :</b>',
 				                '<ul>' +
