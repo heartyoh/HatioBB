@@ -7,19 +7,23 @@ Ext.define('HatioBB.view.vehicle.Summary', {
 	
 	constructor : function(config) {
 		this.callParent(arguments);
-		
-		this.down('[name=fromYear]').setValue(HatioBB.setting.get('fromYear'));
 	},
 	
 	config : {
 		layout : 'fit',
 		
 		items : [{
+		}]
+	},
+	
+	buildSettings : function() {
+		return [{
             xtype: 'selectfield',
             label: T('label.fromYear'),
             name: 'fromYear',
             valueField: 'year',
             displayField: 'year',
+			value : HatioBB.setting.get('fromYear'),
 			listeners : {
 				change : function(field, newVal) {
 					HatioBB.setting.set('fromYear', newVal);

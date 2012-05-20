@@ -7,12 +7,10 @@ Ext.define('HatioBB.view.Setting', {
 		config.items = this.buildItems();
 		
 		this.callParent(arguments);
-	},
-	
-	destroy : function() {
-		// TODO 자동으로 사라지게 하는 방법?
-		console.log('destroied');
-		this.callParent(arguments);
+		
+		this.on('erased', function() {
+			this.destroy();
+		});
 	},
 	
 	buildItems : function() {
@@ -108,21 +106,20 @@ Ext.define('HatioBB.view.Setting', {
 	
 	buildByScreen : function() {
 		var cont = Ext.getCmp('content');
-		var comp;
+		var settings = [];
 		
 		while(cont && typeof(cont.getActiveItem) === 'function') {
-			var idx = cont.getActiveItem();
-			if(idx < 0)
+			cont = cont.getActiveItem();
+			if(!cont)
 				break;
-			console.log(idx);
-			comp = cont.getAt(idx);
-			console.log(comp);
-			cont = comp;
+			if(cont.buildSettings && typeof(cont.buildSettings) === 'function')
+				settings = Ext.Array.merge(settings, cont.buildSettings());
 		}
 
 		return {
 			xtype : 'fieldset',
-			title : 'By Screen'
+			title : 'By Screen',
+			items : settings
 		}
 	},
 	
@@ -135,10 +132,9 @@ Ext.define('HatioBB.view.Setting', {
 		showAnimation : 'fadeIn',
         hideOnMaskTap: true,
 		hideAnimation : 'fadeOut',
-        // hidden: true,
 
         width: 400,
-        height: 400,
+        height: 500,
         scrollable: true
     }
 });
