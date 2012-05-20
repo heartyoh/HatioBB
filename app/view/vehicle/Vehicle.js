@@ -3,6 +3,7 @@ Ext.define('HatioBB.view.vehicle.Vehicle', {
 	
 	requires : [
 	'HatioBB.view.vehicle.Info',
+	'HatioBB.view.vehicle.Summary',
 	'HatioBB.view.vehicle.Consumable',
 	'HatioBB.view.vehicle.Repair',
 	'HatioBB.view.vehicle.EchoDriving'
@@ -18,6 +19,9 @@ Ext.define('HatioBB.view.vehicle.Vehicle', {
 		items : [{
 			xtype : 'vehicle_info',
 			title : 'Info'
+		}, {
+			xtype : 'vehicle_summary',
+			title : 'Summary'
 		}, {
 			xtype : 'vehicle_consumable',
 			title : 'Consumable'

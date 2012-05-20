@@ -31,10 +31,10 @@ Ext.define('HatioBB.view.Header', {
 	            iconMask : true,
 	            align : 'right'
 	        },
-			{
-				xtype : 'setting',
-				id : 'settingPopup'
-			},
+			// {
+			// 	xtype : 'setting',
+			// 	id : 'settingPopup'
+			// },
 			{
 	            iconCls : 'chat3',
 	            iconMask : true,

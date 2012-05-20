@@ -29,7 +29,7 @@ Ext.application({
     stores: ['Menus', 'VehicleFilteredStore', 'VehicleStore', 'RecentIncidentStore', 'VehicleMapStore', 
 			'DriverStore', 'DriverBriefStore', 'VehicleGroupStore', 'DriverGroupStore', 'TrackByVehicleStore', 
 			'IncidentByVehicleStore', 'IncidentLogStore', 'DashboardVehicleStore', 'VehicleConsumableStore', 
-			'DriverRunStore', 'VehicleRunStore'],
+			'DriverRunStore', 'VehicleRunStore', 'YearStore'],
 
     icon: {
         57: 'resources/icons/Icon.png',

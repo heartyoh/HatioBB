@@ -48,23 +48,12 @@ Ext.define('HatioBB.view.chart.driver.EchoRadar', {
 			
 		this.driver = HatioBB.setting.get('driver');
 		
-		/* filter로 하지 않고, 파라미터로 해야 함 */
-		store.filter([{
-			property : 'from_year',
-			value : 2011
-		}, {
-			property : 'from_month',
-			value : 6
-		}, {
-			property : 'to_year',
-			value : 2012
-		}, {
-			property : 'to_month',
-			value : 5
-		}, {
-			property : 'driver',
-			value : this.driver
-		}]);
+		var proxy = store.getProxy();
+		proxy.config.extraParams.driver = this.driver;
+		proxy.config.extraParams.from_year = 2011;
+		proxy.config.extraParams.to_year = 2012;
+		proxy.config.extraParams.from_month = 6;
+		proxy.config.extraParams.to_month = 5;
 		
 		store.load(function(records) {
 			var totalRecordCnt = 0;

@@ -141,7 +141,7 @@ Ext.define('HatioBB.controller.Main', {
     },
 
 	onSetting : function(button, e) {
-		Ext.getCmp('settingPopup').showBy(button);
+		Ext.create('HatioBB.view.Setting', {}).showBy(button);
 	},
 	
 	onSearch : function(button, e) {
