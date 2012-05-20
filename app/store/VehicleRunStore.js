@@ -5,6 +5,8 @@ Ext.define('HatioBB.store.VehicleRunStore', {
 		autoLoad : false,
 
 		remoteFilter : true,
+		
+		groupField : 'year',
 
 		fields : [ {
 			name : 'key',
@@ -59,9 +61,6 @@ Ext.define('HatioBB.store.VehicleRunStore', {
 			type : 'ajax',
 			// url : 'vehicle_run',
 			url : 'data/vehicle_run.json',
-			extraParams : {
-				select : [ 'vehicle', 'year', 'month', 'run_dist', 'run_time', 'consmpt', 'co2_emss', 'effcc', 'sud_accel_cnt', 'sud_brake_cnt', 'eco_drv_time', 'ovr_spd_time', 'inc_cnt' ]
-			},
 			reader : {
 				type : 'json',
 				rootProperty : 'items',
