@@ -1,7 +1,7 @@
 Ext.define('HatioBB.view.vehicle.Summary', {
 	extend : 'Ext.Panel',
 	
-	// requires : ['HatioBB.view.chart.vehicle.EchoRadar'],
+	requires : ['HatioBB.view.chart.vehicle.Summary'],
 
 	xtype : 'vehicle_summary',
 	
@@ -13,6 +13,7 @@ Ext.define('HatioBB.view.vehicle.Summary', {
 		layout : 'fit',
 		
 		items : [{
+			xtype : 'chart_v_summary'
 		}]
 	},
 	

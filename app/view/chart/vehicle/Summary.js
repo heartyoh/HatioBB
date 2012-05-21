@@ -12,7 +12,10 @@ Ext.define('HatioBB.view.chart.vehicle.Summary', {
 	config : {
 		title : T('title.chart_v_summary'),
 		cls : 'grayBg',
-		layout : 'fit'
+		layout : {
+			type : 'vbox',
+			align : 'stretch'
+		}
 	},
 
 	constructor : function(config) {
@@ -20,12 +23,17 @@ Ext.define('HatioBB.view.chart.vehicle.Summary', {
 		
 		this.callParent(arguments);	
 		
-		// var chart = this.add(this.buildChart());
+		this.chartStore = Ext.create('Ext.data.JsonStore', {
+			fields : ['year', 'month', 'consmpt', 'oos_cnt', 'co2_emss', 'mnt_time', 'mnt_cnt', 'run_dist', 'run_time', 'effcc'],
+			data : []
+		});
+
+		this.add(this.buildRunChart(this.chartStore));
+		this.add(this.buildFuelChart(this.chartStore));
 		
 		this.on('painted', function() {
 			HatioBB.setting.on('vehicle', this.refresh, this);
 			HatioBB.setting.on('fromYear', this.refresh, this);
-			HatioBB.setting.on('summaryType', this.refresh, this);
 			
 			this.refresh();
 		});
@@ -33,7 +41,6 @@ Ext.define('HatioBB.view.chart.vehicle.Summary', {
 		this.on('erased', function() {
 			HatioBB.setting.un('vehicle', this.refresh, this);
 			HatioBB.setting.un('fromYear', this.refresh, this);
-			HatioBB.setting.un('summaryType', this.refresh, this);
 		});
 	},
 
@@ -45,19 +52,17 @@ Ext.define('HatioBB.view.chart.vehicle.Summary', {
 	},
 	
 	refresh : function(store, records) {
+		if(HatioBB.setting.get('vehicle') === this.vehicle
+		&& HatioBB.setting.get('fromYear') === this.fromYear) 
+			return;
+			
 		var self = this;
 		var store = Ext.getStore('VehicleRunStore');
 		
-		if(HatioBB.setting.get('vehicle') === this.vehicle
-		&& HatioBB.setting.get('fromYear') === this.fromYear
-		&& HatioBB.setting.get('summaryType') === this.summaryType) 
-			return;
-			
 		var thisYear = new Date().getFullYear();
 		var thisMonth = new Date().getMonth() + 1;
 		this.vehicle = HatioBB.setting.get('vehicle');
 		this.fromYear = HatioBB.setting.get('fromYear') || (thisYear - 1);
-		this.summaryType = HatioBB.setting.get('summaryType') || 'BarChart';
 		
 		/* filter로 하지 않고, 파라미터로 해야 함 */
 		var proxy = store.getProxy();
@@ -68,106 +73,20 @@ Ext.define('HatioBB.view.chart.vehicle.Summary', {
 		proxy.config.extraParams.to_month = thisMonth;
 		
 		store.load(function(records) {
-			var chart;
-			switch(self.summaryType) {
-				case 'BarChart' :
-					chart = self.buildBarChart(this, records);
-					break;
-				case 'RadarChart' :
-					chart = self.buildRadarChart(this, records);
-					break;
-				default :
-					break;
-			}
-			
-			if(self.chart)
-				self.remove(chart);
-			if(chart)
-				self.chart = self.add(chart);
-				
-			// var groups = store.getGroups();
-			// 
-			// 
-			// 
-			// 
-			// 
-			// var totalRecordCnt = 0;
-			// var consmpt = 0;
-			// var oos_cnt = 0;
-			// var co2_emss = 0;
-			// var mnt_time = 0;
-			// var mnt_cnt = 0;
-			// var run_dist = 0;
-			// var effcc = 0;
-			// var run_time = 0;
-			// 
-			// Ext.each(records, function(record) {
-			// 	if(record.get('vehicle'))
-			// 		totalRecordCnt += 1;
-			// 
-			// 	if(record.get('consmpt'))
-			// 		consmpt += record.get('consmpt');
-			// 
-			// 	if(record.get('oos_cnt'))
-			// 		oos_cnt += record.get('oos_cnt');
-			// 
-			// 	if(record.get('co2_emss'))
-			// 		co2_emss += record.get('co2_emss');
-			// 
-			// 	if(record.get('mnt_time'))
-			// 		mnt_time += record.get('mnt_time');
-			// 
-			// 	if(record.get('mnt_cnt'))
-			// 		mnt_cnt += record.get('mnt_cnt');			
-			// 
-			// 	if(record.get('run_dist'))
-			// 		run_dist += record.get('run_dist');			
-			// 
-			// 	if(record.get('effcc'))
-			// 		effcc += record.get('effcc');			
-			// 
-			// 	if(record.get('run_time'))
-			// 		run_time += record.get('run_time');			
-			// });
-			// 
-			// consmpt = consmpt / totalRecordCnt;
-			// oos_cnt = oos_cnt / totalRecordCnt;
-			// co2_emss = co2_emss / totalRecordCnt;
-			// mnt_time = mnt_time / totalRecordCnt;
-			// mnt_cnt = mnt_cnt / totalRecordCnt;
-			// run_dist = run_dist / totalRecordCnt;
-			// effcc = effcc / totalRecordCnt;
-			// run_time = run_time / totalRecordCnt;
-			// 
-			// var data = [
-			//     { 'name' : T('label.x_count', {x : T('label.consumption')}), 	'value' : consmpt },
-			//     { 'name' : T('label.x_count', {x : T('label.oos')}), 			'value' : oos_cnt },
-			//     { 'name' : T('label.x_count', {x : T('label.co2_emission')}), 	'value' : co2_emss },
-			//     { 'name' : T('label.x_time', {x : T('label.maint_time')}), 	'value' : mnt_time },
-			//     { 'name' : T('label.x_count', {x : T('label.maint_count')}),	'value' : mnt_cnt },
-			//     { 'name' : T('label.x_count', {x : T('label.run_distance')}),	'value' : run_dist },
-			//     { 'name' : T('label.fuel_efficiency'),							'value' : effcc },
-			//     { 'name' : T('label.x_time', {x : T('label.run_time')}),	'value' : run_time },
-			// ];
-			// 
-			// self.getChart().getStore().setData(data);
+			self.chartStore.setData(records);
 		});
 	},
 	
-	buildBarChart : function(store, records) {
-		var store = Ext.create('Ext.data.JsonStore', {
-			fields : ['year', 'month', 'key', 'value'],
-			data : []
-		});
-		
+	buildRunChart : function(store) {
 		return {
 			xtype : 'chart',
 			store : store,
-            themeCls: 'bar1',
+            themeCls: 'line1',
             theme: 'Demo',
             animate: true,
             shadow: false,
 			toolbar : null,
+			flex : 1,
             legend: {
                 position: {
                     portrait: 'bottom',
@@ -177,76 +96,123 @@ Ext.define('HatioBB.view.chart.vehicle.Summary', {
             },
             axes: [
                 {
-                    type: 'Numeric',
+                    type: 'Category',
                     position: 'bottom',
-                    fields: ['2008', '2009', '2010'],
-                    label: {
-                        renderer: function (v) {
-                            return v.toFixed(0);
-                        }
-                    },
-                    title: 'Number of Hits',
+                    fields: ['month_str'],
+                    title: 'Month of the Year'
+                },
+                {
+                    type: 'Numeric',
+                    position: 'left',
+                    fields: ['run_time'],
+                    title: 'Run Minutes',
                     minimum: 0
                 },
                 {
-                    type: 'Category',
-                    position: 'left',
-                    fields: ['name'],
-                    title: 'Month of the Year'
+                    type: 'Numeric',
+                    position: 'right',
+                    fields: ['run_dist'],
+                    title: 'Run Distance',
+                    minimum: 0
                 }
             ],
             series: [
-                {
-                    type: 'bar',
-                    xField: 'name',
-                    yField: ['2008', '2009', '2010'],
-                    axis: 'bottom',
-                    highlight: true,
-                    showInLegend: true
-                }
+            {
+                type: 'column',
+                highlight: {
+                    size: 7,
+                    radius: 7
+                },
+                fill: true,
+                smooth: true,
+                axis: 'left',
+                xField: 'month_str',
+                yField: 'run_time',
+                title: 'Run Minutes'
+            },
+            {
+                type: 'line',
+                highlight: {
+                    size: 7,
+                    radius: 7
+                },
+                fill: true,
+                smooth: true,
+                axis: 'right',
+                xField: 'month_str',
+                yField: 'run_dist',
+                title: 'Run Distance'
+            }
             ]
 		};
 	},
-
-	buildRadarChart : function() {
-		var store = Ext.create('Ext.data.JsonStore', {
-			fields : ['year', 'key', 'value'],
-			data : []
-		});
-
+	
+	buildFuelChart : function(store) {
 		return {
 			xtype : 'chart',
-			themeCls: 'radar1',
+			store : store,
+            themeCls: 'line1',
             theme: 'Demo',
-            insetPadding: 30,
-            shadow: true,
             animate: true,
-            store: store,
-            interactions: ['rotate', 'reset'],
-			legend: {
-                position: 'bottom'
-            },
-            axes: [{
-                type: 'Radial',
-                position: 'radial',
-                label: {
-                    display: true
-                }
-            }],
-            series: [{
-                showInLegend: false,
-                showMarkers: true,
-                type: 'radar',
-                xField: 'key',
-                yField: 'value',
-                style: {
-                    opacity: 0.4
+            shadow: false,
+			toolbar : null,
+			flex : 1,
+            legend: {
+                position: {
+                    portrait: 'bottom',
+                    landscape: 'bottom'
                 },
-                markerConfig: {
-                    radius: 3,
-                    size: 5
+                labelFont: '17px Arial'
+            },
+            axes: [
+                {
+                    type: 'Category',
+                    position: 'bottom',
+                    fields: ['month_str'],
+                    title: 'Month of the Year'
+                },
+                {
+                    type: 'Numeric',
+                    position: 'left',
+                    fields: ['consmpt'],
+                    title: 'Fuel Consumption',
+                    minimum: 0
+                },
+                {
+                    type: 'Numeric',
+                    position: 'right',
+                    fields: ['effcc'],
+                    title: 'Fuel Efficiency',
+                    minimum: 0
                 }
-            }]		
-		}
-	}
+            ],
+            series: [
+            {
+                type: 'column',
+                highlight: {
+                    size: 7,
+                    radius: 7
+                },
+                // fill: true,
+                smooth: true,
+                axis: 'left',
+                xField: 'month_str',
+                yField: ['consmpt'],
+                title: 'Fuel Consumption'
+            }, {
+                type: 'line',
+                highlight: {
+                    size: 7,
+                    radius: 7
+                },
+                fill: true,
+                smooth: true,
+                axis: 'right',
+                xField: 'month_str',
+                yField: 'effcc',
+                title: 'Fuel Efficiency'
+            }
+            ]
+		};
+	}	
 });
