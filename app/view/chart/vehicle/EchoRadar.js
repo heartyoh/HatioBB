@@ -127,7 +127,8 @@ Ext.define('HatioBB.view.chart.vehicle.EchoRadar', {
 				data['mnt_cnt'][year] = mnt_cnt;
 				data['run_dist'][year] = run_dist;
 				data['effcc'][year] = effcc;
-				data['run_time'][year] = run_time;
+				//TODO Randomize 는 삭제되어야 한다.
+				data['run_time'][year] = run_time * Math.random();
 				
 				fields.push(year);
 			});

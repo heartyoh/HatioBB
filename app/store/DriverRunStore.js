@@ -6,6 +6,8 @@ Ext.define('HatioBB.store.DriverRunStore', {
 
 		remoteFilter : true,
 
+		groupField : 'year',
+
 		fields : [ {
 			name : 'driver',
 			type : 'string'

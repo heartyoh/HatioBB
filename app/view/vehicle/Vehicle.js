@@ -3,10 +3,10 @@ Ext.define('HatioBB.view.vehicle.Vehicle', {
 	
 	requires : [
 	'HatioBB.view.vehicle.Info',
-	'HatioBB.view.vehicle.Summary',
-	'HatioBB.view.vehicle.Consumable',
+	'HatioBB.view.chart.vehicle.Summary',
+	'HatioBB.view.chart.vehicle.Consumable',
 	'HatioBB.view.vehicle.Repair',
-	'HatioBB.view.vehicle.EchoDriving'
+	'HatioBB.view.chart.vehicle.EchoRadar'
 	],
 	
 	xtype : 'vehicle',
@@ -20,17 +20,34 @@ Ext.define('HatioBB.view.vehicle.Vehicle', {
 			xtype : 'vehicle_info',
 			title : 'Info'
 		}, {
-			xtype : 'vehicle_summary',
+			xtype : 'chart_v_summary',
 			title : 'Summary'
 		}, {
-			xtype : 'vehicle_consumable',
+			xtype : 'chart_v_consumable',
 			title : 'Consumable'
 		}, {
 			xtype : 'vehicle_repair',
 			title : 'Repair'
 		}, {
-			xtype : 'vehicle_echo_driving',
+			xtype : 'chart_v_echo_radar',
 			title : 'Echo Driving'
 		}]
-	}
+	},
+	
+	buildSettings : function() {
+		return [{
+            xtype: 'selectfield',
+            label: T('label.fromYear'),
+            name: 'fromYear',
+            valueField: 'year',
+            displayField: 'year',
+			value : HatioBB.setting.get('fromYear'),
+			listeners : {
+				change : function(field, newVal) {
+					HatioBB.setting.set('fromYear', newVal);
+				}
+			},
+            store: 'YearStore'
+		}]
+	}	
 });

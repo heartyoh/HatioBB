@@ -28,8 +28,15 @@ Ext.define('HatioBB.view.vehicle.Info', {
 		
 		cls : 'paddingAll15',
 		
+		layout : 'hbox',
+		
 		items : [{
+				xtype : 'image',
+				itemId : 'vehicleImage',
+				cls: 'imgVehicle'
+		},{
 			xtype : 'fieldset',
+			flex : 1,
 			defaults : {
 				xtype : 'textfield'
 			},

@@ -20,93 +20,132 @@ Ext.define('HatioBB.view.chart.driver.EchoRadar', {
 		
 		this.callParent(arguments);	
 		
-		var chart = this.add(this.buildChart());
-		
 		this.on('painted', function() {
 			HatioBB.setting.on('driver', this.refresh, this);
+			HatioBB.setting.on('fromYear', this.refresh, this);
+			
 			this.refresh();
 		});
 		
 		this.on('erased', function() {
 			HatioBB.setting.un('driver', this.refresh, this);
+			HatioBB.setting.un('fromYear', this.refresh, this);
 		});
 	},
 
-	getChart : function() {
-		/* chart 가 문제가 없을 때까지는 아래처럼 해야한다. */
-		if(!this.chart)
-			this.chart = this.getAt(0);
-		return this.chart;
-	},
-	
 	refresh : function(store, records) {
+		if(HatioBB.setting.get('driver') === this.driver
+		&& HatioBB.setting.get('fromYear') === this.fromYear) 
+			return;
+			
 		var self = this;
 		var store = Ext.getStore('DriverRunStore');
 		
-		if(HatioBB.setting.get('driver') === this.driver) 
-			return;
-			
+		var thisYear = new Date().getFullYear();
+		var thisMonth = new Date().getMonth() + 1;
 		this.driver = HatioBB.setting.get('driver');
+		this.fromYear = HatioBB.setting.get('fromYear') || (thisYear - 1);
 		
+		/* filter로 하지 않고, 파라미터로 해야 함 */
 		var proxy = store.getProxy();
 		proxy.config.extraParams.driver = this.driver;
-		proxy.config.extraParams.from_year = 2011;
-		proxy.config.extraParams.to_year = 2012;
-		proxy.config.extraParams.from_month = 6;
-		proxy.config.extraParams.to_month = 5;
+		proxy.config.extraParams.from_year = this.fromYear;
+		proxy.config.extraParams.to_year = thisYear;
+		proxy.config.extraParams.from_month = 1;
+		proxy.config.extraParams.to_month = thisMonth;
 		
 		store.load(function(records) {
-			var totalRecordCnt = 0;
-			var ecoDrvTime = 0;
-			var efficiency = 0;
-			var overSpdCnt = 0;
-			var sudAccelCnt = 0;
-			var sudBrakeCnt = 0;
+			var groups = this.getGroups();
+			var data = {
+				ecoDrvTime : { name : T('label.x_time', {x : T('label.eco_driving')}) },
+				efficiency : { name : T('label.fuel_efficiency') },
+				overSpdCnt : { name : T('label.x_time', {x : T('label.over_speeding')}) },
+				sudAccelCnt : { name : T('label.x_count', {x : T('label.sudden_accel')}) },
+				sudBrakeCnt : { name : T('label.x_count', {x : T('label.sudden_brake')}) },
+			};
+			var fields = [];
 
-			Ext.each(records, function(record) {
-				if(record.get('driver'))
-					totalRecordCnt += 1;
+			Ext.Array.each(groups, function(group) {
+				var year = group.name.toString();
+				var records = group.children;
+				
+				var totalRecordCnt = 0;
+				var ecoDrvTime = 0;
+				var efficiency = 0;
+				var overSpdCnt = 0;
+				var sudAccelCnt = 0;
+				var sudBrakeCnt = 0;
 
-				if(record.get('eco_drv_time'))
-					ecoDrvTime += record.get('eco_drv_time');
+				Ext.each(records, function(record) {
+					if(record.get('driver'))
+						totalRecordCnt += 1;
 
-				if(record.get('effcc'))
-					efficiency += record.get('effcc');
+					if(record.get('eco_drv_time'))
+						ecoDrvTime += record.get('eco_drv_time');
 
-				if(record.get('ovr_spd_time'))
-					overSpdCnt += record.get('ovr_spd_time');
+					if(record.get('effcc'))
+						efficiency += record.get('effcc');
 
-				if(record.get('sud_accel_cnt'))
-					sudAccelCnt += record.get('sud_accel_cnt');
+					if(record.get('ovr_spd_time'))
+						overSpdCnt += record.get('ovr_spd_time');
 
-				if(record.get('sud_brake_cnt'))
-					sudBrakeCnt += record.get('sud_brake_cnt');			
+					if(record.get('sud_accel_cnt'))
+						sudAccelCnt += record.get('sud_accel_cnt');
+
+					if(record.get('sud_brake_cnt'))
+						sudBrakeCnt += record.get('sud_brake_cnt');			
+				});
+
+				ecoDrvTime = ecoDrvTime / totalRecordCnt;
+				efficiency = efficiency / totalRecordCnt;
+				overSpdCnt = overSpdCnt / totalRecordCnt;
+				sudAccelCnt = sudAccelCnt / totalRecordCnt;
+				sudBrakeCnt = sudBrakeCnt / totalRecordCnt;
+
+				data['ecoDrvTime'][year] = ecoDrvTime;
+				data['efficiency'][year] = efficiency;
+				data['overSpdCnt'][year] = overSpdCnt;
+				data['sudAccelCnt'][year] = sudAccelCnt;
+				// Randomize는 삭제되어야 한다.
+				data['sudBrakeCnt'][year] = sudBrakeCnt * Math.random();
+				
+				fields.push(year);
 			});
-
-			ecoDrvTime = ecoDrvTime / totalRecordCnt;
-			efficiency = efficiency / totalRecordCnt;
-			overSpdCnt = overSpdCnt / totalRecordCnt;
-			sudAccelCnt = sudAccelCnt / totalRecordCnt;
-			sudBrakeCnt = sudBrakeCnt / totalRecordCnt;
-
-			var data = [
-			    { 'name' : T('label.x_time', {x : T('label.eco_driving')}), 	'value' : ecoDrvTime },
-			    { 'name' : T('label.fuel_efficiency'), 							'value' : efficiency },
-			    { 'name' : T('label.x_time', {x : T('label.over_speeding')}), 	'value' : overSpdCnt },
-			    { 'name' : T('label.x_count', {x : T('label.sudden_accel')}), 	'value' : sudAccelCnt },
-			    { 'name' : T('label.x_count', {x : T('label.sudden_brake')}),	'value' : sudBrakeCnt },
-			];
 			
-			self.getChart().getStore().setData(data);
+			var storeData = [];
+			for(var attr in data) {
+				storeData.push(data[attr]);
+			}
+
+			if(self.chart)
+				self.remove(self.chart);
+			self.chart = self.add(self.buildChart(fields, storeData));
 		});
 	},
 	
-	buildChart : function() {
+	buildChart : function(fields, data) {
 		var store = Ext.create('Ext.data.JsonStore', {
-			fields : ['name', 'value'],
-			data : []
+			fields : Ext.Array.merge(fields, ['name']),
+			data : data
 		});
-
+		
+		var series = Ext.Array.map(fields, function(year) {
+			return {
+	            showInLegend: false,
+	            showMarkers: true,
+	            type: 'radar',
+	            xField: 'name',
+	            yField: year,
+	            style: {
+	                opacity: 0.4
+	            },
+	            markerConfig: {
+	                radius: 3,
+	                size: 5
+	            }
+			};
+		});
+				
 		return {
 			xtype : 'chart',
 			themeCls: 'radar1',
@@ -126,20 +165,7 @@ Ext.define('HatioBB.view.chart.driver.EchoRadar', {
                     display: true
                 }
             }],
-            series: [{
-                showInLegend: false,
-                showMarkers: true,
-                type: 'radar',
-                xField: 'name',
-                yField: 'value',
-                style: {
-                    opacity: 0.4
-                },
-                markerConfig: {
-                    radius: 3,
-                    size: 5
-                }
-            }]		
+            series: series	
 		}
 	}
 });

@@ -26,10 +26,17 @@ Ext.define('HatioBB.view.driver.Info', {
 	config : {
 		scrollable : true,
 		
+		layout : 'hbox',
+		
 		cls : 'paddingAll15',
 		
 		items : [{
+			xtype : 'image',
+			itemId : 'driverImage',
+			cls: 'imgDriver'
+		},{
 			xtype : 'fieldset',
+			flex : 1,
 			defaults : {
 				xtype : 'textfield'
 			},

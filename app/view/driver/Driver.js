@@ -3,7 +3,7 @@ Ext.define('HatioBB.view.driver.Driver', {
 	
 	requires : [
 	'HatioBB.view.driver.Info',
-	'HatioBB.view.driver.EchoDriving'
+	'HatioBB.view.chart.driver.EchoRadar'
 	],
 	
 	xtype : 'driver',
@@ -17,8 +17,25 @@ Ext.define('HatioBB.view.driver.Driver', {
 			xtype : 'driver_info',
 			title : 'Info'
 		}, {
-			xtype : 'driver_echo_driving',
+			xtype : 'chart_d_echo_radar',
 			title : 'Echo Driving'
 		}]
-	}
+	},
+	
+	buildSettings : function() {
+		return [{
+            xtype: 'selectfield',
+            label: T('label.fromYear'),
+            name: 'fromYear',
+            valueField: 'year',
+            displayField: 'year',
+			value : HatioBB.setting.get('fromYear'),
+			listeners : {
+				change : function(field, newVal) {
+					HatioBB.setting.set('fromYear', newVal);
+				}
+			},
+            store: 'YearStore'
+		}]
+	}	
 });
