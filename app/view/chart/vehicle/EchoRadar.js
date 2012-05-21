@@ -56,11 +56,20 @@ Ext.define('HatioBB.view.chart.vehicle.EchoRadar', {
 		
 		store.load(function(records) {
 			var groups = this.getGroups();
-			var data = [];
+			var data = {
+				consmpt : { name : T('label.consumption') },
+				oos_cnt : { name : T('label.oos_count') },
+				co2_emss : { name : T('label.co2_emission') },
+				mnt_time : { name : T('label.maint_time') },
+				mnt_cnt : { name : T('label.maint_count') },
+				run_dist : { name : T('label.run_distance') },
+				effcc : { name : T('label.fuel_efficiency') },
+				run_time : { name : T('label.run_time') }
+			};
 			var fields = [];
 
 			Ext.Array.each(groups, function(group) {
-				var year = group.name;
+				var year = group.name.toString();
 				var records = group.children;
 				
 				var totalRecordCnt = 0;
@@ -102,43 +111,45 @@ Ext.define('HatioBB.view.chart.vehicle.EchoRadar', {
 						run_time += record.get('run_time');			
 				});
 
-				consmpt = consmpt / totalRecordCnt;
+				consmpt = consmpt / 500 / totalRecordCnt;
 				oos_cnt = oos_cnt / totalRecordCnt;
-				co2_emss = co2_emss / totalRecordCnt;
-				mnt_time = mnt_time / totalRecordCnt;
+				co2_emss = co2_emss / 100 / totalRecordCnt;
+				mnt_time = mnt_time / 10 / totalRecordCnt;
 				mnt_cnt = mnt_cnt / totalRecordCnt;
-				run_dist = run_dist / totalRecordCnt;
+				run_dist = run_dist / 500 / totalRecordCnt;
 				effcc = effcc / totalRecordCnt;
-				run_time = run_time / totalRecordCnt;
+				run_time = run_time / 500 / totalRecordCnt;
 
-				Ext.Array.each([
-				    { 'year' : year, 'name' : T('label.x_count', {x : T('label.consumption')}), 	'value' : consmpt },
-				    { 'year' : year, 'name' : T('label.x_count', {x : T('label.oos')}), 			'value' : oos_cnt },
-				    { 'year' : year, 'name' : T('label.x_count', {x : T('label.co2_emission')}), 	'value' : co2_emss },
-				    { 'year' : year, 'name' : T('label.x_time', {x : T('label.maint_time')}), 		'value' : mnt_time },
-				    { 'year' : year, 'name' : T('label.x_count', {x : T('label.maint_count')}),		'value' : mnt_cnt },
-				    { 'year' : year, 'name' : T('label.x_count', {x : T('label.run_distance')}),	'value' : run_dist },
-				    { 'year' : year, 'name' : T('label.fuel_efficiency'),							'value' : effcc },
-				    { 'year' : year, 'name' : T('label.x_time', {x : T('label.run_time')}),			'value' : run_time }
-				], function(r) { data.push(r) });
+				data['consmpt'][year] = consmpt;
+				data['oos_cnt'][year] = oos_cnt;
+				data['co2_emss'][year] = co2_emss;
+				data['mnt_time'][year] = mnt_time;
+				data['mnt_cnt'][year] = mnt_cnt;
+				data['run_dist'][year] = run_dist;
+				data['effcc'][year] = effcc;
+				data['run_time'][year] = run_time;
 				
 				fields.push(year);
 			});
 			
+			var storeData = [];
+			for(var attr in data) {
+				storeData.push(data[attr]);
+			}
+
 			if(self.chart)
 				self.remove(self.chart);
-			self.chart = self.add(self.buildChart(fields));
-			
-			self.chart.getStore().setData(data);
+			self.chart = self.add(self.buildChart(fields, storeData));
 		});
 	},
 	
-	buildChart : function(fields) {
+	buildChart : function(fields, data) {
 		var store = Ext.create('Ext.data.JsonStore', {
-			fields : ['year', 'name', 'value'],
-			data : []
+			fields : Ext.Array.merge(fields, ['name']),
+			data : data
 		});
-		var series = Ext.Array.each(fields, function(year) {
+		
+		var series = Ext.Array.map(fields, function(year) {
 			return {
 	            showInLegend: false,
 	            showMarkers: true,
@@ -152,9 +163,9 @@ Ext.define('HatioBB.view.chart.vehicle.EchoRadar', {
 	                radius: 3,
 	                size: 5
 	            }
-			}
+			};
 		});
-		
+				
 		return {
 			xtype : 'chart',
 			themeCls: 'radar1',
