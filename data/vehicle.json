@@ -9,7 +9,7 @@
 "spark_plug_status": "A",
 "engine_oil_status": "A",
 "brake_oil_status": "A",
-"image_clip": null,
+"image_clip": "data/image/V001.jpg",
 "created_at": 1329067816939,
 "driver_id": "D001",
 "longitude": 127.1,

@@ -40,7 +40,7 @@ Ext.define('HatioBB.view.chart.vehicle.Consumable', {
 		return this.chart;
 	},
 	
-	refresh : function(store, records) {
+	refresh : function() {
 		var self = this;
 		var store = Ext.getStore('VehicleConsumableStore');
 		

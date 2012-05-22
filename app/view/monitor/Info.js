@@ -83,7 +83,9 @@ Ext.define('HatioBB.view.monitor.Info', {
 		}
 	
 		HatioBB.setting.set('monitoring_vehicle', vehicle.get('id'));
-
+		HatioBB.setting.set('vehicle', vehicle.get('id'));
+		HatioBB.setting.set('driver', vehicle.get('driver_id'));
+		
 		/*
 		 * Get Vehicle Information (Image, Registration #, ..) from
 		 * VehicleStore

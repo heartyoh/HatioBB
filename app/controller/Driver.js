@@ -35,10 +35,6 @@ Ext.define('HatioBB.controller.Driver', {
 		HatioBB.setting.set('driver', record.get('id'));
 
 		this.showDriver(record);
-
-		var store = Ext.getStore('DriverStore');
-		store.filter('id', record.get('id'));
-		store.load();
     },
 
     onDisclose: function(record, item, index, e) {

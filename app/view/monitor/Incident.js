@@ -66,6 +66,9 @@ Ext.define('HatioBB.view.monitor.Incident', {
 		this.incident = incident;
 		this.incident.set('obd_connected_text', this.incident.get('obd_connected') ? 'connected' : 'disconnected');
 		
+		HatioBB.setting.set('driver', incident.get('driver_id'));
+		HatioBB.setting.set('vehicle', incident.get('vehicle_id'));
+		
 		/*
 		 * Get Vehicle Information (Image, Registration #, ..) from
 		 * VehicleStore

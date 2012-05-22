@@ -86,6 +86,12 @@ Ext.define('HatioBB.controller.Main', {
 			},
 			'monitor_info #incidents button' : {
 				tap : 'onIncident'
+			},
+			'monitor_info image' : {
+				tap : 'onImage'
+			},
+			'monitor_incident image' : {
+				tap : 'onImage'
 			}
         }
     },
@@ -112,6 +118,34 @@ Ext.define('HatioBB.controller.Main', {
 		}
 		this.getContent().setActiveItem(view);
 		this.getHeader().setActiveStatus(view.getId());
+		
+		return view;
+	},
+	
+	showVehicle: function() {
+		var view = this.getContent().getComponent('vehicle');
+		if(!view) {
+			this.getContent().removeAll();
+			view = this.getContent().add({
+				xtype : 'vehicle'
+			});
+		}
+		this.getContent().setActiveItem(view);
+		this.getHeader().clearActiveStatus();
+		
+		return view;
+	},
+	
+	showDriver: function() {
+		var view = this.getContent().getComponent('driver');
+		if(!view) {
+			this.getContent().removeAll();
+			view = this.getContent().add({
+				xtype : 'driver'
+			});
+		}
+		this.getContent().setActiveItem(view);
+		this.getHeader().clearActiveStatus();
 		
 		return view;
 	},
@@ -253,6 +287,13 @@ Ext.define('HatioBB.controller.Main', {
 		this.getNav().push({
 			xtype : 'nav_noti'
 		});
-    }
+    },
+
+	onImage : function(comp) {
+		if(comp.config.itemId === 'driverImage')
+			this.showDriver();
+		else
+			this.showVehicle();
+	}
 
 });

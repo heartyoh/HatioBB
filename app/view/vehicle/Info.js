@@ -10,17 +10,40 @@ Ext.define('HatioBB.view.vehicle.Info', {
 
 		var self = this;
 
-		Ext.getStore('VehicleStore').on('load', this.refresh, self);
+		this.on('painted', function() {
+			HatioBB.setting.on('vehicle', this.refresh, this);
+			
+			this.refresh();
+		});
+		
+		this.on('erased', function() {
+			HatioBB.setting.un('vehicle', this.refresh, this);
+		});
 	},
 	
-	destroy : function() {
-		Ext.getStore('VehicleStore').un('load', this.refresh, self);
+	refresh : function() {
+		var self = this;
+		
+		if(HatioBB.setting.get('vehicle') === this.vehicle) 
+			return;
+			
+		var store = Ext.getStore('VehicleStore');
+		this.vehicle = HatioBB.setting.get('vehicle');
+		
+		store.filter('vehicle_id', this.vehicle);
+		store.load(function(records) {
+			// TODO 아래 라인을 삭제한다. 테스트 용임.
+			records[0].set('remaining_fuel', Math.floor(Math.random() * 50));
+			
+			self.setRecord(records[0]);
 
-		this.callParent(arguments);
-	},
-	
-	refresh : function(store) {
-		this.setRecord(store.first());
+			// ImageClip을 리프레쉬한다.
+			var imageClip = records[0].get('image_clip');
+			if(imageClip)
+				self.down('image').setSrc(imageClip);
+			else
+				self.down('image').setSrc('resources/images/bgVehicle.png');
+		});
 	},
 	
 	config : {

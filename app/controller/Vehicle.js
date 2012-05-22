@@ -35,10 +35,6 @@ Ext.define('HatioBB.controller.Vehicle', {
 		HatioBB.setting.set('vehicle', record.get('id'));
 
 		this.showVehicle(record);
-
-		var store = Ext.getStore('VehicleStore');
-		store.filter('id', record.get('id'));
-		store.load();
     },
 
     onDisclose: function(record, item, index, e) {
