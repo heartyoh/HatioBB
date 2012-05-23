@@ -153,6 +153,7 @@ Ext.define('HatioBB.view.monitor.Map', {
 			this.getMap().setCenter(new google.maps.LatLng(System.props.lattitude, System.props.longitude));
 		} else if(bounds.isEmpty() || bounds.getNorthEast().equals(bounds.getSouthWest())) {
 			this.getMap().setCenter(bounds.getNorthEast());
+			this.getMap().setZoom(HatioBB.setting.get('auto_max_zoom') || 16);
 		} else if(HatioBB.setting.get('autofit')){ 
 			this.getMap().fitBounds(bounds);
 		}

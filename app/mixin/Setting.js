@@ -8,6 +8,9 @@ Ext.define('HatioBB.mixin.Setting', function() {
 	}, {
 		id : 'dockPosition',
 		value : 'right'
+	}, {
+		id : 'auto_max_zoom',
+		value : 16
 	}];
 	
 	Ext.define('HatioBB.mixin.LocalSetting.Model', {
