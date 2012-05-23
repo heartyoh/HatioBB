@@ -39,7 +39,7 @@
 .headerView.navIncident{background-position:0 -40px !important}
 .headerView.navInfo{background-position:0 -80px !important}
 .headerView.navMap.x-button-pressing,.headerView.navMap.active{background-position:0 -120px !important;}
-.headerView.navIncident.xbutton-pressing,.headerView.navIncident.active{background-position:0 -160px !important}
+.headerView.navIncident.x-button-pressing,.headerView.navIncident.active{background-position:0 -160px !important}
 .headerView.navInfo.x-button-pressing,.headerView.navInfo.active{background-position:0 -200px !important}
 
 /*nav style*/
@@ -78,9 +78,11 @@
 .nav .x-list-item{background:url('../images/bgNavMenu.png') 0 100% repeat-x}
 .nav .x-list-normal .x-list-item .x-list-item-label{border:0;}
 .nav .x-list .x-list-item{color:#d0d0d0;}
-.nav .x-list .x-list-item.x-item-selected .x-list-item-label,.nav .x-list .x-list-item.x-item-pressed .x-list-item-label
+.nav .x-list .x-list-item.x-item-pressed .x-list-item-label
 {background:url('../images/bgNavCarousel.png') 0 75% repeat-x !important;border-top:1px solid #111;border-bottom:1px solid #000;}
-.nav .x-list .x-list-item.x-item-selected,.nav .x-list .x-list-item.x-item-pressed{color:#fff;}
+.nav .x-list-item .x-list-item-label{background:url('../images/arrowGray.png') 95% 50% no-repeat !important;}
+.nav .x-list .x-list-item.x-item-selected .x-list-item-label{background:url('../images/arrowViolet.png') 95% 50% no-repeat #E8EDEF !important;border-right:5px solid #426cb2;color:#2d4976;}
+.nav .x-list .x-list-item.x-item-pressed{color:#fff;}
 .nav .x-button-back{background:url('../images/btnBack.png') no-repeat 1px 50% !important;margin-left:0;padding-left:25px;width:65px !important;}
 .nav .x-button-back.x-button-pressing{background:url('../images/btnBackPressed.png') no-repeat 1px 50% !important;margin-left:0;padding-left:25px;width:65px !important;color:#fff;}
 .nav .x-button-back .x-button-label{width:35px;text-align:left;}
@@ -88,6 +90,10 @@
 .x-list-item .iconVehicle{background:url('../images/iconNavVGroup.png') no-repeat;padding-left:30px;}
 .x-list-item .iconDriver{background:url('../images/iconNavDGroup.png') no-repeat;padding-left:30px;}
 .x-list-item .iconChart{background:url('../images/iconNavChart.png') no-repeat;padding-left:30px;}
+.nav .x-list .x-list-item.x-item-selected .iconVehicle{background:url('../images/iconNavVGroupSelected.png') no-repeat;padding-left:30px;}
+.nav .x-list .x-list-item.x-item-selected .iconDriver{background:url('../images/iconNavDGroupSelected.png') no-repeat;padding-left:30px;}
+.nav .x-list .x-list-item.x-item-selected .iconChart{background:url('../images/iconNavChartSelected.png') no-repeat;padding-left:30px;}
+
 
 /*incident information panel view style*/
 .grayBg{background:url('../images/bgWhiteShadowPanel.png') repeat-x #e8edef;}
