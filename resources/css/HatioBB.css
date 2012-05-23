@@ -93,6 +93,7 @@
 .nav .x-list .x-list-item.x-item-selected .iconVehicle{background:url('../images/iconNavVGroupSelected.png') no-repeat;padding-left:30px;}
 .nav .x-list .x-list-item.x-item-selected .iconDriver{background:url('../images/iconNavDGroupSelected.png') no-repeat;padding-left:30px;}
 .nav .x-list .x-list-item.x-item-selected .iconChart{background:url('../images/iconNavChartSelected.png') no-repeat;padding-left:30px;}
+.x-list .x-list-disclosure,.x-list .x-item-selected .x-list-disclosure{background-color:transparent;background-image:none !important;}
 
 
 /*incident information panel view style*/
