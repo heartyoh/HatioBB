@@ -42,12 +42,6 @@ Ext.define('HatioBB.controller.Main', {
 			'header #refresh' : {
 				tap : 'onRefresh'
 			},
-			'header #search' : {
-				tap : 'onSearch'
-			},
-			'search list' : {
-				itemtap : 'onSearchItemTap'
-			},
 			'#nav_driver' : {
 				tap : 'onDriver'
 			},
@@ -195,10 +189,6 @@ Ext.define('HatioBB.controller.Main', {
 		Ext.create('HatioBB.view.Setting', {}).showBy(button);
 	},
 	
-	onSearch : function(button, e) {
-		Ext.getCmp('searchPopup').showBy(button);
-	},
-	
 	onRefresh : function(button, e) {
 		var active = this.getContent().getActiveItem();
 		if(typeof(active.refresh) === 'function')
@@ -277,14 +267,6 @@ Ext.define('HatioBB.controller.Main', {
 		this.showMonitor('monitor_map');
 	},
 	
-	onSearchItemTap : function(view, index, target, record) {
-		var store = Ext.getStore('VehicleFilteredStore');
-		store.clearFilter();
-		store.filter('id', record.get('id'));
-
-		this.showMonitor('monitor_map');
-	},
- 
     onFav: function(button, e) {
 		this.getNav().setNavigationBar(true);
 		this.getNav().push({
