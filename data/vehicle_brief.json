@@ -295,6 +295,7 @@ longitude: 127.253,
 driver_id: "D011",
 distance_since_new_oil: 4000,
 registration_number: "가 1214",
+image_clip : 'data/image/V016.jpg',
 key: "agxncmVlbi1mbGVldHNyJQsSB0NvbXBhbnkiB3ZpdGl6ZW4MCxIHVmVoaWNsZSIEVjAxMQw"
 },
 {
@@ -321,6 +322,7 @@ longitude: 127.143,
 driver_id: "D012",
 distance_since_new_oil: 1000,
 registration_number: "가 1215",
+image_clip : 'data/image/V016.jpg',
 key: "agxncmVlbi1mbGVldHNyJQsSB0NvbXBhbnkiB3ZpdGl6ZW4MCxIHVmVoaWNsZSIEVjAxMgw"
 },
 {
@@ -347,6 +349,7 @@ longitude: 127.91,
 driver_id: "D013",
 distance_since_new_oil: 2500,
 registration_number: "가 1216",
+image_clip : 'data/image/V016.jpg',
 key: "agxncmVlbi1mbGVldHNyJQsSB0NvbXBhbnkiB3ZpdGl6ZW4MCxIHVmVoaWNsZSIEVjAxMww"
 },
 {
@@ -361,6 +364,7 @@ created_at: 1331221144771,
 longitude: 127.105,
 driver_id: "D014",
 health_status: "",
+image_clip : 'data/image/V016.jpg',
 key: "agxncmVlbi1mbGVldHNyJQsSB0NvbXBhbnkiB3ZpdGl6ZW4MCxIHVmVoaWNsZSIEVjAxNAw",
 total_distance: 1771.429,
 status: "Maint",
@@ -400,6 +404,7 @@ longitude: 127.325,
 driver_id: "D015",
 distance_since_new_oil: 100,
 registration_number: "가 1218",
+image_clip : 'data/image/V016.jpg',
 key: "agxncmVlbi1mbGVldHNyJQsSB0NvbXBhbnkiB3ZpdGl6ZW4MCxIHVmVoaWNsZSIEVjAxNQw"
 },
 {
@@ -453,6 +458,7 @@ longitude: 127.117,
 driver_id: "D017",
 distance_since_new_oil: 500,
 registration_number: "가 1220",
+image_clip : 'data/image/V016.jpg',
 key: "agxncmVlbi1mbGVldHNyJQsSB0NvbXBhbnkiB3ZpdGl6ZW4MCxIHVmVoaWNsZSIEVjAxNww"
 },
 {
@@ -479,6 +485,7 @@ longitude: 127.125,
 driver_id: "D018",
 distance_since_new_oil: 400,
 registration_number: "가 1221",
+image_clip : 'data/image/V016.jpg',
 key: "agxncmVlbi1mbGVldHNyJQsSB0NvbXBhbnkiB3ZpdGl6ZW4MCxIHVmVoaWNsZSIEVjAxOAw"
 },
 {
@@ -505,6 +512,7 @@ longitude: 127.206,
 driver_id: "D019",
 distance_since_new_oil: 900,
 registration_number: "카 0987",
+image_clip : 'data/image/V016.jpg',
 key: "agxncmVlbi1mbGVldHNyJQsSB0NvbXBhbnkiB3ZpdGl6ZW4MCxIHVmVoaWNsZSIEVjAxOQw"
 },
 {
@@ -531,6 +539,7 @@ longitude: 127.102,
 driver_id: "D020",
 distance_since_new_oil: 2000,
 registration_number: "카 0988",
+image_clip : 'data/image/V016.jpg',
 key: "agxncmVlbi1mbGVldHNyJQsSB0NvbXBhbnkiB3ZpdGl6ZW4MCxIHVmVoaWNsZSIEVjAyMAw"
 },
 {
@@ -557,6 +566,7 @@ longitude: 127.103,
 driver_id: "D021",
 distance_since_new_oil: 3000,
 registration_number: "카 0989",
+image_clip : 'data/image/V016.jpg',
 key: "agxncmVlbi1mbGVldHNyJQsSB0NvbXBhbnkiB3ZpdGl6ZW4MCxIHVmVoaWNsZSIEVjAyMQw"
 },
 {
@@ -583,6 +593,7 @@ longitude: 126.9,
 driver_id: "D022",
 distance_since_new_oil: 2500,
 registration_number: "카 0990",
+image_clip : 'data/image/V016.jpg',
 key: "agxncmVlbi1mbGVldHNyJQsSB0NvbXBhbnkiB3ZpdGl6ZW4MCxIHVmVoaWNsZSIEVjAyMgw"
 },
 {
@@ -609,6 +620,7 @@ longitude: 126.897,
 driver_id: "D023",
 distance_since_new_oil: 3500,
 registration_number: "카 0991",
+image_clip : 'data/image/V016.jpg',
 key: "agxncmVlbi1mbGVldHNyJQsSB0NvbXBhbnkiB3ZpdGl6ZW4MCxIHVmVoaWNsZSIEVjAyMww"
 },
 {
@@ -635,6 +647,7 @@ longitude: 126.893,
 driver_id: "D024",
 distance_since_new_oil: 2500,
 registration_number: "카 0992",
+image_clip : 'data/image/V016.jpg',
 key: "agxncmVlbi1mbGVldHNyJQsSB0NvbXBhbnkiB3ZpdGl6ZW4MCxIHVmVoaWNsZSIEVjAyNAw"
 },
 {
@@ -661,6 +674,7 @@ longitude: 126.79,
 driver_id: "D025",
 distance_since_new_oil: 4000,
 registration_number: "추 3456",
+image_clip : 'data/image/V016.jpg',
 key: "agxncmVlbi1mbGVldHNyJQsSB0NvbXBhbnkiB3ZpdGl6ZW4MCxIHVmVoaWNsZSIEVjAyNQw"
 },
 {
@@ -687,6 +701,7 @@ longitude: 126.887,
 driver_id: "D026",
 distance_since_new_oil: 1000,
 registration_number: "추 8765",
+image_clip : 'data/image/V016.jpg',
 key: "agxncmVlbi1mbGVldHNyJQsSB0NvbXBhbnkiB3ZpdGl6ZW4MCxIHVmVoaWNsZSIEVjAyNgw"
 },
 {
@@ -713,6 +728,7 @@ longitude: 126.883,
 driver_id: "D027",
 distance_since_new_oil: 2500,
 registration_number: "추 2938",
+image_clip : 'data/image/V016.jpg',
 key: "agxncmVlbi1mbGVldHNyJQsSB0NvbXBhbnkiB3ZpdGl6ZW4MCxIHVmVoaWNsZSIEVjAyNww"
 },
 {
@@ -739,6 +755,7 @@ longitude: 126.88,
 driver_id: "D028",
 distance_since_new_oil: 1500,
 registration_number: "추 2939",
+image_clip : 'data/image/V016.jpg',
 key: "agxncmVlbi1mbGVldHNyJQsSB0NvbXBhbnkiB3ZpdGl6ZW4MCxIHVmVoaWNsZSIEVjAyOAw"
 },
 {
@@ -765,6 +782,7 @@ longitude: 126.877,
 driver_id: "D029",
 distance_since_new_oil: 100,
 registration_number: "추 2940",
+image_clip : 'data/image/V016.jpg',
 key: "agxncmVlbi1mbGVldHNyJQsSB0NvbXBhbnkiB3ZpdGl6ZW4MCxIHVmVoaWNsZSIEVjAyOQw"
 },
 {
@@ -791,6 +809,7 @@ longitude: 127.073,
 driver_id: "D030",
 distance_since_new_oil: 500,
 registration_number: "타 4367",
+image_clip : 'data/image/V016.jpg',
 key: "agxncmVlbi1mbGVldHNyJQsSB0NvbXBhbnkiB3ZpdGl6ZW4MCxIHVmVoaWNsZSIEVjAzMAw"
 },
 {
@@ -817,6 +836,7 @@ longitude: 126.87,
 driver_id: "D031",
 distance_since_new_oil: 500,
 registration_number: "타 4368",
+image_clip : 'data/image/V016.jpg',
 key: "agxncmVlbi1mbGVldHNyJQsSB0NvbXBhbnkiB3ZpdGl6ZW4MCxIHVmVoaWNsZSIEVjAzMQw"
 },
 {
@@ -843,6 +863,7 @@ longitude: 126.867,
 driver_id: "D032",
 distance_since_new_oil: 400,
 registration_number: "타 4369",
+image_clip : 'data/image/V016.jpg',
 key: "agxncmVlbi1mbGVldHNyJQsSB0NvbXBhbnkiB3ZpdGl6ZW4MCxIHVmVoaWNsZSIEVjAzMgw"
 },
 {
@@ -869,6 +890,7 @@ longitude: 127.063,
 driver_id: "D033",
 distance_since_new_oil: 900,
 registration_number: "타 4370",
+image_clip : 'data/image/V016.jpg',
 key: "agxncmVlbi1mbGVldHNyJQsSB0NvbXBhbnkiB3ZpdGl6ZW4MCxIHVmVoaWNsZSIEVjAzMww"
 },
 {
@@ -895,6 +917,7 @@ longitude: 126.86,
 driver_id: "D034",
 distance_since_new_oil: 2000,
 registration_number: "타 4371",
+image_clip : 'data/image/V016.jpg',
 key: "agxncmVlbi1mbGVldHNyJQsSB0NvbXBhbnkiB3ZpdGl6ZW4MCxIHVmVoaWNsZSIEVjAzNAw"
 },
 {
@@ -921,6 +944,7 @@ longitude: 127.157,
 driver_id: "D035",
 distance_since_new_oil: 3000,
 registration_number: "타 4372",
+image_clip : 'data/image/V016.jpg',
 key: "agxncmVlbi1mbGVldHNyJQsSB0NvbXBhbnkiB3ZpdGl6ZW4MCxIHVmVoaWNsZSIEVjAzNQw"
 },
 {
@@ -947,6 +971,7 @@ longitude: 126.853,
 driver_id: "D036",
 distance_since_new_oil: 2500,
 registration_number: "타 4373",
+image_clip : 'data/image/V016.jpg',
 key: "agxncmVlbi1mbGVldHNyJQsSB0NvbXBhbnkiB3ZpdGl6ZW4MCxIHVmVoaWNsZSIEVjAzNgw"
 },
 {
@@ -973,6 +998,7 @@ longitude: 126.85,
 driver_id: "D037",
 distance_since_new_oil: 3500,
 registration_number: "타 4374",
+image_clip : 'data/image/V016.jpg',
 key: "agxncmVlbi1mbGVldHNyJQsSB0NvbXBhbnkiB3ZpdGl6ZW4MCxIHVmVoaWNsZSIEVjAzNww"
 },
 {
@@ -999,6 +1025,7 @@ longitude: 126.647,
 driver_id: "D038",
 distance_since_new_oil: 2500,
 registration_number: "류 6746",
+image_clip : 'data/image/V016.jpg',
 key: "agxncmVlbi1mbGVldHNyJQsSB0NvbXBhbnkiB3ZpdGl6ZW4MCxIHVmVoaWNsZSIEVjAzOAw"
 },
 {
@@ -1025,6 +1052,7 @@ longitude: 126.843,
 driver_id: "D039",
 distance_since_new_oil: 4000,
 registration_number: "류 7896",
+image_clip : 'data/image/V016.jpg',
 key: "agxncmVlbi1mbGVldHNyJQsSB0NvbXBhbnkiB3ZpdGl6ZW4MCxIHVmVoaWNsZSIEVjAzOQw"
 },
 {
@@ -1051,6 +1079,7 @@ longitude: 126.84,
 driver_id: "D040",
 distance_since_new_oil: 1000,
 registration_number: "류 9865",
+image_clip : 'data/image/V016.jpg',
 key: "agxncmVlbi1mbGVldHNyJQsSB0NvbXBhbnkiB3ZpdGl6ZW4MCxIHVmVoaWNsZSIEVjA0MAw"
 },
 {
@@ -1077,6 +1106,7 @@ longitude: 127.037,
 driver_id: "D041",
 distance_since_new_oil: 2500,
 registration_number: "류 9080",
+image_clip : 'data/image/V016.jpg',
 key: "agxncmVlbi1mbGVldHNyJQsSB0NvbXBhbnkiB3ZpdGl6ZW4MCxIHVmVoaWNsZSIEVjA0MQw"
 },
 {
@@ -1103,6 +1133,7 @@ longitude: 126.833,
 driver_id: "D042",
 distance_since_new_oil: 1500,
 registration_number: "사 7263",
+image_clip : 'data/image/V016.jpg',
 key: "agxncmVlbi1mbGVldHNyJQsSB0NvbXBhbnkiB3ZpdGl6ZW4MCxIHVmVoaWNsZSIEVjA0Mgw"
 },
 {
@@ -1129,6 +1160,7 @@ longitude: 127.03,
 driver_id: "D043",
 distance_since_new_oil: 100,
 registration_number: "사 8976",
+image_clip : 'data/image/V016.jpg',
 key: "agxncmVlbi1mbGVldHNyJQsSB0NvbXBhbnkiB3ZpdGl6ZW4MCxIHVmVoaWNsZSIEVjA0Mww"
 },
 {
@@ -1155,6 +1187,7 @@ longitude: 126.827,
 driver_id: "D044",
 distance_since_new_oil: 500,
 registration_number: "사 0989",
+image_clip : 'data/image/V016.jpg',
 key: "agxncmVlbi1mbGVldHNyJQsSB0NvbXBhbnkiB3ZpdGl6ZW4MCxIHVmVoaWNsZSIEVjA0NAw"
 },
 {
@@ -1181,6 +1214,7 @@ longitude: 126.723,
 driver_id: "D045",
 distance_since_new_oil: 500,
 registration_number: "사 7865",
+image_clip : 'data/image/V016.jpg',
 key: "agxncmVlbi1mbGVldHNyJQsSB0NvbXBhbnkiB3ZpdGl6ZW4MCxIHVmVoaWNsZSIEVjA0NQw"
 },
 {
@@ -1207,6 +1241,7 @@ longitude: 126.82,
 driver_id: "D046",
 distance_since_new_oil: 400,
 registration_number: "나 3423",
+image_clip : 'data/image/V016.jpg',
 key: "agxncmVlbi1mbGVldHNyJQsSB0NvbXBhbnkiB3ZpdGl6ZW4MCxIHVmVoaWNsZSIEVjA0Ngw"
 },
 {
@@ -1233,6 +1268,7 @@ longitude: 126.817,
 driver_id: "D047",
 distance_since_new_oil: 900,
 registration_number: "나 6757",
+image_clip : 'data/image/V016.jpg',
 key: "agxncmVlbi1mbGVldHNyJQsSB0NvbXBhbnkiB3ZpdGl6ZW4MCxIHVmVoaWNsZSIEVjA0Nww"
 },
 {
@@ -1259,6 +1295,7 @@ longitude: 126.713,
 driver_id: "D048",
 distance_since_new_oil: 2000,
 registration_number: "나 8979",
+image_clip : 'data/image/V016.jpg',
 key: "agxncmVlbi1mbGVldHNyJQsSB0NvbXBhbnkiB3ZpdGl6ZW4MCxIHVmVoaWNsZSIEVjA0OAw"
 },
 {
@@ -1285,6 +1322,7 @@ longitude: 127.11,
 driver_id: "D049",
 distance_since_new_oil: 3000,
 registration_number: "다 8765",
+image_clip : 'data/image/V016.jpg',
 key: "agxncmVlbi1mbGVldHNyJQsSB0NvbXBhbnkiB3ZpdGl6ZW4MCxIHVmVoaWNsZSIEVjA0OQw"
 },
 {
@@ -1311,6 +1349,7 @@ longitude: 126.807,
 driver_id: "D050",
 distance_since_new_oil: 2500,
 registration_number: "라 0965",
+image_clip : 'data/image/V016.jpg',
 key: "agxncmVlbi1mbGVldHNyJQsSB0NvbXBhbnkiB3ZpdGl6ZW4MCxIHVmVoaWNsZSIEVjA1MAw"
 }
 ],

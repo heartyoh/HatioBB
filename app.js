@@ -24,7 +24,7 @@ Ext.application({
         'Ext.MessageBox'
     ],
 
-    controllers: ['Main', 'Vehicle', 'Driver','Report'],
+    controllers: ['Main', 'Report'],
     views: ['Main', 'Search', 'Setting'],
     stores: ['Menus', 'VehicleFilteredStore', 'VehicleStore', 'RecentIncidentStore', 'VehicleMapStore', 
 			'DriverStore', 'DriverBriefStore', 'VehicleGroupStore', 'DriverGroupStore', 'TrackByVehicleStore', 

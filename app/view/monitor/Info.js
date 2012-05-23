@@ -55,6 +55,16 @@ Ext.define('HatioBB.view.monitor.Info', {
 
 		var self = this;
 
+		this.on('painted', function() {
+			HatioBB.setting.on('vehicle', self.onSelectVehicle, self);
+			HatioBB.setting.on('driver', self.onSelectDriver, self);
+		});
+		
+		this.on('erased', function() {
+			HatioBB.setting.un('vehicle', self.onSelectVehicle, self);
+			HatioBB.setting.un('driver', self.onSelectDriver, self);
+		});
+		
 		this.on('resize', function() {
 			google.maps.event.trigger(self.getMap(), 'resize');
 		});
@@ -63,12 +73,24 @@ Ext.define('HatioBB.view.monitor.Info', {
 	refresh : function() {
 		this.setVehicle();
 	},
+	
+	onSelectDriver : function() {
+		var store = Ext.getStore('VehicleMapStore');
+		var vehicle = store.findRecord('driver_id', HatioBB.setting.get('driver'));
 
+		// set 만으로도 onSelectVehicle을 기동시킴.
+		HatioBB.setting.set('vehicle', vehicle.get('id'));
+	},
+	
+	onSelectVehicle : function() {
+		this.setVehicle();
+	},
+	
     setVehicle: function(vehicle) {
 		var self = this;
 		
         if (!vehicle) {
-			var vid = HatioBB.setting.get('monitoring_vehicle');
+			var vid = HatioBB.setting.get('vehicle');
 			if(vid) {
 				vehicle = Ext.getStore('VehicleMapStore').findRecord('id', vid);
 				if(!vehicle && !this.isHidden()) {
@@ -78,13 +100,18 @@ Ext.define('HatioBB.view.monitor.Info', {
 					return;
 				}
 			} else {
-	        	return;
+				var did = HatioBB.setting.get('driver');
+				if(did) {
+					vehicle = Ext.getStore('VehicleMapStore').findRecord('driver_id', vid);
+				} else {
+		        	return;
+				}
 			}
 		}
 	
-		HatioBB.setting.set('monitoring_vehicle', vehicle.get('id'));
-		HatioBB.setting.set('vehicle', vehicle.get('id'));
-		HatioBB.setting.set('driver', vehicle.get('driver_id'));
+		// HatioBB.setting.set('monitoring_vehicle', vehicle.get('id'));
+		// HatioBB.setting.set('vehicle', vehicle.get('id'));
+		// HatioBB.setting.set('driver', vehicle.get('driver_id'));
 		
 		/*
 		 * Get Vehicle Information (Image, Registration #, ..) from

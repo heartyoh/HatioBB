@@ -26,10 +26,14 @@ Ext.define('HatioBB.view.monitor.Map', {
 		this.on('painted', function() {
 			self.refreshMap(vehicleFilteredStore);
 			vehicleFilteredStore.on('refresh', self.refreshMap, self);
+			HatioBB.setting.on('vehicle', self.onSelectVehicle, self);
+			HatioBB.setting.on('driver', self.onSelectDriver, self);
 		});
 		
 		this.on('erased', function() {
 			vehicleFilteredStore.un('refresh', self.refreshMap, self);
+			HatioBB.setting.un('vehicle', self.onSelectVehicle, self);
+			HatioBB.setting.un('driver', self.onSelectDriver, self);
 		});
 		
 		this.on('resize', function() {
@@ -46,6 +50,18 @@ Ext.define('HatioBB.view.monitor.Map', {
 	
 	refresh : function() {
 		Ext.getStore('VehicleMapStore').load();
+	},
+	
+	onSelectVehicle : function() {
+		var store = Ext.getStore('VehicleFilteredStore');
+		store.clearFilter();
+		store.filter('id', HatioBB.setting.get('vehicle'));
+	},
+	
+	onSelectDriver : function() {
+		var store = Ext.getStore('VehicleFilteredStore');
+		store.clearFilter();
+		store.filter('driver_id', HatioBB.setting.get('driver'));
 	},
 	
 	destroy : function() {

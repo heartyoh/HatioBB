@@ -54,27 +54,27 @@ image_clip: 'data/image/D010.jpg'
 {
 id: "D011",
 name: "김진만",
-image_clip: null
+image_clip: 'data/image/D010.jpg'
 },
 {
 id: "D012",
 name: "스티브",
-image_clip: null
+image_clip: 'data/image/D010.jpg'
 },
 {
 id: "D013",
 name: "이상철",
-image_clip: null
+image_clip: 'data/image/D010.jpg'
 },
 {
 id: "D014",
 name: "이기수",
-image_clip: null
+image_clip: 'data/image/D010.jpg'
 },
 {
 id: "D015",
 name: "이희철",
-image_clip: null
+image_clip: 'data/image/D010.jpg'
 },
 {
 id: "D016",
@@ -84,172 +84,172 @@ image_clip: 'data/image/D016.jpg'
 {
 id: "D017",
 name: "자우림",
-image_clip: null
+image_clip: 'data/image/D010.jpg'
 },
 {
 id: "D018",
 name: "김수철",
-image_clip: null
+image_clip: 'data/image/D010.jpg'
 },
 {
 id: "D019",
 name: "김도윤",
-image_clip: null
+image_clip: 'data/image/D010.jpg'
 },
 {
 id: "D020",
 name: "윤석인",
-image_clip: null
+image_clip: 'data/image/D010.jpg'
 },
 {
 id: "D021",
 name: "김경수",
-image_clip: null
+image_clip: 'data/image/D010.jpg'
 },
 {
 id: "D022",
 name: "현창환",
-image_clip: null
+image_clip: 'data/image/D010.jpg'
 },
 {
 id: "D023",
 name: "하영민",
-image_clip: null
+image_clip: 'data/image/D010.jpg'
 },
 {
 id: "D024",
 name: "문광훈",
-image_clip: null
+image_clip: 'data/image/D010.jpg'
 },
 {
 id: "D025",
 name: "최광",
-image_clip: null
+image_clip: 'data/image/D010.jpg'
 },
 {
 id: "D026",
 name: "민홍기",
-image_clip: null
+image_clip: 'data/image/D010.jpg'
 },
 {
 id: "D027",
 name: "이인섭",
-image_clip: null
+image_clip: 'data/image/D010.jpg'
 },
 {
 id: "D028",
 name: "이광재",
-image_clip: null
+image_clip: 'data/image/D010.jpg'
 },
 {
 id: "D029",
 name: "최종우",
-image_clip: null
+image_clip: 'data/image/D010.jpg'
 },
 {
 id: "D030",
 name: "한의근",
-image_clip: null
+image_clip: 'data/image/D010.jpg'
 },
 {
 id: "D031",
 name: "서승원",
-image_clip: null
+image_clip: 'data/image/D010.jpg'
 },
 {
 id: "D032",
 name: "황철도",
-image_clip: null
+image_clip: 'data/image/D010.jpg'
 },
 {
 id: "D033",
 name: "김종철",
-image_clip: null
+image_clip: 'data/image/D010.jpg'
 },
 {
 id: "D034",
 name: "류명균",
-image_clip: null
+image_clip: 'data/image/D010.jpg'
 },
 {
 id: "D035",
 name: "정수현",
-image_clip: null
+image_clip: 'data/image/D010.jpg'
 },
 {
 id: "D036",
 name: "양병일",
-image_clip: null
+image_clip: 'data/image/D010.jpg'
 },
 {
 id: "D037",
 name: "홍정기",
-image_clip: null
+image_clip: 'data/image/D010.jpg'
 },
 {
 id: "D038",
 name: "설금희",
-image_clip: null
+image_clip: 'data/image/D010.jpg'
 },
 {
 id: "D039",
 name: "이동형",
-image_clip: null
+image_clip: 'data/image/D010.jpg'
 },
 {
 id: "D040",
 name: "김수엽",
-image_clip: null
+image_clip: 'data/image/D010.jpg'
 },
 {
 id: "D041",
 name: "김찬석",
-image_clip: null
+image_clip: 'data/image/D010.jpg'
 },
 {
 id: "D042",
 name: "이동현",
-image_clip: null
+image_clip: 'data/image/D010.jpg'
 },
 {
 id: "D043",
 name: "조재형",
-image_clip: null
+image_clip: 'data/image/D010.jpg'
 },
 {
 id: "D044",
 name: "오성우",
-image_clip: null
+image_clip: 'data/image/D010.jpg'
 },
 {
 id: "D045",
 name: "김병수",
-image_clip: null
+image_clip: 'data/image/D010.jpg'
 },
 {
 id: "D046",
 name: "박승모",
-image_clip: null
+image_clip: 'data/image/D010.jpg'
 },
 {
 id: "D047",
 name: "이동희",
-image_clip: null
+image_clip: 'data/image/D010.jpg'
 },
 {
 id: "D048",
 name: "김태문",
-image_clip: null
+image_clip: 'data/image/D010.jpg'
 },
 {
 id: "D049",
 name: "조치호",
-image_clip: null
+image_clip: 'data/image/D010.jpg'
 },
 {
 id: "D050",
 name: "표현수",
-image_clip: null
+image_clip: 'data/image/D010.jpg'
 }
 ],
 success: true

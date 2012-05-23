@@ -13,10 +13,13 @@ Ext.define('HatioBB.view.nav.NavDriver', {
 
     config: {
         title: 'Drivers',
+
         disclosure: true,
 
         store: 'DriverBriefStore',
 
-        itemTpl: '<div class="iconDriver"><strong>{id}</strong> {name}</div>'
+        itemTpl: '<div class="iconDriver"><strong>{id}</strong> {name}</div>',
+
+		onItemDisclosure : true
     }
 });

@@ -1,7 +1,7 @@
 Ext.define('HatioBB.controller.Main', {
     extend: 'Ext.app.Controller',
 
-	requires : ['HatioBB.store.SubMenus', 'HatioBB.view.Setting', 'HatioBB.view.Search'],
+	requires : ['HatioBB.store.SubMenus', 'HatioBB.view.Setting', 'HatioBB.view.Search', 'HatioBB.view.driver.Driver', 'HatioBB.view.vehicle.Vehicle'],
 	
     config: {
 		routes : {
@@ -92,7 +92,18 @@ Ext.define('HatioBB.controller.Main', {
 			},
 			'monitor_incident image' : {
 				tap : 'onImage'
-			}
+			},
+			
+            'nav_driver' : {
+                itemtap: 'onDriverItemTap',
+				disclose : 'onDriverDisclose'
+            },
+
+            'nav_vehicle' : {
+                itemtap: 'onVehicleItemTap',
+				disclose : 'onVehicleDisclose'
+            }
+
         }
     },
 
@@ -156,12 +167,18 @@ Ext.define('HatioBB.controller.Main', {
 
     onInfo: function(button, e) {
 		var view = this.showMonitor('monitor_info');
+
 		view.setVehicle();
     },
 
     onVehicleInfo: function(vehicle) {
 		var view = this.showMonitor('monitor_info');
-		view.setVehicle(vehicle);
+
+		HatioBB.setting.set('monitoring_vehicle', vehicle.get('id'));
+		HatioBB.setting.set('vehicle', vehicle.get('id'));
+		HatioBB.setting.set('driver', vehicle.get('driver_id'));
+
+		view.setVehicle();
     },
 
     onIncident: function(comp, e) {
@@ -294,6 +311,29 @@ Ext.define('HatioBB.controller.Main', {
 			this.showDriver();
 		else
 			this.showVehicle();
-	}
+	},
 
+    onDriverItemTap: function(view, index, target, record) {
+		HatioBB.setting.set('driver', record.get('id'));
+    },
+
+    onDriverDisclose: function(list, record, el, index, e) {
+		HatioBB.setting.set('driver', record.get('id'));
+
+		this.showDriver();
+
+		e.stopEvent();
+    },
+
+    onVehicleItemTap: function(view, index, target, record) {
+		HatioBB.setting.set('vehicle', record.get('id'));
+    },
+
+    onVehicleDisclose: function(list, record, el, index, e) {
+		HatioBB.setting.set('vehicle', record.get('id'));
+
+		this.showVehicle();
+
+        e.stopEvent();
+    }
 });
