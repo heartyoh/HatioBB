@@ -15,9 +15,11 @@ Ext.define('HatioBB.view.driver.Driver', {
 	    
 		items : [{
 			xtype : 'driver_info',
+			iconCls : 'iconsTab tabSummary',
 			title : 'Info'
 		}, {
 			xtype : 'chart_d_echo_radar',
+			iconCls : 'iconsTab tabEcho',
 			title : 'Echo Driving'
 		}]
 	},

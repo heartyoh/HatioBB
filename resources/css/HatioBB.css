@@ -143,9 +143,20 @@
 .x-button-icon.iconsTab.tabMap{background-position:2px 2px}
 .x-button-icon.iconsTab.tabMovie{background-position:5px -30px}
 .x-button-icon.iconsTab.tabChart{background-position:0px -62px}
+.x-button-icon.iconsTab.tabSummary{background-position:2px -94px}
+.x-button-icon.iconsTab.tabDrive{background-position:2px -127px}
+.x-button-icon.iconsTab.tabConsumable{background-position:2px -158px}
+.x-button-icon.iconsTab.tabRepair{background-position:2px -191px}
+.x-button-icon.iconsTab.tabEcho{background-position:2px -221px}
 .x-tab-active .x-button-icon.iconsTab.tabMap{background-position:-30px 2px}
 .x-tab-active .x-button-icon.iconsTab.tabMovie{background-position:-27px -30px}
 .x-tab-active .x-button-icon.iconsTab.tabChart{background-position:-32px -62px}
+.x-tab-active .x-button-icon.iconsTab.tabSummary{background-position:-30px -94px}
+.x-tab-active .x-button-icon.iconsTab.tabDrive{background-position:-30px -127px}
+.x-tab-active .x-button-icon.iconsTab.tabConsumable{background-position:-30px -158px}
+.x-tab-active .x-button-icon.iconsTab.tabRepair{background-position:-30px -191px}
+.x-tab-active .x-button-icon.iconsTab.tabEcho{background-position:-30px -221px}
+.x-tab{margin:0 5px;}
 
 /*chart table style*/
 .dataGrid{width:100%;}
