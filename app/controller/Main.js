@@ -1,7 +1,7 @@
 Ext.define('HatioBB.controller.Main', {
     extend: 'Ext.app.Controller',
 
-	requires : ['HatioBB.store.SubMenus', 'HatioBB.view.Setting', 'HatioBB.view.Search', 'HatioBB.view.driver.Driver', 'HatioBB.view.vehicle.Vehicle'],
+	requires : ['HatioBB.store.SubMenus', 'HatioBB.view.Setting', 'HatioBB.view.driver.Driver', 'HatioBB.view.vehicle.Vehicle'],
 	
     config: {
 		routes : {
