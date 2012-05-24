@@ -113,11 +113,14 @@ Ext.define('HatioBB.view.chart.vehicle.Consumable', {
                     type: 'Numeric',
                     position: 'left',
                     fields: ['health_rate'],
+					grid : {
+						stroke : '#ccc'
+					},
                     // minimum: 0,
                     // maximum: 1,
                     label: {
                         renderer: function (v) {
-                            return v.toFixed(1) * 100;
+                            return Math.floor(v * 100);
                         }
                     },
                     title: 'Health Rate',
@@ -158,7 +161,15 @@ Ext.define('HatioBB.view.chart.vehicle.Consumable', {
 						}
 					},
                     label: {
-                        field: 'health_rate'
+						display: 'outside',
+						'text-anchor': 'middle',
+                        // field: 'health_rate',
+                        field: 'status',
+						orientation: 'horizontal',
+						color: '#333',
+						// renderer: function (v) {
+						//                             return Math.floor(v.toFixed(1) * 100);
+						//                         }
                     },
                     xField: 'consumable_item',
                     yField: 'health_rate'
