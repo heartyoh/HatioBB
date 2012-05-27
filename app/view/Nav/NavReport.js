@@ -16,24 +16,41 @@ Ext.define('HatioBB.view.nav.NavReport', {
         store: Ext.create('Ext.data.Store', {
 			fields : ['reportId', 'desc'],
 			data : [{
-				reportId : 'chart_v_health',
-				name : 'Vehicle Health',
-				desc : 'Vehicle Health'
-			}, {
 				reportId : 'rpt_line',
-				desc : 'Line Chart'
+				name : 'Daily Report',
+				desc : 'Daily Report'
 			}, {
 				reportId : 'rpt_bar',
-				desc : 'Bar Chart'
+				name : 'Weekly Report',
+				desc : 'Weekly Report'
 			}, {
 				reportId : 'rpt_column',
-				desc : 'Column Chart'
+				name : 'Monthly Report',
+				desc : 'Monthly Report'
+			}, {
+				reportId : 'chart_v_health',
+				name : 'Vehicle Health Report',
+				desc : 'Vehicle Health Report'
 			}, {
 				reportId : 'rpt_area',
-				desc : 'Area Chart'
+				name : 'Echo Driving Report',
+				desc : 'Echo Driving Report'
 			}, {
 				reportId : 'rpt_pie',
-				desc : 'Pie Chart'
+				name : 'Vehicle Stat. Report',
+				desc : 'Vehicle Stat. Report'
+			}, {
+				reportId : 'rpt_pie',
+				name : 'Driver Stat. Report',
+				desc : 'Driver Stat. Report'
+			}, {
+				reportId : 'rpt_pie',
+				name : 'Driving Report',
+				desc : 'Driving Report'
+			}, {
+				reportId : 'rpt_pie',
+				name : 'Efficiency Report',
+				desc : 'Efficiency Report'
 			}]
 		}),
 

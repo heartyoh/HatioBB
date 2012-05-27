@@ -170,6 +170,11 @@ Ext.define('HatioBB.view.monitor.Map', {
 			setTimeout(function() {
 				self.getMap().setCenter(bounds.getNorthEast());
 				self.getMap().setZoom(HatioBB.setting.get('auto_max_zoom') || 16);
+				/* 한개짜리는 자동으로 마커 클릭이벤트를 발생시킨다. */
+				var markers = self.getMarkers();
+				for(var v in markers) {
+					google.maps.event.trigger(markers[v], 'click');
+				}
 			}, 500);
 		} else if(HatioBB.setting.get('autofit')){ 
 			this.getMap().fitBounds(bounds);
