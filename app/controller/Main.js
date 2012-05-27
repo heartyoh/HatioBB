@@ -76,7 +76,9 @@ Ext.define('HatioBB.controller.Main', {
 			},
 			
 			'monitor_map' : {
-				vehicletap : 'onVehicleInfo'
+				drivertap : 'onMapDriverTap',
+				vehicletap : 'onMapVehicleTap',
+				tracktap : 'onMapTrackTap'
 			},
 			'monitor_info #incidents button' : {
 				tap : 'onIncident'
@@ -161,18 +163,26 @@ Ext.define('HatioBB.controller.Main', {
 
     onInfo: function(button, e) {
 		var view = this.showMonitor('monitor_info');
-
-		view.setVehicle();
     },
 
-    onVehicleInfo: function(vehicle) {
+    onMapTrackTap: function(vehicle) {
 		var view = this.showMonitor('monitor_info');
 
 		HatioBB.setting.set('monitoring_vehicle', vehicle.get('id'));
 		HatioBB.setting.set('vehicle', vehicle.get('id'));
 		HatioBB.setting.set('driver', vehicle.get('driver_id'));
+    },
 
-		view.setVehicle();
+    onMapDriverTap: function(driver) {
+		HatioBB.setting.set('driver', driver.get('id'));
+
+		this.showDriver();
+    },
+
+    onMapVehicleTap: function(vehicle) {
+		HatioBB.setting.set('vehicle', vehicle.get('id'));
+
+		this.showVehicle();
     },
 
     onIncident: function(comp, e) {
@@ -230,10 +240,11 @@ Ext.define('HatioBB.controller.Main', {
 		var status = this.getNav().down('#status');
 		status['_filtered'] = !status['_filtered'];
 
-		store.clearFilter();
-		
 		if(status._filtered) {
+			store.clearFilter(true);
 			store.filter('status', button.config.state);
+		} else {
+			store.clearFilter();
 		}
 
 		this.showMonitor('monitor_map');
@@ -245,7 +256,7 @@ Ext.define('HatioBB.controller.Main', {
 		var vehicles = group ? group.get('vehicles') : [];
 
 		var store = Ext.getStore('VehicleFilteredStore');
-		store.clearFilter();
+		store.clearFilter(true);
 		store.filterBy(function(record) {
 			return Ext.Array.indexOf(vehicles, record.get('id')) >= 0;
 		});
@@ -259,7 +270,7 @@ Ext.define('HatioBB.controller.Main', {
 		var drivers = group ? group.get('drivers') : [];
 
 		var store = Ext.getStore('VehicleFilteredStore');
-		store.clearFilter();
+		store.clearFilter(true);
 		store.filterBy(function(record) {
 			return Ext.Array.indexOf(drivers, record.get('driver_id')) >= 0;
 		});
@@ -302,9 +313,11 @@ Ext.define('HatioBB.controller.Main', {
     onDriverDisclose: function(list, record, el, index, e) {
 		HatioBB.setting.set('driver', record.get('id'));
 
-		this.showDriver();
+		list.select(index);
 
-		e.stopEvent();
+		this.showDriver();
+		
+		// e.stopEvent();
     },
 
     onVehicleItemTap: function(view, index, target, record) {
@@ -314,8 +327,10 @@ Ext.define('HatioBB.controller.Main', {
     onVehicleDisclose: function(list, record, el, index, e) {
 		HatioBB.setting.set('vehicle', record.get('id'));
 
+		list.select(index);
+
 		this.showVehicle();
 
-        e.stopEvent();
+        // e.stopEvent();
     }
 });

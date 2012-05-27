@@ -9,6 +9,18 @@ Ext.define('HatioBB.view.nav.NavDriver', {
 
     initialize: function() {
         this.callParent();
+
+		var self = this;
+		
+		this.on('painted', function() {
+			HatioBB.setting.on('driver', self.onDriver, self);
+			
+			self.onDriver();
+		});
+		
+		this.on('erased', function() {
+			HatioBB.setting.un('driver', self.onDriver, self);
+		});
     },
 
     config: {
@@ -21,5 +33,12 @@ Ext.define('HatioBB.view.nav.NavDriver', {
         itemTpl: '<div class="iconDriver"><strong>{id}</strong> {name}</div>',
 
 		onItemDisclosure : true
-    }
+    },
+
+	onDriver : function() {
+		var driver = HatioBB.setting.get('driver');
+
+		if(driver)
+			this.select(this.getStore().find('id', driver));
+	}
 });

@@ -41,9 +41,23 @@ Ext.define('HatioBB.view.monitor.Map', {
 		});
 		
 		this.element.on({
+			delegate : 'div.showVehicleTrack',
+			tap : function() {
+				self.fireEvent('tracktap', self.selectedMarker.record);
+			}
+		});
+		
+		this.element.on({
 			delegate : 'div.showVehicleInfo',
 			tap : function() {
 				self.fireEvent('vehicletap', self.selectedMarker.record);
+			}
+		});
+		
+		this.element.on({
+			delegate : 'div.showDriverInfo',
+			tap : function() {
+				self.fireEvent('drivertap', self.selectedMarker.driver_record);
 			}
 		});
 	},
@@ -54,13 +68,13 @@ Ext.define('HatioBB.view.monitor.Map', {
 	
 	onSelectVehicle : function() {
 		var store = Ext.getStore('VehicleFilteredStore');
-		store.clearFilter();
+		store.clearFilter(true);
 		store.filter('id', HatioBB.setting.get('vehicle'));
 	},
 	
 	onSelectDriver : function() {
 		var store = Ext.getStore('VehicleFilteredStore');
-		store.clearFilter();
+		store.clearFilter(true);
 		store.filter('driver_id', HatioBB.setting.get('driver'));
 	},
 	
@@ -110,14 +124,15 @@ Ext.define('HatioBB.view.monitor.Map', {
 			var marker = this;
 			var vr = marker.record;
 			var dr = Ext.getStore('DriverBriefStore').getById(vr.get('driver_id'));
+			marker.driver_record = dr;
 			
 			self.selectedMarker = marker;
 			
 			var content = [
-				'<div>vehicle : ' + vr.get('id') + '('+ vr.get('registration_number') + ')</div>',
-				'<div>driver : ' + dr.get('id') + '('+ dr.get('name') + ')</div>',
+				'<div class="showVehicleInfo">vehicle : ' + vr.get('id') + '('+ vr.get('registration_number') + ')</div>',
+				'<div class="showDriverInfo">driver : ' + dr.get('id') + '('+ dr.get('name') + ')</div>',
 				'<div>status : '+ vr.get('status') +'</div>',
-				'<div class="showVehicleInfo">Show Details</div>'
+				'<div class="showVehicleTrack">Show Recent Track</div>'
 			].join('');
 
 			self.infowindow = new google.maps.InfoWindow({ 
@@ -131,7 +146,6 @@ Ext.define('HatioBB.view.monitor.Map', {
 			var vehicle = record.get('id');
 			
 			var latlng = new google.maps.LatLng(record.get('lattitude'), record.get('longitude'));
-			
 			var marker = new google.maps.Marker({
 				position : latlng,
 				map : self.getMap(),
@@ -152,8 +166,11 @@ Ext.define('HatioBB.view.monitor.Map', {
 		if(!bounds) {
 			this.getMap().setCenter(new google.maps.LatLng(System.props.lattitude, System.props.longitude));
 		} else if(bounds.isEmpty() || bounds.getNorthEast().equals(bounds.getSouthWest())) {
-			this.getMap().setCenter(bounds.getNorthEast());
-			this.getMap().setZoom(HatioBB.setting.get('auto_max_zoom') || 16);
+			/* 한개짜리 디스플레이는 너무 시간이 짧아서인지, 센터를 잘 잡지 못한다.(새로 화면이 열리는 경우), 따라서 부득이 딜레이를 주었다.*/
+			setTimeout(function() {
+				self.getMap().setCenter(bounds.getNorthEast());
+				self.getMap().setZoom(HatioBB.setting.get('auto_max_zoom') || 16);
+			}, 500);
 		} else if(HatioBB.setting.get('autofit')){ 
 			this.getMap().fitBounds(bounds);
 		}

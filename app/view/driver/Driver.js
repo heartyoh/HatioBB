@@ -2,7 +2,8 @@ Ext.define('HatioBB.view.driver.Driver', {
 	extend : 'Ext.tab.Panel',
 	
 	requires : [
-	'HatioBB.view.driver.Info',
+	'HatioBB.view.driver.Summary',
+	'HatioBB.view.chart.driver.Running',
 	'HatioBB.view.chart.driver.EchoRadar'
 	],
 	
@@ -14,9 +15,13 @@ Ext.define('HatioBB.view.driver.Driver', {
 		tabBarPosition: 'bottom',
 	    
 		items : [{
-			xtype : 'driver_info',
+			xtype : 'driver_summary',
 			iconCls : 'iconsTab tabSummary',
-			title : 'Info'
+			title : 'Summary'
+		}, {
+			xtype : 'chart_d_running',
+			iconCls : 'iconsTab tabDrive',
+			title : 'Running'
 		}, {
 			xtype : 'chart_d_echo_radar',
 			iconCls : 'iconsTab tabEcho',

@@ -9,6 +9,18 @@ Ext.define('HatioBB.view.nav.NavVehicle', {
 
     initialize: function() {
         this.callParent();
+
+		var self = this;
+		
+		this.on('painted', function() {
+			HatioBB.setting.on('vehicle', self.onVehicle, self);
+			
+			self.onVehicle();
+		});
+		
+		this.on('erased', function() {
+			HatioBB.setting.un('vehicle', self.onVehicle, self);
+		});
     },
 
     config: {
@@ -22,5 +34,12 @@ Ext.define('HatioBB.view.nav.NavVehicle', {
         itemTpl: '<div class="iconVehicle"><strong>{id}</strong> {registration_number}</div>',
 
 		onItemDisclosure : true
-    }
+    },
+
+	onVehicle : function() {
+		var vehicle = HatioBB.setting.get('vehicle');
+
+		if(vehicle)
+			this.select(this.getStore().find('id', vehicle));
+	}
 });

@@ -2,8 +2,8 @@ Ext.define('HatioBB.view.vehicle.Vehicle', {
 	extend : 'Ext.tab.Panel',
 	
 	requires : [
-	'HatioBB.view.vehicle.Info',
-	'HatioBB.view.chart.vehicle.Summary',
+	'HatioBB.view.vehicle.Summary',
+	'HatioBB.view.chart.vehicle.Running',
 	'HatioBB.view.chart.vehicle.Consumable',
 	'HatioBB.view.vehicle.Repair',
 	'HatioBB.view.chart.vehicle.EchoRadar'
@@ -17,13 +17,13 @@ Ext.define('HatioBB.view.vehicle.Vehicle', {
 		tabBarPosition: 'bottom',
 	    
 		items : [{
-			xtype : 'vehicle_info',
+			xtype : 'vehicle_summary',
 			iconCls : 'iconsTab tabSummary',
-			title : 'Info'
-		}, {
-			xtype : 'chart_v_summary',
-			iconCls : 'iconsTab tabDrive',
 			title : 'Summary'
+		}, {
+			xtype : 'chart_v_running',
+			iconCls : 'iconsTab tabDrive',
+			title : 'Running'
 		}, {
 			xtype : 'chart_v_consumable',
 			iconCls : 'iconsTab tabConsumable',

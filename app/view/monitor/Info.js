@@ -30,7 +30,6 @@ Ext.define('HatioBB.view.monitor.Info', {
 				height : 45,
 				itemId : 'incidents',
 				cls : 'shotHList',
-				flex : 1,
 				layout : {
 					type : 'hbox',
 					align : 'stretch'
@@ -58,6 +57,8 @@ Ext.define('HatioBB.view.monitor.Info', {
 		this.on('painted', function() {
 			HatioBB.setting.on('vehicle', self.onSelectVehicle, self);
 			HatioBB.setting.on('driver', self.onSelectDriver, self);
+			
+			self.refresh();
 		});
 		
 		this.on('erased', function() {
@@ -75,15 +76,23 @@ Ext.define('HatioBB.view.monitor.Info', {
 	},
 	
 	onSelectDriver : function() {
+		if(this.onProcessing)
+			return;
+		
 		var store = Ext.getStore('VehicleMapStore');
 		var vehicle = store.findRecord('driver_id', HatioBB.setting.get('driver'));
 
-		// set 만으로도 onSelectVehicle을 기동시킴.
-		HatioBB.setting.set('vehicle', vehicle.get('id'));
+		this.setVehicle(vehicle);
 	},
 	
 	onSelectVehicle : function() {
-		this.setVehicle();
+		if(this.onProcessing)
+			return;
+		
+		var store = Ext.getStore('VehicleMapStore');
+		var vehicle = store.findRecord('id', HatioBB.setting.get('vehicle'));
+
+		this.setVehicle(vehicle);
 	},
 	
     setVehicle: function(vehicle) {
@@ -108,10 +117,22 @@ Ext.define('HatioBB.view.monitor.Info', {
 				}
 			}
 		}
+		
+		if(!vehicle)
+			return;
 	
-		// HatioBB.setting.set('monitoring_vehicle', vehicle.get('id'));
-		// HatioBB.setting.set('vehicle', vehicle.get('id'));
-		// HatioBB.setting.set('driver', vehicle.get('driver_id'));
+		var vid = vid || vehicle.get('id');
+		var did = did || vehicle.get('driver_id');
+		
+		try {
+			this.onProcessing = true;
+			if(vid && (vid !== HatioBB.setting.get('vehicle')))
+				HatioBB.setting.set('vehicle', vid);
+			if(did && (did !== HatioBB.setting.get('driver_id')))
+				HatioBB.setting.set('driver', did);
+		} finally {
+			this.onProcessing = false;
+		}
 		
 		/*
 		 * Get Vehicle Information (Image, Registration #, ..) from
@@ -120,12 +141,14 @@ Ext.define('HatioBB.view.monitor.Info', {
 		var vehicleStore = Ext.getStore('VehicleMapStore');
 		var vehicleRecord = vehicleStore.findRecord('id', vehicle.get('id'));
 		var vehicleImageClip = vehicleRecord.get('image_clip');
+		var vimage = self.sub('vehicleImage');
+
 		if (vehicleImageClip) {
-			self.sub('vehicleImage').setSrc(vehicleImageClip);
+			vimage.setSrc(vehicleImageClip);
 			// TODO AppEngine 으로 올리려면 아래와 같이 수정해 주어야 함.
 			// self.sub('vehicleImage').setSrc('download?blob-key=' + vehicleImageClip);
 		} else {
-			self.sub('vehicleImage').setSrc('resources/images/bgVehicle.png');
+			vimage.setSrc('resources/images/bgVehicle.png');
 		}
 
 		/*
@@ -135,12 +158,14 @@ Ext.define('HatioBB.view.monitor.Info', {
 		var driverRecord = driverStore.findRecord('id', vehicle.get('driver_id'));
 		var driver = driverRecord.get('id');
 		var driverImageClip = driverRecord.get('image_clip');
+		var dimage = self.sub('driverImage');
+		
 		if (driverImageClip) {
-			self.sub('driverImage').setSrc(driverImageClip);
+			dimage.setSrc(driverImageClip);
 			// TODO AppEngine 으로 올리려면 아래와 같이 수정해 주어야 함.
 			// self.sub('driverImage').setSrc('download?blob-key=' + driverImageClip);
 		} else {
-			self.sub('driverImage').setSrc('resources/images/bgDriver.png');
+			dimage.setSrc('resources/images/bgDriver.png');
 		}
 		vehicle.set('driver_name', driverRecord.get('name'));
 

@@ -1,7 +1,7 @@
-Ext.define('HatioBB.view.chart.vehicle.Summary', {
+Ext.define('HatioBB.view.chart.vehicle.Running', {
 	extend : 'Ext.Panel',
 	
-	xtype : 'chart_v_summary',
+	xtype : 'chart_v_running',
 	
 	requires: [
 	'Ext.chart.Chart',
@@ -10,7 +10,7 @@ Ext.define('HatioBB.view.chart.vehicle.Summary', {
 	],
 		
 	config : {
-		title : T('title.chart_v_summary'),
+		title : T('title.chart_v_running'),
 		cls : 'grayBg',
 		layout : {
 			type : 'vbox',
@@ -81,8 +81,6 @@ Ext.define('HatioBB.view.chart.vehicle.Summary', {
 		return {
 			xtype : 'chart',
 			store : store,
-            themeCls: 'line1',
-            theme: 'Demo',
             animate: true,
             shadow: false,
 			toolbar : null,
@@ -151,8 +149,6 @@ Ext.define('HatioBB.view.chart.vehicle.Summary', {
 		return {
 			xtype : 'chart',
 			store : store,
-            themeCls: 'line1',
-            theme: 'Demo',
             animate: true,
             shadow: false,
 			toolbar : null,
