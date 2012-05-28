@@ -20,11 +20,7 @@ Ext.define('HatioBB.view.nav.NavReport', {
 				name : 'Daily Report',
 				desc : 'Daily Report'
 			}, {
-				reportId : 'rpt_bar',
-				name : 'Weekly Report',
-				desc : 'Weekly Report'
-			}, {
-				reportId : 'rpt_column',
+				reportId : 'monthlyreport',
 				name : 'Monthly Report',
 				desc : 'Monthly Report'
 			}, {
