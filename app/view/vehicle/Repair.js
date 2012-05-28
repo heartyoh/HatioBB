@@ -4,6 +4,8 @@ Ext.define('HatioBB.view.vehicle.Repair', {
 	xtype : 'vehicle_repair',
 	
 	config : {
+		cls : 'grayBg',
+		
 		html : 'Repair'
 	}
 });

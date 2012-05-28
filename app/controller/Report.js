@@ -7,6 +7,7 @@ Ext.define('HatioBB.controller.Report', {
 		'HatioBB.view.report.ColumnChart',
 		'HatioBB.view.report.LineChart',
 		'HatioBB.view.report.PieChart',
+		'HatioBB.view.report.DailyReport',
 		'HatioBB.view.chart.vehicle.VehicleHealth'
 	 ],
 

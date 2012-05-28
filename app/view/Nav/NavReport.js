@@ -16,7 +16,7 @@ Ext.define('HatioBB.view.nav.NavReport', {
         store: Ext.create('Ext.data.Store', {
 			fields : ['reportId', 'desc'],
 			data : [{
-				reportId : 'rpt_line',
+				reportId : 'dailyreport',
 				name : 'Daily Report',
 				desc : 'Daily Report'
 			}, {
