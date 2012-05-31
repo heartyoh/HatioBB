@@ -26,7 +26,7 @@ Ext.define('HatioBB.view.report.DailyReport', {
 		/* 어제 일자를 구힌다 */
 		var yesterday = new Date();
 		yesterday.setDate(yesterday.getDate() - 1);
-		data.date = yesterday;
+		data.date = Ext.Date.format(yesterday, T('format.date'));
 
 		/* 주행 데이타를 설정한다 */
 		data.driving = [];

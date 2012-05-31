@@ -1,0 +1,3 @@
+T({
+	sample : 'sample'
+});
