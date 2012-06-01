@@ -48,7 +48,7 @@ Ext.define('HatioBB.store.DriverStore', {
 		proxy : {
 			type : 'ajax',
 			// url : 'driver',
-			url : 'data/driver.json',
+			url : 'data/driver',
 			reader : {
 				type : 'json',
 				rootProperty : 'items',

@@ -33,7 +33,7 @@ Ext.define('HatioBB.store.TrackByVehicleStore', {
 		proxy : {
 			type : 'ajax',
 			// url : 'track',
-			url : 'data/track.json',
+			url : 'data/track',
 			reader : {
 				type : 'json',
 				rootProperty : 'items',

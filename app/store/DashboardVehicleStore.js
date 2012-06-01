@@ -19,7 +19,7 @@ Ext.define('HatioBB.store.DashboardVehicleStore', {
 		proxy : {
 			type : 'ajax',
 			// url : 'dashboard/health/vehicle',
-			url : 'data/dashboard/health/vehicle.json',
+			url : 'data/dashboard/health/vehicle',
 			extraParams : {
 			},
 			reader : {

@@ -61,7 +61,7 @@ Ext.define('HatioBB.view.driver.Summary', {
 		var store = Ext.getStore('DriverStore');
 		this.driver = HatioBB.setting.get('driver');
 		
-		store.filter('driver_id', this.driver);
+		store.filter('id', this.driver);
 		store.load(function(records) {
 			// TODO 아래 라인을 삭제한다. 테스트 용임.
 			records[0].set('social_id', Math.floor(Math.random() * 1000000000));

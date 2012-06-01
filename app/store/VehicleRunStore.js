@@ -60,7 +60,7 @@ Ext.define('HatioBB.store.VehicleRunStore', {
 		proxy : {
 			type : 'ajax',
 			// url : 'vehicle_run',
-			url : 'data/vehicle_run.json',
+			url : 'data/vehicle_run',
 			reader : {
 				type : 'json',
 				rootProperty : 'items',

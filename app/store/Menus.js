@@ -10,7 +10,7 @@ Ext.define('HatioBB.store.Menus', {
 
         proxy: {
             type: 'ajax',
-            url: 'data/Menu.json'
+            url: 'data/Menu'
         }
     }
 });

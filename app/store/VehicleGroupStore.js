@@ -29,7 +29,7 @@ Ext.define('HatioBB.store.VehicleGroupStore', {
 		proxy : {
 			type : 'ajax',
 			// url : 'vehicle_group',
-			url : 'data/vehicle_group.json',
+			url : 'data/vehicle_group',
 			reader : {
 				type : 'json',
 				rootProperty : 'items',

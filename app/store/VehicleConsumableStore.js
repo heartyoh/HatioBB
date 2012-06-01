@@ -63,7 +63,7 @@ Ext.define('HatioBB.store.VehicleConsumableStore', {
 		proxy : {
 			type : 'ajax',
 			// url : 'vehicle_consumable',		
-			url : 'data/vehicle_consumable.json',
+			url : 'data/vehicle_consumable',
 			reader : {
 				type : 'json',
 				rootProperty : 'items',

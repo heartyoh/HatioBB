@@ -31,7 +31,7 @@ Ext.define('HatioBB.store.DriverGroupStore', {
 		proxy : {
 			type : 'ajax',
 			// url : 'driver_group',
-			url : 'data/driver_group.json',
+			url : 'data/driver_group',
 			reader : {
 				type : 'json',
 				rootProperty : 'items',
