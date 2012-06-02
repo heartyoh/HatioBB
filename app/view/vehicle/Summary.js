@@ -19,9 +19,13 @@ Ext.define('HatioBB.view.vehicle.Summary', {
 			xtype : 'container',
 			itemId : 'links',
 			height : 45,
-			cls : 'divHAlign',
-			html : ['<div class="iconMap"><span>Current Position Map</span></div>',
-			'<div class="iconTrack"><span>Recent Running Track</span></div>'].join('')
+			cls : 'shotHList marginT10 divHAlign',
+			html : [
+				'<div class="iconFuel">Remaining Fuel<span>25</span></div>',
+				'<div class="iconDistance">Total Distance<span>256,000</span></div>',
+				'<div class="iconMap">Move to<span>Current Position Map</span></div>',
+				'<div class="iconTrack">Move to<span>Recent Running Track</span></div>',
+			].join('')
         }, {
 			xtype : 'container',
 			flex : 1,
@@ -121,7 +125,7 @@ Ext.define('HatioBB.view.vehicle.Summary', {
                 '<div class="infoID {status}">{id}</div>',
                 '<div class="infoText">' + T('label.x_type', {x : T('label.vehicle')}) + ' : {vehicle_type}</div>',
                 '<div class="infoText">' + T('label.manufacturer') + ' : {manufacturer}</div>',
-                '<div class="infoText">' + T('label.birth_year') + ' : {birth_year}</div>'
+                
                 ]
             },
 			{
@@ -131,9 +135,10 @@ Ext.define('HatioBB.view.vehicle.Summary', {
                 data: null,
                 tpl: [
                 '<div class="infoID">' + T('label.reg_no') + ' : {registration_number}</div>',
-                '<div class="infoText">' + T('label.fuel_type') + ' : {fuel_type}</div>',
-                '<div class="infoText">' + T('label.remaining_fuel') + ' : {remaining_fuel}</div>',
-                '<div class="infoText">' + T('label.total_x', {x : T('label.distance')}) + ' : {total_distance}</div>'
+				'<div class="infoText">' + T('label.birth_year') + ' : {birth_year}</div>',
+                '<div class="infoText">' + T('label.fuel_type') + ' : {fuel_type}</div>'
+                //'<div class="infoText">' + T('label.remaining_fuel') + ' : {remaining_fuel}</div>',
+                //'<div class="infoText">' + T('label.total_x', {x : T('label.distance')}) + ' : {total_distance}</div>'
                 ]
 			}]
         }

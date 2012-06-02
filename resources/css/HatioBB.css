@@ -121,6 +121,10 @@
 .divHAlign .iconETemp{background:url('../images/iconETemp.png') no-repeat;}
 .divHAlign .iconVelocity{background:url('../images/iconVelocity.png') no-repeat;}
 .divHAlign .iconOBD{background:url('../images/iconOBD.png') no-repeat;}
+.divHAlign .iconFuel{background:url('../images/iconFuel.png') no-repeat;}
+.divHAlign .iconDistance{background:url('../images/iconDistance.png') 2px 0 no-repeat;}
+.divHAlign .iconMap{background:url('../images/iconHeaderView.png') -8px -6px no-repeat;}
+.divHAlign .iconTrack{background:url('../images/iconHeaderView.png') -9px -85px no-repeat;}
 .shotHList .x-field{background-color:transparent;}
 .shotHList .x-toggle-field .x-component-outer{padding:0.4em 0.5em;}
 .x-img.imgVehicle,.x-img.imgDriver{background-size:110px 115px;}
