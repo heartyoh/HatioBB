@@ -144,9 +144,10 @@ Ext.define('HatioBB.view.monitor.Info', {
 		var vimage = self.sub('vehicleImage');
 
 		if (vehicleImageClip) {
-			vimage.setSrc(vehicleImageClip);
-			// TODO AppEngine 으로 올리려면 아래와 같이 수정해 주어야 함.
-			// self.sub('vehicleImage').setSrc('download?blob-key=' + vehicleImageClip);
+			if(HatioBB.setting.get('run_mode'))
+				vimage.setSrc('download?blob-key=' + vehicleImageClip);
+			else
+				vimage.setSrc(vehicleImageClip);
 		} else {
 			vimage.setSrc('resources/images/bgVehicle.png');
 		}
@@ -161,9 +162,10 @@ Ext.define('HatioBB.view.monitor.Info', {
 		var dimage = self.sub('driverImage');
 		
 		if (driverImageClip) {
-			dimage.setSrc(driverImageClip);
-			// TODO AppEngine 으로 올리려면 아래와 같이 수정해 주어야 함.
-			// self.sub('driverImage').setSrc('download?blob-key=' + driverImageClip);
+			if(HatioBB.setting.get('run_mode'))
+				dimage.setSrc('download?blob-key=' + driverImageClip);
+			else
+				dimage.setSrc(driverImageClip);
 		} else {
 			dimage.setSrc('resources/images/bgDriver.png');
 		}

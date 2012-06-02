@@ -76,12 +76,15 @@ Ext.define('HatioBB.view.monitor.Incident', {
 		var vehicleStore = Ext.getStore('VehicleMapStore');
 		var vehicleRecord = vehicleStore.findRecord('id', incident.get('vehicle_id'));
 		var vehicleImageClip = vehicleRecord.get('image_clip');
+		var vimage = this.sub('vehicleImage');
+
 		if (vehicleImageClip) {
-			this.sub('vehicleImage').setSrc(vehicleImageClip);
-			// TODO AppEngine 으로 올리려면 아래와 같이 수정해 주어야 함.
-			// this.sub('vehicleImage').setSrc('download?blob-key=' + vehicleImageClip);
+			if(HatioBB.setting.get('run_mode'))
+				vimage.setSrc('download?blob-key=' + vehicleImageClip);
+			else
+				vimage.setSrc(vehicleImageClip);
 		} else {
-			this.sub('vehicleImage').setSrc('resources/images/bgVehicle.png');
+			vimage.setSrc('resources/images/bgVehicle.png');
 		}
 		incident.set('registration_number', vehicleRecord.get('registration_number'));
 
@@ -92,12 +95,15 @@ Ext.define('HatioBB.view.monitor.Incident', {
 		var driverRecord = driverStore.findRecord('id', incident.get('driver_id'));
 		var driver = driverRecord.get('id');
 		var driverImageClip = driverRecord.get('image_clip');
+		var dimage = this.sub('driverImage');
+
 		if (driverImageClip) {
-			this.sub('driverImage').setSrc(driverImageClip);
-			// TODO AppEngine 으로 올리려면 아래와 같이 수정해 주어야 함.
-			// this.sub('driverImage').setSrc('download?blob-key=' + driverImageClip);
+			if(HatioBB.setting.get('run_mode'))
+				dimage.setSrc('download?blob-key=' + driverImageClip);
+			else
+				dimage.setSrc(driverImageClip);
 		} else {
-			this.sub('driverImage').setSrc('resources/images/bgDriver.png');
+			dimage.setSrc('resources/images/bgDriver.png');
 		}
 		incident.set('driver_name', driverRecord.get('name'));
 

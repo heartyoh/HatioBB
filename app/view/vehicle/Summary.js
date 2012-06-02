@@ -84,10 +84,16 @@ Ext.define('HatioBB.view.vehicle.Summary', {
 
 			// ImageClip을 리프레쉬한다.
 			var imageClip = records[0].get('image_clip');
-			if(imageClip)
-				self.down('[itemId=vehicleImage]').setSrc(imageClip);
-			else
-				self.down('[itemId=vehicleImage]').setSrc('resources/images/bgVehicle.png');
+			var vimage = self.down('[itemId=vehicleImage]');
+			if(imageClip) {
+				if(HatioBB.setting.get('run_mode'))
+					vimage.setSrc('download?blob-key=' + imageClip);
+				else
+					vimage.setSrc(imageClip);
+				
+			} else {
+				vimage.setSrc('resources/images/bgVehicle.png');
+			}
 		});
 		
 	},

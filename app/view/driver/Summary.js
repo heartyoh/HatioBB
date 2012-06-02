@@ -74,10 +74,15 @@ Ext.define('HatioBB.view.driver.Summary', {
 
 			// ImageClip을 리프레쉬한다.
 			var imageClip = records[0].get('image_clip');
-			if(imageClip)
-				self.down('[itemId=driverImage]').setSrc(imageClip);
-			else
-				self.down('[itemId=driverImage]').setSrc('resources/images/bgDriver.png');
+			var dimage = self.down('[itemId=driverImage]');
+			if(imageClip) {
+				if(HatioBB.setting.get('run_mode'))
+					dimage.setSrc('download?blob-key=' + imageClip);
+				else
+					dimage.setSrc(imageClip);
+			} else {
+				dimage.setSrc('resources/images/bgDriver.png');
+			}
 		});
 	},
 	
