@@ -97,8 +97,7 @@ Ext.define('HatioBB.store.RecentIncidentStore', {
 
 		proxy : {
 			type : 'ajax',
-			// url : 'incident',
-			url : 'data/incident',
+			url : window.location.pathname.indexOf('/m/') === 0 ? '/incident' : 'data/incident.json',
 			extraParams : {
 				confirm : false
 			},

@@ -144,8 +144,8 @@ Ext.define('HatioBB.view.monitor.Info', {
 		var vimage = self.sub('vehicleImage');
 
 		if (vehicleImageClip) {
-			if(HatioBB.setting.get('run_mode'))
-				vimage.setSrc('download?blob-key=' + vehicleImageClip);
+			if(HatioBB.setting.get('app_mode'))
+				vimage.setSrc('/download?blob-key=' + vehicleImageClip);
 			else
 				vimage.setSrc(vehicleImageClip);
 		} else {
@@ -162,8 +162,8 @@ Ext.define('HatioBB.view.monitor.Info', {
 		var dimage = self.sub('driverImage');
 		
 		if (driverImageClip) {
-			if(HatioBB.setting.get('run_mode'))
-				dimage.setSrc('download?blob-key=' + driverImageClip);
+			if(HatioBB.setting.get('app_mode'))
+				dimage.setSrc('/download?blob-key=' + driverImageClip);
 			else
 				dimage.setSrc(driverImageClip);
 		} else {

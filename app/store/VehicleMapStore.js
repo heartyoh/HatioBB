@@ -34,8 +34,7 @@ Ext.define('HatioBB.store.VehicleMapStore', {
 
 		proxy : {
 			type : 'ajax',
-			// url : 'vehicle',
-			url : 'data/vehicle_brief',
+			url : window.location.pathname.indexOf('/m/') === 0 ? '/vehicle' : 'data/vehicle_brief.json',
 			extraParams : {
 				select : [ 'id', 'registration_number', 'status', 'driver_id', 'lattitude', 'longitude', 'image_clip' ]
 			},

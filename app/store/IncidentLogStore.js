@@ -60,8 +60,7 @@ Ext.define('HatioBB.store.IncidentLogStore', {
 
 		proxy : {
 			type : 'ajax',
-			// url : 'incident_log',
-			url : 'data/incident_log',
+			url : window.location.pathname.indexOf('/m/') === 0 ? '/incident_log' : 'data/incident_log.json',
 			reader : {
 				type : 'json',
 				rootProperty : 'items',

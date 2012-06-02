@@ -13,7 +13,7 @@ Ext.define('HatioBB.mixin.Setting', function() {
 		value : 16
 	}];
 	
-	Ext.define('HatioBB.mixin.LocalSetting.Model', {
+	Ext.define('HatioBB.mixin.Setting.Model', {
 	    extend: 'Ext.data.Model',
 	    config: {
 	        fields: [{
@@ -31,7 +31,7 @@ Ext.define('HatioBB.mixin.Setting', function() {
 	});
 
 	var store = Ext.create('Ext.data.Store', {
-		model : 'HatioBB.mixin.LocalSetting.Model',
+		model : 'HatioBB.mixin.Setting.Model',
 		autoSync : true
 	});
 	
@@ -47,7 +47,7 @@ Ext.define('HatioBB.mixin.Setting', function() {
 		var record = store.getById(name);
 		var old;
 		if(!record) {
-			var set = Ext.create('HatioBB.mixin.LocalSetting.Model', {
+			var set = Ext.create('HatioBB.mixin.Setting.Model', {
 				id : name,
 				value : undefined
 			});

@@ -76,8 +76,8 @@ Ext.define('HatioBB.view.driver.Summary', {
 			var imageClip = records[0].get('image_clip');
 			var dimage = self.down('[itemId=driverImage]');
 			if(imageClip) {
-				if(HatioBB.setting.get('run_mode'))
-					dimage.setSrc('download?blob-key=' + imageClip);
+				if(HatioBB.setting.get('app_mode'))
+					dimage.setSrc('/download?blob-key=' + imageClip);
 				else
 					dimage.setSrc(imageClip);
 			} else {

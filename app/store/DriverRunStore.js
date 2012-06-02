@@ -62,8 +62,7 @@ Ext.define('HatioBB.store.DriverRunStore', {
 
 		proxy : {
 			type : 'ajax',
-			// url : 'driver_run',
-			url : 'data/driver_run',
+			url : window.location.pathname.indexOf('/m/') === 0 ? '/driver_run' : 'data/driver_run.json',
 			extraParams : {
 				select : [ 'driver', 'year', 'month', 'run_dist', 'run_time', 'consmpt', 'co2_emss', 'effcc', 'sud_accel_cnt', 'sud_brake_cnt', 'eco_drv_time', 'ovr_spd_time', 'inc_cnt' ]
 			},

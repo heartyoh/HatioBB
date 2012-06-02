@@ -18,8 +18,7 @@ Ext.define('HatioBB.store.DashboardConsumableStore', {
 
 		proxy : {
 			type : 'ajax',
-			// url : 'dashboard/health/consumable',
-			url : 'data/dashboard/health/consumable',
+			url : window.location.pathname.indexOf('/m/') === 0 ? '/dashboard/health/consumable' : 'data/dashboard/health/consumable.json',
 			extraParams : {
 			},
 			reader : {

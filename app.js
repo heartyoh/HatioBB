@@ -21,7 +21,8 @@ Ext.application({
     name: 'HatioBB',
 
     requires: [
-        'Ext.MessageBox'
+        'Ext.MessageBox',
+		'Ext.tab.Panel'
     ],
 
     controllers: ['Main', 'Report'],
@@ -45,7 +46,7 @@ Ext.application({
         // Destroy the #appLoadingIndicator element
         Ext.fly('appLoadingIndicator').destroy();
 
-		HatioBB.setting.set('run_mode', (0 === window.location.pathname.indexOf('/m/')));
+		HatioBB.setting.set('app_mode', (0 === window.location.pathname.indexOf('/m/')));
 
         // Initialize the main view
         Ext.Viewport.add(Ext.create('HatioBB.view.Main'));

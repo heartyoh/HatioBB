@@ -19,8 +19,7 @@ Ext.define('HatioBB.store.DriverBriefStore', {
 
 		proxy : {
 			type : 'ajax',
-			// url : 'driver',
-			url : 'data/driver_brief',
+			url : window.location.pathname.indexOf('/m/') === 0 ? '/driver' : 'data/driver_brief.json',
 			extraParams : {
 				select : [ 'id', 'name', 'image_clip' ]
 			},

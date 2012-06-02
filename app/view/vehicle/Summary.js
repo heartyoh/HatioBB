@@ -86,8 +86,8 @@ Ext.define('HatioBB.view.vehicle.Summary', {
 			var imageClip = records[0].get('image_clip');
 			var vimage = self.down('[itemId=vehicleImage]');
 			if(imageClip) {
-				if(HatioBB.setting.get('run_mode'))
-					vimage.setSrc('download?blob-key=' + imageClip);
+				if(HatioBB.setting.get('app_mode'))
+					vimage.setSrc('/download?blob-key=' + imageClip);
 				else
 					vimage.setSrc(imageClip);
 				
