@@ -150,7 +150,7 @@ Ext.define('HatioBB.view.Nav', {
 				html : '<a href="#">'
 						+ record.data.desc
 						+ '<span>('
-						// + record.data.vehicles.length
+						+ record.data.vehicles.length
 						+ ')</span></a>'
 			});			
 		});
@@ -167,7 +167,7 @@ Ext.define('HatioBB.view.Nav', {
 				html : '<a href="#">'
 						+ record.data.desc
 						+ '<span>('
-						// + record.data.drivers.length
+						+ record.data.drivers.length
 						+ ')</span></a>'
 			});			
 		});
