@@ -48,7 +48,7 @@ Ext.define('HatioBB.store.VehicleStore', {
 			name : 'remaining_fuel',
 			type : 'float'
 		}, {
-			name : 'lattitude',
+			name : 'lat',
 			type : 'float'
 		}, {
 			name : 'driver_id',
@@ -57,7 +57,7 @@ Ext.define('HatioBB.store.VehicleStore', {
 			name : 'terminal_id',
 			type : 'string'
 		}, {
-			name : 'longitude',
+			name : 'lng',
 			type : 'float'
 		}, {
 			name : 'location',

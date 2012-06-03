@@ -11,7 +11,7 @@ Ext.define('HatioBB.view.monitor.Map', {
 			zoom : 10,
 			maxZoom : 19,
 			minZoom : 3,
-			center : new google.maps.LatLng(System.props.lattitude, System.props.longitude),
+			center : new google.maps.LatLng(System.props.lat, System.props.lng),
 			mapTypeId : google.maps.MapTypeId.ROADMAP
 		}	
 	},
@@ -130,7 +130,8 @@ Ext.define('HatioBB.view.monitor.Map', {
 			
 			var content = [
 				'<div class="showVehicleInfo">vehicle : ' + vr.get('id') + '('+ vr.get('registration_number') + ')</div>',
-				'<div class="showDriverInfo">driver : ' + dr.get('id') + '('+ dr.get('name') + ')</div>',
+				dr ? '<div class="showDriverInfo">driver : ' + dr.get('id') + '('+ dr.get('name') + ')</div>'
+				: '<div>driver : ' + T('label.nodriver') + '</div>',
 				'<div>status : '+ vr.get('status') +'</div>',
 				'<div class="showVehicleTrack">Show Recent Track</div>'
 			].join('');
@@ -145,7 +146,7 @@ Ext.define('HatioBB.view.monitor.Map', {
 		store.each(function(record) {
 			var vehicle = record.get('id');
 			
-			var latlng = new google.maps.LatLng(record.get('lattitude'), record.get('longitude'));
+			var latlng = new google.maps.LatLng(record.get('lat'), record.get('lng'));
 			var marker = new google.maps.Marker({
 				position : latlng,
 				map : self.getMap(),
@@ -164,7 +165,7 @@ Ext.define('HatioBB.view.monitor.Map', {
 		}, this);
 		
 		if(!bounds) {
-			this.getMap().setCenter(new google.maps.LatLng(System.props.lattitude, System.props.longitude));
+			this.getMap().setCenter(new google.maps.LatLng(System.props.lat, System.props.lng));
 		} else if(bounds.isEmpty() || bounds.getNorthEast().equals(bounds.getSouthWest())) {
 			/* 한개짜리 디스플레이는 너무 시간이 짧아서인지, 센터를 잘 잡지 못한다.(새로 화면이 열리는 경우), 따라서 부득이 딜레이를 주었다.*/
 			setTimeout(function() {

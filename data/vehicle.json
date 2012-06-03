@@ -12,7 +12,7 @@
 "image_clip": "data/image/V001.jpg",
 "created_at": 1329067816939,
 "driver_id": "D001",
-"longitude": 127.1,
+"lng": 127.1,
 "health_status": "Impending",
 "key": "ag5zfmdyZWVuLWZsZWV0c3IlCxIHQ29tcGFueSIHdml0aXplbgwLEgdWZWhpY2xlIgRWMDAxDA",
 "total_distance": 256000,
@@ -26,7 +26,7 @@
 "updated_at": 1335843039627,
 "ownership_type": "A",
 "manufacturer": "Audi",
-"lattitude": 37.36,
+"lat": 37.36,
 "distance_since_new_oil": 100,
 "registration_number": "가 1234"
 }

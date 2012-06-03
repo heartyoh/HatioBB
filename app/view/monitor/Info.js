@@ -43,7 +43,7 @@ Ext.define('HatioBB.view.monitor.Info', {
 					maxZoom : 19,
 					minZoom : 3,
 					center : null,
-					// center : new google.maps.LatLng(System.props.lattitude, System.props.longitude),
+					// center : new google.maps.LatLng(System.props.lat, System.props.lng),
 					mapTypeId : google.maps.MapTypeId.ROADMAP
 				}	
 	        }
@@ -172,7 +172,7 @@ Ext.define('HatioBB.view.monitor.Info', {
 		vehicle.set('driver_name', driverRecord.get('name'));
 
 		vehicle.set('location', 'Resolving ..');
-		this.getLocation(vehicle.get('lattitude'), vehicle.get('longitude'), function(location) {
+		this.getLocation(vehicle.get('lat'), vehicle.get('lng'), function(location) {
 			vehicle.set('location', location);
 			self.sub('briefInfo').setData(vehicle.getData());
 		});
@@ -209,9 +209,9 @@ Ext.define('HatioBB.view.monitor.Info', {
 		});
     },
 
-	getLocation : function(latitude, longitude, callback) {
-		if (latitude !== undefined && longitude !== undefined) {
-			var latlng = new google.maps.LatLng(latitude, longitude);
+	getLocation : function(lat, lng, callback) {
+		if (lat !== undefined && lng !== undefined) {
+			var latlng = new google.maps.LatLng(lat, lng);
 
 			geocoder = new google.maps.Geocoder();
 			geocoder.geocode({
@@ -313,7 +313,7 @@ Ext.define('HatioBB.view.monitor.Info', {
 			var defaultLatlng = null;
 			
 			if(lat === 0 && lng === 0) {
-				defaultLatlng = new google.maps.LatLng(System.props.lattitude, System.props.longitude);
+				defaultLatlng = new google.maps.LatLng(System.props.lat, System.props.lng);
 			} else {
 				defaultLatlng = new google.maps.LatLng(lat, lng);
 			}

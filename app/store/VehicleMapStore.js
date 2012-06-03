@@ -19,10 +19,10 @@ Ext.define('HatioBB.store.VehicleMapStore', {
 			name : 'driver_id',
 			type : 'string'
 		}, {
-			name : 'lattitude',
+			name : 'lat',
 			type : 'float'
 		}, {
-			name : 'longitude',
+			name : 'lng',
 			type : 'float'
 		}, {
 			name : 'location',
@@ -36,7 +36,7 @@ Ext.define('HatioBB.store.VehicleMapStore', {
 			type : 'ajax',
 			url : window.location.pathname.indexOf('/m/') === 0 ? '/vehicle' : 'data/vehicle_brief.json',
 			extraParams : {
-				select : [ 'id', 'registration_number', 'status', 'driver_id', 'lattitude', 'longitude', 'image_clip' ]
+				select : [ 'id', 'registration_number', 'status', 'driver_id', 'lat', 'lng', 'image_clip' ]
 			},
 			reader : {
 				type : 'json',
