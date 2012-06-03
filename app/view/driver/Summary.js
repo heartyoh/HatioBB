@@ -63,8 +63,8 @@ Ext.define('HatioBB.view.driver.Summary', {
 		
 		store.filter('id', this.driver);
 		store.load(function(records) {
-			// TODO 아래 라인을 삭제한다. 테스트 용임.
-			records[0].set('social_id', Math.floor(Math.random() * 1000000000));
+			if(!HatioBB.setting.get('app_mode'))
+				records[0].set('social_id', Math.floor(Math.random() * 1000000000));
 			
 			self.setRecord(records[0]);
 

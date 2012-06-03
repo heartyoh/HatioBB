@@ -77,8 +77,8 @@ Ext.define('HatioBB.view.vehicle.Summary', {
 		
 		store.filter('id', this.vehicle);
 		store.load(function(records) {
-			// TODO 아래 라인을 삭제한다. 테스트 용임.
-			records[0].set('remaining_fuel', Math.floor(Math.random() * 50));
+			if(!HatioBB.setting.get('app_mode'))
+				records[0].set('remaining_fuel', Math.floor(Math.random() * 50));
 			
 			self.setRecord(records[0]);
 
