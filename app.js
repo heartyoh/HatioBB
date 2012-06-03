@@ -27,7 +27,7 @@ Ext.application({
 
     controllers: ['Main', 'Report'],
     views: ['Main', 'Setting'],
-    stores: ['Menus', 'VehicleFilteredStore', 'VehicleStore', 'RecentIncidentStore', 'VehicleMapStore', 
+    stores: ['VehicleFilteredStore', 'VehicleStore', 'RecentIncidentStore', 'VehicleMapStore', 
 			'DriverStore', 'DriverBriefStore', 'VehicleGroupStore', 'DriverGroupStore', 'TrackByVehicleStore', 
 			'IncidentByVehicleStore', 'IncidentLogStore', 'DashboardVehicleStore', 'VehicleConsumableStore', 
 			'DriverRunStore', 'VehicleRunStore', 'YearStore', 'DashboardConsumableStore'],
@@ -47,6 +47,7 @@ Ext.application({
         Ext.fly('appLoadingIndicator').destroy();
 
 		HatioBB.setting.set('app_mode', (0 === window.location.pathname.indexOf('/m/')));
+		HatioBB.setting.set('version', '0.5.4');
 
         // Initialize the main view
         Ext.Viewport.add(Ext.create('HatioBB.view.Main'));

@@ -14,7 +14,7 @@ Ext.define('HatioBB.view.Setting', {
 	},
 	
 	buildItems : function() {
-		return [{
+		var items = [{
 			xtype : 'fieldset',
 			title : 'System Setting',
 			items : [{
@@ -99,9 +99,17 @@ Ext.define('HatioBB.view.Setting', {
 	                }]
 	            }
 	        }]
-		}, 
-		this.buildByScreen()
-		]
+		}];
+		
+		var byscreen = this.buildByScreen();
+		
+		if(byscreen) {
+			items.push(byscreen);
+		}
+		
+		items.push(this.buildInformation());
+		
+		return items;
 	},
 	
 	buildByScreen : function() {
@@ -116,10 +124,31 @@ Ext.define('HatioBB.view.Setting', {
 				settings = Ext.Array.merge(settings, cont.buildSettings());
 		}
 
+		if(settings.length)
+			return {
+				xtype : 'fieldset',
+				title : 'By Screen',
+				items : settings
+			}
+		else
+			return null;
+	},
+	
+	buildInformation : function() {
 		return {
 			xtype : 'fieldset',
-			title : 'By Screen',
-			items : settings
+			title : 'System Information',
+			items : [{
+	            xtype: 'textfield',
+	            label: T('label.version'),
+	            value : HatioBB.setting.get('version'),
+				disabled : true
+	        }, {
+	            xtype: 'textfield',
+	            label: T('label.user'),
+	            value : HatioBB.login.id,
+				disabled : true
+			}]
 		}
 	},
 	
