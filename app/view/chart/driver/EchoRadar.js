@@ -106,8 +106,7 @@ Ext.define('HatioBB.view.chart.driver.EchoRadar', {
 				data['efficiency'][year] = efficiency;
 				data['overSpdCnt'][year] = overSpdCnt;
 				data['sudAccelCnt'][year] = sudAccelCnt;
-				// Randomize는 삭제되어야 한다.
-				data['sudBrakeCnt'][year] = sudBrakeCnt * Math.random();
+				data['sudBrakeCnt'][year] = sudBrakeCnt;
 				
 				fields.push(year);
 			});

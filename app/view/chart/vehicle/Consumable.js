@@ -41,15 +41,20 @@ Ext.define('HatioBB.view.chart.vehicle.Consumable', {
 	},
 	
 	refresh : function() {
-		var self = this;
-		var store = Ext.getStore('VehicleConsumableStore');
-		
 		if(HatioBB.setting.get('vehicle') === this.vehicle) 
 			return;
 			
+		var self = this;		
 		this.vehicle = HatioBB.setting.get('vehicle');
 		
-		store.filter('vehicle_id', this.vehicle);
+		var store = Ext.getStore('VehicleConsumableStore');
+		
+		this.vehicle = HatioBB.setting.get('vehicle');
+		
+		/* filter로 하지 않고, 파라미터로 해야 함 */
+		var proxy = store.getProxy();
+		proxy.config.extraParams.vehicle_id = this.vehicle;
+
 		store.load(function(records) {
 			self.getChart().getStore().setData(records);
 		});

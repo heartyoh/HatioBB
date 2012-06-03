@@ -77,9 +77,6 @@ Ext.define('HatioBB.view.vehicle.Summary', {
 		
 		store.filter('id', this.vehicle);
 		store.load(function(records) {
-			if(!HatioBB.setting.get('app_mode'))
-				records[0].set('remaining_fuel', Math.floor(Math.random() * 50));
-			
 			self.setRecord(records[0]);
 
 			self.down('[itemId=briefInfo]').setData(records[0].getData());

@@ -63,9 +63,6 @@ Ext.define('HatioBB.view.driver.Summary', {
 		
 		store.filter('id', this.driver);
 		store.load(function(records) {
-			if(!HatioBB.setting.get('app_mode'))
-				records[0].set('social_id', Math.floor(Math.random() * 1000000000));
-			
 			self.setRecord(records[0]);
 
 			self.down('[itemId=briefInfo]').setData(records[0].getData());

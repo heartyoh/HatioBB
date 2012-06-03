@@ -2,6 +2,8 @@ Ext.define('HatioBB.store.VehicleConsumableStore', {
 	extend : 'Ext.data.Store',
 
 	config : {
+		remoteFilter : true,
+		
 		fields : [ 
 			{
 				name : 'key',
