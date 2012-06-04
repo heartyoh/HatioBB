@@ -103,6 +103,11 @@ Ext.define('HatioBB.controller.Main', {
 			'vehicle_summary' : {
 				showMap : 'onShowMap',
 				showTrack : 'onShowTrack'
+            },
+
+			'driver_summary' : {
+				showMap : 'onShowMap',
+				showTrack : 'onShowTrack'
 			}
 
         }

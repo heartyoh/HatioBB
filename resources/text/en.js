@@ -6,6 +6,8 @@ T({
 	},
 	
 	menu : {
+		overview : 'Overview',
+		schedule : 'Schedule',
 		dashboard : 'Dashboard',
 		company : 'Company',
 		vehicle : 'Vehicle',
@@ -36,7 +38,8 @@ T({
 		alarm : 'Alarm',
 		vehicle_runstatus : 'Vehicle RunStatus',
 		driver_runstatus : 'Driver RunSatus',
-		driver_speed_section : 'Drivers Speed Section'
+		driver_speed_section : 'Drivers Speed Section',
+		report : 'Report'
 	},
 	
 	title : {
@@ -81,6 +84,7 @@ T({
 		consumables_parts : 'Consumable Pars',
 		consumable_item : 'Consumable Item',
 		consumable_change_history : 'Consumable Change History',
+		consumable_details : 'Consumable Details',
 		vehicle_consumables : 'Vehicle Consumables',
 		maintenance : 'Maintenance',
 		maintenance_history : 'Maintenance History',
@@ -106,7 +110,9 @@ T({
 		driver_runstatus : 'Driver RunStatus',
 		driver_speed_section : 'Drivers Speed Section',
 		speed_section_chart : 'Drivers Speed Section Chart',
-		report_list : 'Report List'
+		report_list : 'Report List',
+		report_details : 'Report Details',
+		schedule : 'Schedule',		
 	},
 	
 	report : {
@@ -144,6 +150,11 @@ T({
         by_drivers : 'By Drivers',
         by_years : 'By Year',
 	},
+	
+	portlet : {
+		latest_incident_x : 'Latest Incident ({x} count)',
+		upcomming_x_replacement : 'Upcomming {x} replacement'
+	},	
 	
 	tab : {
 		info_by_vehicle : 'Information By Vehicle',
@@ -212,12 +223,12 @@ T({
 		cooling_water : 'Cooling Water',
 		timing_belt : 'Timing Belt',
 		spark_plug : 'Spark Plug',		
-		lat : 'Lattitude',
-		lng : 'Longitude',
-		lat_min : 'Min. Lat.',
-		lng_min : 'Min. Lng',
-		lat_max : 'Max. Lat',
-		lng_max : 'Max. Lng',		
+		latitude : 'Latitude',
+		longitude : 'Longitude',
+		latitude_min  : 'Min. Lat.',
+		longitude_min : 'Min. Lng',
+		latitude_max  : 'Max. Lat',
+		longitude_max : 'Max. Lng',		
 		driver : 'Driver',
 		vehicle : 'Vehicle',
 		vehicle_id : 'Vehicle Id',
@@ -302,10 +313,11 @@ T({
 		address : 'Address',			
 		alarm : 'Alarm',
 		event_type : 'Event Type',
+		event_name : 'Event',
 		radius : 'Radius',
 		location_radius : 'Loc. Radius',
 		event_trigger : 'Event Trigger',
-		destination : 'Destination',
+		send_to : 'Send to',
 		message : 'Message',
 		from_date : 'From Date',
 		to_date : 'To Date',
@@ -362,7 +374,16 @@ T({
 		setting : 'Setting',
 		dockPosition : 'Docking Position',
 		left : 'Left',
-		right : 'Right'
+		right : 'Right',
+		grade : 'Grade',
+		eco_drv_index : 'Eco Driving Index'	,
+		report_code : 'Report Code',
+		cycle : 'Report Cycle',
+		daily : 'Daily',
+		weekly : 'Weekly',
+		monthly : 'Monthly',
+		yearly : 'Yearly',
+		vehicle_model : 'Vehicle Model'
 	},
 	
 	format : {

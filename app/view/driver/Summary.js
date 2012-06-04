@@ -50,6 +50,25 @@ Ext.define('HatioBB.view.driver.Summary', {
 		this.on('erased', function() {
 			HatioBB.setting.un('driver', this.refresh, this);
 		});
+		
+		this.element.on({
+			delegate : 'div.iconMap',
+			tap : function() {
+				var vehicle = Ext.getStore('VehicleMapStore').findRecord('driver_id', self.driver);
+				if(vehicle)
+					self.fireEvent('showMap', vehicle.get('id'));
+			}
+		});
+		
+		this.element.on({
+			delegate : 'div.iconTrack',
+			tap : function() {
+				var vehicle = Ext.getStore('VehicleMapStore').findRecord('driver_id', self.driver);
+				if(vehicle)
+					self.fireEvent('showTrack', vehicle.get('id'));
+			}
+		});
+		
 	},
 	
 	refresh : function() {

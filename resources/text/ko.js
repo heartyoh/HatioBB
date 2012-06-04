@@ -6,6 +6,8 @@ T({
 	},
 	
 	menu : {
+		overview : '개요',
+		schedule : '일정',
 		dashboard : '대쉬보드',
 		company : '회사',
 		vehicle : '차량',
@@ -36,7 +38,8 @@ T({
 		alarm : '알람',
 		vehicle_runstatus : '차량별 운행현황',
 		driver_runstatus : '운전자별 운행현황',
-		driver_speed_section : '운전자별 속도구간'
+		driver_speed_section : '운전자별 속도구간',
+		report : '리포트'
 	},
 	
 	title : {
@@ -81,6 +84,7 @@ T({
 		consumables_parts : '소모품목',
 		consumable_item : '소모품 항목',
 		consumable_change_history : '소모품 교체 이력',
+		consumable_details : '소모품 상세',
 		vehicle_consumables : '차량 소모품',
 		maintenance : '정비',
 		maintenance_history : '정비 이력',
@@ -107,6 +111,8 @@ T({
 		driver_speed_section : '운전자별 속도구간',
 		speed_section_chart : '속도구간 차트',
 		report_list : '리포트 리스트',
+		report_details : '리포트 상세',
+		schedule : '일정'
 	},
 	
 	report : {
@@ -143,7 +149,12 @@ T({
         by_vehicles : '차량 관점',
         by_drivers : '운전자별 관점',
         by_years : '년도 관점',
-	},	
+	},
+	
+	portlet : {
+		latest_incident_x : '최근 사고 이력 ({x}건)',
+		upcomming_x_replacement : '교체 {x} 리스트',
+	},
 	
 	tab : {
 		info_by_vehicle : '차량별 정보',
@@ -212,12 +223,12 @@ T({
 		cooling_water : '냉각수',
 		timing_belt : '타이밍벨트',
 		spark_plug : '점화플러그',		
-		lat : '위도',
-		lng : '경도',
-		lat_min : '최소 위도',
-		lng_min : '최소 경도',
-		lat_max : '최대 위도',
-		lng_max : '최대 경도',
+		latitude : '위도',
+		longitude : '경도',
+		latitude_min  : '최소 위도',
+		longitude_min : '최소 경도',
+		latitude_max  : '최대 위도',
+		longitude_max : '최대 경도',
 		driver : '운전자',
 		vehicle : '차량',
 		vehicle_id : '차량 아이디',
@@ -302,10 +313,11 @@ T({
 		address : '주소',
 		alarm : '알람',
 		event_type : '이벤트 타입',
+		event_name : '이벤트',
 		radius : '반경',
 		location_radius : '위치 반경',
 		event_trigger : '이벤트 트리거',
-		destination : '알람 대상',
+		send_to : '보내기 대상',
 		message : '메세지',
 		from_date : '시작일',
 		to_date : '종료일',
@@ -362,7 +374,16 @@ T({
 		setting : '설정',
 		dockPosition : '현황패널 도킹 위치',
 		left : '왼쪽',
-		right : '오른쪽'
+		right : '오른쪽',
+		grade : '등급',
+		eco_drv_index : '경제운전 지수',
+		report_code : '리포트 코드',
+		cycle : '보고 주기',
+		daily : '일별',
+		weekly : '주별',
+		monthly : '월별',
+		yearly : '년별',
+		vehicle_model : '차량 모델'
 	},
 	
 	format : {
