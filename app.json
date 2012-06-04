@@ -66,6 +66,7 @@
          * List of items in the CACHE MANIFEST section
          */
         "cache": [
+/*
 			"app.js",
 			"lib/label/label.js",
 			"lib/locale/locale.js",
@@ -121,6 +122,7 @@
 			"resources/images/statusIncident.png",
 			"resources/images/statusMaint.png",
 			"resources/images/statusStop.png"
+*/
         ],
         /**
          * List of items in the NETWORK section
