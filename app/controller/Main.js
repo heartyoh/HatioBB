@@ -98,7 +98,12 @@ Ext.define('HatioBB.controller.Main', {
             'nav_vehicle' : {
                 itemtap: 'onVehicleItemTap',
 				disclose : 'onVehicleDisclose'
-            }
+            },
+
+			'vehicle_summary' : {
+				showMap : 'onShowMap',
+				showTrack : 'onShowTrack'
+			}
 
         }
     },
@@ -311,13 +316,11 @@ Ext.define('HatioBB.controller.Main', {
     },
 
     onDriverDisclose: function(list, record, el, index, e) {
-		HatioBB.setting.set('driver', record.get('id'));
-
 		list.select(index);
 
 		this.showDriver();
 		
-		// e.stopEvent();
+		HatioBB.setting.set('driver', record.get('id'));
     },
 
     onVehicleItemTap: function(view, index, target, record) {
@@ -325,12 +328,22 @@ Ext.define('HatioBB.controller.Main', {
     },
 
     onVehicleDisclose: function(list, record, el, index, e) {
-		HatioBB.setting.set('vehicle', record.get('id'));
-
 		list.select(index);
 
 		this.showVehicle();
 
-        // e.stopEvent();
+		HatioBB.setting.set('vehicle', record.get('id'));
+    },
+
+    onShowMap: function(vehicle) {
+		var view = this.showMonitor('monitor_map');
+
+		HatioBB.setting.set('vehicle', vehicle);
+    },
+
+    onShowTrack: function(vehicle) {
+		var view = this.showMonitor('monitor_info');
+
+		HatioBB.setting.set('vehicle', vehicle);
     }
 });

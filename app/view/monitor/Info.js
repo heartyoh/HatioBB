@@ -174,7 +174,9 @@ Ext.define('HatioBB.view.monitor.Info', {
 		vehicle.set('location', 'Resolving ..');
 		this.getLocation(vehicle.get('lat'), vehicle.get('lng'), function(location) {
 			vehicle.set('location', location);
-			self.sub('briefInfo').setData(vehicle.getData());
+			var info = self.down('[itemId=briefInfo]');
+			if(info)
+				info.setData(vehicle.getData());
 		});
         this.sub('briefInfo').setData(vehicle.getData());
 

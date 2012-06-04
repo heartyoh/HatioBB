@@ -6,7 +6,7 @@ Ext.define('HatioBB.view.vehicle.Vehicle', {
 	'HatioBB.view.chart.vehicle.Running',
 	'HatioBB.view.chart.vehicle.Consumable',
 	'HatioBB.view.vehicle.Repair',
-	'HatioBB.view.chart.vehicle.EchoRadar'
+	'HatioBB.view.chart.vehicle.EcoRadar'
 	],
 	
 	xtype : 'vehicle',
@@ -33,9 +33,9 @@ Ext.define('HatioBB.view.vehicle.Vehicle', {
 			iconCls : 'iconsTab tabRepair',
 			title : 'Repair'
 		}, {
-			xtype : 'chart_v_echo_radar',
-			iconCls : 'iconsTab tabEcho',
-			title : 'Echo Driving'
+			xtype : 'chart_v_eco_radar',
+			iconCls : 'iconsTab tabEco',
+			title : 'Eco-Driving'
 		}]
 	},
 	

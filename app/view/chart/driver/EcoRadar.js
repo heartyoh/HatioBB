@@ -1,7 +1,7 @@
-Ext.define('HatioBB.view.chart.vehicle.EchoRadar', {
+Ext.define('HatioBB.view.chart.driver.EcoRadar', {
 	extend : 'Ext.Panel',
 	
-	xtype : 'chart_v_echo_radar',
+	xtype : 'chart_d_eco_radar',
 	
 	requires: [
 	'Ext.chart.Chart',
@@ -10,7 +10,7 @@ Ext.define('HatioBB.view.chart.vehicle.EchoRadar', {
 	],
 		
 	config : {
-		title : T('title.chart_v_echo_radar'),
+		title : T('title.chart_d_eco_radar'),
 		cls : 'grayBg',
 		layout : 'fit'
 	},
@@ -21,34 +21,34 @@ Ext.define('HatioBB.view.chart.vehicle.EchoRadar', {
 		this.callParent(arguments);	
 		
 		this.on('painted', function() {
-			HatioBB.setting.on('vehicle', this.refresh, this);
+			HatioBB.setting.on('driver', this.refresh, this);
 			HatioBB.setting.on('fromYear', this.refresh, this);
 			
 			this.refresh();
 		});
 		
 		this.on('erased', function() {
-			HatioBB.setting.un('vehicle', this.refresh, this);
+			HatioBB.setting.un('driver', this.refresh, this);
 			HatioBB.setting.un('fromYear', this.refresh, this);
 		});
 	},
 
 	refresh : function(store, records) {
-		if(HatioBB.setting.get('vehicle') === this.vehicle
+		if(HatioBB.setting.get('driver') === this.driver
 		&& HatioBB.setting.get('fromYear') === this.fromYear) 
 			return;
 			
 		var self = this;
-		var store = Ext.getStore('VehicleRunStore');
+		var store = Ext.getStore('DriverRunStore');
 		
 		var thisYear = new Date().getFullYear();
 		var thisMonth = new Date().getMonth() + 1;
-		this.vehicle = HatioBB.setting.get('vehicle');
+		this.driver = HatioBB.setting.get('driver');
 		this.fromYear = HatioBB.setting.get('fromYear') || (thisYear - 1);
 		
 		/* filter로 하지 않고, 파라미터로 해야 함 */
 		var proxy = store.getProxy();
-		proxy.config.extraParams.vehicle = this.vehicle;
+		proxy.config.extraParams.driver = this.driver;
 		proxy.config.extraParams.from_year = this.fromYear;
 		proxy.config.extraParams.to_year = thisYear;
 		proxy.config.extraParams.from_month = 1;
@@ -57,14 +57,11 @@ Ext.define('HatioBB.view.chart.vehicle.EchoRadar', {
 		store.load(function(records) {
 			var groups = this.getGroups();
 			var data = {
-				consmpt : { name : T('label.consumption') },
-				oos_cnt : { name : T('label.oos_count') },
-				co2_emss : { name : T('label.co2_emission') },
-				mnt_time : { name : T('label.maint_time') },
-				mnt_cnt : { name : T('label.maint_count') },
-				run_dist : { name : T('label.run_distance') },
-				effcc : { name : T('label.fuel_efficiency') },
-				run_time : { name : T('label.run_time') }
+				ecoDrvTime : { name : T('label.x_time', {x : T('label.eco_driving')}) },
+				efficiency : { name : T('label.fuel_efficiency') },
+				overSpdCnt : { name : T('label.x_time', {x : T('label.over_speeding')}) },
+				sudAccelCnt : { name : T('label.x_count', {x : T('label.sudden_accel')}) },
+				sudBrakeCnt : { name : T('label.x_count', {x : T('label.sudden_brake')}) },
 			};
 			var fields = [];
 
@@ -73,61 +70,43 @@ Ext.define('HatioBB.view.chart.vehicle.EchoRadar', {
 				var records = group.children;
 				
 				var totalRecordCnt = 0;
-				var consmpt = 0;
-				var oos_cnt = 0;
-				var co2_emss = 0;
-				var mnt_time = 0;
-				var mnt_cnt = 0;
-				var run_dist = 0;
-				var effcc = 0;
-				var run_time = 0;
+				var ecoDrvTime = 0;
+				var efficiency = 0;
+				var overSpdCnt = 0;
+				var sudAccelCnt = 0;
+				var sudBrakeCnt = 0;
 
 				Ext.each(records, function(record) {
-					if(record.get('vehicle'))
+					if(record.get('driver'))
 						totalRecordCnt += 1;
 
-					if(record.get('consmpt'))
-						consmpt += record.get('consmpt');
-
-					if(record.get('oos_cnt'))
-						oos_cnt += record.get('oos_cnt');
-
-					if(record.get('co2_emss'))
-						co2_emss += record.get('co2_emss');
-
-					if(record.get('mnt_time'))
-						mnt_time += record.get('mnt_time');
-
-					if(record.get('mnt_cnt'))
-						mnt_cnt += record.get('mnt_cnt');			
-
-					if(record.get('run_dist'))
-						run_dist += record.get('run_dist');			
+					if(record.get('eco_drv_time'))
+						ecoDrvTime += record.get('eco_drv_time');
 
 					if(record.get('effcc'))
-						effcc += record.get('effcc');			
+						efficiency += record.get('effcc');
 
-					if(record.get('run_time'))
-						run_time += record.get('run_time');			
+					if(record.get('ovr_spd_time'))
+						overSpdCnt += record.get('ovr_spd_time');
+
+					if(record.get('sud_accel_cnt'))
+						sudAccelCnt += record.get('sud_accel_cnt');
+
+					if(record.get('sud_brake_cnt'))
+						sudBrakeCnt += record.get('sud_brake_cnt');			
 				});
 
-				consmpt = consmpt / 500 / totalRecordCnt;
-				oos_cnt = oos_cnt / totalRecordCnt;
-				co2_emss = co2_emss / 100 / totalRecordCnt;
-				mnt_time = mnt_time / 10 / totalRecordCnt;
-				mnt_cnt = mnt_cnt / totalRecordCnt;
-				run_dist = run_dist / 500 / totalRecordCnt;
-				effcc = effcc / totalRecordCnt;
-				run_time = run_time / 500 / totalRecordCnt;
+				ecoDrvTime = ecoDrvTime / totalRecordCnt;
+				efficiency = efficiency / totalRecordCnt;
+				overSpdCnt = overSpdCnt / totalRecordCnt;
+				sudAccelCnt = sudAccelCnt / totalRecordCnt;
+				sudBrakeCnt = sudBrakeCnt / totalRecordCnt;
 
-				data['consmpt'][year] = consmpt;
-				data['oos_cnt'][year] = oos_cnt;
-				data['co2_emss'][year] = co2_emss;
-				data['mnt_time'][year] = mnt_time;
-				data['mnt_cnt'][year] = mnt_cnt;
-				data['run_dist'][year] = run_dist;
-				data['effcc'][year] = effcc;
-				data['run_time'][year] = run_time;
+				data['ecoDrvTime'][year] = ecoDrvTime;
+				data['efficiency'][year] = efficiency;
+				data['overSpdCnt'][year] = overSpdCnt;
+				data['sudAccelCnt'][year] = sudAccelCnt;
+				data['sudBrakeCnt'][year] = sudBrakeCnt;
 				
 				fields.push(year);
 			});

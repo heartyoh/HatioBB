@@ -47,7 +47,7 @@ Ext.define('HatioBB.view.vehicle.Summary', {
 						this.buildMaintenenceInfo()
 					]
 				},
-				this.buildEchoDrivingInfo()
+				this.buildEcoDrivingInfo()
 			]
 		}];
 
@@ -64,6 +64,21 @@ Ext.define('HatioBB.view.vehicle.Summary', {
 		this.on('erased', function() {
 			HatioBB.setting.un('vehicle', this.refresh, this);
 		});
+		
+		this.element.on({
+			delegate : 'div.iconMap',
+			tap : function() {
+				self.fireEvent('showMap', self.vehicle);
+			}
+		});
+		
+		this.element.on({
+			delegate : 'div.iconTrack',
+			tap : function() {
+				self.fireEvent('showTrack', self.vehicle);
+			}
+		});
+		
 	},
 
 	refresh : function() {
@@ -181,7 +196,7 @@ Ext.define('HatioBB.view.vehicle.Summary', {
 		}
 	}, 
 	
-	buildEchoDrivingInfo : function() {
+	buildEcoDrivingInfo : function() {
 		return {
 			xtype : 'panel',
 			flex : 1,

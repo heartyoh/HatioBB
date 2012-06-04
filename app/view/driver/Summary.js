@@ -33,7 +33,7 @@ Ext.define('HatioBB.view.driver.Summary', {
 			},
 			items : [
 				this.buildRunningInfo(),
-				this.buildEchoDrivingInfo()
+				this.buildEcoDrivingInfo()
 			]
 		}];
 
@@ -140,7 +140,7 @@ Ext.define('HatioBB.view.driver.Summary', {
 		}
 	},
 
-	buildEchoDrivingInfo : function() {
+	buildEcoDrivingInfo : function() {
 		return {
 			xtype : 'panel',
 			flex : 1,
