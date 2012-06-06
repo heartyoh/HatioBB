@@ -25,7 +25,26 @@
 .marginL10{margin-left:10px !important;}
 .marginAll10{margin:10px !important;}
 
+.paddingT10{padding-top:10px !important;}
+.paddingR10{padding-right:10px !important;}
+.paddingB10{padding-bottom:10px !important;}
+.paddingL10{padding-left:10px !important;}
+.paddingAll10{padding:10px !important;}
+
+.paddingT15{padding-top:15px !important;}
+.paddingR15{padding-right:15px !important;}
+.paddingB15{padding-bottom:15px !important;}
+.paddingL15{padding-left:15px !important;}
+.paddingAll15{padding:15px !important;}
+
+.paddingT20{padding-top:20px !important;}
+.paddingT25{padding-top:25px !important;}
+
 .borderRBlack{border-right:1px solid #000;}
+
+.bgHGrident{background:url('../images/bgHGradient.png') repeat-y;border-left:1px solid #bababa}
+.subtitle{background:url('../images/bgSubtitle.png') 0 8px no-repeat;display:block;height:35px;padding:13px 0 5px 10px;color:#fff;text-transform:capitalize;font-size:13px;font-weight:bold}
+
 
 /*layout style*/
 #ext-viewport{background:url('../images/bgHeader.png') repeat-x;}
@@ -140,6 +159,36 @@
     -webkit-animation-timing-function: ease;
     -webkit-animation-direction: alternate;
 }
+/*vehicles > summary tab style*/
+.ecoLevel{background-image:url('../images/ecoLevel.png');background-repeat:no-repeat;width:265px;height:130px}
+.ecoLevel.A{background-position:50% 0px}
+.ecoLevel.B{background-position:50% -130px}
+.ecoLevel.C{background-position:50% -260px}
+.ecoLevel.D{background-position:50% -390px}
+.ecoLevel.E{background-position:50% -520px}
+.ecoHBox div{background:url('../images/bottomShadow.png') 50% 85% no-repeat;float:left;margin:20px 0 20px 10px;width:100px;font-size:13px;text-align:center;font-weight:bold;color:#333;letter-spacing:-1px}
+.ecoHBox div:last-child{margin-left:35px}
+.ecoHBox div span{font-size:30px;display:block}
+.ecoComment{clear:both;padding:0 15px;text-align:justify}
+.ecoComment span{font-weight:bold;color:#4b7a00;font-size:28px;display:block}
+.distance{
+	background:url('../images/bgDistance.png') no-repeat;height:83px;border:1px solid #fff;padding:5px 0 0 0;
+	-webkit-border-radius: 4px;-moz-border-radius:5px;border-radius: 4px;
+}
+.distance div{float:right;margin-top:3px;padding:0 7%;font-size:11px;text-align:center}
+.distance div span{display:block}
+.distance .current{color:#fff;border-right:1px solid #939699;}
+.distance .total{color:#acacac;border-left:1px solid #414447}
+.distance span.km{font-size:30px;font-weight:bold;margin-bottom:1px}
+.distance span.mile{font-size:12px;background-color:#363636;padding:1px 2px}
+.distance .running{clear:both}
+.fuel{
+	background:url('../images/bgFuel.png') no-repeat;height:35px;border:1px solid #fff;padding:5px 0 0 6%;margin-top:10px;
+	-webkit-border-radius: 4px;-moz-border-radius:5px;border-radius: 4px;
+}
+.fuel div{float:left;color:#acacac;font-size:18px;font-weight:bold;width:60%;}
+.fuel div:last-child{width:33%}
+.fuel span{color:#fff;}
 
 /*tab style*/
 .x-tabbar-dark.x-docked-bottom .x-tab .x-button-icon{background-color:transparent !important;background-image:none;width:32px;height:32px;}
