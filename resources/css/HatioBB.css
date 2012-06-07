@@ -159,6 +159,21 @@
     -webkit-animation-timing-function: ease;
     -webkit-animation-direction: alternate;
 }
+
+
+/*map bubble*/
+.bubbleWrap{
+	background:url('../images/bgBubble.png') repeat-x;border:2px solid #009bdc;border-width:2px 2px 2px 4px;padding:5px 7px 5px 7px;
+	-webkit-border-radius:12px;border-radius:12px;
+	color:#fff;font-size:14px;
+}
+.bubbleWrap.statusIncident{border-color:#e64201}
+.bubbleWrap.statusIdle{border-color:#111}
+.bubbleWrap.statusMaint{border-color:#4a64d8}
+.bubbleWrap img{width:40px;height:43px;-webkit-border-radius:4px;border-radius:4px;float:left;margin-right:7px}
+.bubbleWrap div{line-height:1.5;white-space:nowrap;padding-right:5px}
+
+
 /*vehicles > summary tab style*/
 .ecoLevel{background-image:url('../images/ecoLevel.png');background-repeat:no-repeat;width:265px;height:130px}
 .ecoLevel.A{background-position:50% 0px}

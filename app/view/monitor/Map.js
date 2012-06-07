@@ -129,11 +129,13 @@ Ext.define('HatioBB.view.monitor.Map', {
 			self.selectedMarker = marker;
 			
 			var content = [
-				'<div class="showVehicleInfo">vehicle : ' + vr.get('id') + '('+ vr.get('registration_number') + ')</div>',
-				dr ? '<div class="showDriverInfo">driver : ' + dr.get('id') + '('+ dr.get('name') + ')</div>'
-				: '<div>driver : ' + T('label.nodriver') + '</div>',
-				'<div>status : '+ vr.get('status') +'</div>',
-				'<div class="showVehicleTrack">Show Recent Track</div>'
+				'<div class="bubbleWrap status'+ vr.get('status') +'">',
+					'<img src="data/image/' + dr.get('id') + '.jpg">',
+					'<div class="showVehicleInfo">Vehicle : ' + vr.get('id') + '('+ vr.get('registration_number') + ')</div>',
+					dr ? '<div class="showDriverInfo">Driver : ' + dr.get('id') + '('+ dr.get('name') + ')</div>'
+					: '<div>driver : ' + T('label.nodriver') + '</div>',
+					//'<div class="showVehicleTrack">Show Recent Track</div>',
+				'</div>'
 			].join('');
 
 			self.infowindow = new google.maps.InfoWindow({ 
