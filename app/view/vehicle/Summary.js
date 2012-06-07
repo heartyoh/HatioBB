@@ -183,9 +183,9 @@ Ext.define('HatioBB.view.vehicle.Summary', {
 			cls : 'summaryConsumable',
 			html : [
 			'<div class="subtitle">consumable</div>',
-			'<div class="itemCell">Engine Oil <div class="percent"><span style="width:100%">112%</div></div></div>',
-			'<div class="itemCell">Battery <div class="percent"><span style="width:86%">86%</div></div></div>',
-			'<div class="itemCell">Antifreeze <div class="percent"><span style="width:95%">95%</div></div></div>',
+			'<div class="itemCell">Engine Oil <div class="percent"><span style="width:100%">112%</span></div></div>',
+			'<div class="itemCell">Battery <div class="percent"><span style="width:86%">86%</span></div></div>',
+			'<div class="itemCell">Antifreeze <div class="percent"><span style="width:95%">95%</span></div></div>',
 			].join('')
 		}
 	}, 
