@@ -141,7 +141,7 @@
 .divHAlign .iconVelocity{background:url('../images/iconVelocity.png') no-repeat;}
 .divHAlign .iconOBD{background:url('../images/iconOBD.png') no-repeat;}
 .divHAlign .iconFuel{background:url('../images/iconFuel.png') no-repeat;}
-.divHAlign .iconDistance{background:url('../images/iconDistance.png') 2px 0 no-repeat;}
+.divHAlign .iconTime{background:url('../images/iconTime.png') 2px 0 no-repeat;}
 .divHAlign .iconMap{background:url('../images/iconHeaderView.png') -8px -6px no-repeat;}
 .divHAlign .iconTrack{background:url('../images/iconHeaderView.png') -9px -85px no-repeat;}
 .shotHList .x-field{background-color:transparent;}
@@ -173,7 +173,7 @@
 .ecoComment span{font-weight:bold;color:#4b7a00;font-size:28px;display:block}
 .distance{
 	background:url('../images/bgDistance.png') no-repeat;height:83px;border:1px solid #fff;padding:5px 0 0 0;
-	-webkit-border-radius: 4px;-moz-border-radius:5px;border-radius: 4px;
+	-webkit-border-radius: 4px;border-radius: 4px;
 }
 .distance div{float:right;margin-top:3px;padding:0 7%;font-size:11px;text-align:center}
 .distance div span{display:block}
@@ -183,12 +183,17 @@
 .distance span.mile{font-size:12px;background-color:#363636;padding:1px 2px}
 .distance .running{clear:both}
 .fuel{
-	background:url('../images/bgFuel.png') no-repeat;height:35px;border:1px solid #fff;padding:5px 0 0 6%;margin-top:10px;
+	background:url('../images/bgFuel.png') no-repeat;height:35px;border:1px solid #fff;padding:3px 0 0 6%;margin-top:10px;
 	-webkit-border-radius: 4px;-moz-border-radius:5px;border-radius: 4px;
 }
-.fuel div{float:left;color:#acacac;font-size:18px;font-weight:bold;width:60%;}
-.fuel div:last-child{width:33%}
-.fuel span{color:#fff;}
+.fuel div{float:left;color:#acacac;font-size:18px;font-weight:bold;width:57%;}
+.fuel div:last-child{width:35%}
+.fuel span{color:#fff;font-size:22px}
+.summaryConsumable .percent{float:right;width:70%;background-color:#5e6367;-webkit-border-radius:4px;border-radius:4px;color:#fff}
+.summaryConsumable .itemCell{background:url('../images/dotGray.png') 15px 10px no-repeat;padding:0 10px 0 25px;margin:15px 0 0 0}
+.summaryRepair .itemCell{padding:15px 10px 0 20px;}
+.percent{-webkit-border-radius:4px;padding:2px} 
+.percent span{background:url('../images/bgHealthBar.png') 50% 0 no-repeat;padding-right:10px;-webkit-border-radius:3px;display:block;text-align:right;}
 
 /*tab style*/
 .x-tabbar-dark.x-docked-bottom .x-tab .x-button-icon{background-color:transparent !important;background-image:none;width:32px;height:32px;}

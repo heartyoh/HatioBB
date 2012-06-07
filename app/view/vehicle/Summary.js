@@ -22,7 +22,7 @@ Ext.define('HatioBB.view.vehicle.Summary', {
 			cls : 'shotHList marginT10 divHAlign',
 			html : [
 				'<div class="iconFuel">Remaining Fuel<span>25</span></div>',
-				'<div class="iconDistance">Total Distance<span>256,000</span></div>',
+				'<div class="iconTime">Total Drive Time<span>5,500 min</span></div>',
 				'<div class="iconMap">Move to<span>Current Position Map</span></div>',
 				'<div class="iconTrack">Move to<span>Recent Running Track</span></div>',
 			].join('')
@@ -169,8 +169,8 @@ Ext.define('HatioBB.view.vehicle.Summary', {
 				'<div class="current">이달 주행거리<span class="km">202.7 km</span><span class="mile">0.125952 mile</span></div>',
 			'</div>',
 			'<div class="fuel">',
-				'<div>이달 연료 소모량 : <span>170 ℓ</span></div>',
-				'<div>이달 연비 : <span>7 km/ℓ</span></div>',
+				'<div>이달 연료 소모량 : <span>170ℓ</span></div>',
+				'<div>이달 연비 : <span>7km/ℓ</span></div>',
 			'</div>'	
 			]
 		}
@@ -180,11 +180,12 @@ Ext.define('HatioBB.view.vehicle.Summary', {
 		return {
 			xtype : 'panel',
 			flex : 1,
+			cls : 'summaryConsumable',
 			html : [
-			'<div class="subtitle">my eco level</div>',
-			'<div>이 차는</div>',
-			'<div>엔진오일의 교체시기가 초과되었으며,</div>',
-			'<div>배터리와 휠얼라인먼트의 교체주기가 임박하였습니다.</div>'
+			'<div class="subtitle">consumable</div>',
+			'<div class="itemCell">Engine Oil <div class="percent"><span style="width:100%">112%</div></div></div>',
+			'<div class="itemCell">Battery <div class="percent"><span style="width:86%">86%</div></div></div>',
+			'<div class="itemCell">Antifreeze <div class="percent"><span style="width:95%">95%</div></div></div>',
 			].join('')
 		}
 	}, 
@@ -193,11 +194,10 @@ Ext.define('HatioBB.view.vehicle.Summary', {
 		return {
 			xtype : 'panel',
 			flex : 1,
+			cls : 'summaryRepair',
 			html : [
-			'<div class="subtitle">my eco level</div>',
-			'<div>이 차는</div>',
-			'<div>2012년 1월 31일에 정비를 하였으며,</div>',
-			'<div>다음 정비 예정일은 2012년 6월 30일 입니다.</div>'
+			'<div class="subtitle">repair</div>',
+			'<div class="itemCell">2012년 1월 31일에 정비를 하였으며,<br/>다음 정비 예정일은 2012년 6월 30일 입니다.</div>'
 			].join('')
 		}
 	}, 
