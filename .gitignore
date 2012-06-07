@@ -1,5 +1,6 @@
 sdk*
 build
+archive
 *.scssc
 .DS_Store
 
