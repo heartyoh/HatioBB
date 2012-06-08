@@ -8,7 +8,7 @@ Ext.define('HatioBB.view.driver.Summary', {
 	config : {
 		scrollable : true,
 		
-		cls : 'paddingAll15 grayBg',
+		cls : 'grayBg',
 		
 		layout : {
 			type : 'vbox',
@@ -21,9 +21,12 @@ Ext.define('HatioBB.view.driver.Summary', {
 			xtype : 'container',
 			itemId : 'links',
 			height : 45,
-			cls : 'divHAlign',
-			html : ['<div class="iconMap"><span>Current Position Map</span></div>',
-			'<div class="iconTrack"><span>Recent Running Track</span></div>'].join('')
+			cls : 'shotHList marginT10 divHAlign',
+			html : [
+				'<div class="iconTime">Total Drive Time<span>5,500 min</span></div>',
+				'<div class="iconMap">Move to<span>Current Position Map</span></div>',
+				'<div class="iconTrack">Move to<span>Recent Running Track</span></div>',
+			].join('')
         }, {
 			xtype : 'container',
 			flex : 1,
@@ -125,7 +128,7 @@ Ext.define('HatioBB.view.driver.Summary', {
                 '<div class="infoID">'  + T('label.id') + ' : {id}</div>',
                 '<div class="infoText">' + T('label.division') + ' : {division}</div>',
                 '<div class="infoText">' + T('label.title') + ' : {title}</div>',
-                '<div class="infoText">' + T('label.birth_year') + ' : {birth_year}</div>'
+                //'<div class="infoText">' + T('label.birth_year') + ' : {birth_year}</div>'
                 ]
             },
 			{
@@ -137,7 +140,7 @@ Ext.define('HatioBB.view.driver.Summary', {
                 '<div class="infoID">' + T('label.name') + ' : {name}</div>',
                 '<div class="infoText">' + T('label.x_id', {x : T('label.social')}) + ' : {social_id}</div>',
                 '<div class="infoText">' + T('label.phone_x', {x : 1}) + ' : {phone_no_1}</div>',
-                '<div class="infoText">' + T('label.phone_x', {x : 2}) + ' : {phone_no_2}</div>'
+                //'<div class="infoText">' + T('label.phone_x', {x : 2}) + ' : {phone_no_2}</div>'
                 ]
 			}]
         }
@@ -149,12 +152,17 @@ Ext.define('HatioBB.view.driver.Summary', {
 			itemId : 'runningInfo',
 			data : null,
 			flex : 1,
+			cls : 'paddingT25 paddingR10 paddingL10',
 			tpl : [
-			'<div>총 주행거리 : {total_distance} 킬로미터</div>',
-			'<div>이달 주행거리 : 202.7 킬로미터</div>',
-			'<div>이달 주행시간 : 1,670 분</div>',
-			'<div>이달 연료 소모량 : 170 리터</div>',
-			'<div>이달 연비 : 7 킬로미터/리터</div>'
+			
+			'<div class="distance">',
+				'<div class="total">총 주행거리<span class="km">{total_distance} km</span><span class="mile">159071.025 mile</span></div>',
+				'<div class="current">이달 주행거리<span class="km">202.7 km</span><span class="mile">0.125952 mile</span></div>',
+			'</div>',
+			'<div class="fuel">',
+				'<div>이달 연료 소모량 : <span>170ℓ</span></div>',
+				'<div>이달 연비 : <span>7km/ℓ</span></div>',
+			'</div>'
 			]
 		}
 	},
@@ -163,12 +171,16 @@ Ext.define('HatioBB.view.driver.Summary', {
 		return {
 			xtype : 'panel',
 			flex : 1,
+			cls : 'bgHGrident',
+			width : 265,
 			html : [
-			'<div>이 운전자의 경제운전 지수는 B 등급으로</div>',
-			'<div>공인연비의 70% 이상 달성한 상태입니다.</div>',
-			'<div>경제속도 주행 비율은 34% 이며,</div>',
-			'<div>공회전시간을 적절하게 관리하면, 연간 40만원 이상의</div>',
-			'<div>유류비 절약이 가능합니다.</div>'
+			'<div class="subtitle">my eco level</div>',
+			'<div class="ecoLevel D"></div>',
+			'<div class="ecoHBox">',
+				'<div>공인연비 <span>70%</span></div>',
+				'<div>경제주행 비율<span>34%</span></div>',
+			'</div>',	
+			'<div class="ecoComment">이 차의 에코드라이브 지수는 B레벨입니다.<br/> 공회전시간을 적절하게 관리하면, <span>연간 40만원 이상의</span>유류비 절약이 가능합니다.'
 			].join('')
 		}
 	}
