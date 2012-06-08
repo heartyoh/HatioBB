@@ -136,7 +136,7 @@ Ext.define('HatioBB.view.monitor.Incident', {
 			if(video_clip.indexOf('http') == 0)
 				url = video_clip;
 			else
-				url = 'download?blob-key=' + video_clip;
+				url = '/download?blob-key=' + video_clip;
 		}
 		this.sub('video').updateUrl([url]);
 

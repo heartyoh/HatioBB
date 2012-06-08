@@ -99,8 +99,10 @@ Ext.define('HatioBB.view.monitor.Map', {
 	},
 	
 	clearInfoWindow : function() {
+		// if(this.infowindow)
+		// 	this.infowindow.close();
 		if(this.infowindow)
-			this.infowindow.close();
+			this.infowindow.setVisible(false);
 	},
 	
 	refreshMap : function(store) {
@@ -130,19 +132,30 @@ Ext.define('HatioBB.view.monitor.Map', {
 			
 			var content = [
 				'<div class="bubbleWrap status'+ vr.get('status') +'">',
-					'<img src="data/image/' + dr.get('id') + '.jpg">',
+					dr ? '<img src="data/image/' + dr.get('id') + '.jpg">'
+					: '<img src="resources/images/bgDriver.png">',
 					'<div class="showVehicleInfo">Vehicle : ' + vr.get('id') + '('+ vr.get('registration_number') + ')</div>',
 					dr ? '<div class="showDriverInfo">Driver : ' + dr.get('id') + '('+ dr.get('name') + ')</div>'
-					: '<div>driver : ' + T('label.nodriver') + '</div>',
+					: '<div class="showDriverInfo">driver : ' + T('label.nodriver') + '</div>',
 					//'<div class="showVehicleTrack">Show Recent Track</div>',
 				'</div>'
 			].join('');
 
-			self.infowindow = new google.maps.InfoWindow({ 
-				content: content
-			});
+			if(!self.infowindow)
+				self.infowindow = new Label({
+					map : this.getMap()
+				});
+			// self.infowindow.bindTo('position', marker, 'position');
+			// label.bindTo('text', marker, 'tooltip');
+			self.infowindow.bindTo('position', marker, 'position');
+			self.infowindow.set('text', content);
 
-			self.infowindow.open(self.getMap(), marker);
+			// self.infowindow = new google.maps.InfoWindow({ 
+			// 	content: content
+			// });
+
+			// self.infowindow.open(self.getMap(), marker);
+			self.infowindow.setVisible(true);
 		}
 
 		store.each(function(record) {

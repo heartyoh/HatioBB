@@ -4,6 +4,8 @@ Ext.define('HatioBB.store.RecentIncidentStore', {
 	config : {
 		autoLoad : false,
 
+		remoteSort : true,
+		
 		pageSize : 5,
 
         fields: [{
