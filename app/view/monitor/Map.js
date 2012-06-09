@@ -144,11 +144,17 @@ Ext.define('HatioBB.view.monitor.Map', {
 			
 			var content = [
 				'<div class="bubbleWrap status'+ vr.get('status') +'">',
-					'<img src="' + imgsrc + '">',
-					'<div class="showVehicleInfo">Vehicle : ' + vr.get('id') + '('+ vr.get('registration_number') + ')</div>',
-					dr ? '<div class="showDriverInfo">Driver : ' + dr.get('id') + '('+ dr.get('name') + ')</div>'
-					: '<div class="showDriverInfo">driver : ' + T('label.nodriver') + '</div>',
-					//'<div class="showVehicleTrack">Show Recent Track</div>',
+					'<div class="close"></div>',
+					'<div class="infoCell">',
+						'<img src="' + imgsrc + '">',
+						'<div class="showVehicleInfo">ID : ' + vr.get('id') + '<br/>No. : '+ vr.get('registration_number') + '</div>',
+					'</div>',
+					'<div class="infoCell">',
+						'<img src="' + imgsrc + '">',
+							dr ? '<div class="showDriverInfo">ID : ' + dr.get('id') + '<br/>Name :'+ dr.get('name') + '</div>'
+							: '<div class="showDriverInfo">Driver : ' + T('label.nodriver') + '</div>',
+					'</div>',	
+					'<div class="showVehicleTrack">Show Recent Track</div>',
 				'</div>'
 			].join('');
 
