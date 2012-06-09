@@ -28,7 +28,7 @@ Ext.define('HatioBB.view.Setting', {
 	            name: 'autofit',
 	            value: HatioBB.setting.get('autofit'),
 				listeners : {
-					change : function(field, thumb, newVal) {
+					change : function(field, slider, thumb, newVal) {
 						HatioBB.setting.set(field.getName(), !!newVal);
 					}
 				}

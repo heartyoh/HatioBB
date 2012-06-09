@@ -24,7 +24,8 @@ Ext.define('HatioBB.view.monitor.Map', {
 		var vehicleFilteredStore = Ext.getStore('VehicleFilteredStore');
 		
 		this.on('painted', function() {
-			self.refreshMap(vehicleFilteredStore);
+			if(vehicleFilteredStore.isLoaded())
+				self.refreshMap(vehicleFilteredStore);
 			vehicleFilteredStore.on('refresh', self.refreshMap, self);
 			HatioBB.setting.on('vehicle', self.onSelectVehicle, self);
 			HatioBB.setting.on('driver', self.onSelectDriver, self);
@@ -42,22 +43,25 @@ Ext.define('HatioBB.view.monitor.Map', {
 		
 		this.element.on({
 			delegate : 'div.showVehicleTrack',
-			tap : function() {
+			tap : function(e) {
 				self.fireEvent('tracktap', self.selectedMarker.record);
+				e.stopEvent();
 			}
 		});
 		
 		this.element.on({
 			delegate : 'div.showVehicleInfo',
-			tap : function() {
+			tap : function(e) {
 				self.fireEvent('vehicletap', self.selectedMarker.record);
+				e.stopEvent();
 			}
 		});
 		
 		this.element.on({
 			delegate : 'div.showDriverInfo',
-			tap : function() {
+			tap : function(e) {
 				self.fireEvent('drivertap', self.selectedMarker.driver_record);
+				e.stopEvent();
 			}
 		});
 	},
@@ -99,8 +103,9 @@ Ext.define('HatioBB.view.monitor.Map', {
 	},
 	
 	clearInfoWindow : function() {
-		if(this.infowindow)
+		if(this.infowindow) {
 			this.infowindow.setVisible(false);
+		}
 	},
 	
 	refreshMap : function(store) {
@@ -180,7 +185,27 @@ Ext.define('HatioBB.view.monitor.Map', {
 		}, this);
 		
 		if(!bounds) {
-			this.getMap().setCenter(new google.maps.LatLng(System.props.lat, System.props.lng));
+			/* 아무런 위치 정보도 찾지 못한 경우 */
+			var defaultPosition = new google.maps.LatLng(System.props.lat, System.props.lng)
+			this.getMap().setCenter(defaultPosition);
+	
+			if(store.isLoaded()) {
+				var content = [
+					'<div class="bubbleWrap statusIdle">',
+					'<div>위치 정보를 찾을 수 없습니다.</div>',
+					'</div>'
+				].join('');
+
+				if(!self.infowindow) {
+					self.infowindow = new Label({
+						map : this.getMap()
+					});
+				}
+				self.infowindow.set('position', defaultPosition);
+				self.infowindow.set('text', content);
+
+				self.infowindow.setVisible(true);
+			}
 		} else if(bounds.isEmpty() || bounds.getNorthEast().equals(bounds.getSouthWest())) {
 			/* 한개짜리 디스플레이는 너무 시간이 짧아서인지, 센터를 잘 잡지 못한다.(새로 화면이 열리는 경우), 따라서 부득이 딜레이를 주었다.*/
 			setTimeout(function() {
