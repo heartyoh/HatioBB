@@ -164,7 +164,7 @@
 
 /*map bubble*/
 .bubbleWrap{
-	background:url('../images/bgBubble.png') repeat-x;border:2px solid #009bdc;border-width:2px 2px 2px 4px;padding:5px 7px 5px 7px;
+	background:url('../images/bgBubble.png') repeat-x;border:2px solid #009bdc;border-width:2px 2px 2px 4px;padding:5px 7px 5px 7px;min-width:220px;
 	-webkit-border-radius:12px;border-radius:12px;
 	color:#fff;font-size:14px;
 }
