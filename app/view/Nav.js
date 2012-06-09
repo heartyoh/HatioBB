@@ -21,7 +21,14 @@ Ext.define('HatioBB.view.Nav', {
 
         /* Incident 상태 처리 */
         var incidentStore = Ext.getStore('RecentIncidentStore');
-        incidentStore.load();
+        incidentStore.load({
+			filters : [
+				new Ext.util.Filter({
+					property : 'confirm',
+					value : false
+				})
+			]
+		});
 
         /* Vehicle 상태 처리 */
         var vehicleMapStore = Ext.getStore('VehicleMapStore');

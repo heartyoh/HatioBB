@@ -4,7 +4,11 @@ Ext.define('HatioBB.store.IncidentByVehicleStore', {
     config: {
         autoLoad: false,
 
-        pageSize: 25,
+        pageSize: 4,
+
+		remoteFilter : true,
+		
+		remoteSort : true,
 
         fields: [{
             name: 'key',

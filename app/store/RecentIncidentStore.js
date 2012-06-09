@@ -6,7 +6,9 @@ Ext.define('HatioBB.store.RecentIncidentStore', {
 
 		remoteSort : true,
 		
-		pageSize : 5,
+		remoteFilter : true,
+		
+		pageSize : 8,
 
         fields: [{
             name: 'key',
@@ -100,9 +102,9 @@ Ext.define('HatioBB.store.RecentIncidentStore', {
 		proxy : {
 			type : 'ajax',
 			url : window.location.pathname.indexOf('/m/') === 0 ? '/incident' : 'data/incident.json',
-			extraParams : {
-				confirm : false
-			},
+			// extraParams : {
+			// 	confirm : false
+			// },
 			reader : {
 				type : 'json',
 				rootProperty : 'items',
