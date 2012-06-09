@@ -14,10 +14,10 @@ Ext.define('HatioBB.store.TrackByVehicleStore', {
 			name : 'driver_id',
 			type : 'string'
 		}, {
-			name : 'lattitude',
+			name : 'lat',
 			type : 'number'
 		}, {
-			name : 'longitude',
+			name : 'lng',
 			type : 'number'
 		}, {
 			name : 'created_at',

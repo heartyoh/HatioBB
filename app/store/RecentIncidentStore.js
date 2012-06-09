@@ -30,11 +30,11 @@ Ext.define('HatioBB.store.RecentIncidentStore', {
             type: 'string'
         },
         {
-            name: 'lattitude',
+            name: 'lat',
             type: 'float'
         },
         {
-            name: 'longitude',
+            name: 'lng',
             type: 'float'
         },
         {

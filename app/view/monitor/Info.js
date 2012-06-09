@@ -157,8 +157,11 @@ Ext.define('HatioBB.view.monitor.Info', {
 		 */
 		var driverStore = Ext.getStore('DriverBriefStore');
 		var driverRecord = driverStore.findRecord('id', vehicle.get('driver_id'));
-		var driver = driverRecord.get('id');
-		var driverImageClip = driverRecord.get('image_clip');
+		var driver, driverImageClip;
+		if(driverRecord) {
+			driver = driverRecord.get('id');
+			driverImageClip = driverRecord.get('image_clip');
+		}
 		var dimage = self.sub('driverImage');
 		
 		if (driverImageClip) {
@@ -169,14 +172,17 @@ Ext.define('HatioBB.view.monitor.Info', {
 		} else {
 			dimage.setSrc('resources/images/bgDriver.png');
 		}
-		vehicle.set('driver_name', driverRecord.get('name'));
+		if(driverRecord) {
+			vehicle.set('driver_name', driverRecord.get('name'));
+		}
 
 		vehicle.set('location', 'Resolving ..');
 		this.getLocation(vehicle.get('lat'), vehicle.get('lng'), function(location) {
 			vehicle.set('location', location);
 			var info = self.down('[itemId=briefInfo]');
-			if(info)
+			if(info) {
 				info.setData(vehicle.getData());
+			}
 		});
         this.sub('briefInfo').setData(vehicle.getData());
 
@@ -282,6 +288,11 @@ Ext.define('HatioBB.view.monitor.Info', {
 		return this.map;
 	},
 	
+	clearInfoWindow : function() {
+		if(this.infowindow)
+			this.infowindow.setVisible(false);
+	},
+
 	refreshMap : function(records, record) {
 		this.setTrackLine(new google.maps.Polyline({
 			map : this.getMap(),
@@ -290,14 +301,15 @@ Ext.define('HatioBB.view.monitor.Info', {
 			strokeWeight : 4
 		}));
 		this.setMarkers(null);
+		this.clearInfoWindow();
 
 		var path = this.getTrackLine().getPath();
 		var bounds;
 		var latlng;
 
 		Ext.Array.each(records, function(record) {
-			var lat = record.get('lattitude');
-			var lng = record.get('longitude');
+			var lat = record.get('lat');
+			var lng = record.get('lng');
 
 			if(lat !== 0 || lng !== 0) {
 				latlng = new google.maps.LatLng(lat, lng);
@@ -310,11 +322,11 @@ Ext.define('HatioBB.view.monitor.Info', {
 		});
 
 		if (path.getLength() === 0) {
-			var lat = record.get('lattitude');
-			var lng = record.get('longitude');
+			var lat = record.get('lat');
+			var lng = record.get('lng');
 			var defaultLatlng = null;
 			
-			if(lat === 0 && lng === 0) {
+			if(!lat && !lng) {
 				defaultLatlng = new google.maps.LatLng(System.props.lat, System.props.lng);
 			} else {
 				defaultLatlng = new google.maps.LatLng(lat, lng);
@@ -346,6 +358,29 @@ Ext.define('HatioBB.view.monitor.Info', {
 			});
 
 			this.setMarkers([ start, end ]);
+			
+			// if(records.length === 0) {
+			if(true) {
+				var content = [
+					'<div class="bubbleWrap status'+ record.get('status') +'">',
+					'<div>최근 24시간 이내 주행이력이 없습니다.</div>',
+					'</div>'
+				].join('');
+
+				if(!self.infowindow) {
+					self.infowindow = new Label({
+						map : this.getMap()
+					});
+				} else {
+					self.infowindow.setMap(this.getMap());
+				}
+				self.infowindow.bindTo('position', end, 'position');
+				self.infowindow.set('text', content);
+
+				self.infowindow.setVisible(true);
+				
+				qqq = self.infowindow.div_;
+			}
 		}
 		
 	},
@@ -405,7 +440,11 @@ Ext.define('HatioBB.view.monitor.Info', {
                 data: null,
                 tpl: [
                 '<div class="infoID {status}">{id} ({registration_number})</div>',
-                '<div class="infoText">Driver ID : {driver_id} ({driver_name})</div>',
+				'<tpl if="driver_id">',
+                '<div class="infoText">Driver : {driver_id} ({driver_name})</div>',
+				'<tpl else>',
+                '<div class="infoText">Driver : ' + T('label.nodriver') + '</div>',
+				'</tpl>',
                 '<div class="infoText">Location : {location}</div>'
                 ]
 			}]

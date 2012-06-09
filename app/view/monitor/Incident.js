@@ -108,7 +108,7 @@ Ext.define('HatioBB.view.monitor.Incident', {
 		incident.set('driver_name', driverRecord.get('name'));
 
 		incident.set('location', 'Resolving ..');
-		this.getLocation(incident.get('lattitude'), incident.get('longitude'), function(location) {
+		this.getLocation(incident.get('lat'), incident.get('lng'), function(location) {
 			incident.set('location', location);
 			self.sub('briefInfo').setData(incident.getData());
 		});
@@ -199,6 +199,11 @@ Ext.define('HatioBB.view.monitor.Incident', {
 		this.markers = null;
 	},
 
+	clearInfoWindow : function() {
+		if(this.infowindow)
+			this.infowindow.setVisible(false);
+	},
+
 	refreshTrack : function(store, records) {
 		this.setTrackLine(new google.maps.Polyline({
 			map : this.getMap(),
@@ -206,13 +211,15 @@ Ext.define('HatioBB.view.monitor.Incident', {
 			strokeOpacity : 1.0,
 			strokeWeight : 4
 		}));
+		
+		this.clearInfoWindow();
 
 		var path = this.getTrackLine().getPath();
 		var bounds;
 		var latlng;
 
 		Ext.Array.each(records, function(record) {
-			latlng = new google.maps.LatLng(record.get('lattitude'), record.get('longitude'));
+			latlng = new google.maps.LatLng(record.get('lat'), record.get('lng'));
 			path.push(latlng);
 			if (!bounds)
 				bounds = new google.maps.LatLngBounds(latlng, latlng);
@@ -250,7 +257,7 @@ Ext.define('HatioBB.view.monitor.Incident', {
 		}
 
 		/* Incident Marker */
-		var location = new google.maps.LatLng(this.getIncident().get('lattitude'), this.getIncident().get('longitude'));
+		var location = new google.maps.LatLng(this.getIncident().get('lat'), this.getIncident().get('lng'));
 		this.setMarker(new google.maps.Marker({
 			position : location,
 			icon : new google.maps.MarkerImage('resources/images/iconIncidentPoint.png',
@@ -258,15 +265,37 @@ Ext.define('HatioBB.view.monitor.Incident', {
 			map : this.getMap(),
 			title:"incidentPoint"
 		}));
+		
+		if(true) {
+			var content = [
+				'<div class="bubbleWrap statusIncident">',
+				'<div>트래킹 정보가 아직 도착하지 않았습니다.</div>',
+				'<div>동영상 정보가 아직 도착하지 않았습니다.</div>',
+				'</div>'
+			].join('');
+
+			if(!self.infowindow) {
+				self.infowindow = new Label({
+					map : this.getMap()
+				});
+			} else {
+				self.infowindow.setMap(this.getMap());
+			}
+			self.infowindow.set('position', location);
+			self.infowindow.set('text', content);
+
+			self.infowindow.setVisible(true);
+		}
+		
 	},
 
 	refreshChart : function(store, records) {
 		this.down('#chart').refresh();
 	},
 
-	getLocation : function(latitude, longitude, callback) {
-		if (latitude !== undefined && longitude !== undefined) {
-			var latlng = new google.maps.LatLng(latitude, longitude);
+	getLocation : function(lat, lng, callback) {
+		if (lat !== undefined && lng !== undefined) {
+			var latlng = new google.maps.LatLng(lat, lng);
 
 			geocoder = new google.maps.Geocoder();
 			geocoder.geocode({
@@ -360,7 +389,7 @@ Ext.define('HatioBB.view.monitor.Incident', {
 				maxZoom : 19,
 				minZoom : 3,
 				center : null,
-				// center : new google.maps.LatLng(System.props.lattitude, System.props.longitude),
+				// center : new google.maps.LatLng(System.props.lat, System.props.lng),
 				mapTypeId : google.maps.MapTypeId.ROADMAP
 			}	
 		}]
