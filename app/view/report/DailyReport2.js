@@ -1,7 +1,7 @@
-Ext.define('HatioBB.view.report.DailyReport', {
+Ext.define('HatioBB.view.report.DailyReport2', {
 	extend : 'Ext.Panel',
 	
-	xtype : 'dailyreport',
+	xtype : 'dailyreport2',
 	
 	config : {
 		layout : 'fit',

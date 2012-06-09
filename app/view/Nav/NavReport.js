@@ -20,6 +20,10 @@ Ext.define('HatioBB.view.nav.NavReport', {
 				name : 'Daily Report',
 				desc : 'Daily Report'
 			}, {
+				reportId : 'dailyreport2',
+				name : 'Daily Report2',
+				desc : 'Daily Report2'
+			}, {
 				reportId : 'monthlyreport',
 				name : 'Monthly Report',
 				desc : 'Monthly Report'
