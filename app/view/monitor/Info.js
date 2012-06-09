@@ -374,8 +374,7 @@ Ext.define('HatioBB.view.monitor.Info', {
 
 			this.setMarkers([ start, end ]);
 			
-			// if(records.length === 0) {
-			if(true) {
+			if(records.length === 0) {
 				var content = [
 					'<div class="bubbleWrap status'+ record.get('status') +'">',
 					'<div>최근 24시간 이내 주행이력이 없습니다.</div>',
@@ -384,7 +383,9 @@ Ext.define('HatioBB.view.monitor.Info', {
 
 				if(!self.infowindow) {
 					self.infowindow = new Label({
-						map : this.getMap()
+						map : this.getMap(),
+						xoffset : -110,
+						yoffset : -100
 					});
 				} else {
 					self.infowindow.setMap(this.getMap());
@@ -394,7 +395,13 @@ Ext.define('HatioBB.view.monitor.Info', {
 
 				self.infowindow.setVisible(true);
 				
-				qqq = self.infowindow.div_;
+				if(self.iw_pending) {
+					clearTimeout(self.iw_pending);
+				};
+
+				self.iw_pending = setTimeout(function() {
+					self.infowindow.setVisible(false);
+				}, 10000);
 			}
 		}
 		

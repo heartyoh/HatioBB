@@ -42,10 +42,16 @@ Ext.define('HatioBB.view.monitor.Map', {
 		});
 		
 		this.element.on({
+			delegate : 'div.bubbleWrap div.close',
+			tap : function(e) {
+				self.clearInfoWindow();
+			}
+		});
+		
+		this.element.on({
 			delegate : 'div.showVehicleTrack',
 			tap : function(e) {
 				self.fireEvent('tracktap', self.selectedMarker.record);
-				e.stopEvent();
 			}
 		});
 		
@@ -53,7 +59,6 @@ Ext.define('HatioBB.view.monitor.Map', {
 			delegate : 'div.showVehicleInfo',
 			tap : function(e) {
 				self.fireEvent('vehicletap', self.selectedMarker.record);
-				e.stopEvent();
 			}
 		});
 		
@@ -61,7 +66,6 @@ Ext.define('HatioBB.view.monitor.Map', {
 			delegate : 'div.showDriverInfo',
 			tap : function(e) {
 				self.fireEvent('drivertap', self.selectedMarker.driver_record);
-				e.stopEvent();
 			}
 		});
 	},
@@ -133,26 +137,35 @@ Ext.define('HatioBB.view.monitor.Map', {
 			
 			self.selectedMarker = marker;
 			
-			var imgsrc = 'resources/images/bgDriver.png';
+			var dimgsrc = 'resources/images/bgDriver.png';
 			
 			if(dr && dr.get('image_clip')) {
 				if(HatioBB.setting.get('app_mode'))
-					imgsrc = '/download?blob-key=' + dr.get('image_clip');
+					dimgsrc = '/download?blob-key=' + dr.get('image_clip');
 				else
-					imgsrc = dr.get('image_clip');
+					dimgsrc = dr.get('image_clip');
+			}
+			
+			var vimgsrc = 'resources/images/bgVehicle.png';
+
+			if(vr && vr.get('image_clip')) {
+				if(HatioBB.setting.get('app_mode'))
+					vimgsrc = '/download?blob-key=' + vr.get('image_clip');
+				else
+					vimgsrc = vr.get('image_clip');
 			}
 			
 			var content = [
 				'<div class="bubbleWrap status'+ vr.get('status') +'">',
 					'<div class="close"></div>',
 					'<div class="infoCell">',
-						'<img src="' + imgsrc + '">',
-						'<div class="showVehicleInfo">ID : ' + vr.get('id') + '<br/>No. : '+ vr.get('registration_number') + '</div>',
+						'<img src="' + vimgsrc + '">',
+						'<div class="showVehicleInfo">ID : ' + vr.get('id') + '<br/>'+ vr.get('registration_number') + '</div>',
 					'</div>',
 					'<div class="infoCell">',
-						'<img src="' + imgsrc + '">',
-							dr ? '<div class="showDriverInfo">ID : ' + dr.get('id') + '<br/>Name :'+ dr.get('name') + '</div>'
-							: '<div class="showDriverInfo">Driver : ' + T('label.nodriver') + '</div>',
+						'<img src="' + dimgsrc + '">',
+							dr ? '<div class="showDriverInfo">ID : ' + dr.get('id') + '<br/>'+ dr.get('name') + '</div>'
+							: '<div class="showDriverInfo">' + T('label.nodriver') + '</div>',
 					'</div>',	
 					'<div class="showVehicleTrack">Show Recent Track</div>',
 				'</div>'
@@ -160,7 +173,9 @@ Ext.define('HatioBB.view.monitor.Map', {
 
 			if(!self.infowindow) {
 				self.infowindow = new Label({
-					map : this.getMap()
+					map : this.getMap(),
+					xoffset : -110,
+					yoffset : -150
 				});
 			}
 			self.infowindow.bindTo('position', marker, 'position');

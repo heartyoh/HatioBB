@@ -266,26 +266,36 @@ Ext.define('HatioBB.view.monitor.Incident', {
 			title:"incidentPoint"
 		}));
 		
-		if(true) {
-			var content = [
-				'<div class="bubbleWrap statusIncident">',
-				'<div>트래킹 정보가 아직 도착하지 않았습니다.</div>',
-				'<div>동영상 정보가 아직 도착하지 않았습니다.</div>',
-				'</div>'
-			].join('');
+		var strmovie = this.incident.get('video_clip') ? '동영상 정보를 추가로 확인해보실 수 있습니다.' : '동영상 정보가 아직 도착하지 않았습니다. 잠시 후 다시 확인해 보세요.';
+		var strtrack = records.length > 0 ? '가속 및 속도 정보를 더 확인해보실 수 있습니다.' : '트래킹 정보가 아직 도착하지 않았습니다. 잠시 후 다시 확인해 보세요.';
+		var content = [
+			'<div class="bubbleWrap statusIncident">',
+			'<div>' + strtrack + '</div>',
+			'<div>' + strmovie + '</div>',
+			'</div>'
+		].join('');
 
-			if(!self.infowindow) {
-				self.infowindow = new Label({
-					map : this.getMap()
-				});
-			} else {
-				self.infowindow.setMap(this.getMap());
-			}
-			self.infowindow.set('position', location);
-			self.infowindow.set('text', content);
-
-			self.infowindow.setVisible(true);
+		if(!self.infowindow) {
+			self.infowindow = new Label({
+				map : this.getMap(),
+				xoffset : -110,
+				yoffset : -170
+			});
+		} else {
+			self.infowindow.setMap(this.getMap());
 		}
+		self.infowindow.set('position', location);
+		self.infowindow.set('text', content);
+
+		self.infowindow.setVisible(true);
+		
+		if(self.iw_pending) {
+			clearTimeout(self.iw_pending);
+		};
+		
+		self.iw_pending = setTimeout(function() {
+			self.infowindow.setVisible(false);
+		}, 10000);
 		
 	},
 

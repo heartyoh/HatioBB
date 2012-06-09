@@ -31,6 +31,9 @@ Ext.define('HatioBB.store.VehicleFilteredStore', {
 		}, {
 			name : 'location',
 			type : 'string'
+		}, {
+			name : 'image_clip',
+			type : 'string'
 		} ]
 	}
 
