@@ -2,9 +2,9 @@ Ext.define('HatioBB.mixin.User', function() {
 	return {
 		login : {
 			key : login.key,
-			email : login.email,
-			id : login.username,
-			name : login.username,
+			email : Ext.String.htmlDecode(login.email),
+			id : Ext.String.htmlDecode(login.username),
+			name : Ext.String.htmlDecode(login.username),
 			language : login.language
 		}
 	};
