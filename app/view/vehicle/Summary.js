@@ -99,6 +99,13 @@ Ext.define('HatioBB.view.vehicle.Summary', {
 			self.down('[itemId=briefInfo2]').setData(data);
 			self.down('[itemId=links]').setData(records[0].getData());
 			
+			data.eff_rate = Math.floor(50 + Math.random() * 40);
+			data.eco_rate = Math.floor(10 + data.eff_rate / 4);
+			var idx = Math.floor(data.eff_rate / 20);
+			data.eco_level = ['E', 'D', 'C', 'B', 'A'][idx];
+			data.cost_reduction = [50, 40, 30, 20, 10][idx];
+			self.down('[itemId=ecoInfo]').setData(data);
+
 			var run_data = self.down('[itemId=runningInfo]').getData() || {};
 			run_data.total_distance = data.total_distance;
 			run_data.total_distance_mile = (data.total_distance * 0.621371192237334).toFixed(2);
@@ -121,7 +128,7 @@ Ext.define('HatioBB.view.vehicle.Summary', {
 		var run_store = Ext.getStore('VehicleRunStore');
 		var now = new Date();
 		run_store.filter([{
-			property : 'id',
+			property : 'vehicle',
 			value : this.vehicle
 		}, {
 			property : 'year',
@@ -256,16 +263,17 @@ Ext.define('HatioBB.view.vehicle.Summary', {
 	buildEcoDrivingInfo : function() {
 		return {
 			xtype : 'component',
+			itemId : 'ecoInfo',
 			cls : 'bgHGrident',
 			width : 265,
-			html : [
-			'<div class="subtitle">my eco level</div>',
-			'<div class="ecoLevel B"></div>',
+			tpl : [
+			'<div class="subtitle">eco level</div>',
+			'<div class="ecoLevel {eco_level}"></div>',
 			'<div class="ecoHBox">',
-				'<div>공인연비 <span>70%</span></div>',
-				'<div>경제주행 비율<span>34%</span></div>',
+				'<div>평균/공인 연비 <span>{eff_rate}%</span></div>',
+				'<div>경제주행 비율<span>{eco_rate}%</span></div>',
 			'</div>',	
-			'<div class="ecoComment">이 차의 에코드라이브 지수는 B레벨입니다.<br/> 공회전시간을 적절하게 관리하면, <span>연간 40만원 이상의</span>유류비 절약이 가능합니다.'
+			'<div class="ecoComment">이 차의 에코드라이브 지수는 {eco_level}레벨입니다.<br/> 공회전시간을 적절하게 관리하면, <span>연간 {cost_reduction}만원 이상의</span>유류비 절약이 가능합니다.'
 			].join('')
 		}
 	}

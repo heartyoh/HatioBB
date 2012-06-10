@@ -18,55 +18,83 @@ Ext.define('HatioBB.view.report.DailyReport', {
 		];
 		
 		this.callParent(arguments);
+		
+		this.refresh();
 	},
 	
-	buildReport : function() {
-		var data = {};
+	refresh : function() {
+		var self = this;
 		
+		var data = {};
+
 		/* 어제 일자를 구힌다 */
 		var yesterday = new Date();
 		yesterday.setDate(yesterday.getDate() - 1);
 		data.date = Ext.Date.format(yesterday, T('format.date'));
 
-		/* 주행 데이타를 설정한다 */
-		data.driving = [];
-		for(var i = 0;i < 50;i++) {
-			data.driving.push({
-				driver_id : 'D00' + (i + 1),
-				name : '오현석',
-				vehicle_id : 'V001',
-				reg_no : '가 1234',
-				run_dist : 340,
-				run_time : 247,
-				consmpt : 46,
-				effcc : 7.8
-			});
-		}
+		var dstore = Ext.getStore('DriverBriefStore');
+		var run_store = Ext.getStore('DriverRunStore');
 		
-		/* 정비정보를 설정한다 */
-		data.maint = [];
-		for(var i = 0;i < 3;i++) {
-			data.maint.push({
-				vehicle_id : 'V00' + (i + 1),
-				reg_no : '가 1234',
-				desc : '정기 점검'
-			});
-		}
+		/* TODO 실제로는 어제 날짜 정보를 가져와야 하지만, 아직 서비스가 없는 관계로 이와 같이 샘플로 대체함 */
+		run_store.filter([{
+			property : 'year',
+			value : yesterday.getFullYear()
+		}, {
+			property : 'month',
+			value : yesterday.getMonth() + 1
+		}]);
+		
+		run_store.load(function(records) {
+			/* 주행 데이타를 설정한다 */
+			data.driving = [];
+			for(var i = 0;i < records.length;i++) {
+				var run_data = records[i].getData();
+				var driver = dstore.getById(run_data.driver).getData();
+				data.driving.push({
+					driver_id : driver.id,
+					name : driver.name,
+					vehicle_id : '',
+					reg_no : '',
+					run_dist : Math.floor(run_data.run_dist),
+					run_time : Math.floor(run_data.run_time),
+					consmpt : Math.floor(run_data.consmpt),
+					effcc : run_data.effcc.toFixed(1)
+				});
+			}
 
-		/* 소모품 교체 정보를 설정한다 */
-		data.consummable = [];
-		for(var i = 0;i < 3;i++) {
-			data.consummable.push({
-				vehicle_id : 'V00' + (i + 1),
-				reg_no : '가 1234',
-				part : '엔진 오일'
-			});
-		}
+			/* 정비정보를 설정한다 */
+			data.maint = [];
+			for(var i = 0;i < 3;i++) {
+				data.maint.push({
+					vehicle_id : 'V00' + (i + 1),
+					reg_no : '가 1234',
+					desc : '정기 점검'
+				});
+			}
 
+			/* 소모품 교체 정보를 설정한다 */
+			data.consummable = [];
+			for(var i = 0;i < 3;i++) {
+				data.consummable.push({
+					vehicle_id : 'V00' + (i + 1),
+					reg_no : '가 1234',
+					part : '엔진 오일'
+				});
+			}
+
+			self.down('[itemId=report]').setData(data);
+		});
+
+
+	},
+	
+	buildReport : function() {
 		return {
 			xtype : 'panel',
 			
-			data : data,
+			itemId : 'report',
+			
+			data : {},
 			
 			cls : 'bgHGradient',
 			
