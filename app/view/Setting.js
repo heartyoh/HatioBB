@@ -146,7 +146,7 @@ Ext.define('HatioBB.view.Setting', {
 	        }, {
 	            xtype: 'textfield',
 	            label: T('label.user'),
-	            value : HatioBB.login.id,
+	            value : HatioBB.login.email,
 				disabled : true
 			}]
 		}
