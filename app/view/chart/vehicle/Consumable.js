@@ -51,12 +51,13 @@ Ext.define('HatioBB.view.chart.vehicle.Consumable', {
 		
 		this.vehicle = HatioBB.setting.get('vehicle');
 		
-		/* filter로 하지 않고, 파라미터로 해야 함 */
-		var proxy = store.getProxy();
-		proxy.config.extraParams.vehicle_id = this.vehicle;
-
-		store.load(function(records) {
-			self.getChart().getStore().setData(records);
+		store.load({
+			params : {
+				vehicle_id : this.vehicle
+			},
+			callback : function(records) {
+				self.getChart().getStore().setData(records);
+			}
 		});
 	},
 	

@@ -156,7 +156,7 @@ Ext.define('HatioBB.view.driver.Summary', {
 			tpl : [
 			
 			'<div class="distance">',
-				'<div class="total">총 주행거리<span class="km">{total_distance} km</span><span class="mile">159071.025 mile</span></div>',
+				'<div class="total">총 주행거리<span class="km">{total_distance} km</span><span class="mile">{total_distance * 0.621371192237334} mile</span></div>',
 				'<div class="current">이달 주행거리<span class="km">202.7 km</span><span class="mile">0.125952 mile</span></div>',
 			'</div>',
 			'<div class="fuel">',

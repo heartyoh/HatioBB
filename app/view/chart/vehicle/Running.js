@@ -64,16 +64,17 @@ Ext.define('HatioBB.view.chart.vehicle.Running', {
 		this.vehicle = HatioBB.setting.get('vehicle');
 		this.fromYear = HatioBB.setting.get('fromYear') || (thisYear - 1);
 		
-		/* filter로 하지 않고, 파라미터로 해야 함 */
-		var proxy = store.getProxy();
-		proxy.config.extraParams.vehicle = this.vehicle;
-		proxy.config.extraParams.from_year = this.fromYear;
-		proxy.config.extraParams.to_year = thisYear;
-		proxy.config.extraParams.from_month = 1;
-		proxy.config.extraParams.to_month = thisMonth;
-		
-		store.load(function(records) {
-			self.chartStore.setData(records);
+		store.load({
+			params : {
+				vehicle : this.vehicle,
+				from_year : this.fromYear,
+				to_year : thisYear,
+				from_month : 1,
+				to_month : thisMonth
+			},
+			callback : function(records) {
+				self.chartStore.setData(records);
+			}
 		});
 	},
 	

@@ -16,15 +16,16 @@ Ext.define('HatioBB.view.vehicle.Summary', {
 
 	constructor : function(config) {
         config.items = [this.buildVehicleInfo(), {
-			xtype : 'container',
+			xtype : 'component',
 			itemId : 'links',
 			height : 45,
+			data : {},
 			cls : 'shotHList marginT10 divHAlign',
-			html : [
-				'<div class="iconFuel">Remaining Fuel<span>25</span></div>',
+			tpl : [
+				'<div class="iconFuel">Remaining Fuel<span>{remaining_fuel}</span></div>',
 				'<div class="iconTime">Total Drive Time<span>5,500 min</span></div>',
 				'<div class="iconMap">Move to<span>Current Position Map</span></div>',
-				'<div class="iconTrack">Move to<span>Recent Running Track</span></div>',
+				'<div class="iconTrack">Move to<span>Recent Running Track</span></div>'
 			].join('')
         }, {
 			xtype : 'container',
@@ -92,11 +93,16 @@ Ext.define('HatioBB.view.vehicle.Summary', {
 		
 		store.filter('id', this.vehicle);
 		store.load(function(records) {
-			self.setRecord(records[0]);
-
-			self.down('[itemId=briefInfo]').setData(records[0].getData());
-			self.down('[itemId=briefInfo2]').setData(records[0].getData());
-			self.down('[itemId=runningInfo]').setData(records[0].getData());
+			var data = records[0].getData();
+			
+			self.down('[itemId=briefInfo]').setData(data);
+			self.down('[itemId=briefInfo2]').setData(data);
+			self.down('[itemId=links]').setData(records[0].getData());
+			
+			var run_data = self.down('[itemId=runningInfo]').getData() || {};
+			run_data.total_distance = data.total_distance;
+			run_data.total_distance_mile = (data.total_distance * 0.621371192237334).toFixed(2);
+			self.down('[itemId=runningInfo]').setData(run_data);
 
 			// ImageClip을 리프레쉬한다.
 			var imageClip = records[0].get('image_clip');
@@ -109,6 +115,47 @@ Ext.define('HatioBB.view.vehicle.Summary', {
 				
 			} else {
 				vimage.setSrc('resources/images/bgVehicle.png');
+			}
+		});
+		
+		var run_store = Ext.getStore('VehicleRunStore');
+		var now = new Date();
+		run_store.filter([{
+			property : 'id',
+			value : this.vehicle
+		}, {
+			property : 'year',
+			value : now.getFullYear()
+		}, {
+			property : 'month',
+			value : now.getMonth() + 1
+		}]);
+		run_store.load(function(records) {
+			var data = records[0].getData();
+
+			var run_data = self.down('[itemId=runningInfo]').getData() || {};
+			Ext.apply(run_data, data);
+			run_data.run_dist_mile = (run_data.run_dist * 0.621371192237334).toFixed(2);
+			run_data.effcc = run_data.effcc.toFixed(1);
+			self.down('[itemId=runningInfo]').setData(run_data);
+		});
+		
+		var consumable_store = Ext.getStore('VehicleConsumableStore');
+
+		consumable_store.load({
+			params : {
+				vehicle_id : this.vehicle
+			},
+			callback : function(records) {
+				var sorted = Ext.Array.sort(records, function(a, b) {
+					return b.get('health_rate') - a.get('health_rate');
+				});
+				self.down('[itemId=consumableInfo]').setData(Ext.Array.map(sorted.slice(0,3), function(record) {
+					var data = record.getData();
+					data.health_rate = data.health_rate.toFixed(2);
+					data.health_rate_max = Math.min(1, data.health_rate).toFixed(2);
+					return data;
+				}));
 			}
 		});
 		
@@ -129,7 +176,7 @@ Ext.define('HatioBB.view.vehicle.Summary', {
                 cls: 'imgVehicle'
             },
 			{
-				xtype: 'panel',
+				xtype: 'component',
                 itemId: 'briefInfo',
 				flex : 1,
                 data: null,
@@ -137,11 +184,10 @@ Ext.define('HatioBB.view.vehicle.Summary', {
                 '<div class="infoID {status}">{id}</div>',
                 '<div class="infoText">' + T('label.x_type', {x : T('label.vehicle')}) + ' : {vehicle_type}</div>',
                 '<div class="infoText">' + T('label.manufacturer') + ' : {manufacturer}</div>',
-                
                 ]
             },
 			{
-				xtype: 'panel',
+				xtype: 'component',
                 itemId: 'briefInfo2',
 				flex : 1,
                 data: null,
@@ -149,8 +195,6 @@ Ext.define('HatioBB.view.vehicle.Summary', {
                 '<div class="infoID">' + T('label.reg_no') + ' : {registration_number}</div>',
 				'<div class="infoText">' + T('label.birth_year') + ' : {birth_year}</div>',
                 '<div class="infoText">' + T('label.fuel_type') + ' : {fuel_type}</div>'
-                //'<div class="infoText">' + T('label.remaining_fuel') + ' : {remaining_fuel}</div>',
-                //'<div class="infoText">' + T('label.total_x', {x : T('label.distance')}) + ' : {total_distance}</div>'
                 ]
 			}]
         }
@@ -158,19 +202,19 @@ Ext.define('HatioBB.view.vehicle.Summary', {
 
 	buildRunningInfo : function() {
 		return {
-			xtype : 'panel',
+			xtype : 'component',
 			itemId : 'runningInfo',
 			data : null,
 			flex : 1,
 			cls : 'paddingT25 paddingR10 paddingL10',
 			tpl : [
 			'<div class="distance">',
-				'<div class="total">총 주행거리<span class="km">{total_distance} km</span><span class="mile">159071.025 mile</span></div>',
-				'<div class="current">이달 주행거리<span class="km">202.7 km</span><span class="mile">0.125952 mile</span></div>',
+				'<div class="total">총 주행거리<span class="km">{total_distance} km</span><span class="mile">{total_distance_mile} mile</span></div>',
+				'<div class="current">이달 주행거리<span class="km">{run_dist} km</span><span class="mile">{run_dist_mile} mile</span></div>',
 			'</div>',
 			'<div class="fuel">',
-				'<div>이달 연료 소모량 : <span>170ℓ</span></div>',
-				'<div>이달 연비 : <span>7km/ℓ</span></div>',
+				'<div>이달 연료 소모량 : <span>{consmpt} ℓ</span></div>',
+				'<div>연비 : <span>{effcc} km/ℓ</span></div>',
 			'</div>'	
 			]
 		}
@@ -178,21 +222,28 @@ Ext.define('HatioBB.view.vehicle.Summary', {
 	
 	buildConsumableInfo : function() {
 		return {
-			xtype : 'panel',
+			xtype : 'component',
+			itemId : 'consumableInfo',
 			flex : 1,
 			cls : 'summaryConsumable',
-			html : [
+			tpl : [
 			'<div class="subtitle">consumable</div>',
-			'<div class="itemCell">Engine Oil <div class="percent"><span style="width:100%">112%</span></div></div>',
-			'<div class="itemCell">Battery <div class="percent"><span style="width:86%">86%</span></div></div>',
-			'<div class="itemCell">Antifreeze <div class="percent"><span style="width:95%">95%</span></div></div>',
-			].join('')
+			'<tpl for=".">',
+			'<div class="itemCell">{consumable_item} <div class="percent"><span style="width:{health_rate_max * 100}%">{health_rate * 100}%</span></div></div>',
+			'</tpl>'
+			],
+			// html : [
+			// '<div class="subtitle">consumable</div>',
+			// '<div class="itemCell">Engine Oil <div class="percent"><span style="width:100%">112%</span></div></div>',
+			// '<div class="itemCell">Battery <div class="percent"><span style="width:86%">86%</span></div></div>',
+			// '<div class="itemCell">Antifreeze <div class="percent"><span style="width:95%">95%</span></div></div>',
+			// ].join('')
 		}
 	}, 
 	
 	buildMaintenenceInfo : function() {
 		return {
-			xtype : 'panel',
+			xtype : 'component',
 			flex : 1,
 			cls : 'summaryRepair',
 			html : [
@@ -204,7 +255,7 @@ Ext.define('HatioBB.view.vehicle.Summary', {
 	
 	buildEcoDrivingInfo : function() {
 		return {
-			xtype : 'panel',
+			xtype : 'component',
 			cls : 'bgHGrident',
 			width : 265,
 			html : [
