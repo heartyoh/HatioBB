@@ -172,7 +172,7 @@ Ext.define('HatioBB.view.monitor.Map', {
 			].join('');
 
 			if(!self.infowindow) {
-				self.infowindow = new Label({
+				self.infowindow = HatioBB.label.create({
 					map : this.getMap(),
 					xoffset : -110,
 					yoffset : -150
@@ -218,7 +218,7 @@ Ext.define('HatioBB.view.monitor.Map', {
 				].join('');
 
 				if(!self.infowindow) {
-					self.infowindow = new Label({
+					self.infowindow = HatioBB.label.create({
 						map : this.getMap()
 					});
 				}

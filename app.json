@@ -68,7 +68,6 @@
         "cache": [
 /*
 			"app.js",
-			"lib/label/label.js",
 			"lib/locale/locale.js",
 			"sdk/sencha-touch-all.js",
 			"sdk/touch-charts.js",

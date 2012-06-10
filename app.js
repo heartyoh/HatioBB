@@ -11,7 +11,8 @@ Ext.define('HatioBB', {
 	mixins : {
 		user : 'HatioBB.mixin.User',
 		subitem : 'HatioBB.mixin.SubItem',
-		setting : 'HatioBB.mixin.Setting'
+		setting : 'HatioBB.mixin.Setting',
+		label : 'HatioBB.mixin.Label'
 	}
 });
 
@@ -47,7 +48,7 @@ Ext.application({
         Ext.fly('appLoadingIndicator').destroy();
 
 		HatioBB.setting.set('app_mode', (0 === window.location.pathname.indexOf('/m/')));
-		HatioBB.setting.set('version', '0.5.7');
+		HatioBB.setting.set('version', '0.5.8');
 
         // Initialize the main view
         Ext.Viewport.add(Ext.create('HatioBB.view.Main'));

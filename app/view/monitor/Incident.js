@@ -276,7 +276,7 @@ Ext.define('HatioBB.view.monitor.Incident', {
 		].join('');
 
 		if(!self.infowindow) {
-			self.infowindow = new Label({
+			self.infowindow = HatioBB.label.create({
 				map : this.getMap(),
 				xoffset : -110,
 				yoffset : -170
