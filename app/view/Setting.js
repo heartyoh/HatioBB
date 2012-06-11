@@ -16,7 +16,6 @@ Ext.define('HatioBB.view.Setting', {
 	buildItems : function() {
 		var items = [{
 			xtype : 'fieldset',
-			title : 'System Setting',
 			items : [{
 	            xtype: 'toolbar',
 	            title: T('label.setting'),
@@ -127,7 +126,7 @@ Ext.define('HatioBB.view.Setting', {
 		if(settings.length)
 			return {
 				xtype : 'fieldset',
-				title : 'By Screen',
+				title : T('label.setting_by_screen'),
 				items : settings
 			}
 		else
@@ -137,7 +136,7 @@ Ext.define('HatioBB.view.Setting', {
 	buildInformation : function() {
 		return {
 			xtype : 'fieldset',
-			title : 'System Information',
+			title : T('label.system_info'),
 			items : [{
 	            xtype: 'textfield',
 	            label: T('label.version'),
@@ -147,6 +146,11 @@ Ext.define('HatioBB.view.Setting', {
 	            xtype: 'textfield',
 	            label: T('label.user'),
 	            value : HatioBB.login.id + '(' + HatioBB.login.email + ')',
+				disabled : true
+	        }, {
+	            xtype: 'textfield',
+	            label: T('label.company'),
+	            value : HatioBB.login.company,
 				disabled : true
 			}]
 		}

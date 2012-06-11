@@ -8,6 +8,9 @@ T({
 		maint_time : '정비 시간',
 		co2_emission : 'CO2 배출량',
 		oos_count : 'OOS 횟수',
-		dodriver : '운전자 없음'
+		dodriver : '운전자 없음',
+		system_info : '시스템/사용자 정보',
+		setting_by_screen : '현재화면 관련 설정',
+		fromYear : '조회 기준 시작 년도'
 	}
 });

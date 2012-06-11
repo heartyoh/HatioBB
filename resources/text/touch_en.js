@@ -8,6 +8,9 @@ T({
 		maint_time : 'Maint. Time',
 		co2_emission : 'CO2 Emission',
 		oos_count : 'OOS Count',
-		nodriver : 'nobody'
+		nodriver : 'nobody',
+		system_info : 'System/User Information',
+		setting_by_screen : 'Setting for Active Screen',
+		fromYear : 'From Year 4 Query'
 	}
 });

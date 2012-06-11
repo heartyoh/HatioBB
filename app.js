@@ -48,7 +48,7 @@ Ext.application({
         Ext.fly('appLoadingIndicator').destroy();
 
 		HatioBB.setting.set('app_mode', (0 === window.location.pathname.indexOf('/m/')));
-		HatioBB.setting.set('version', '0.5.12');
+		HatioBB.setting.set('version', '0.5.13');
 
         // Initialize the main view
         Ext.Viewport.add(Ext.create('HatioBB.view.Main'));
