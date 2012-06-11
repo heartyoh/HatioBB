@@ -34,6 +34,27 @@ Ext.define('HatioBB.view.monitor.Incident', {
 		self.items.items[0].on('activate', function() {
 			self.refresh();
 		});
+		
+		self.items.items[0].down('[itemId=confirm]').on('change', function(field, b, c, d, value) {
+			Ext.Ajax.request({
+			    url : '/incident/save',
+				method : 'POST',
+			    params : {
+					key : self.incident.get('key'),
+			        confirm : value[0] ? 'on' : 'off'
+			    },
+			    success : function(response) {
+					if(value[0])
+						Ext.Msg.alert('성공', '이상상황 정보가 확인 처리되었습니다. 이상상황 리스트에서 잠시 후 사라지게 됩니다. 리스트에서 유지하고 싶으면, 다시 미확인으로 변경하시기 바랍니다.', Ext.emptyFn);
+					else
+						Ext.Msg.alert('성공', '이상상황 정보가 미확인 처리되었습니다. 이상상황 리스트에 다시 유지되게 됩니다. 리스트에서 제거하고 싶으면, 다시 확인으로 변경하시기 바랍니다.', Ext.emptyFn);
+			    },
+				failure : function(response) {
+					Ext.Msg.alert('실패', '이상상황 정보가 확인 처리가 실패되였습니다.(' + response.status + ')', Ext.emptyFn);
+					field.setValue(self.incident.get('confirm'));
+				}
+			});
+		});
 	},
 	
 	destroy : function() {

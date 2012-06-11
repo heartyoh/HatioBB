@@ -122,7 +122,7 @@ Ext.define('HatioBB.view.Nav', {
         var incidents = this.sub('incidents');
 
         incidents.removeAll();
-        var count = store.getCount() > 5 ? 5: store.getCount();
+        var count = store.getCount();
 
         for (var i = 0; i < count; i++) {
             var incident = store.getAt(i);
@@ -250,6 +250,10 @@ Ext.define('HatioBB.view.Nav', {
                 items: [{
                     xtype: 'panel',
                     itemId: 'incidents',
+					scrollable : {
+					    direction: 'vertical',
+					    directionLock: true
+					},
                     cls: 'incidentPanel',
 					html : T('title.incidents_alarm'),
                 },
