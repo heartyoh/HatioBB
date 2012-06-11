@@ -195,6 +195,20 @@
 .reportTitle{padding:5px 7px;font-size:14px;color:#000}
 .reportTitle span{float:right}
 .reportSub .reportTitle{background:url('../images/bgReportSubTitle.png') no-repeat;height:45px}
+.alignCenter{text-align:center}
+.alignRight{text-align:right}
+
+.reportWrap.type2{background:url('../images/bgWhiteShadowPanel.png') repeat-x #e8edef;}
+.reportItem{background-color:#fff;-webkit-border-radius:7px;border-radius:7px;border:1px solid #ccc;padding:15px;margin:5px 15px 15px 15px}
+.reportLayoutHalf{float:left;width:49%;}
+.reportLayoutHalf .reportItem{margin:0 0 15px 15px;padding:15px}
+.reportItem table{width:100%}
+.reportItem tr:nth-child(odd){background-color:#eee}
+.reportItem th{background:url('../images/bgThBlue.png');padding:3px;color:#fff;font-size:14px;text-align:center;border-color:#5a738e;border-top:2px solid #5a738e}
+.reportLayoutHalf .reportItem th{background:url('../images/bgThGray.png');border-color:#585858;}
+.reportItem td{border-color:#cfcfcf;padding:5px}
+.type2 .reportTitle{margin:15px 15px 0 15px;padding-left:15px;font-size:18px;font-weight:bold}
+.type2 .reportTitle span{font-size:12px;color:#666;line-height:1.6}
 
 
 /*vehicles > summary tab style*/
