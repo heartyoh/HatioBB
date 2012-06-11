@@ -198,6 +198,7 @@
 .alignCenter{text-align:center}
 .alignRight{text-align:right}
 
+.reportLayoutFull{clear:both}
 .reportWrap.type2{background:url('../images/bgWhiteShadowPanel.png') repeat-x #e8edef;}
 .reportItem{background-color:#fff;-webkit-border-radius:7px;border-radius:7px;border:1px solid #ccc;padding:15px;margin:5px 15px 15px 15px}
 .reportLayoutHalf{float:left;width:49%;}
