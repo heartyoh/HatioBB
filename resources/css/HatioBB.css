@@ -53,6 +53,7 @@
 #header,.nav .x-navigation-bar.x-docked-top{height:40px;background:none;}
 #header .x-title{line-height:1.8;text-shadow: 1px 2px #10223b;}
 #header .x-button{background-color:transparent;background-image:none;border:0;}
+#header .x-button.x-button-pressing{background-color:transparent;background-image:url('../images/darkGradient.png');border:1px solid #0c2545;}
 .x-button.headerView,.x-button.headerView.x-button-pressing,.x-button.headerView.active{background:url('../images/iconHeaderView.png') no-repeat !important;border:0;width:50px !important;height:40px;border-radius:0;}
 .headerView.navMap{background-position:0 0 !important;}
 .headerView.navIncident{background-position:0 -40px !important}
@@ -60,6 +61,8 @@
 .headerView.navMap.x-button-pressing,.headerView.navMap.active{background-position:0 -120px !important;}
 .headerView.navIncident.x-button-pressing,.headerView.navIncident.active{background-position:0 -160px !important}
 .headerView.navInfo.x-button-pressing,.headerView.navInfo.active{background-position:0 -200px !important}
+#header .x-button .x-button-icon.x-icon-mask{background-image:-webkit-linear-gradient(top, #c4dae9,#c4dae9 3%,#c4dae9)}
+#header .x-button.x-button-pressing .x-button-icon.x-icon-mask{background-image:-webkit-linear-gradient(top, #fff,#fff 3%,#fff)}
 
 /*nav style*/
 .nav .x-navigation-bar.x-docked-top{background:url('../images/darkGradient.png') 0 80% repeat-x !important;}
@@ -160,6 +163,7 @@
     -webkit-animation-timing-function: ease;
     -webkit-animation-direction: alternate;
 }
+.shotHList + .x-map .bubbleWrap{padding:5px}
 
 
 /*map bubble*/
