@@ -206,10 +206,6 @@ Ext.define('HatioBB.view.monitor.Info', {
 		 * IncidentStore를 다시 로드함.
 		 */
 		
-		new Ext.util.Filter({
-		    property: 'age',
-		    value   : 32
-		})
 		this.getIncidentStore().load({
 			// params : {
 			// 	vehicle_id : vehicle.get('id'),

@@ -83,7 +83,10 @@ Ext.define('HatioBB.view.monitor.Incident', {
 				}
 			}
 		}
-		
+
+		if(!incident || incident.isDestroyed)
+			return;
+			
 		this.incident = incident;
 		this.incident.set('obd_connected_text', this.incident.get('obd_connected') ? 'connected' : 'disconnected');
 		
@@ -145,7 +148,6 @@ Ext.define('HatioBB.view.monitor.Incident', {
 			property : 'incident',
 			value : incident.get('key')
 		} ]);
-		
 		this.getLogStore().load();
 		
 		/*

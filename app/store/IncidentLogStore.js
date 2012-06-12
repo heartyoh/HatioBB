@@ -5,6 +5,8 @@ Ext.define('HatioBB.store.IncidentLogStore', {
 		autoLoad : false,
 
 		pageSize : 1000,
+		
+		remoteFilter : true,
 
 		fields : [ {
 			name : 'key',
