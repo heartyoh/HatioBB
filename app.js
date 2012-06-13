@@ -12,13 +12,12 @@ Ext.define('HatioBB', {
 		user : 'HatioBB.mixin.User',
 		subitem : 'HatioBB.mixin.SubItem',
 		setting : 'HatioBB.mixin.Setting',
-		label : 'HatioBB.mixin.Label'
+		label : 'HatioBB.mixin.Label',
+		nav : 'HatioBB.mixin.Nav'
 	}
 });
 
 Ext.application({
-    controllers: ["Main"],
-
     name: 'HatioBB',
 
     requires: [
@@ -26,7 +25,7 @@ Ext.application({
 		'Ext.tab.Panel'
     ],
 
-    controllers: ['Main', 'Report'],
+    controllers: ['Main', 'Nav', 'Report'],
     views: ['Main', 'Setting'],
     stores: ['VehicleFilteredStore', 'VehicleStore', 'RecentIncidentStore', 'VehicleMapStore', 
 			'DriverStore', 'DriverBriefStore', 'VehicleGroupStore', 'DriverGroupStore', 'TrackByVehicleStore', 

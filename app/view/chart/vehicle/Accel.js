@@ -95,7 +95,7 @@ Ext.define('HatioBB.view.chart.vehicle.Accel', {
 	            fill: false,
 	            smooth: true,
 	            axis: 'left',
-	            title: T('label.accelerate_x', {x:'x'}),
+	            title: T('label.accelerate_x', {x:'X'}),
 				xField : 'datetime',
 				yField : 'accelate_x'
 			}, {
@@ -107,7 +107,7 @@ Ext.define('HatioBB.view.chart.vehicle.Accel', {
 	            fill: false,
 	            smooth: true,
 	            axis: 'left',
-	            title: T('label.accelerate_x', {x:'y'}),
+	            title: T('label.accelerate_x', {x:'Y'}),
 				xField : 'datetime',
 				yField : 'accelate_y'
 			}, {
@@ -119,7 +119,7 @@ Ext.define('HatioBB.view.chart.vehicle.Accel', {
 	            fill: false,
 	            smooth: true,
 	            axis: 'left',
-	            title: T('label.accelerate_x', {x:'z'}),
+	            title: T('label.accelerate_x', {x:'Z'}),
 				xField : 'datetime',
 				yField : 'accelate_z'
 			}, {
