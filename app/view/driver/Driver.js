@@ -4,7 +4,8 @@ Ext.define('HatioBB.view.driver.Driver', {
 	requires : [
 	'HatioBB.view.driver.Summary',
 	'HatioBB.view.chart.driver.Running',
-	'HatioBB.view.chart.driver.EcoRadar'
+	'HatioBB.view.chart.driver.EcoRadar',
+	'HatioBB.view.driver.Track'
 	],
 	
 	xtype : 'driver',
@@ -26,6 +27,10 @@ Ext.define('HatioBB.view.driver.Driver', {
 			xtype : 'chart_d_eco_radar',
 			iconCls : 'iconsTab tabEco',
 			title : 'Eco-Driving'
+		}, {
+			xtype : 'driver_track',
+			iconCls : 'iconsTab tabEco',
+			title : 'Track'
 		}]
 	},
 	
