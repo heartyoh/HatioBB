@@ -60,16 +60,76 @@ Ext.define('HatioBB.view.monitor.Track', {
 
 	},
 	
-	getTrackLine : function() {
-		return this.trackline;
-	},
-
-	setTrackLine : function(trackline) {
-		if (this.trackline)
-			this.trackline.setMap(null);
-		this.trackline = trackline;
+	resetTrackLines : function() {
+		if(this.tracklines) {
+			Ext.Array.each(this.tracklines, function(line) {
+				line.setMap(null);
+			});
+		}
+		
+		this.tracklines = [];
 	},
 	
+	addTrackLine : function(line) {
+		var self = this;
+		this.tracklines.push(line);
+		
+		function mouseclick(e) {
+			self.clearInfoWindow();
+			if(self.selectedTrack) {
+				self.selectedTrack.setOptions({
+					strokeOpacity : 1,
+					strokeWeight : 4
+				});
+			}
+			
+			self.selectedTrack = line;
+			
+			line.setOptions({
+				strokeOpacity : 0.5,
+				strokeWeight : 10
+			});
+			
+			var path = line.getPath();
+			
+			var content = [
+				'<div class="bubbleWrap">',
+					'<div class="close"></div>',
+					'<div>',
+						'<div>차량 : '+ 'V001 - 가 1234' + '</div>',
+						'<div>운전자 : '+ 'D001 - 오현석' + '</div>',
+					'</div>',
+					'<div>',
+						'<div>주행 시작 : '+ '2012년 1월 3일 12:00:00' + '</div>',
+						'<div>주행 종류 : '+ '2012년 1월 3일 12:05:00' + '</div>',
+					'</div>',
+					'<div>',
+						'<div>평균 시속 : '+ '35 KM/H' + '</div>',
+						'<div>주행 거리 : '+ '12.5 KM' + '</div>',
+					'</div>',
+				'</div>'
+			].join('');
+
+			if(!self.infowindow) {
+				self.infowindow = HatioBB.label.create({
+					map : this.getMap(),
+					xoffset : -110,
+					yoffset : -150
+				});
+			}
+			self.infowindow.set('position', e.latLng);
+			self.infowindow.set('text', content);
+
+			self.infowindow.setVisible(true);
+		}
+		
+		google.maps.event.addListener(line, 'click', mouseclick);
+	},
+	
+	getTrackLines : function() {
+		return this.tracklines;
+	},
+
 	getMarkers : function() {
 		return this.markers;
 	},

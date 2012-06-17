@@ -90,57 +90,99 @@ Ext.define('HatioBB.controller.monitor.Track', {
 	},
 	
 	refreshMap : function(records) {
+		var self = this;
 		var map = this.getMap().getMap();
-		this.getTrack().setTrackLine(new google.maps.Polyline({
-			map : map,
-			strokeColor : '#FF0000',
-			strokeOpacity : 1.0,
-			strokeWeight : 4
-		}));
+		
+		this.getTrack().resetTrackLines();
 		this.getTrack().setMarkers(null);
-		this.getTrack().clearInfoWindow();
 
-		var path = this.getTrack().getTrackLine().getPath();
-		// var bounds;
-		// var latlng;
-
-		// var path = [];
+		var trip;
+		var path = [];
+		var markers = [];
 		var bounds, latlng, last;
 
 		Ext.Array.each(records, function(record) {
+			if(!trip) {
+				trip = new google.maps.Polyline({
+					map : map,
+					strokeColor : '#FF0000',
+					strokeOpacity : 1.0,
+					strokeWeight : 4
+				});
+				path = trip.getPath();
+				if(last)
+					path.push(latlng);
+			}
+			
 			var lat = record.get('lat');
 			var lng = record.get('lng');
 
 			if(lat !== 0 || lng !== 0) {
 				latlng = new google.maps.LatLng(lat, lng);
-				path.push(latlng);
 				if (!bounds)
 					bounds = new google.maps.LatLngBounds(latlng, latlng);
 				else
 					bounds.extend(latlng);
 			}
 			
-			if(last) {
-				console.log(last.get('datetime') - record.get('datetime'));
-				if(last.get('datetime') > record.get('datetime') + 10000) {
-					console.log('new trip');
-				}
+			// 30분 Gap은 새로운 Trip으로 판단한다.
+			if(last && (last.get('datetime') > record.get('datetime') + 30 * 60 * 1000)) {
+				self.getTrack().addTrackLine(trip);
+
+				trip = null;
+				path = null;
 			}
+				
+			if(trip)
+				path.push(latlng);
+
 			last = record;
 		});
 
-		if (path.getLength() === 0) {
-			var lat = record.get('lat');
-			var lng = record.get('lng');
-			var defaultLatlng = null;
-			
-			if(!lat && !lng) {
-				defaultLatlng = new google.maps.LatLng(System.props.lat, System.props.lng);
-			} else {
-				defaultLatlng = new google.maps.LatLng(lat, lng);
-			}
-			path.push(defaultLatlng);
+		if (!bounds) {
+			var defaultLatlng = new google.maps.LatLng(System.props.lat, System.props.lng);
 			bounds = new google.maps.LatLngBounds(defaultLatlng, defaultLatlng);
+
+			var content = [
+				'<div class="bubbleWrap status'+ record.get('status') +'">',
+				'<div>기간내 주행이력이 없습니다.</div>',
+				'</div>'
+			].join('');
+
+			if(!this.getTrack().getInfoWindow()) {
+				this.getTrack().setInfoWindow(HatioBB.label.create({
+					map : map,
+					xoffset : -110,
+					yoffset : -100
+				}));
+			} else {
+				this.getTrack().getInfoWindow().setMap(map);
+			}
+			this.getTrack().getInfoWindow().set('position', defaultLatlng);
+			this.getTrack().getInfoWindow().set('text', content);
+
+			this.getTrack().getInfoWindow().setVisible(true);
+		} else {
+			this.getTrack().addTrackLine(trip);
+			
+			var markers = [];
+			Ext.Array.each(this.getTrack().getTrackLines(), function(trip) {
+				var path = trip.getPath();
+
+				var first = new google.maps.Marker({
+					position : new google.maps.LatLng(path.getAt(0).lat(), path.getAt(0).lng()),
+					map : map
+				});
+				var end = new google.maps.Marker({
+					position : new google.maps.LatLng(path.getAt(path.getLength() - 1).lat(), path.getAt(path.getLength() - 1).lng()),
+					icon : 'resources/images/iconStartPoint.png',
+					map : map
+				});
+				markers.push(first);
+				markers.push(end);
+			});
+			
+			this.getTrack().setMarkers(markers);
 		}
 
 		if (bounds.isEmpty() || bounds.getNorthEast().equals(bounds.getSouthWest())) {
@@ -148,50 +190,6 @@ Ext.define('HatioBB.controller.monitor.Track', {
 		} else {
 			map.fitBounds(bounds);
 		}
-
-		var first = path.getAt(0);
-
-		if (first) {
-			var start = new google.maps.Marker({
-				position : new google.maps.LatLng(first.lat(), first.lng()),
-				map : map
-			});
-
-			var last = path.getAt(path.getLength() - 1);
-
-			var end = new google.maps.Marker({
-				position : new google.maps.LatLng(last.lat(), last.lng()),
-				icon : 'resources/images/iconStartPoint.png',
-				map : map
-			});
-
-			this.getTrack().setMarkers([ start, end ]);
-			
-			if(records.length === 0) {
-				var content = [
-					'<div class="bubbleWrap status'+ record.get('status') +'">',
-					'<div>최근 24시간 이내 주행이력이 없습니다.</div>',
-					'</div>'
-				].join('');
-
-				if(!self.getTrack().getInfoWindow()) {
-					self.getTrack().setInfoWindow(HatioBB.label.create({
-						map : map,
-						xoffset : -110,
-						yoffset : -100
-					}));
-				} else {
-					self.getTrack().getInfoWindow().setMap(map);
-				}
-				self.getTrack().getInfoWindow().bindTo('position', end, 'position');
-				self.getTrack().getInfoWindow().set('text', content);
-
-				self.getTrack().getInfoWindow().setVisible(true);
-			}
-		}
-	},
-	
-	buildTrip : function() {
-		
 	}
+	
 });

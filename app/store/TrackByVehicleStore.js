@@ -20,6 +20,9 @@ Ext.define('HatioBB.store.TrackByVehicleStore', {
 			name : 'lng',
 			type : 'number'
 		}, {
+			name : 'datetime',
+			type : 'number'
+		}, {
 			name : 'created_at',
 			type : 'date',
 			dateFormat : 'time'
