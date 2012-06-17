@@ -12,7 +12,7 @@ Ext.define('HatioBB.controller.monitor.Track', {
 
         control: {
 			track : {
-				initialize : 'onInitialize'
+				activate : 'onActivate'
             },
 			buttonDays : {
 				tap : 'onButtonDays'
@@ -20,7 +20,22 @@ Ext.define('HatioBB.controller.monitor.Track', {
         }
     },
 
-	onInitialize: function() {
+	onActivate: function() {
+		if(!this.from || !this.to) {
+			var from, to;
+
+			from = new Date();
+			from.setHours(0);
+			from.setMinutes(0);
+			from.setSeconds(0);
+			from.setMilliseconds(0);
+
+			to = new Date(from.getTime() + 24 * 60 * 60 * 1000);
+			
+			this.from = from;
+			this.to = to;
+		}
+		this.refresh();
     },
 
 	onButtonDays: function(day) {
@@ -94,11 +109,10 @@ Ext.define('HatioBB.controller.monitor.Track', {
 		var map = this.getMap().getMap();
 		
 		this.getTrack().resetTrackLines();
-		this.getTrack().setMarkers(null);
+		this.getTrack().setTripMarkers(null);
 
 		var trip;
 		var path = [];
-		var markers = [];
 		var bounds, latlng, last;
 
 		Ext.Array.each(records, function(record) {
@@ -127,7 +141,7 @@ Ext.define('HatioBB.controller.monitor.Track', {
 			
 			// 30분 Gap은 새로운 Trip으로 판단한다.
 			if(last && (last.get('datetime') > record.get('datetime') + 30 * 60 * 1000)) {
-				self.getTrack().addTrackLine(trip);
+				self.getTrack().addTrackLine(trip, map);
 
 				trip = null;
 				path = null;
@@ -163,26 +177,7 @@ Ext.define('HatioBB.controller.monitor.Track', {
 
 			this.getTrack().getInfoWindow().setVisible(true);
 		} else {
-			this.getTrack().addTrackLine(trip);
-			
-			var markers = [];
-			Ext.Array.each(this.getTrack().getTrackLines(), function(trip) {
-				var path = trip.getPath();
-
-				var first = new google.maps.Marker({
-					position : new google.maps.LatLng(path.getAt(0).lat(), path.getAt(0).lng()),
-					map : map
-				});
-				var end = new google.maps.Marker({
-					position : new google.maps.LatLng(path.getAt(path.getLength() - 1).lat(), path.getAt(path.getLength() - 1).lng()),
-					icon : 'resources/images/iconStartPoint.png',
-					map : map
-				});
-				markers.push(first);
-				markers.push(end);
-			});
-			
-			this.getTrack().setMarkers(markers);
+			this.getTrack().addTrackLine(trip, map);
 		}
 
 		if (bounds.isEmpty() || bounds.getNorthEast().equals(bounds.getSouthWest())) {

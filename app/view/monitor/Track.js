@@ -70,24 +70,74 @@ Ext.define('HatioBB.view.monitor.Track', {
 		this.tracklines = [];
 	},
 	
-	addTrackLine : function(line) {
+	addTrackLine : function(line, map) {
 		var self = this;
 		this.tracklines.push(line);
 		
-		function mouseclick(e) {
+		var path = line.getPath();
+
+		var first = new google.maps.Marker({
+			// position : new google.maps.LatLng(path.getAt(0).lat(), path.getAt(0).lng()),
+			position : path.getAt(0),
+			map : map
+		});
+		var end = new google.maps.Marker({
+			// position : new google.maps.LatLng(path.getAt(path.getLength() - 1).lat(), path.getAt(path.getLength() - 1).lng()),
+			position : path.getAt(path.getLength() - 1),
+			icon : 'resources/images/iconStartPoint.png',
+			map : map
+		});
+		this.addTripMarkers(first);
+		this.addTripMarkers(end);
+		
+		path.forEach(function(point) {
+			var marker = new google.maps.Marker({
+				position : point,
+				map : map,
+				visible : false
+			});
+			self.addPathMarkers(marker);
+			google.maps.event.addListener(marker, 'click', selectPath);
+		});
+		
+		function selectPath(e) {
 			self.clearInfoWindow();
-			if(self.selectedTrack) {
-				self.selectedTrack.setOptions({
-					strokeOpacity : 1,
-					strokeWeight : 4
+			
+			var content = [
+				'<div class="bubbleWrap">',
+					'<div class="close"></div>',
+					'<div>',
+						'<div>주소 : ' + '서울시 중구 ....' + '</div>',
+						'<div>위도/경도 : '+ '1111111/22222222' + '</div>',
+						'<div>속도 : '+ '36 KM/H' + '</div>',
+						'<div>시간 : '+ '2012년 12월 1일 3시 45분 44초' + '</div>',
+					'</div>',
+				'</div>'
+			].join('');
+
+			if(!self.infowindow) {
+				self.infowindow = HatioBB.label.create({
+					map : this.getMap(),
+					xoffset : -110,
+					yoffset : -150
 				});
 			}
-			
+			console.log(e);
+			self.infowindow.set('position', e.latLng);
+			self.infowindow.set('text', content);
+
+			self.infowindow.setVisible(true);
+		}
+
+		function selectTrip(e) {
+			unselectTrip();
+
 			self.selectedTrack = line;
 			
 			line.setOptions({
-				strokeOpacity : 0.5,
-				strokeWeight : 10
+				strokeColor : '#CF0000',
+				strokeOpacity : 0.7,
+				strokeWeight : 6
 			});
 			
 			var path = line.getPath();
@@ -123,35 +173,100 @@ Ext.define('HatioBB.view.monitor.Track', {
 			self.infowindow.setVisible(true);
 		}
 		
-		google.maps.event.addListener(line, 'click', mouseclick);
+		function unselectTrip() {
+			self.clearInfoWindow();
+			if(self.selectedTrack) {
+				self.selectedTrack.setOptions({
+					strokeColor : '#FF0000',
+					strokeOpacity : 1,
+					strokeWeight : 4
+				});
+			}
+		}
+		
+		function showPathMarkers() {
+			var pathMarkers = self.getPathMarkers();
+			if(!pathMarkers)
+				return;
+			
+			var density = Math.max(1, (16 - map.getZoom()) * 5);
+			for(var i = 0;i < pathMarkers.length;i++) {
+				pathMarkers[i].setOptions({
+					visible : (i % density) ? false : true
+				});
+			}
+		}
+		
+		google.maps.event.addListener(line, 'click', selectTrip);
+		google.maps.event.addListener(first, 'click', selectTrip);
+		google.maps.event.addListener(end, 'click', selectTrip);
+		
+		// TODO 뷰에 하나만으로 옮겨야.
+		google.maps.event.addListener(map, 'click', unselectTrip);
+		google.maps.event.addListener(map, 'zoom_changed', showPathMarkers);
 	},
 	
 	getTrackLines : function() {
 		return this.tracklines;
 	},
-
-	getMarkers : function() {
-		return this.markers;
+	
+	getPathMarkers : function() {
+		return this.pathMarkers;
+	},
+	
+	setPathMarkers : function(markers) {
+		if(this.pathMarkers) {
+			Ext.each(this.pathMarkers, function(marker) {
+				marker.setMap(null);
+			});
+		}
+		this.pathMarkers = markers;
+	},
+	
+	addPathMarkers : function(markers) {
+		if(!this.pathMarkers)
+			this.pathMarkers = [];
+		this.pathMarkers.push(markers);
+	},
+	
+	resetPathMarkers : function() {
+		if(this.pathMarkers) {
+			Ext.each(this.pathMarkers, function(marker) {
+				marker.setMap(null);
+			});
+		}
+		
+		this.pathMarkers = null;
 	},
 
-	setMarkers : function(markers) {
-		if (this.markers) {
-			Ext.each(this.markers, function(marker) {
+	getTripMarkers : function() {
+		return this.tripMarkers;
+	},
+
+	setTripMarkers : function(markers) {
+		if (this.tripMarkers) {
+			Ext.each(this.tripMarkers, function(marker) {
 				marker.setMap(null);
 			});
 		}
 
-		this.markers = markers;
+		this.tripMarkers = markers;
+	},
+	
+	addTripMarkers : function(markers) {
+		if(!this.tripMarkers)
+			this.tripMarkers = [];
+		this.tripMarkers.push(markers);
 	},
 
-	resetMarkers : function() {
-		if (this.markers) {
-			Ext.each(this.markers, function(marker) {
+	resetTripMarkers : function() {
+		if (this.tripMarkers) {
+			Ext.each(this.tripMarkers, function(marker) {
 				marker.setMap(null);
 			});
 		}
 
-		this.markers = null;
+		this.tripMarkers = null;
 	},
 
 	clearInfoWindow : function() {
