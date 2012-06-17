@@ -36,6 +36,11 @@ Ext.define('HatioBB.view.vehicle.Vehicle', {
 			xtype : 'chart_v_eco_radar',
 			iconCls : 'iconsTab tabEco',
 			title : 'Eco-Driving'
+		}, {
+			xtype : 'track',
+			iconCls : 'iconsTab tabEco',
+			queryOn : 'vehicle',
+			title : 'Track'
 		}]
 	},
 	

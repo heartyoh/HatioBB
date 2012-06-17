@@ -12,6 +12,7 @@ Ext.define('HatioBB.controller.monitor.Track', {
 
         control: {
 			track : {
+				initialize : 'onInit',
 				activate : 'onActivate'
             },
 			buttonDays : {
@@ -20,21 +21,25 @@ Ext.define('HatioBB.controller.monitor.Track', {
         }
     },
 
+	onInit : function() {
+		var self = this;
+		
+		this.getTrack().on('painted', function() {
+			if(self.getTrack().config.queryOn === 'vehicle')
+				HatioBB.setting.on('vehicle', self.refresh, self);
+			else
+				HatioBB.setting.on('driver', self.refresh, self);
+		});
+		
+		this.getTrack().on('erased', function() {
+			if(self.getTrack().config.queryOn === 'vehicle')
+				HatioBB.setting.un('vehicle', self.refresh, self);
+			else
+				HatioBB.setting.un('driver', self.refresh, self);
+		});
+	},
+
 	onActivate: function() {
-		if(!this.from || !this.to) {
-			var from, to;
-
-			from = new Date();
-			from.setHours(0);
-			from.setMinutes(0);
-			from.setSeconds(0);
-			from.setMilliseconds(0);
-
-			to = new Date(from.getTime() + 24 * 60 * 60 * 1000);
-			
-			this.from = from;
-			this.to = to;
-		}
 		this.refresh();
     },
 
@@ -72,11 +77,26 @@ Ext.define('HatioBB.controller.monitor.Track', {
 	refresh : function() {
 		var self = this;
 		
-		var driver = HatioBB.setting.get('driver');
+		if(!this.from || !this.to) {
+			var from, to;
 
-		if(driver === this.driver) 
-			return;
+			from = new Date();
+			from.setHours(0);
+			from.setMinutes(0);
+			from.setSeconds(0);
+			from.setMilliseconds(0);
+
+			to = new Date(from.getTime() + 24 * 60 * 60 * 1000);
 			
+			this.from = from;
+			this.to = to;
+		}
+				
+		if(this.getTrack().config.queryOn === 'driver')
+			var driver = HatioBB.setting.get('driver');
+		else
+			var vehicle = HatioBB.setting.get('vehicle');
+
 		var store = Ext.getStore('TrackStore');
 		var filter = [{
 			property : 'date',
@@ -88,12 +108,12 @@ Ext.define('HatioBB.controller.monitor.Track', {
 		if(driver) {
 			filter.push({
 				property : 'driver_id',
-				value : ''
+				value : driver
 			});
 		} else {
 			filter.push({
 				property : 'vehicle_id',
-				value : ''
+				value : vehicle
 			});
 		}
 		
@@ -158,7 +178,7 @@ Ext.define('HatioBB.controller.monitor.Track', {
 			bounds = new google.maps.LatLngBounds(defaultLatlng, defaultLatlng);
 
 			var content = [
-				'<div class="bubbleWrap status'+ record.get('status') +'">',
+				'<div class="bubbleWrap">',
 				'<div>기간내 주행이력이 없습니다.</div>',
 				'</div>'
 			].join('');

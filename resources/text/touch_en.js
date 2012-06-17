@@ -11,6 +11,7 @@ T({
 		nodriver : 'nobody',
 		system_info : 'System/User Information',
 		setting_by_screen : 'Setting for Active Screen',
-		fromYear : 'From Year 4 Query'
+		fromYear : 'From Year 4 Query',
+		logout : 'Logout'
 	}
 });

@@ -11,6 +11,7 @@ T({
 		dodriver : '운전자 없음',
 		system_info : '시스템/사용자 정보',
 		setting_by_screen : '현재화면 관련 설정',
-		fromYear : '조회 기준 시작 년도'
+		fromYear : '조회 기준 시작 년도',
+		logout : '로그아웃'
 	}
 });

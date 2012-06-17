@@ -97,7 +97,20 @@ Ext.define('HatioBB.view.Setting', {
 	                    display: T('label.right')
 	                }]
 	            }
-	        }]
+			}]
+        }, {
+			xtype: 'button',
+			text: T('label.logout'),
+			docked: 'bottom',
+			listeners: {
+				tap: function() {
+					Ext.Msg.confirm('Logout', 'Are you sure you want to be signed out ?', function(confirm) {
+						if (confirm === 'yes') {
+							document.location.href = '/logout';
+						}
+					});
+				}
+			}
 		}];
 		
 		var byscreen = this.buildByScreen();

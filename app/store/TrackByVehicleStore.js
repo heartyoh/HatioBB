@@ -3,6 +3,8 @@ Ext.define('HatioBB.store.TrackByVehicleStore', {
 
 	config : {
 		autoLoad : false,
+		
+		remoteFilter : true,
 
 		fields : [ {
 			name : 'key',
