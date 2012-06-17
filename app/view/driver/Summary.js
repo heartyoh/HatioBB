@@ -83,6 +83,7 @@ Ext.define('HatioBB.view.driver.Summary', {
 		var store = Ext.getStore('DriverStore');
 		this.driver = HatioBB.setting.get('driver');
 		
+		store.clearFilter(true);
 		store.filter('id', this.driver);
 		store.load(function(records) {
 			var data = records[0].getData();
@@ -120,6 +121,7 @@ Ext.define('HatioBB.view.driver.Summary', {
 		var run_store = Ext.getStore('DriverRunStore');
 		
 		var now = new Date();
+		run_store.clearFilter(true);
 		run_store.filter([{
 			property : 'driver',
 			value : this.driver

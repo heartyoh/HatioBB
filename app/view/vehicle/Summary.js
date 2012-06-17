@@ -90,7 +90,8 @@ Ext.define('HatioBB.view.vehicle.Summary', {
 			
 		var store = Ext.getStore('VehicleStore');
 		this.vehicle = HatioBB.setting.get('vehicle');
-		
+
+		store.clearFilter(true);
 		store.filter('id', this.vehicle);
 		store.load(function(records) {
 			var data = records[0].getData();
@@ -127,6 +128,7 @@ Ext.define('HatioBB.view.vehicle.Summary', {
 		
 		var run_store = Ext.getStore('VehicleRunStore');
 		var now = new Date();
+		run_store.clearFilter(true);
 		run_store.filter([{
 			property : 'vehicle',
 			value : this.vehicle

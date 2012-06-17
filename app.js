@@ -25,12 +25,12 @@ Ext.application({
 		'Ext.tab.Panel'
     ],
 
-    controllers: ['Main', 'Nav', 'Report'],
+    controllers: ['Main', 'Nav', 'Report', 'monitor.Track'],
     views: ['Main', 'Setting'],
     stores: ['VehicleFilteredStore', 'VehicleStore', 'RecentIncidentStore', 'VehicleMapStore', 
 			'DriverStore', 'DriverBriefStore', 'VehicleGroupStore', 'DriverGroupStore', 'TrackByVehicleStore', 
 			'IncidentByVehicleStore', 'IncidentLogStore', 'DashboardVehicleStore', 'VehicleConsumableStore', 
-			'DriverRunStore', 'VehicleRunStore', 'YearStore', 'DashboardConsumableStore'],
+			'DriverRunStore', 'VehicleRunStore', 'YearStore', 'DashboardConsumableStore', 'TrackStore'],
 
     icon: {
         57: 'resources/icons/Icon.png',

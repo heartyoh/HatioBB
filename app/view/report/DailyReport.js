@@ -36,6 +36,7 @@ Ext.define('HatioBB.view.report.DailyReport', {
 		var run_store = Ext.getStore('DriverRunStore');
 		
 		/* TODO 실제로는 어제 날짜 정보를 가져와야 하지만, 아직 서비스가 없는 관계로 이와 같이 샘플로 대체함 */
+		run_store.clearFilter(true);
 		run_store.filter([{
 			property : 'year',
 			value : yesterday.getFullYear()

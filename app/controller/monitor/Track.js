@@ -1,349 +1,197 @@
 Ext.define('HatioBB.controller.monitor.Track', {
     extend: 'Ext.app.Controller',
 
-	requires : ['HatioBB.view.Track'],
+	requires : ['HatioBB.view.monitor.Track'],
 	
     config: {
         refs: {
-            main : 'main',
-            nav : 'nav',
-            content : 'content',
-			header : 'header',
-			incidents : 'nav #incidents',
-			status : 'nav #status',
-			stateRunning: 'nav #state_running',
-			stateIdle: 'nav #state_idle',
-			stateIncident: 'nav #state_incident',
-			stateMaint: 'nav #state_maint',
-			vgroups : 'nav #vgroups',
-			dgroups : 'nav #dgroups'
+            track : 'track',
+			map : 'track map',
+			buttonDays : 'track button'
         },
 
         control: {
-			nav : {
-				initialize : 'onInitialize',
-				destroy : 'onDestroy' //TODO 이런 이벤트는 발생하지 않음. 처리 요망.
-			},
-			'#nav_driver' : {
-				tap : 'onDriver'
-			},
-			'#nav_vehicle' : {
-				tap : 'onVehicle'
-			},
-			'#nav_report' : {
-				tap : 'onReport'
-			},
-
-			'#nav_fav' : {
-				tap : 'onFav'
-			},
-			'#nav_comm' : {
-				tap : 'onComm'
-			},
-			'#nav_noti' : {
-				tap : 'onNoti'
-			},
-
-			'nav #incidents button' : {
-				tap : 'onIncident'
-			},
-			'nav #status button' : {
-				tap : 'onStatus'
-			},
-			'nav #vgroups button' : {
-				tap : 'onVGroup'
-			},
-			'nav #dgroups button' : {
-				tap : 'onDGroup'
-			},
-			
-            'nav_driver' : {
-                itemtap: 'onDriverItemTap',
-				disclose : 'onDriverDisclose'
+			track : {
+				initialize : 'onInitialize'
             },
-
-            'nav_vehicle' : {
-                itemtap: 'onVehicleItemTap',
-				disclose : 'onVehicleDisclose'
-            }
+			buttonDays : {
+				tap : 'onButtonDays'
+			}
         }
     },
 
 	onInitialize: function() {
-        var self = this;
+    },
 
-        /* Incident 상태 처리 */
-        var incidentStore = Ext.getStore('RecentIncidentStore');
-		incidentStore.filter('confirm', false);
-        incidentStore.load();
+	onButtonDays: function(day) {
+		var from, to;
+		
+		from = new Date();
+		from.setHours(0);
+		from.setMinutes(0);
+		from.setSeconds(0);
+		from.setMilliseconds(0);
 
-        /* Vehicle 상태 처리 */
-        var vehicleMapStore = Ext.getStore('VehicleMapStore');
-        vehicleMapStore.load();
-
-		/* refreshTerm 에 따라 자동 리프레쉬 기능을 동작시킴. */
-		function onRefreshTerm(val) {
-			if(self.incidentInterval)
-				clearInterval(self.incidentInterval);
-			if(val > 0)
-				self.incidentInterval = setInterval(function() {
-		            incidentStore.load();
-		        }, val * 1000);
-
-			if(self.vehicleMapInterval)
-	        	clearInterval(self.vehicleMapInterval);
-			if(val > 0)
-		        self.vehicleMapInterval = setInterval(function() {
-		            vehicleMapStore.load();
-		        }, val * 1000);
+		switch(day.getItemId()) {
+			case 'today' :
+				break;
+			case 'yesterday' :
+				from.setDate(from.getDate() - 1);
+				break;
+			case 'ago2days' :
+			from.setDate(from.getDate() - 2);
+			break;
+			case 'ago3days' :
+			from.setDate(from.getDate() - 3);
+			break;
 		}
 
-		HatioBB.setting.on({
-			refreshTerm : onRefreshTerm
-		});
+		to = new Date(from.getTime() + 24 * 60 * 60 * 1000);
 
-		onRefreshTerm(HatioBB.setting.get('refreshTerm'));
-
-        /* 자동 리프레쉬 처리 */
-        this.getIncidents().on({
-            painted: function() {
-				self.refreshIncidents(incidentStore);
-                incidentStore.on('load', self.refreshIncidents, self);
-            },
-            erased: function() {
-                incidentStore.un('load', self.refreshIncidents, self);
-            },
-            scope: self
-        });
-
-        this.getStatus().on({
-            painted: function() {
-				self.refreshStatus(vehicleMapStore);
-                vehicleMapStore.on('load', self.refreshStatus, self);
-            },
-            erased: function() {
-                vehicleMapStore.un('load', self.refreshStatus, self);
-            },
-            scope: self
-        });
-
-		/* Vehicle, Driver 그룹 처리 */
-		Ext.getStore('VehicleGroupStore').load(function(store) {
-			self.refreshVGroups(this);
-		});
-
-		Ext.getStore('DriverGroupStore').load(function(store) {
-			self.refreshDGroups(this);
-		});
-    },
-
-	onDestroy: function() {
-        clearInterval(this.incidentInterval);
-        clearInterval(this.vehicleMapInterval);
+		this.from = from;
+		this.to = to;
+		
+		this.refresh();
 	},
 
-    onDriver: function(button, e) {
-		this.getNav().setNavigationBar(true);
-		this.getNav().push({
-			xtype : 'nav_driver'
-		});
-    },
-
-    onVehicle: function(button, e) {
-		this.getNav().setNavigationBar(true);
-		this.getNav().push({
-			xtype : 'nav_vehicle'
-		});
-    },
-
-	onReport: function(button, e) {
-		this.getNav().setNavigationBar(true);
-		this.getNav().push({
-			xtype : 'nav_report'
-		});
-    },
-
-    onFav: function(button, e) {
-		this.getNav().setNavigationBar(true);
-		this.getNav().push({
-			xtype : 'nav_fav'
-		});
-    },
-
-    onComm: function(button, e) {
-		this.getNav().setNavigationBar(true);
-		this.getNav().push({
-			xtype : 'nav_comm'
-		});
-    },
-
-    onNoti: function(button, e) {
-		this.getNav().setNavigationBar(true);
-		this.getNav().push({
-			xtype : 'nav_noti'
-		});
-    },
-
-    onIncident: function(comp, e) {
-		var view = HatioBB.nav.monitor('monitor_incident');
-
-		/* 여러 경로의 button동작을 통해서 들어오는 것을 감안함. */
-		if(comp && comp.config && comp.config.incident)
-			view.setIncident(comp.config.incident);
-		else
-			view.setIncident();
-    },
-
-	onStatus : function(button, e) {
-		var store = Ext.getStore('VehicleFilteredStore');
+	refresh : function() {
+		var self = this;
 		
-		var status = this.getNav().down('#status');
-		status['_filtered'] = !status['_filtered'];
+		var driver = HatioBB.setting.get('driver');
 
-		if(status._filtered) {
-			store.clearFilter(true);
-			store.filter('status', button.config.state);
+		if(driver === this.driver) 
+			return;
+			
+		var store = Ext.getStore('TrackStore');
+		var filter = [{
+			property : 'date',
+			/* for Unix timestamp (in seconds) */
+			value : Math.round(this.from.getTime() / 1000)
+		}];
+
+		// TODO driver, vehicle 중의 한가지 filter 를 적용할 수 있도록 조건 처리할 것.
+		if(driver) {
+			filter.push({
+				property : 'driver_id',
+				value : ''
+			});
 		} else {
-			store.clearFilter();
+			filter.push({
+				property : 'vehicle_id',
+				value : ''
+			});
+		}
+		
+		store.clearFilter(true);
+		store.filter(filter);
+		store.load(function(records) {
+			self.refreshMap(records);
+		});
+	},
+	
+	refreshMap : function(records) {
+		var map = this.getMap().getMap();
+		this.getTrack().setTrackLine(new google.maps.Polyline({
+			map : map,
+			strokeColor : '#FF0000',
+			strokeOpacity : 1.0,
+			strokeWeight : 4
+		}));
+		this.getTrack().setMarkers(null);
+		this.getTrack().clearInfoWindow();
+
+		var path = this.getTrack().getTrackLine().getPath();
+		// var bounds;
+		// var latlng;
+
+		// var path = [];
+		var bounds, latlng, last;
+
+		Ext.Array.each(records, function(record) {
+			var lat = record.get('lat');
+			var lng = record.get('lng');
+
+			if(lat !== 0 || lng !== 0) {
+				latlng = new google.maps.LatLng(lat, lng);
+				path.push(latlng);
+				if (!bounds)
+					bounds = new google.maps.LatLngBounds(latlng, latlng);
+				else
+					bounds.extend(latlng);
+			}
+			
+			if(last) {
+				console.log(last.get('datetime') - record.get('datetime'));
+				if(last.get('datetime') > record.get('datetime') + 10000) {
+					console.log('new trip');
+				}
+			}
+			last = record;
+		});
+
+		if (path.getLength() === 0) {
+			var lat = record.get('lat');
+			var lng = record.get('lng');
+			var defaultLatlng = null;
+			
+			if(!lat && !lng) {
+				defaultLatlng = new google.maps.LatLng(System.props.lat, System.props.lng);
+			} else {
+				defaultLatlng = new google.maps.LatLng(lat, lng);
+			}
+			path.push(defaultLatlng);
+			bounds = new google.maps.LatLngBounds(defaultLatlng, defaultLatlng);
 		}
 
-		HatioBB.nav.monitor('monitor_map');
-	},
- 
-	onVGroup : function(button, e) {
-		var groupId = button.config.group.get('id');
-		var group = Ext.getStore('VehicleGroupStore').findRecord('id', groupId);
-		var vehicles = group ? group.get('vehicles') : [];
+		if (bounds.isEmpty() || bounds.getNorthEast().equals(bounds.getSouthWest())) {
+			map.setCenter(bounds.getNorthEast());
+		} else {
+			map.fitBounds(bounds);
+		}
 
-		var store = Ext.getStore('VehicleFilteredStore');
-		store.clearFilter(true);
-		store.filterBy(function(record) {
-			return Ext.Array.indexOf(vehicles, record.get('id')) >= 0;
-		});
+		var first = path.getAt(0);
 
-		HatioBB.nav.monitor('monitor_map');
-	},
-	
-	onDGroup : function(button, e) {
-		var groupId = button.config.group.get('id');
-		var group = Ext.getStore('DriverGroupStore').findRecord('id', groupId);
-		var drivers = group ? group.get('drivers') : [];
+		if (first) {
+			var start = new google.maps.Marker({
+				position : new google.maps.LatLng(first.lat(), first.lng()),
+				map : map
+			});
 
-		var store = Ext.getStore('VehicleFilteredStore');
-		store.clearFilter(true);
-		store.filterBy(function(record) {
-			return Ext.Array.indexOf(drivers, record.get('driver_id')) >= 0;
-		});
+			var last = path.getAt(path.getLength() - 1);
 
-		HatioBB.nav.monitor('monitor_map');
-	},
-	
-    onDriverItemTap: function(view, index, target, record) {
-		HatioBB.setting.set('driver', record.get('id'));
-    },
+			var end = new google.maps.Marker({
+				position : new google.maps.LatLng(last.lat(), last.lng()),
+				icon : 'resources/images/iconStartPoint.png',
+				map : map
+			});
 
-    onDriverDisclose: function(list, record, el, index, e) {
-		list.select(index);
+			this.getTrack().setMarkers([ start, end ]);
+			
+			if(records.length === 0) {
+				var content = [
+					'<div class="bubbleWrap status'+ record.get('status') +'">',
+					'<div>최근 24시간 이내 주행이력이 없습니다.</div>',
+					'</div>'
+				].join('');
 
-		HatioBB.nav.driver();
-		
-		HatioBB.setting.set('driver', record.get('id'));
-    },
+				if(!self.getTrack().getInfoWindow()) {
+					self.getTrack().setInfoWindow(HatioBB.label.create({
+						map : map,
+						xoffset : -110,
+						yoffset : -100
+					}));
+				} else {
+					self.getTrack().getInfoWindow().setMap(map);
+				}
+				self.getTrack().getInfoWindow().bindTo('position', end, 'position');
+				self.getTrack().getInfoWindow().set('text', content);
 
-    onVehicleItemTap: function(view, index, target, record) {
-		HatioBB.setting.set('vehicle', record.get('id'));
-    },
-
-    onVehicleDisclose: function(list, record, el, index, e) {
-		list.select(index);
-
-		HatioBB.nav.vehicle();
-
-		HatioBB.setting.set('vehicle', record.get('id'));
-    },
-
-    refreshStatus: function(store) {
-        var running = 0;
-        var idle = 0;
-        var incident = 0;
-        var maint = 0;
-
-        store.each(function(record) {
-            switch (record.get('status')) {
-            case 'Running':
-                running++;
-                break;
-            case 'Idle':
-                idle++;
-                break;
-            case 'Incident':
-                incident++;
-                break;
-            case 'Maint':
-                maint++;
-                break;
-            }
-        });
-
-        this.getStateRunning().setHtml(T('label.state_driving') + '</br><span>' + running + '</span>');
-        this.getStateIdle().setHtml(T('label.state_idle') + '</br><span>' + idle + '</span>');
-        this.getStateIncident().setHtml(T('label.state_incident') + '</br><span>' + incident + '</span>');
-        this.getStateMaint().setHtml(T('label.state_maint') + '</br><span>' + maint + '</span>');
-    },
-
-    refreshIncidents: function(store) {
-        var incidents = this.getIncidents();
-
-        incidents.removeAll();
-        var count = store.getCount();
-
-        for (var i = 0; i < count; i++) {
-            var incident = store.getAt(i);
-            incidents.add({
-                xtype: 'button',
-                incident: incident,
-                html: '<a href="#">'
-                + incident.get('vehicle_id')
-                + ', '
-                + incident.get('driver_id')
-                + '<span>'
-                + Ext.Date.format(incident.get('datetime'),
-                'D Y-m-d H:i:s') + '</span></a>'
-            });
-        }
-    },
-
-	refreshVGroups : function(store) {
-		var groups = this.getVgroups();
-		groups.removeAll();
-		
-		store.each(function(record) {
-			groups.add({
-				xtype : 'button',
-				group : record,
-				html : '<a href="#">'
-						+ record.data.desc
-						+ '<span>('
-						+ record.data.vehicles.length
-						+ ')</span></a>'
-			});			
-		});
+				self.getTrack().getInfoWindow().setVisible(true);
+			}
+		}
 	},
 	
-	refreshDGroups : function(store) {
-		var groups = this.getDgroups();
-		groups.removeAll();
+	buildTrip : function() {
 		
-		store.each(function(record) {
-			groups.add({
-				xtype : 'button',
-				group : record,
-				html : '<a href="#">'
-						+ record.data.desc
-						+ '<span>('
-						+ record.data.drivers.length
-						+ ')</span></a>'
-			});			
-		});
 	}
 });
