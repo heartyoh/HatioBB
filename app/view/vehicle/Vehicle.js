@@ -38,7 +38,7 @@ Ext.define('HatioBB.view.vehicle.Vehicle', {
 			title : 'Eco-Driving'
 		}, {
 			xtype : 'track',
-			iconCls : 'iconsTab tabEco',
+			iconCls : 'iconsTab tabTrack',
 			queryOn : 'vehicle',
 			title : 'Track'
 		}]

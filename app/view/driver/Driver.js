@@ -29,7 +29,7 @@ Ext.define('HatioBB.view.driver.Driver', {
 			title : 'Eco-Driving'
 		}, {
 			xtype : 'track',
-			iconCls : 'iconsTab tabEco',
+			iconCls : 'iconsTab tabTrack',
 			queryOn : 'driver',
 			title : 'Track'
 		}]

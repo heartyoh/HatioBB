@@ -93,6 +93,7 @@ Ext.define('HatioBB.view.monitor.Track', {
 		path.forEach(function(point) {
 			var marker = new google.maps.Marker({
 				position : point,
+				icon : 'resources/images/iconPin.png',
 				map : map,
 				visible : false
 			});
@@ -189,7 +190,7 @@ Ext.define('HatioBB.view.monitor.Track', {
 			if(!pathMarkers)
 				return;
 			
-			var density = Math.max(1, (16 - map.getZoom()) * 5);
+			var density = Math.max(1, (16 - map.getZoom()) * 3);
 			for(var i = 0;i < pathMarkers.length;i++) {
 				pathMarkers[i].setOptions({
 					visible : (i % density) ? false : true
