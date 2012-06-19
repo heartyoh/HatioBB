@@ -25,8 +25,8 @@ Ext.application({
 		'Ext.tab.Panel'
     ],
 
-    controllers: ['Main', 'Nav', 'Report', 'monitor.Track'],
-    views: ['Main', 'Setting'],
+    controllers: ['Main', 'Nav', 'Report', 'monitor.Track', 'Login'],
+    views: ['Main', 'Setting', 'Login'],
     stores: ['VehicleFilteredStore', 'VehicleStore', 'RecentIncidentStore', 'VehicleMapStore', 
 			'DriverStore', 'DriverBriefStore', 'VehicleGroupStore', 'DriverGroupStore', 'TrackByVehicleStore', 
 			'IncidentByVehicleStore', 'IncidentLogStore', 'DashboardVehicleStore', 'VehicleConsumableStore', 
@@ -49,8 +49,16 @@ Ext.application({
 		HatioBB.setting.set('app_mode', (0 === window.location.pathname.indexOf('/m/')));
 		HatioBB.setting.set('version', '0.5.16');
 
-        // Initialize the main view
-        Ext.Viewport.add(Ext.create('HatioBB.view.Main'));
+		var loginNeed = true;
+		if(loginNeed) {
+			var login = Ext.create('HatioBB.view.Login', {
+
+			});
+			Ext.Viewport.add(login);
+		} else {
+	        // Initialize the main view
+	        Ext.Viewport.add(Ext.create('HatioBB.view.Main'));
+		}
     },
 
     onUpdated: function() {
