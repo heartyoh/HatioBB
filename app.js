@@ -54,6 +54,7 @@ Ext.application({
 			var login = Ext.create('HatioBB.view.Login', {
 
 			});
+			// login.show();
 			Ext.Viewport.add(login);
 		} else {
 	        // Initialize the main view

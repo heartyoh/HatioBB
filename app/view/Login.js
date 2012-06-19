@@ -9,9 +9,11 @@ Ext.define('HatioBB.view.Login', {
 
         scroll: 'vertical',
 
-		width : 400,
-		height : 500,
-		modal : true,
+        centered: true,
+
+        height: Ext.Viewport.getWindowHeight() * .4,
+        width: Ext.Viewport.getWindowWidth() * .4,
+        modal: true,
 
         url: '/login',
 
@@ -31,14 +33,14 @@ Ext.define('HatioBB.view.Login', {
             docked: 'bottom',
             items: [{
                 xtype: 'button',
-				itemId: 'resetButton',
-				flex : 1,
+                itemId: 'resetButton',
+                flex: 1,
                 text: 'Reset'
             },
             {
                 xtype: 'button',
-				itemId: 'loginButton',
-				flex: 1,
+                itemId: 'loginButton',
+                flex: 1,
                 text: 'Login',
                 ui: 'confirm'
             }]
