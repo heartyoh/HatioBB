@@ -147,7 +147,7 @@
 .divHAlign .iconFuel{background:url('../images/iconFuel.png') no-repeat;}
 .divHAlign .iconTime{background:url('../images/iconTime.png') 2px 0 no-repeat;}
 .divHAlign .iconMap{background:url('../images/iconHeaderView.png') -8px -6px no-repeat;}
-.divHAlign .iconTrack{background:url('../images/iconHeaderView.png') -9px -85px no-repeat;}
+.divHAlign .iconTrack{background:url('../images/iconHeaderView.png') -7px -83px no-repeat;}
 .shotHList .x-field{background-color:transparent;}
 .shotHList .x-toggle-field .x-component-outer{padding:0.4em 0.5em;}
 .x-img.imgVehicle,.x-img.imgDriver{background-size:110px 115px;}
@@ -274,6 +274,16 @@
 .x-tab-active .x-button-icon.iconsTab.tabEco{background-position:-30px -221px}
 .x-tab-active .x-button-icon.iconsTab.tabTrack{background-position:-30px -254px}
 .x-tab{margin:0 5px;}
+
+.shotHList .x-button.trackTab{background-image:url('../images/iconTrack.png') !important;border-radius:0;-webkit-border-radius:0}
+.shotHList .x-button.trackTab.x-button-pressing,.shotHList .x-button.trackTab.x-button-active
+{background-image:url('../images/iconTrack.png'),url('../images/bgTabTopActive.png') !important;}
+.shotHList .x-button.trackTab.today{background-position:12px 8px, 50% 100% !important}
+.shotHList .x-button.trackTab.yesterday{background-position:12px -32px, 50% 100%  !important}
+.shotHList .x-button.trackTab.ago2days{background-position:12px -72px, 50% 100%  !important}
+.shotHList .x-button.trackTab.ago3days{background-position:12px -112px, 50% 100%  !important}
+.shotHList .trackTab .x-button-label{font-size:12px;color:#585858;}
+.shotHList .trackTab .x-button-label span{display:block;font-size:14px;color:#333;margin-bottom:3px}
 
 /*chart table style*/
 .dataGrid{width:100%;}

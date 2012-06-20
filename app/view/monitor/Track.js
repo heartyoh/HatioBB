@@ -22,27 +22,31 @@ Ext.define('HatioBB.view.monitor.Track', {
 			items : [{
                 xtype: 'button',
 				itemId : 'today',
+				cls : 'trackTab today x-button-active',
 				flex : 1,
 				maxWidth : 160,
-                html: '<a href="#">오늘</a><span>'
+                html: '<div><span>SUN 2012-06-30</span>오늘</div>'
 			}, 	{
                 xtype: 'button',
 				itemId : 'yesterday',
+				cls : 'trackTab yesterday',
 				flex : 1,
 				maxWidth : 160,
-                html: '<a href="#">어제</a><span>'
+                html: '<div><span>SUN 2012-06-29</span>어제</div>'
 			}, 	{
                 xtype: 'button',
 				itemId : 'ago2days',
+				cls : 'trackTab ago2days',
 				flex : 1,
 				maxWidth : 160,
-                html: '<a href="#">2일전</a><span>'
+                html: '<div><span>SUN 2012-06-29</span>2일전</div>'
 			}, 	{
                 xtype: 'button',
 				itemId : 'ago3days',
+				cls : 'trackTab ago3days',
 				flex : 1,
 				maxWidth : 160,
-                html: '<a href="#">3일전</a><span>'
+                html: '<div><span>SUN 2012-06-29</span>3일전</div>'
 			}]
         }, 	{
             xtype: 'map',
