@@ -7,7 +7,11 @@ Ext.define('HatioBB.controller.monitor.Track', {
         refs: {
             track : 'track',
 			map : 'track map',
-			buttonDays : 'track button'
+			buttonDays : 'track button',
+			buttonToday : 'track button[itemId=today]',
+			buttonYesterday : 'track button[itemId=yesterday]',
+			buttonAgo2days : 'track button[itemId=ago2days]',
+			buttonAgo3days : 'track button[itemId=ago3days]'
         },
 
         control: {
@@ -23,6 +27,15 @@ Ext.define('HatioBB.controller.monitor.Track', {
 
 	onInit : function() {
 		var self = this;
+		
+		var now = new Date();
+		this.getButtonToday().setData({date : Ext.Date.format(now, 'D Y-m-d')});
+		now.setDate(now.getDate() - 1);
+		this.getButtonYesterday().setData({date : Ext.Date.format(now, 'D Y-m-d')})
+		now.setDate(now.getDate() - 1);
+		this.getButtonAgo2days().setData({date : Ext.Date.format(now, 'D Y-m-d')})
+		now.setDate(now.getDate() - 1);
+		this.getButtonAgo3days().setData({date : Ext.Date.format(now, 'D Y-m-d')})
 		
 		this.getTrack().on('painted', function() {
 			if(self.getTrack().config.queryOn === 'vehicle')
@@ -135,6 +148,7 @@ Ext.define('HatioBB.controller.monitor.Track', {
 		var path = [];
 		var bounds, latlng, last;
 
+		// TODO PathMarkers must be here.
 		Ext.Array.each(records, function(record) {
 			if(!trip) {
 				trip = new google.maps.Polyline({
@@ -161,6 +175,17 @@ Ext.define('HatioBB.controller.monitor.Track', {
 			
 			// 30분 Gap은 새로운 Trip으로 판단한다.
 			if(last && (last.get('datetime') > record.get('datetime') + 30 * 60 * 1000)) {
+				// TODO ... How to make this informations.
+				// var tripInfo = {
+				// 	velocity : 100,
+				// 	distance : 200,
+				// 	startTime : ,
+				// 	endTime : ,
+				// 	startPos : ,
+				// 	endPos : ,
+				// 	vehicle : ,
+				// 	driver : 
+				// };
 				self.getTrack().addTrackLine(trip, map);
 
 				trip = null;

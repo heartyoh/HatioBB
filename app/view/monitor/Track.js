@@ -25,28 +25,29 @@ Ext.define('HatioBB.view.monitor.Track', {
 				cls : 'trackTab today x-button-active',
 				flex : 1,
 				maxWidth : 160,
-                html: '<div><span>SUN 2012-06-30</span>오늘</div>'
+                tpl: '<div><span>{date}</span>' + T('label.today') + '</div>'
 			}, 	{
                 xtype: 'button',
 				itemId : 'yesterday',
 				cls : 'trackTab yesterday',
 				flex : 1,
 				maxWidth : 160,
-                html: '<div><span>SUN 2012-06-29</span>어제</div>'
+                tpl: '<div><span>{date}</span>' + T('label.yesterday') + '</div>'
 			}, 	{
                 xtype: 'button',
 				itemId : 'ago2days',
 				cls : 'trackTab ago2days',
 				flex : 1,
 				maxWidth : 160,
-                html: '<div><span>SUN 2012-06-29</span>2일전</div>'
+                tpl: '<div><span>{date}</span>' + T('label.ago2days') + '</div>'
 			}, 	{
                 xtype: 'button',
 				itemId : 'ago3days',
 				cls : 'trackTab ago3days',
 				flex : 1,
 				maxWidth : 160,
-                html: '<div><span>SUN 2012-06-29</span>3일전</div>'
+				html: '<div><span>SUN 2012-07-01</span>' + T('label.ago3days') + '</div>'
+                // tpl: '<div><span>{date}</span>' + T('label.ago3days') + '</div>'
 			}]
         }, 	{
             xtype: 'map',
@@ -99,14 +100,31 @@ Ext.define('HatioBB.view.monitor.Track', {
 				position : point,
 				icon : 'resources/images/iconPin.png',
 				map : map,
-				visible : false
+				visible : false,
+				// animation : google.maps.Animation.DROP
 			});
 			self.addPathMarkers(marker);
 			google.maps.event.addListener(marker, 'click', selectPath);
 		});
 		
+		// for (var i =0; i < path.length; i++) {
+		// 	setTimeout(function() {
+		// 		var marker = new google.maps.Marker({
+		// 			position : path[i],
+		// 			icon : 'resources/images/iconPin.png',
+		// 			map : map,
+		// 			visible : false,
+		// 			animation : google.maps.Animation.DROP
+		// 		});
+		// 		self.addPathMarkers(marker);
+		// 		google.maps.event.addListener(marker, 'click', selectPath);
+		// 	}, i * 200);
+		// }
+		
 		function selectPath(e) {
 			self.clearInfoWindow();
+			
+			console.log(arguments);
 			
 			var content = [
 				'<div class="bubbleWrap">',
@@ -127,7 +145,6 @@ Ext.define('HatioBB.view.monitor.Track', {
 					yoffset : -150
 				});
 			}
-			console.log(e);
 			self.infowindow.set('position', e.latLng);
 			self.infowindow.set('text', content);
 
@@ -197,7 +214,8 @@ Ext.define('HatioBB.view.monitor.Track', {
 			var density = Math.max(1, (16 - map.getZoom()) * 3);
 			for(var i = 0;i < pathMarkers.length;i++) {
 				pathMarkers[i].setOptions({
-					visible : (i % density) ? false : true
+					visible : (i % density) ? false : true,
+					animation : google.maps.Animation.DROP
 				});
 			}
 		}

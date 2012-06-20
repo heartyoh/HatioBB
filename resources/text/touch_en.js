@@ -12,6 +12,10 @@ T({
 		system_info : 'System/User Information',
 		setting_by_screen : 'Setting for Active Screen',
 		fromYear : 'From Year 4 Query',
-		logout : 'Logout'
+		logout : 'Logout',
+		today : 'today',
+		yesterday : 'yesterday',
+		ago2days : '2 days ago',
+		ago3days : '3 days ago'
 	}
 });
