@@ -53,7 +53,7 @@ Ext.application({
 			url : (HatioBB.setting.get('app_mode') === true) ? 'user/find' : 'data/user.json',
 			success : function(response) {
 				var user = Ext.JSON.decode(response.responseText);
-				if(user.success && user.enable) {
+				if(user.success && user.enabled) {
 					HatioBB.login.set(user);
 			        Ext.Viewport.add(Ext.create('HatioBB.view.Main'));
 				} else {
@@ -68,7 +68,11 @@ Ext.application({
 			},
 			failure : function(response) {
 				if(response.status >= 400 && response.status < 500) {
-					document.location.href = "/logout";
+					Ext.Msg.confirm('Unauthenticated User', 'Do you want to move to login page ?', function ( answer ) { 
+						if( answer == 'yes') { 
+							document.location.href = "/logout";
+						}
+					});
 				} else {
 					Ext.Msg.alert('ERROR', '[CODE: ' + response.status + '] ' + response.statusText);
 				}

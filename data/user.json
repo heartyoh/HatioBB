@@ -6,7 +6,7 @@
 	"admin": true,
 	"language": "ko",
 	"image_clip": "image/D001.jpg",
-	"enable": true,
+	"enabled": true,
 	"created_at": 111111111,
 	"updated_at": 222222222,
 	"success": true
