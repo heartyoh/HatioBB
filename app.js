@@ -25,8 +25,8 @@ Ext.application({
 		'Ext.tab.Panel'
     ],
 
-    controllers: ['Main', 'Nav', 'Report', 'monitor.Track', 'Login'],
-    views: ['Main', 'Setting', 'Login'],
+    controllers: ['Main', 'Nav', 'Report', 'monitor.Track'],
+    views: ['Main', 'Setting'],
     stores: ['VehicleFilteredStore', 'VehicleStore', 'RecentIncidentStore', 'VehicleMapStore', 
 			'DriverStore', 'DriverBriefStore', 'VehicleGroupStore', 'DriverGroupStore', 'TrackByVehicleStore', 
 			'IncidentByVehicleStore', 'IncidentLogStore', 'DashboardVehicleStore', 'VehicleConsumableStore', 
@@ -49,17 +49,31 @@ Ext.application({
 		HatioBB.setting.set('app_mode', (0 === window.location.pathname.indexOf('/m/')));
 		HatioBB.setting.set('version', '0.5.16');
 
-		var loginNeed = true;
-		if(loginNeed) {
-			var login = Ext.create('HatioBB.view.Login', {
-
-			});
-			// login.show();
-			Ext.Viewport.add(login);
-		} else {
-	        // Initialize the main view
-	        Ext.Viewport.add(Ext.create('HatioBB.view.Main'));
-		}
+		Ext.Ajax.request({
+			url : (HatioBB.setting.get('app_mode') === true) ? 'user/find' : 'data/user.json',
+			success : function(response) {
+				var user = Ext.JSON.decode(response.responseText);
+				if(user.success && user.enable) {
+					HatioBB.login.set(user);
+			        Ext.Viewport.add(Ext.create('HatioBB.view.Main'));
+				} else {
+					Ext.Msg.confirm('Unauthorized User', 'Do you want to move to registration page ?', function ( answer ) { 
+						if( answer == 'yes') { 
+							document.location.href = "/register";
+						} else { 
+							document.location.href = "/logout";
+						}
+					});
+				}
+			},
+			failure : function(response) {
+				if(response.status >= 400 && response.status < 500) {
+					document.location.href = "/logout";
+				} else {
+					Ext.Msg.alert('ERROR', '[CODE: ' + response.status + '] ' + response.statusText);
+				}
+			}
+		});
     },
 
     onUpdated: function() {

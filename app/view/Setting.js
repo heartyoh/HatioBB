@@ -158,12 +158,12 @@ Ext.define('HatioBB.view.Setting', {
 	        }, {
 	            xtype: 'textfield',
 	            label: T('label.user'),
-	            value : HatioBB.login.id + '(' + HatioBB.login.email + ')',
+	            value : HatioBB.login.get('name') + '(' + HatioBB.login.get('email') + ')',
 				disabled : true
 	        }, {
 	            xtype: 'textfield',
 	            label: T('label.company'),
-	            value : HatioBB.login.company,
+	            value : HatioBB.login.get('company'),
 				disabled : true
 			}]
 		}
