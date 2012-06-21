@@ -74,19 +74,17 @@ Ext.define('HatioBB.view.monitor.Track', {
 		this.tracklines = [];
 	},
 	
-	addTrackLine : function(line, map) {
+	addTrackLine : function(map, traces, line) {
 		var self = this;
 		this.tracklines.push(line);
 		
 		var path = line.getPath();
 
 		var first = new google.maps.Marker({
-			// position : new google.maps.LatLng(path.getAt(0).lat(), path.getAt(0).lng()),
 			position : path.getAt(0),
 			map : map
 		});
 		var end = new google.maps.Marker({
-			// position : new google.maps.LatLng(path.getAt(path.getLength() - 1).lat(), path.getAt(path.getLength() - 1).lng()),
 			position : path.getAt(path.getLength() - 1),
 			icon : 'resources/images/iconStartPoint.png',
 			map : map
@@ -94,13 +92,14 @@ Ext.define('HatioBB.view.monitor.Track', {
 		this.addTripMarkers(first);
 		this.addTripMarkers(end);
 		
+		var i = 0;
 		path.forEach(function(point) {
 			var marker = new google.maps.Marker({
 				position : point,
 				icon : 'resources/images/iconPin.png',
 				map : map,
 				visible : false,
-				// animation : google.maps.Animation.DROP
+				trace : traces[i++]
 			});
 			self.addPathMarkers(marker);
 			google.maps.event.addListener(marker, 'click', selectPath);
@@ -122,17 +121,17 @@ Ext.define('HatioBB.view.monitor.Track', {
 		
 		function selectPath(e) {
 			self.clearInfoWindow();
-			
-			console.log(arguments);
+
+			var trace = this.trace;
 			
 			var content = [
 				'<div class="bubbleWrap">',
 					'<div class="close"></div>',
 					'<div class="trackBubble">',
 						'<div>경기도 성남시 분당구 수내동 경기도 성남시 분당구 수내동</div>',
-						'<div><span>위도/경도</span>'+ '1111111/22222222' + '</div>',
-						'<div><span>속도</span>'+ '36 KM/H' + '</div>',
-						'<div><span>시간</span>'+ '2012-06-30 12:22:33' + '</div>',
+						'<div><span>위도/경도</span>' + trace.get('lat').toFixed(2) + ' / ' + trace.get('lng').toFixed(2) + '</div>',
+						'<div><span>속도</span>' + trace.get('velocity') + ' KM/H' + '</div>',
+						'<div><span>시간</span>' + Ext.Date.format(trace.get('datetime'), 'Y-m-d H:i:s') + '</div>',
 					'</div>',
 				'</div>'
 			].join('');
@@ -207,11 +206,17 @@ Ext.define('HatioBB.view.monitor.Track', {
 				return;
 			
 			var density = Math.max(1, (16 - map.getZoom()) * 3);
+			
+			//TODO Here...
 			for(var i = 0;i < pathMarkers.length;i++) {
-				pathMarkers[i].setOptions({
-					visible : (i % density) ? false : true,
-					animation : google.maps.Animation.DROP
-				});
+				var pathMarker = pathMarkers[i];
+				var visible = i % density;
+				setTimeout(function() {
+					pathMarker.setOptions({
+						visible : visible ? false : true,
+						animation : google.maps.Animation.DROP
+					});
+				}, i * 200);
 			}
 		}
 		

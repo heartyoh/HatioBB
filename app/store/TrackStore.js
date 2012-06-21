@@ -22,8 +22,12 @@ Ext.define('HatioBB.store.TrackStore', {
 			name : 'lng',
 			type : 'number'
 		}, {
-			name : 'datetime',
+			name : 'velocity',
 			type : 'number'
+		}, {
+			name : 'datetime',
+			type : 'date',
+			dateFormat : 'time'
 		}, {
 			name : 'created_at',
 			type : 'date',

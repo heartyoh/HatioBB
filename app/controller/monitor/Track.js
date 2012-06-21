@@ -117,7 +117,6 @@ Ext.define('HatioBB.controller.monitor.Track', {
 			value : Math.round(this.from.getTime() / 1000)
 		}];
 
-		// TODO driver, vehicle 중의 한가지 filter 를 적용할 수 있도록 조건 처리할 것.
 		if(driver) {
 			filter.push({
 				property : 'driver_id',
@@ -143,9 +142,11 @@ Ext.define('HatioBB.controller.monitor.Track', {
 		
 		this.getTrack().resetTrackLines();
 		this.getTrack().setTripMarkers(null);
+		this.getTrack().resetPathMarkers();
+		this.getTrack().clearInfoWindow();
 
 		var trip;
-		var path = [];
+		var traces = [];
 		var bounds, latlng, last;
 
 		// TODO PathMarkers must be here.
@@ -158,8 +159,10 @@ Ext.define('HatioBB.controller.monitor.Track', {
 					strokeWeight : 4
 				});
 				path = trip.getPath();
-				if(last)
+				if(last) {
 					path.push(latlng);
+					traces.push(last);
+				}
 			}
 			
 			var lat = record.get('lat');
@@ -186,14 +189,16 @@ Ext.define('HatioBB.controller.monitor.Track', {
 				// 	vehicle : ,
 				// 	driver : 
 				// };
-				self.getTrack().addTrackLine(trip, map);
+				self.getTrack().addTrackLine(map, traces, trip);
 
 				trip = null;
 				path = null;
 			}
 				
-			if(trip)
+			if(trip) {
 				path.push(latlng);
+				traces.push(record);
+			}
 
 			last = record;
 		});
@@ -222,7 +227,7 @@ Ext.define('HatioBB.controller.monitor.Track', {
 
 			this.getTrack().getInfoWindow().setVisible(true);
 		} else {
-			this.getTrack().addTrackLine(trip, map);
+			this.getTrack().addTrackLine(map, traces, trip);
 		}
 
 		if (bounds.isEmpty() || bounds.getNorthEast().equals(bounds.getSouthWest())) {
