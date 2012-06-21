@@ -25,29 +25,28 @@ Ext.define('HatioBB.view.monitor.Track', {
 				cls : 'trackTab today x-button-active',
 				flex : 1,
 				maxWidth : 160,
-                tpl: '<div><span>{date}</span>' + T('label.today') + '</div>'
+                tpl: '<div class="trackLabel"><span>{date}</span>' + T('label.today') + '</div>'
 			}, 	{
                 xtype: 'button',
 				itemId : 'yesterday',
 				cls : 'trackTab yesterday',
 				flex : 1,
 				maxWidth : 160,
-                tpl: '<div><span>{date}</span>' + T('label.yesterday') + '</div>'
+                tpl: '<div class="trackLabel"><span>{date}</span>' + T('label.yesterday') + '</div>'
 			}, 	{
                 xtype: 'button',
 				itemId : 'ago2days',
 				cls : 'trackTab ago2days',
 				flex : 1,
 				maxWidth : 160,
-                tpl: '<div><span>{date}</span>' + T('label.ago2days') + '</div>'
+                tpl: '<div class="trackLabel"><span>{date}</span>' + T('label.ago2days') + '</div>'
 			}, 	{
                 xtype: 'button',
 				itemId : 'ago3days',
 				cls : 'trackTab ago3days',
 				flex : 1,
 				maxWidth : 160,
-				html: '<div><span>SUN 2012-07-01</span>' + T('label.ago3days') + '</div>'
-                // tpl: '<div><span>{date}</span>' + T('label.ago3days') + '</div>'
+                tpl: '<div class="trackLabel"><span>{date}</span>' + T('label.ago3days') + '</div>'
 			}]
         }, 	{
             xtype: 'map',
@@ -129,11 +128,11 @@ Ext.define('HatioBB.view.monitor.Track', {
 			var content = [
 				'<div class="bubbleWrap">',
 					'<div class="close"></div>',
-					'<div>',
-						'<div>주소 : ' + '서울시 중구 ....' + '</div>',
-						'<div>위도/경도 : '+ '1111111/22222222' + '</div>',
-						'<div>속도 : '+ '36 KM/H' + '</div>',
-						'<div>시간 : '+ '2012년 12월 1일 3시 45분 44초' + '</div>',
+					'<div class="trackBubble">',
+						'<div>경기도 성남시 분당구 수내동 경기도 성남시 분당구 수내동</div>',
+						'<div><span>위도/경도</span>'+ '1111111/22222222' + '</div>',
+						'<div><span>속도</span>'+ '36 KM/H' + '</div>',
+						'<div><span>시간</span>'+ '2012-06-30 12:22:33' + '</div>',
 					'</div>',
 				'</div>'
 			].join('');
@@ -167,17 +166,13 @@ Ext.define('HatioBB.view.monitor.Track', {
 			var content = [
 				'<div class="bubbleWrap">',
 					'<div class="close"></div>',
-					'<div>',
-						'<div>차량 : '+ 'V001 - 가 1234' + '</div>',
-						'<div>운전자 : '+ 'D001 - 오현석' + '</div>',
-					'</div>',
-					'<div>',
-						'<div>주행 시작 : '+ '2012년 1월 3일 12:00:00' + '</div>',
-						'<div>주행 종류 : '+ '2012년 1월 3일 12:05:00' + '</div>',
-					'</div>',
-					'<div>',
-						'<div>평균 시속 : '+ '35 KM/H' + '</div>',
-						'<div>주행 거리 : '+ '12.5 KM' + '</div>',
+					'<div class="trackBubble">',
+						'<div><span>차량</span>V001 - 가 1234</div>',
+						'<div><span>운전자</span>D001 - 오현석</div>',
+						'<div><span>주행시작</span>2012년 1월 3일 12:00:00</div>',
+						'<div><span>주행종류</span>2012년 1월 3일 12:05:00</div>',
+						'<div><span>평균시속</span>35 KM/H</div>',
+						'<div><span>주행거리</span>12.5 KM</div>',
 					'</div>',
 				'</div>'
 			].join('');
