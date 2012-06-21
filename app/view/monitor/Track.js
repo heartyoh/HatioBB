@@ -22,7 +22,7 @@ Ext.define('HatioBB.view.monitor.Track', {
 			items : [{
                 xtype: 'button',
 				itemId : 'today',
-				cls : 'trackTab today x-button-active',
+				cls : 'trackTab today',
 				flex : 1,
 				maxWidth : 160,
                 tpl: '<div class="trackLabel"><span>{date}</span>' + T('label.today') + '</div>'
@@ -74,6 +74,17 @@ Ext.define('HatioBB.view.monitor.Track', {
 		this.tracklines = [];
 	},
 	
+	unselectTrip: function() {
+		this.clearInfoWindow();
+		if(this.selectedTrack) {
+			this.selectedTrack.setOptions({
+				strokeColor : '#FF0000',
+				strokeOpacity : 1,
+				strokeWeight : 4
+			});
+		}
+	},
+	
 	addTrackLine : function(map, traces, line) {
 		var self = this;
 		this.tracklines.push(line);
@@ -104,20 +115,6 @@ Ext.define('HatioBB.view.monitor.Track', {
 			self.addPathMarkers(marker);
 			google.maps.event.addListener(marker, 'click', selectPath);
 		});
-		
-		// for (var i =0; i < path.length; i++) {
-		// 	setTimeout(function() {
-		// 		var marker = new google.maps.Marker({
-		// 			position : path[i],
-		// 			icon : 'resources/images/iconPin.png',
-		// 			map : map,
-		// 			visible : false,
-		// 			animation : google.maps.Animation.DROP
-		// 		});
-		// 		self.addPathMarkers(marker);
-		// 		google.maps.event.addListener(marker, 'click', selectPath);
-		// 	}, i * 200);
-		// }
 		
 		function selectPath(e) {
 			self.clearInfoWindow();
@@ -150,7 +147,7 @@ Ext.define('HatioBB.view.monitor.Track', {
 		}
 
 		function selectTrip(e) {
-			unselectTrip();
+			self.unselectTrip();
 
 			self.selectedTrack = line;
 			
@@ -162,14 +159,19 @@ Ext.define('HatioBB.view.monitor.Track', {
 			
 			var path = line.getPath();
 			
+			var startTime = Ext.Date.format(traces[0].get('datetime'), 'Y-m-d H:i:s');
+			var endTime = Ext.Date.format(traces[0].get('datetime'), 'Y-m-d H:i:s');
+			var driver = traces[0].get('driver_id');
+			var vehicle = traces[0].get('vehicle_id');
+			
 			var content = [
 				'<div class="bubbleWrap">',
 					'<div class="close"></div>',
 					'<div class="trackBubble">',
-						'<div><span>차량</span>V001 - 가 1234</div>',
-						'<div><span>운전자</span>D001 - 오현석</div>',
-						'<div><span>주행시작</span>2012년 1월 3일 12:00:00</div>',
-						'<div><span>주행종류</span>2012년 1월 3일 12:05:00</div>',
+						'<div><span>차량</span>' + vehicle + ' - 가 1234</div>',
+						'<div><span>운전자</span>' + driver + ' - 오현석</div>',
+						'<div><span>주행시작</span>' + startTime + '</div>',
+						'<div><span>주행종류</span>' + endTime + '</div>',
 						'<div><span>평균시속</span>35 KM/H</div>',
 						'<div><span>주행거리</span>12.5 KM</div>',
 					'</div>',
@@ -188,45 +190,11 @@ Ext.define('HatioBB.view.monitor.Track', {
 
 			self.infowindow.setVisible(true);
 		}
-		
-		function unselectTrip() {
-			self.clearInfoWindow();
-			if(self.selectedTrack) {
-				self.selectedTrack.setOptions({
-					strokeColor : '#FF0000',
-					strokeOpacity : 1,
-					strokeWeight : 4
-				});
-			}
-		}
-		
-		function showPathMarkers() {
-			var pathMarkers = self.getPathMarkers();
-			if(!pathMarkers)
-				return;
-			
-			var density = Math.max(1, (16 - map.getZoom()) * 3);
-			
-			//TODO Here...
-			for(var i = 0;i < pathMarkers.length;i++) {
-				var pathMarker = pathMarkers[i];
-				var visible = i % density;
-				setTimeout(function() {
-					pathMarker.setOptions({
-						visible : visible ? false : true,
-						animation : google.maps.Animation.DROP
-					});
-				}, i * 200);
-			}
-		}
-		
+
+		// TODO Remove EventListeners
 		google.maps.event.addListener(line, 'click', selectTrip);
 		google.maps.event.addListener(first, 'click', selectTrip);
 		google.maps.event.addListener(end, 'click', selectTrip);
-		
-		// TODO 뷰에 하나만으로 옮겨야.
-		google.maps.event.addListener(map, 'click', unselectTrip);
-		google.maps.event.addListener(map, 'zoom_changed', showPathMarkers);
 	},
 	
 	getTrackLines : function() {

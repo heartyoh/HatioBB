@@ -37,11 +37,36 @@ Ext.define('HatioBB.controller.monitor.Track', {
 		now.setDate(now.getDate() - 1);
 		this.getButtonAgo3days().setData({date : Ext.Date.format(now, 'D Y-m-d')})
 		
+		function showPathMarkers() {
+			var pathMarkers = self.getTrack().getPathMarkers();
+			if(!pathMarkers)
+				return;
+			
+			var density = Math.max(1, (16 - self.getMap().getMap().getZoom()) * 3);
+			var x = 0;
+			
+			for(var i = 0;i < pathMarkers.length;i++) {
+				setTimeout(function() {
+					pathMarkers[x++].setOptions({
+						visible : x % density ? false : true,
+						animation : google.maps.Animation.DROP
+					});
+				}, i * 20);
+			}
+		}
+		
+		function unselectTrip() {
+			self.getTrack().unselectTrip();
+		}
+		
 		this.getTrack().on('painted', function() {
 			if(self.getTrack().config.queryOn === 'vehicle')
 				HatioBB.setting.on('vehicle', self.refresh, self);
 			else
 				HatioBB.setting.on('driver', self.refresh, self);
+
+			google.maps.event.addListener(self.getMap().getMap(), 'click', unselectTrip);
+			google.maps.event.addListener(self.getMap().getMap(), 'zoom_changed', showPathMarkers);
 		});
 		
 		this.getTrack().on('erased', function() {
@@ -49,6 +74,9 @@ Ext.define('HatioBB.controller.monitor.Track', {
 				HatioBB.setting.un('vehicle', self.refresh, self);
 			else
 				HatioBB.setting.un('driver', self.refresh, self);
+
+			// google.maps.event.removeListener(self.getMap().getMap(), 'click', unselectTrip);
+			// google.maps.event.removeListener(self.getMap().getMap(), 'zoom_changed', showPathMarkers);
 		});
 	},
 
@@ -64,19 +92,28 @@ Ext.define('HatioBB.controller.monitor.Track', {
 		from.setMinutes(0);
 		from.setSeconds(0);
 		from.setMilliseconds(0);
+		
+		this.getButtonToday().removeCls('x-button-active');
+		this.getButtonYesterday().removeCls('x-button-active');
+		this.getButtonAgo2days().removeCls('x-button-active');
+		this.getButtonAgo3days().removeCls('x-button-active');
 
 		switch(day.getItemId()) {
 			case 'today' :
+				this.getButtonToday().addCls('x-button-active');
 				break;
 			case 'yesterday' :
+				this.getButtonYesterday().addCls('x-button-active');
 				from.setDate(from.getDate() - 1);
 				break;
 			case 'ago2days' :
-			from.setDate(from.getDate() - 2);
-			break;
+				this.getButtonAgo2days().addCls('x-button-active');
+				from.setDate(from.getDate() - 2);
+				break;
 			case 'ago3days' :
-			from.setDate(from.getDate() - 3);
-			break;
+				this.getButtonAgo3days().addCls('x-button-active');
+				from.setDate(from.getDate() - 3);
+				break;
 		}
 
 		to = new Date(from.getTime() + 24 * 60 * 60 * 1000);
@@ -84,14 +121,20 @@ Ext.define('HatioBB.controller.monitor.Track', {
 		this.from = from;
 		this.to = to;
 		
-		this.refresh();
+		this.refresh(day);
 	},
 
-	refresh : function() {
+	refresh : function(day) {
 		var self = this;
 		
-		if(!this.from || !this.to) {
+		if(!day || !this.from || !this.to) {
 			var from, to;
+			
+			this.getButtonYesterday().removeCls('x-button-active');
+			this.getButtonAgo2days().removeCls('x-button-active');
+			this.getButtonAgo3days().removeCls('x-button-active');
+
+			this.getButtonToday().addCls('x-button-active');
 
 			from = new Date();
 			from.setHours(0);
@@ -104,7 +147,7 @@ Ext.define('HatioBB.controller.monitor.Track', {
 			this.from = from;
 			this.to = to;
 		}
-				
+		
 		if(this.getTrack().config.queryOn === 'driver')
 			var driver = HatioBB.setting.get('driver');
 		else
