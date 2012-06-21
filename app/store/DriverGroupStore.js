@@ -2,7 +2,7 @@ Ext.define('HatioBB.store.DriverGroupStore', {
 	extend : 'Ext.data.Store',
 	
 	config : {
-		autoLoad : true,
+		autoLoad : false,
 
 		pageSize : 1000,
 

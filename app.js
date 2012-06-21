@@ -50,7 +50,7 @@ Ext.application({
 		HatioBB.setting.set('version', '0.5.16');
 
 		Ext.Ajax.request({
-			url : (HatioBB.setting.get('app_mode') === true) ? 'user/find' : 'data/user.json',
+			url : (HatioBB.setting.get('app_mode') === true) ? '../user/find' : 'data/user.json',
 			success : function(response) {
 				var user = Ext.JSON.decode(response.responseText);
 				if(user.success && user.enabled) {

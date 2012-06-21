@@ -81,6 +81,10 @@ Ext.define('HatioBB.controller.Nav', {
         var vehicleMapStore = Ext.getStore('VehicleMapStore');
         vehicleMapStore.load();
 
+        /* Driver 상태 처리 */
+        var driverStore = Ext.getStore('DriverBriefStore');
+        driverStore.load();
+
 		/* refreshTerm 에 따라 자동 리프레쉬 기능을 동작시킴. */
 		function onRefreshTerm(val) {
 			if(self.incidentInterval)
