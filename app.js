@@ -47,7 +47,7 @@ Ext.application({
         Ext.fly('appLoadingIndicator').destroy();
 
 		HatioBB.setting.set('app_mode', (0 === window.location.pathname.indexOf('/m/')));
-		HatioBB.setting.set('version', '0.5.16');
+		HatioBB.setting.set('version', '0.5.20');
 
 		Ext.Ajax.request({
 			url : (HatioBB.setting.get('app_mode') === true) ? '../user/find' : 'data/user.json',
