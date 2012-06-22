@@ -13,7 +13,8 @@ Ext.define('HatioBB', {
 		subitem : 'HatioBB.mixin.SubItem',
 		setting : 'HatioBB.mixin.Setting',
 		label : 'HatioBB.mixin.Label',
-		nav : 'HatioBB.mixin.Nav'
+		nav : 'HatioBB.mixin.Nav',
+		map : 'HatioBB.mixin.Map'
 	}
 });
 

@@ -177,7 +177,7 @@ Ext.define('HatioBB.view.monitor.Info', {
 		}
 
 		vehicle.set('location', 'Resolving ..');
-		this.getLocation(vehicle.get('lat'), vehicle.get('lng'), function(location) {
+		HatioBB.map.getLocation(vehicle.get('lat'), vehicle.get('lng'), function(location) {
 			vehicle.set('location', location);
 			var info = self.down('[itemId=briefInfo]');
 			if(info) {
@@ -228,25 +228,25 @@ Ext.define('HatioBB.view.monitor.Info', {
 		});
     },
 
-	getLocation : function(lat, lng, callback) {
-		if (lat !== undefined && lng !== undefined) {
-			var latlng = new google.maps.LatLng(lat, lng);
-
-			geocoder = new google.maps.Geocoder();
-			geocoder.geocode({
-				'latLng' : latlng
-			}, function(results, status) {
-				if (status == google.maps.GeocoderStatus.OK) {
-					if (results[0]) {
-						callback(results[0].formatted_address);
-					}
-				} else {
-					console.log("Geocoder failed due to: " + status);
-				}
-			});
-		}
-	},
-	
+	// getLocation : function(lat, lng, callback) {
+	// 	if (lat !== undefined && lng !== undefined) {
+	// 		var latlng = new google.maps.LatLng(lat, lng);
+	// 
+	// 		geocoder = new google.maps.Geocoder();
+	// 		geocoder.geocode({
+	// 			'latLng' : latlng
+	// 		}, function(results, status) {
+	// 			if (status == google.maps.GeocoderStatus.OK) {
+	// 				if (results[0]) {
+	// 					callback(results[0].formatted_address);
+	// 				}
+	// 			} else {
+	// 				console.log("Geocoder failed due to: " + status);
+	// 			}
+	// 		});
+	// 	}
+	// },
+	// 
 	getTrackLine : function() {
 		return this.trackline;
 	},

@@ -85,7 +85,7 @@ Ext.define('HatioBB.view.monitor.Track', {
 		}
 	},
 	
-	addTrackLine : function(map, traces, line) {
+	addTrackLine : function(map, traces, line, avg_v, distance) {
 		var self = this;
 		this.tracklines.push(line);
 		
@@ -117,36 +117,42 @@ Ext.define('HatioBB.view.monitor.Track', {
 		});
 		
 		function selectPath(e) {
+			var marker = this;
 			self.clearInfoWindow();
 
 			var trace = this.trace;
+			var lat = trace.get('lat');
+			var lng = trace.get('lng');
 			
-			var content = [
-				'<div class="bubbleWrap">',
-					'<div class="close"></div>',
-					'<div class="trackBubble">',
-						'<div>경기도 성남시 분당구 수내동 경기도 성남시 분당구 수내동</div>',
-						'<div><span>위도/경도</span>' + trace.get('lat').toFixed(2) + ' / ' + trace.get('lng').toFixed(2) + '</div>',
-						'<div><span>속도</span>' + trace.get('velocity') + ' KM/H' + '</div>',
-						'<div><span>시간</span>' + Ext.Date.format(trace.get('datetime'), 'Y-m-d H:i:s') + '</div>',
-					'</div>',
-				'</div>'
-			].join('');
+			HatioBB.map.getLocation(lat, lng, function(address) {
+				var content = [
+					'<div class="bubbleWrap">',
+						'<div class="close"></div>',
+						'<div class="trackBubble">',
+							'<div>' + address + '</div>',
+							'<div><span>위도/경도</span>' + trace.get('lat').toFixed(2) + ' / ' + trace.get('lng').toFixed(2) + '</div>',
+							'<div><span>속도</span>' + trace.get('velocity') + ' KM/H' + '</div>',
+							'<div><span>시간</span>' + Ext.Date.format(trace.get('datetime'), 'Y-m-d H:i:s') + '</div>',
+						'</div>',
+					'</div>'
+				].join('');
 
-			if(!self.infowindow) {
-				self.infowindow = HatioBB.label.create({
-					map : this.getMap(),
-					xoffset : -110,
-					yoffset : -150
-				});
-			}
-			self.infowindow.set('position', e.latLng);
-			self.infowindow.set('text', content);
+				if(!self.infowindow) {
+					self.infowindow = HatioBB.label.create({
+						map : marker.getMap(),
+						xoffset : -110,
+						yoffset : -150
+					});
+				}
+				self.infowindow.set('position', e.latLng);
+				self.infowindow.set('text', content);
 
-			self.infowindow.setVisible(true);
+				self.infowindow.setVisible(true);
+			});
 		}
 
 		function selectTrip(e) {
+			var marker = this;
 			self.unselectTrip();
 
 			self.selectedTrack = line;
@@ -159,28 +165,31 @@ Ext.define('HatioBB.view.monitor.Track', {
 			
 			var path = line.getPath();
 			
-			var startTime = Ext.Date.format(traces[0].get('datetime'), 'Y-m-d H:i:s');
+			var startTime = Ext.Date.format(traces[traces.length - 1].get('datetime'), 'Y-m-d H:i:s');
 			var endTime = Ext.Date.format(traces[0].get('datetime'), 'Y-m-d H:i:s');
-			var driver = traces[0].get('driver_id');
-			var vehicle = traces[0].get('vehicle_id');
+			var driverId = traces[0].get('driver_id');
+			var vehicleId = traces[0].get('vehicle_id');
+			
+			var driver = Ext.getStore('DriverBriefStore').getById(driverId);
+			var vehicle = Ext.getStore('VehicleMapStore').getById(vehicleId);
 			
 			var content = [
 				'<div class="bubbleWrap">',
 					'<div class="close"></div>',
 					'<div class="trackBubble">',
-						'<div><span>차량</span>' + vehicle + ' - 가 1234</div>',
-						'<div><span>운전자</span>' + driver + ' - 오현석</div>',
+						'<div><span>차량</span>' + vehicleId + ' - ' + vehicle.get('registration_number') + '</div>',
+						'<div><span>운전자</span>' + driverId + ' - ' + driver.get('name') + '</div>',
 						'<div><span>주행시작</span>' + startTime + '</div>',
 						'<div><span>주행종료</span>' + endTime + '</div>',
-						'<div><span>평균시속</span>35 KM/H</div>',
-						'<div><span>주행거리</span>12.5 KM</div>',
+						'<div><span>평균시속</span>' + Math.floor(avg_v) + ' KM/H</div>',
+						'<div><span>주행거리</span>' + distance.toFixed(2) + ' KM</div>',
 					'</div>',
 				'</div>'
 			].join('');
 
 			if(!self.infowindow) {
 				self.infowindow = HatioBB.label.create({
-					map : this.getMap(),
+					map : marker.getMap(),
 					xoffset : -110,
 					yoffset : -150
 				});

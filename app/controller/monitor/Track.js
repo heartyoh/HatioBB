@@ -191,6 +191,8 @@ Ext.define('HatioBB.controller.monitor.Track', {
 		var trip;
 		var traces = [];
 		var bounds, latlng, last;
+		var v = [];
+		var distance = 0;
 
 		// TODO PathMarkers must be here.
 		Ext.Array.each(records, function(record) {
@@ -205,6 +207,7 @@ Ext.define('HatioBB.controller.monitor.Track', {
 				if(last) {
 					path.push(latlng);
 					traces.push(last);
+					v.push(last.get('velocity'));
 				}
 			}
 			
@@ -232,15 +235,23 @@ Ext.define('HatioBB.controller.monitor.Track', {
 				// 	vehicle : ,
 				// 	driver : 
 				// };
-				self.getTrack().addTrackLine(map, traces, trip);
+				var avg_v = Ext.Array.sum(v) / v.length;
+				self.getTrack().addTrackLine(map, traces, trip, avg_v, distance);
 
 				trip = null;
-				path = null;
+				path = [];
+				traces = [];
+				v = [];
+				distance = 0;
 			}
 				
 			if(trip) {
 				path.push(latlng);
 				traces.push(record);
+				v.push(record.get('velocity'));
+				if(traces.length > 1) {
+					distance += HatioBB.map.distance(last.get('lat'), last.get('lng'), record.get('lat'), record.get('lng'), 'K');
+				}
 			}
 
 			last = record;
@@ -270,7 +281,8 @@ Ext.define('HatioBB.controller.monitor.Track', {
 
 			this.getTrack().getInfoWindow().setVisible(true);
 		} else {
-			this.getTrack().addTrackLine(map, traces, trip);
+			var avg_v = Ext.Array.sum(v) / v.length;
+			this.getTrack().addTrackLine(map, traces, trip, avg_v, distance);
 		}
 
 		if (bounds.isEmpty() || bounds.getNorthEast().equals(bounds.getSouthWest())) {
