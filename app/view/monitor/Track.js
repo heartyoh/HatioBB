@@ -171,7 +171,7 @@ Ext.define('HatioBB.view.monitor.Track', {
 						'<div><span>차량</span>' + vehicle + ' - 가 1234</div>',
 						'<div><span>운전자</span>' + driver + ' - 오현석</div>',
 						'<div><span>주행시작</span>' + startTime + '</div>',
-						'<div><span>주행종류</span>' + endTime + '</div>',
+						'<div><span>주행종료</span>' + endTime + '</div>',
 						'<div><span>평균시속</span>35 KM/H</div>',
 						'<div><span>주행거리</span>12.5 KM</div>',
 					'</div>',
