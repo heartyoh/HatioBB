@@ -165,8 +165,6 @@
          * List of items in the NETWORK section
          */
         "network": [
-			"/m/",
-			"/m/home",
             "*"
         ],
         /**

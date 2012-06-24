@@ -100,7 +100,7 @@ Ext.define('HatioBB.view.vehicle.Summary', {
 			self.down('[itemId=briefInfo2]').setData(data);
 			self.down('[itemId=links]').setData(records[0].getData());
 			
-			data.eff_rate = Math.floor(50 + Math.random() * 40);
+			data.eff_rate = data.eco_index;
 			data.eco_rate = Math.floor(10 + data.eff_rate / 4);
 			var idx = Math.floor(data.eff_rate / 20);
 			data.eco_level = ['E', 'D', 'C', 'B', 'A'][idx];
@@ -241,12 +241,6 @@ Ext.define('HatioBB.view.vehicle.Summary', {
 			'<div class="itemCell">{consumable_item} <div class="percent"><span style="width:{health_rate_max * 100}%">{health_rate * 100}%</span></div></div>',
 			'</tpl>'
 			],
-			// html : [
-			// '<div class="subtitle">consumable</div>',
-			// '<div class="itemCell">Engine Oil <div class="percent"><span style="width:100%">112%</span></div></div>',
-			// '<div class="itemCell">Battery <div class="percent"><span style="width:86%">86%</span></div></div>',
-			// '<div class="itemCell">Antifreeze <div class="percent"><span style="width:95%">95%</span></div></div>',
-			// ].join('')
 		}
 	}, 
 	

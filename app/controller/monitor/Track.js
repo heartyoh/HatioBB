@@ -147,7 +147,6 @@ Ext.define('HatioBB.controller.monitor.Track', {
 		if(this.onProcessing)
 			return;
 			
-		console.log('!!!!!!!!');
 		this.onProcessing = true;
 		var self = this;
 		setTimeout(function() {

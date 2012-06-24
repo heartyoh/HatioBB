@@ -28,7 +28,10 @@
 "manufacturer": "Audi",
 "lat": 37.36,
 "distance_since_new_oil": 100,
-"registration_number": "가 1234"
+"registration_number": "가 1234",
+"eco_index" : 65,
+"avg_effcc" : 11.4,
+"official_effcc" : 15.6
 }
 ],
 "success": true

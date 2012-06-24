@@ -63,6 +63,12 @@ Ext.define('HatioBB.store.VehicleStore', {
 			name : 'location',
 			type : 'string'
 		}, {
+			name : 'eco_index',
+			type : 'int'
+		}, {
+			name : 'avg_effcc',
+			type : 'float'
+		}, {
 			name : 'created_at',
 			type : 'date',
 			dateFormat:'time'
