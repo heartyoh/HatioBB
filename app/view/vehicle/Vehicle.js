@@ -59,5 +59,12 @@ Ext.define('HatioBB.view.vehicle.Vehicle', {
 			},
             store: 'YearStore'
 		}]
-	}	
+	},
+	
+	refresh: function() {
+		var active = this.getActiveItem();
+		if(active && typeof(active.refresh) === 'function') {
+			active.refresh.call(active);
+		}
+	}
 });

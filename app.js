@@ -26,7 +26,7 @@ Ext.application({
 		'Ext.tab.Panel'
     ],
 
-    controllers: ['Main', 'Nav', 'Report', 'monitor.Track'],
+    controllers: ['Main', 'Nav', 'Report', 'monitor.Track', 'monitor.Info'],
     views: ['Main', 'Setting'],
     stores: ['VehicleFilteredStore', 'VehicleStore', 'RecentIncidentStore', 'VehicleMapStore', 
 			'DriverStore', 'DriverBriefStore', 'VehicleGroupStore', 'DriverGroupStore', 'TrackByVehicleStore', 

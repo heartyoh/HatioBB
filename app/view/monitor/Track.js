@@ -64,6 +64,12 @@ Ext.define('HatioBB.view.monitor.Track', {
 
 	},
 	
+	// Maybe called by refresh button of header
+	refresh: function() {
+		// You may want delegate to controller..
+		this.fireEvent('refresh');
+	},
+	
 	resetTrackLines : function() {
 		if(this.tracklines) {
 			Ext.Array.each(this.tracklines, function(line) {

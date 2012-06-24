@@ -17,7 +17,7 @@ Ext.define('HatioBB.controller.monitor.Track', {
         control: {
 			track : {
 				initialize : 'onInit',
-				activate : 'onActivate'
+				refresh : 'delayRefresh'
             },
 			buttonDays : {
 				tap : 'onButtonDays'
@@ -60,29 +60,42 @@ Ext.define('HatioBB.controller.monitor.Track', {
 		}
 		
 		this.getTrack().on('painted', function() {
-			if(self.getTrack().config.queryOn === 'vehicle')
-				HatioBB.setting.on('vehicle', self.refresh, self);
-			else
-				HatioBB.setting.on('driver', self.refresh, self);
+			switch(self.getTrack().config.queryOn) {
+				case 'driver' :
+					HatioBB.setting.on('driver', self.refresh, self);
+					break;
+				case 'vehicle' :
+					HatioBB.setting.on('vehicle', self.refresh, self);
+					break;
+				default :
+					HatioBB.setting.on('driver', self.delayRefresh, self);
+					HatioBB.setting.on('vehicle', self.delayRefresh, self);
+			}
 
-			google.maps.event.addListener(self.getMap().getMap(), 'click', unselectTrip);
-			google.maps.event.addListener(self.getMap().getMap(), 'zoom_changed', showPathMarkers);
+			self.delayRefresh();
 		});
 		
 		this.getTrack().on('erased', function() {
-			if(self.getTrack().config.queryOn === 'vehicle')
-				HatioBB.setting.un('vehicle', self.refresh, self);
-			else
-				HatioBB.setting.un('driver', self.refresh, self);
-
-			// google.maps.event.removeListener(self.getMap().getMap(), 'click', unselectTrip);
-			// google.maps.event.removeListener(self.getMap().getMap(), 'zoom_changed', showPathMarkers);
+			switch(self.getTrack().config.queryOn) {
+				case 'driver' :
+					HatioBB.setting.un('driver', self.refresh, self);
+					break;
+				case 'vehicle' :
+					HatioBB.setting.un('vehicle', self.refresh, self);
+					break;
+				default :
+					HatioBB.setting.un('driver', self.delayRefresh, self);
+					HatioBB.setting.un('vehicle', self.delayRefresh, self);
+			}
 		});
-	},
+		
+		this.getTrack().on('resize', function() {
+			google.maps.event.trigger(self.getMap().getMap(), 'resize');
+		});
 
-	onActivate: function() {
-		this.refresh();
-    },
+		google.maps.event.addListener(self.getMap().getMap(), 'click', unselectTrip);
+		google.maps.event.addListener(self.getMap().getMap(), 'zoom_changed', showPathMarkers);
+	},
 
 	onButtonDays: function(day) {
 		var from, to;
@@ -124,6 +137,28 @@ Ext.define('HatioBB.controller.monitor.Track', {
 		this.refresh(day);
 	},
 
+	delayRefresh : function() {
+		/*
+		 	HatioBB.setting 의 vehicle, driver 설정의 변경은 프로그래밍 적으로 연달아 발생할 가능성이 높다.
+			각 변화에 바로바로 반영하기 보다는 한 스텝을 기다렸다가 모아서 처리하는 것이 효과적일 것이다.
+			이 경우는 driver/vehicle 을 모두 queryOn하는 경우에만 적용된다.
+			Track 컴포넌트의 queryOn 속성에 아무 설정을 하지 않는 경우이다.
+		*/
+		if(this.onProcessing)
+			return;
+			
+		console.log('!!!!!!!!');
+		this.onProcessing = true;
+		var self = this;
+		setTimeout(function() {
+			try {
+				self.refresh();
+			} finally {
+				self.onProcessing = false;
+			}
+		}, 100);
+	},
+
 	refresh : function(day) {
 		var self = this;
 		
@@ -148,10 +183,19 @@ Ext.define('HatioBB.controller.monitor.Track', {
 			this.to = to;
 		}
 		
-		if(this.getTrack().config.queryOn === 'driver')
-			var driver = HatioBB.setting.get('driver');
-		else
-			var vehicle = HatioBB.setting.get('vehicle');
+		var driver, vehicle;
+		
+		switch(this.getTrack().config.queryOn) {
+			case 'driver' :
+				driver = HatioBB.setting.get('driver');
+				break;
+			case 'vehicle' :
+				vehicle = HatioBB.setting.get('vehicle');
+				break;
+			default :
+				driver = HatioBB.setting.get('driver');
+				vehicle = HatioBB.setting.get('vehicle');
+		}
 
 		var store = Ext.getStore('TrackStore');
 		var filter = [{
@@ -165,7 +209,8 @@ Ext.define('HatioBB.controller.monitor.Track', {
 				property : 'driver_id',
 				value : driver
 			});
-		} else {
+		} 
+		if(vehicle) {
 			filter.push({
 				property : 'vehicle_id',
 				value : vehicle
@@ -224,17 +269,6 @@ Ext.define('HatioBB.controller.monitor.Track', {
 			
 			// 30분 Gap은 새로운 Trip으로 판단한다.
 			if(last && (last.get('datetime') > record.get('datetime') + 30 * 60 * 1000)) {
-				// TODO ... How to make this informations.
-				// var tripInfo = {
-				// 	velocity : 100,
-				// 	distance : 200,
-				// 	startTime : ,
-				// 	endTime : ,
-				// 	startPos : ,
-				// 	endPos : ,
-				// 	vehicle : ,
-				// 	driver : 
-				// };
 				var avg_v = Ext.Array.sum(v) / v.length;
 				self.getTrack().addTrackLine(map, traces, trip, avg_v, distance);
 
