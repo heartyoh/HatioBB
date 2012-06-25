@@ -9,7 +9,7 @@ Ext.define('HatioBB.view.nav.NavReport', {
     ],
 
     config: {
-        title: 'Reports',
+        title: T('title.report_list'),
 
         disclosure: true,
 

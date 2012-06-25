@@ -48,11 +48,11 @@ Ext.define('HatioBB.view.monitor.Info', {
 		                tpl: [
 		                '<div class="infoID {status}">{id} ({registration_number})</div>',
 						'<tpl if="driver_id">',
-		                '<div class="infoText">Driver : {driver_id} ({driver_name})</div>',
+		                '<div class="infoText">'+ T('label.driver') +' : {driver_id} ({driver_name})</div>',
 						'<tpl else>',
-		                '<div class="infoText">Driver : ' + T('label.nodriver') + '</div>',
+		                '<div class="infoText">'+ T('label.driver') +' : ' + T('label.nodriver') + '</div>',
 						'</tpl>',
-		                '<div class="infoText">Location : {location}</div>'
+		                '<div class="infoText">'+ T('label.location') +' : {location}</div>'
 		                ]
 					}]
 		        }]

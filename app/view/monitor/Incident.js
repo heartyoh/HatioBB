@@ -408,8 +408,8 @@ Ext.define('HatioBB.view.monitor.Incident', {
 					},
 					tpl : ['<div class="iconImplus">'+ T('label.impulse') +' <span>{impulse_abs}({impulse_x},{impulse_y},{impulse_z})/{impulse_threshold}</span></div>',
 					'<div class="iconETemp">'+ T('label.engine_temp') +' <span>{engine_temp}/{engine_temp_threshold}</span></div>',
-					'<div class="iconVelocity">Velocity <span>{velocity}</span></div>',
-					'<div class="iconOBD">OBD Connected <span>{obd_connected_text}</span></div>']
+					'<div class="iconVelocity">'+ T('label.velocity') +' <span>{velocity}</span></div>',
+					'<div class="iconOBD">'+ T('label.obd_connected') +' <span>{obd_connected_text}</span></div>']
 				}
 			]	
 		}, {

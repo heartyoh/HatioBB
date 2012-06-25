@@ -24,7 +24,7 @@ Ext.define('HatioBB.view.nav.NavDriver', {
     },
 
     config: {
-        title: 'Drivers',
+        title: T('title.driver_list'),
 
         disclosure: true,
 
