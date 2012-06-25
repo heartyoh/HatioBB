@@ -30,7 +30,7 @@
 				"official_effcc":15.6,
 				"avg_effcc":12.0,
 				"eco_index":0,
-				"eco_run_rate":null,
+				"eco_run_rate":23,
 				"run_time_of_month":1750,
 				"eco_drv_time_of_month" : 370,
 				"run_dist_of_month":1900.0,

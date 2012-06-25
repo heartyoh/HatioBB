@@ -14,60 +14,36 @@ Ext.define('HatioBB.view.report.DailyReport', {
 		}, this.buildReport(), {
 			//html : '일일 리포트',
 			docked : 'bottom'
-		}
-		];
+		}];
 		
-		this.callParent(arguments);
-		
+		this.callParent(arguments);		
 		this.refresh();
 	},
 	
 	refresh : function() {
 		var self = this;
-		
 		var data = {};
 		var run_store = Ext.getStore('DailyReportStore');
 		
 		run_store.load(function(records) {
+			var record = records[0].data;
 			/* 주행 데이타를 설정한다 */
-			data.driving = [];
-			for(var i = 0;i < records.length;i++) {
-				var run_data = records[i].getData();
-				data.driving.push(run_data);
-			}
-
+			data.driving = record.driving;
 			/* 정비정보를 설정한다 */
-			data.maint = [];
-			for(var i = 0;i < 3;i++) {
-				data.maint.push({
-					vehicle_id : 'V00' + (i + 1),
-					reg_no : '가 1234',
-					desc : '정기 점검'
-				});
-			}
-
+			data.maint = record.maint;
 			/* 소모품 교체 정보를 설정한다 */
-			data.consummable = [];
-			for(var i = 0;i < 3;i++) {
-				data.consummable.push({
-					vehicle_id : 'V00' + (i + 1),
-					reg_no : '가 1234',
-					part : '엔진 오일'
-				});
-			}
+			data.consummable = record.consumable;
 
 			self.down('[itemId=report]').setData(data);
 		});
-
-
 	},
 	
 	buildReport : function() {
 		return {
-			xtype : 'panel',
+			xtype : 'panel',			
 			
 			itemId : 'report',
-			
+						
 			data : {},
 			
 			cls : 'bgHGradient',
@@ -78,20 +54,20 @@ Ext.define('HatioBB.view.report.DailyReport', {
 			
 			'<div class="reportWrap">',
 			'<div class="reportMain">',
-				'<div class="reportTitle">운전자 주행 리포트 <span>{date}</span></div>',
+				'<div class="reportTitle">' + T('report.daily_driving_report') + ' <span>{date}</span></div>',
 				'<table frame="void" rules="all">',
 				'<tr>',
-			   	 '<th>운전자 ID</th>',
-			   	 '<th>차량 ID</th>',
+			   	 '<th>' + T('label.driver_id') + '</th>',
+			   	 '<th>' + T('label.vehicle_id') + '</th>',
 			   	 
-			   	 '<th rowspan="2">주행거리</th>',
-			   	 '<th rowspan="2">주행시간</th>',
-			   	 '<th rowspan="2">연료소모량</th>',
-			   	 '<th rowspan="2">연비</th>',
+			   	 '<th rowspan="2">' + T('label.run_dist') + '</th>',
+			   	 '<th rowspan="2">' + T('label.run_time') + '</th>',
+			   	 '<th rowspan="2">' + T('label.fuel_consumption') + '</th>',
+			   	 '<th rowspan="2">' + T('label.fuel_efficiency') + '</th>',
 				'</tr>',
 				'<tr>',
-					'<th>운전자 이름</th>',
-					'<th>등록번호</th>',
+					'<th>' + T('label.name') + '</th>',
+					'<th>' + T('label.reg_no') + '</th>',
 				'</tr>',
 				'<tpl for="driving">',
 				'<tr>',
@@ -111,33 +87,33 @@ Ext.define('HatioBB.view.report.DailyReport', {
 			'</div>',
 			
 			'<div class="reportSub">',
-				'<div class="reportTitle">정비 리포트</div>',
+				'<div class="reportTitle">' + T('title.maintenance') + T('report.report') + '</div>',
 				'<table frame="hsides" rules="rows">',
 				'<tr>',
-				'<th>차량 ID</th>',
-				'<th>등록번호</th>',
-				'<th>정비내역</th>',
+				'<th>' + T('label.vehicle_id') + '</th>',
+				'<th>' + T('label.reg_no') + '</th>',
+				'<th>' + T('label.comment') + '</th>',
 				'</tr>',
 				'<tpl for="maint">',
 				'<tr>',
 				'<td>{vehicle_id}</td>',
 				'<td>{reg_no}</td>',
-				'<td>{desc}</td>',
+				'<td>{comment}</td>',
 				'</tr>',
 				'</tpl>',
 				'</table>',
-				'<div class="reportTitle">소모품 교체 리포트</div>',
+				'<div class="reportTitle">' + T('label.consumable_repl') + T('report.report') + '</div>',
 				'<table frame="hsides" rules="rows">',
 				'<tr>',
-				'<th>차량 ID</th>',
-				'<th>등록번호</th>',
-				'<th>소모품</th>',
+				'<th>' + T('label.vehicle_id') + '</th>',
+				'<th>' + T('label.reg_no') + '</th>',
+				'<th>' + T('label.consumable_item') + '</th>',
 				'</tr>',
 				'<tpl for="consummable">',
 				'<tr>',
 				'<td>{vehicle_id}</td>',
 				'<td>{reg_no}</td>',
-				'<td>{part}</td>',
+				'<td>{item}</td>',
 				'</tr>',
 				'</tpl>',
 				'</table>',

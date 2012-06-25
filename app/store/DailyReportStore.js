@@ -5,29 +5,14 @@ Ext.define('HatioBB.store.DailyReportStore', {
 		autoLoad : false,
 
 		fields : [ {
-			name : 'driver_id',
-			type : 'string'
+			name : 'driving',
+			type : 'auto'
 		}, {
-			name : 'driver_name',
-			type : 'string'
+			name : 'maint',
+			type : 'auto'
 		}, {
-			name : 'vehicle_id',
-			type : 'string'
-		}, {
-			name : 'reg_no',
-			type : 'string',
-		}, {
-			name : 'run_dist',
-			type : 'float'
-		}, {
-			name : 'run_time',
-			type : 'integer'
-		}, {
-			name : 'consmpt',
-			type : 'float'
-		}, {
-			name : 'effcc',
-			type : 'float'
+			name : 'consumable',
+			type : 'auto'
 		} ],
 
 		proxy : {

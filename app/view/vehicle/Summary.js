@@ -25,7 +25,7 @@ Ext.define('HatioBB.view.vehicle.Summary', {
 			cls : 'shotHList marginT10 divHAlign',
 			tpl : [
 				'<div class="iconFuel">' + T('label.remaining_fuel') + '<span>{remaining_fuel}</span></div>',
-				'<div class="iconTime">' + T('label.total_run_time') + '<span>{total_run_time} min</span></div>',
+				'<div class="iconTime">' + T('label.total_run_time') + '<span>{total_run_time} ' + T('label.parentheses_min') + '</span></div>',
 				'<div class="iconMap">Move to<span>Current Position Map</span></div>',
 				'<div class="iconTrack">Move to<span>Recent Running Track</span></div>'
 			].join('')
@@ -99,24 +99,19 @@ Ext.define('HatioBB.view.vehicle.Summary', {
 			var record = records[0].getData();
 			var vehicleInfo = record.vehicle;
 			var consumables = record.consumables;
-			var maintanence = record.maint;
+			var maintenance = record.maint;
 
 			// Vehicle Info ...
 			if(!vehicleInfo.eco_index) {
 				vehicleInfo.eco_index = Math.floor((vehicleInfo.avg_effcc / vehicleInfo.official_effcc) * 100);
 			}
-			//vehicleInfo.eco_rate = Math.floor(10 + vehicleInfo.eco_index / 4);
-			
-			if(!vehicleInfo.eco_run_rate) {
-				vehicleInfo.eco_run_rate = Math.floor((vehicleInfo.eco_drv_time_of_month / vehicleInfo.run_time_of_month) * 100)
-			}
 			
 			vehicleInfo.total_distance_mile = (vehicleInfo.total_distance * 0.621371192237334).toFixed(2);
+			vehicleInfo.run_dist_mile_of_month = (vehicleInfo.run_dist_of_month * 0.621371192237334).toFixed(2);
 			var idx = Math.floor(vehicleInfo.eco_index / 20);
 			vehicleInfo.eco_level = ['E', 'D', 'C', 'B', 'A'][idx];
 			vehicleInfo.cost_reduction = [50, 40, 30, 20, 10][idx];
 			
-			// ImageClip을 리프레쉬한다.
 			var vimage = self.down('[itemId=vehicleImage]');
 			if(vehicleInfo.image_clip) {
 				if(HatioBB.setting.get('app_mode'))
@@ -129,17 +124,8 @@ Ext.define('HatioBB.view.vehicle.Summary', {
 			
 			self.down('[itemId=briefInfo]').setData(vehicleInfo);
 			self.down('[itemId=briefInfo2]').setData(vehicleInfo);
-			self.down('[itemId=links]').setData(vehicleInfo);				
-			self.down('[itemId=ecoInfo]').setData(vehicleInfo);			
-			
-			// Vehicle Month Summary
-			//var run_sum_data = self.down('[itemId=runningInfo]').getData() || {};
-			//Ext.apply(run_sum_data, monthSummary);
-			//run_sum_data.total_distance = vehicleInfo.total_distance;
-			//run_sum_data.total_distance_mile = vehicleInfo.total_distance_mile;
-			//run_sum_data.run_dist_mile = (run_sum_data.run_dist * 0.621371192237334).toFixed(2);
-			//run_sum_data.effcc = run_sum_data.effcc.toFixed(1);
-			vehicleInfo.run_dist_mile_of_month = (vehicleInfo.run_dist_of_month * 0.621371192237334).toFixed(2);
+			self.down('[itemId=links]').setData(vehicleInfo);
+			self.down('[itemId=ecoInfo]').setData(vehicleInfo);						
 			self.down('[itemId=runningInfo]').setData(vehicleInfo);
 			
 			// Consumables
@@ -153,8 +139,11 @@ Ext.define('HatioBB.view.vehicle.Summary', {
 				return record;
 			}));
 						
-			// Maintanence
-			self.down('[itemId=maintInfo]').setData(maintanence);
+			// Maintenance
+			var tpl = ['<div class="subtitle">'+ T('title.maintenance') +'</div>'];
+			var maintMsg = maintenance ? T('msg.maint_on_x_next_y', {x : maintenance.repair_date, y : maintenance.next_repair_date}) : T('msg.no_maint_history');
+			tpl.push('<div class="itemCell">' + maintMsg + '</div>');
+			self.down('[itemId=maintInfo]').setHtml(tpl.join(''));		
 		});		
 	},
 	
@@ -207,10 +196,10 @@ Ext.define('HatioBB.view.vehicle.Summary', {
 			tpl : [
 			'<div class="distance">',
 				'<div class="total">'+ T('label.total_distance') +'<span class="km">{total_distance} km</span><span class="mile">{total_distance_mile} mile</span></div>',
-				'<div class="current">이달 주행거리<span class="km">{run_dist_of_month} km</span><span class="mile">{run_dist_mile_of_month} mile</span></div>',
+				'<div class="current">' + T('label.mileage_of_month') + '<span class="km">{run_dist_of_month} km</span><span class="mile">{run_dist_mile_of_month} mile</span></div>',
 			'</div>',
 			'<div class="fuel">',
-				'<div>이달 연료 소모량 : <span>{consmpt_of_month} ℓ</span></div>',
+				'<div>' + T('label.consumption_of_month') + ' : <span>{consmpt_of_month} ℓ</span></div>',
 				'<div>' + T('label.fuel_efficiency') + ' : <span>{effcc_of_month} km/ℓ</span></div>',
 			'</div>'	
 			]
@@ -224,7 +213,7 @@ Ext.define('HatioBB.view.vehicle.Summary', {
 			flex : 1,
 			cls : 'summaryConsumable',
 			tpl : [
-			'<div class="subtitle">consumable</div>',
+			'<div class="subtitle">' + T('title.consumable_item') + '</div>',
 			'<tpl for=".">',
 			'<div class="itemCell">{consumable_item} <div class="percent"><span style="width:{health_rate_max}%">{health_rate}%</span></div></div>',
 			'</tpl>'
@@ -238,10 +227,7 @@ Ext.define('HatioBB.view.vehicle.Summary', {
 			itemId : 'maintInfo',
 			flex : 1,
 			cls : 'summaryRepair',
-			tpl : [
-			'<div class="subtitle">'+ T('label.repair') +'</div>',
-			'<div class="itemCell">{repair_date}에 정비를 하였으며,<br/>다음 정비 예정일은 {next_repair_date}일 입니다.</div>'
-			].join('')
+			html : ''
 		}
 	}, 
 	
@@ -252,13 +238,13 @@ Ext.define('HatioBB.view.vehicle.Summary', {
 			cls : 'bgHGrident',
 			width : 265,
 			tpl : [
-			'<div class="subtitle">eco level</div>',
+			'<div class="subtitle">' + T('label.eco_level') + '</div>',
 			'<div class="ecoLevel {eco_level}"></div>',
 			'<div class="ecoHBox">',
-				'<div>'+ T('label.avg_effcc') + ' / ' + T('label.official_effcc') +' <span>{eco_index}%</span></div>',
-				'<div>경제주행 비율<span>{eco_run_rate}%</span></div>',
+				'<div>'+ T('label.avg_effcc') + ' / ' + T('label.official_effcc') + ' <span>{eco_index}%</span></div>',
+				'<div>' + T('label.eco_run_rate') + '<span>{eco_run_rate}%</span></div>',
 			'</div>',	
-			'<div class="ecoComment">이 차의 에코드라이브 지수는 {eco_level}레벨입니다.<br/> 공회전시간을 적절하게 관리하면, <span>연간 {cost_reduction}만원 이상의</span>유류비 절약이 가능합니다.'
+			'<div class="ecoComment">' + T('msg.vehicle_eco_drv_result_msg', {x : '{eco_level}', y : '{cost_reduction}'})
 			].join('')
 		}
 	}

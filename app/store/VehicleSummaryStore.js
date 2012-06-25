@@ -12,9 +12,6 @@ Ext.define('HatioBB.store.VehicleSummaryStore', {
 			name : 'vehicle',
 			type : 'auto'
 		}, {
-			name : 'vehicle_month_sum',
-			type : 'auto'
-		}, {
 			name : 'consumables',
 			type : 'auto'
 		}, {
