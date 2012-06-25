@@ -134,8 +134,8 @@ Ext.define('HatioBB.view.vehicle.Summary', {
 			});
 			
 			self.down('[itemId=consumableInfo]').setData(Ext.Array.map(sorted.slice(0,3), function(record) {
+				record.health_rate_max = Math.min(1, record.health_rate).toFixed(2) * 100;				
 				record.health_rate = (record.health_rate * 100).toFixed(2);
-				record.health_rate_max = Math.min(1, record.health_rate).toFixed(2) * 100;
 				return record;
 			}));
 						

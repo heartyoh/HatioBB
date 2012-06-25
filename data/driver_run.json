@@ -2,15 +2,17 @@
 total: 11,
 items: [
 {
+eco_index : 67,
+idle_time : 12,
 ovr_spd_time: 34,
+eco_drv_time: 15,
+sud_accel_cnt: 25,
+sud_brake_cnt: 8,
 consmpt: 495,
 co2_emss: 135,
 inc_cnt: 0,
-sud_brake_cnt: 8,
 run_dist: 1670,
 effcc: 2.85,
-sud_accel_cnt: 25,
-eco_drv_time: 15,
 month: 6,
 month_str: "2011-6",
 driver: "D005",
@@ -18,6 +20,8 @@ year: 2011,
 run_time: 1580
 },
 {
+eco_index : 74,
+idle_time : 12,
 ovr_spd_time: 25,
 consmpt: 450,
 co2_emss: 187,
@@ -34,6 +38,8 @@ year: 2011,
 run_time: 1200
 },
 {
+eco_index : 69,
+idle_time : 24,
 ovr_spd_time: 37,
 consmpt: 660,
 co2_emss: 156,
@@ -50,6 +56,8 @@ year: 2011,
 run_time: 1670
 },
 {
+eco_index : 68,
+idle_time : 15,
 ovr_spd_time: 13,
 consmpt: 560,
 co2_emss: 190,
@@ -66,6 +74,8 @@ year: 2011,
 run_time: 1350
 },
 {
+eco_index : 58,
+idle_time : 32,
 ovr_spd_time: 21,
 consmpt: 390,
 co2_emss: 230,
@@ -82,6 +92,8 @@ year: 2011,
 run_time: 1700
 },
 {
+eco_index : 35,
+idle_time : 32,
 ovr_spd_time: 15,
 consmpt: 610,
 co2_emss: 280,
@@ -98,6 +110,8 @@ year: 2011,
 run_time: 1600
 },
 {
+eco_index : 57,
+idle_time : 21,
 ovr_spd_time: 20,
 consmpt: 530,
 co2_emss: 296,
@@ -114,6 +128,8 @@ year: 2011,
 run_time: 1830
 },
 {
+eco_index : 76,
+idle_time : 9,
 ovr_spd_time: 19,
 consmpt: 650,
 co2_emss: 215,
@@ -130,6 +146,8 @@ year: 2012,
 run_time: 2000
 },
 {
+eco_index : 78,
+idle_time : 13,
 ovr_spd_time: 20,
 consmpt: 550,
 co2_emss: 180,
@@ -146,6 +164,8 @@ year: 2012,
 run_time: 1250
 },
 {
+eco_index : 45,
+idle_time : 23,
 ovr_spd_time: 21,
 consmpt: 350,
 co2_emss: 158,
@@ -162,6 +182,8 @@ year: 2012,
 run_time: 1350
 },
 {
+eco_index : 56,
+idle_time : 23,
 ovr_spd_time: 18,
 consmpt: 760,
 co2_emss: 185,

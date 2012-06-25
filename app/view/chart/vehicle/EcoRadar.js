@@ -57,14 +57,14 @@ Ext.define('HatioBB.view.chart.vehicle.EcoRadar', {
 			callback : function(records) {
 				var groups = this.getGroups();
 				var data = {
-					consmpt : { name : T('label.consumption') },
-					oos_cnt : { name : T('label.oos_count') },
-					co2_emss : { name : T('label.co2_emission') },
-					mnt_time : { name : T('label.maint_time') },
-					mnt_cnt : { name : T('label.maint_count') },
-					run_dist : { name : T('label.run_distance') },
-					effcc : { name : T('label.fuel_efficiency') },
-					run_time : { name : T('label.run_time') }
+					overSpdTime : { name : T('label.ovr_spd_time') },
+					sudAccelCnt : { name : T('label.sud_accel_cnt') },
+					sudBrakeCnt : { name : T('label.sud_brake_cnt') },
+					idleTime : { name : T('label.idle_time') },					
+					ecoDrvTime : { name : T('label.eco_drv_time') },
+					efficiency : { name : T('label.fuel_efficiency') },
+					ecoIndex : { name : T('label.eco_index') },
+					co2Emss : { name : T('label.co2_emissions') }
 				};
 				var fields = [];
 
@@ -73,61 +73,61 @@ Ext.define('HatioBB.view.chart.vehicle.EcoRadar', {
 					var records = group.children;
 
 					var totalRecordCnt = 0;
-					var consmpt = 0;
-					var oos_cnt = 0;
-					var co2_emss = 0;
-					var mnt_time = 0;
-					var mnt_cnt = 0;
-					var run_dist = 0;
-					var effcc = 0;
-					var run_time = 0;
+					var ecoDrvTime = 0;
+					var efficiency = 0;
+					var overSpdTime = 0;
+					var sudAccelCnt = 0;
+					var sudBrakeCnt = 0;
+					var ecoIndex = 0;
+					var co2Emss = 0;
+					var idleTime = 0;
 
 					Ext.each(records, function(record) {
 						if(record.get('vehicle'))
 							totalRecordCnt += 1;
 
-						if(record.get('consmpt'))
-							consmpt += record.get('consmpt');
-
-						if(record.get('oos_cnt'))
-							oos_cnt += record.get('oos_cnt');
-
-						if(record.get('co2_emss'))
-							co2_emss += record.get('co2_emss');
-
-						if(record.get('mnt_time'))
-							mnt_time += record.get('mnt_time');
-
-						if(record.get('mnt_cnt'))
-							mnt_cnt += record.get('mnt_cnt');			
-
-						if(record.get('run_dist'))
-							run_dist += record.get('run_dist');			
+						if(record.get('eco_drv_time'))
+							ecoDrvTime += record.get('eco_drv_time');
 
 						if(record.get('effcc'))
-							effcc += record.get('effcc');			
+							efficiency += record.get('effcc');
 
-						if(record.get('run_time'))
-							run_time += record.get('run_time');			
+						if(record.get('ovr_spd_time'))
+							overSpdTime += record.get('ovr_spd_time');
+
+						if(record.get('sud_accel_cnt'))
+							sudAccelCnt += record.get('sud_accel_cnt');
+
+						if(record.get('sud_brake_cnt'))
+							sudBrakeCnt += record.get('sud_brake_cnt');
+
+						if(record.get('eco_index'))
+							ecoIndex += record.get('eco_index');
+
+						if(record.get('co2_emss'))
+							co2Emss += record.get('co2_emss');
+
+						if(record.get('idle_time'))
+							idleTime += record.get('idle_time');		
 					});
 
-					consmpt = consmpt / 500 / totalRecordCnt;
-					oos_cnt = oos_cnt / totalRecordCnt;
-					co2_emss = co2_emss / 100 / totalRecordCnt;
-					mnt_time = mnt_time / 10 / totalRecordCnt;
-					mnt_cnt = mnt_cnt / totalRecordCnt;
-					run_dist = run_dist / 500 / totalRecordCnt;
-					effcc = effcc / totalRecordCnt;
-					run_time = run_time / 500 / totalRecordCnt;
+					ecoDrvTime = ecoDrvTime / totalRecordCnt;
+					efficiency = efficiency / totalRecordCnt;
+					overSpdTime = overSpdTime / totalRecordCnt;
+					sudAccelCnt = sudAccelCnt / totalRecordCnt;
+					sudBrakeCnt = sudBrakeCnt / totalRecordCnt;
+					ecoIndex = ecoIndex / totalRecordCnt;
+					co2Emss = co2Emss / totalRecordCnt;
+					idleTime = idleTime / totalRecordCnt;
 
-					data['consmpt'][year] = consmpt;
-					data['oos_cnt'][year] = oos_cnt;
-					data['co2_emss'][year] = co2_emss;
-					data['mnt_time'][year] = mnt_time;
-					data['mnt_cnt'][year] = mnt_cnt;
-					data['run_dist'][year] = run_dist;
-					data['effcc'][year] = effcc;
-					data['run_time'][year] = run_time;
+					data['ecoIndex'][year] = Math.floor(ecoIndex / 5);
+					data['ecoDrvTime'][year] = ecoDrvTime;
+					data['efficiency'][year] = efficiency;
+					data['co2Emss'][year] = Math.floor(co2Emss / 10);
+					data['overSpdTime'][year] = overSpdTime;
+					data['sudAccelCnt'][year] = sudAccelCnt;
+					data['sudBrakeCnt'][year] = sudBrakeCnt;
+					data['idleTime'][year] = idleTime;
 
 					fields.push(year);
 				});

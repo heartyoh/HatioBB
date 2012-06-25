@@ -36,6 +36,9 @@ Ext.define('HatioBB.store.DriverRunStore', {
 			name : 'effcc',
 			type : 'float'
 		}, {
+			name : 'eco_index',
+			type : 'integer'			
+		}, {
 			name : 'sud_accel_cnt',
 			type : 'integer'
 		}, {
@@ -46,6 +49,9 @@ Ext.define('HatioBB.store.DriverRunStore', {
 			type : 'integer'
 		}, {
 			name : 'ovr_spd_time',
+			type : 'integer'
+		}, {
+			name : 'idle_time',
 			type : 'integer'
 		}, {
 			name : 'inc_cnt',

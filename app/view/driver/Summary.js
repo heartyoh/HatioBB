@@ -93,7 +93,7 @@ Ext.define('HatioBB.view.driver.Summary', {
 				data.eco_run_rate = Math.floor((data.eco_drv_time_of_month / data.run_time_of_month) * 100);
 			}
 			
-			var idx = Math.floor(data.eco_run_rate / 20);
+			var idx = Math.floor(data.eco_index / 20);
 			data.eco_level = ['E', 'D', 'C', 'B', 'A'][idx];
 			data.cost_reduction = [50, 40, 30, 20, 10][idx];
 			data.total_distance_mile = (data.total_distance * 0.621371192237334).toFixed(2);

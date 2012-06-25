@@ -39,6 +39,24 @@ Ext.define('HatioBB.store.VehicleRunStore', {
 			name : 'effcc',
 			type : 'float'
 		}, {
+			name : 'eco_index',
+			type : 'integer'			
+		}, {
+			name : 'sud_accel_cnt',
+			type : 'integer'
+		}, {
+			name : 'sud_brake_cnt',
+			type : 'integer'
+		}, {
+			name : 'eco_drv_time',
+			type : 'integer'
+		}, {
+			name : 'ovr_spd_time',
+			type : 'integer'
+		}, {
+			name : 'idle_time',
+			type : 'integer'			
+		}, {
 			name : 'oos_cnt',
 			type : 'integer'
 		}, {

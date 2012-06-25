@@ -233,6 +233,7 @@ T({
 		avg_effcc : '평균 연비',
 		eco_drv_time : '경제운전 시간',
 		ovr_spd_time : '과속 시간',
+		idle_time : '공회전 시간',
 		inc_cnt : '이상상황 횟수',
 		sud_accel_cnt : '급가속 횟수',
 		sud_brake_cnt : '급감속 횟수',
@@ -441,6 +442,7 @@ T({
 		select_x_first : '{x}를 먼저 선택해주세요',
 		no_maint_history : '정비 이력이 없습니다.',
 		maint_on_x_next_y : '{x}에 정비를 하였으며 <br/> 다음 정비 예정일은 {y}입니다.',
-		eco_drv_result_msg : '이 차의 에코드라이브 지수는 {x}레벨입니다.<br/> 공회전시간을 적절하게 관리하면, 연간 <span>{y}만원</span> 이상의 유류비 절약이 가능합니다.'
+		vehicle_eco_drv_result_msg : '이 차의 에코드라이브 지수는 {x}레벨입니다.<br/> 공회전시간을 적절하게 관리하면, <span>연간 {y}만원</span> 이상의 유류비 절약이 가능합니다.',
+		driver_eco_drv_result_msg : '이 운전자의 에코드라이브 지수는 {x}레벨입니다.<br/> 운전습관을 적절하게 관리하면, <span>연간 {y}만원</span> 이상의유류비 절약이 가능하며, 사고 위험을 현저히 낮출 수 있습니다'
 	}
 });

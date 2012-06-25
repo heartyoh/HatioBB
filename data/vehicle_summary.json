@@ -7,13 +7,13 @@
 				{"health_rate":0.0055555556900799274,"consumable_item":"AirconFilter"},
 				{"health_rate":0.0013888889225199819,"consumable_item":"Antifreeze"},
 				{"health_rate":0.131633758544922,"consumable_item":"Battery"},
-				{"health_rate":0.848724842071533,"consumable_item":"BrakeOil"},
-				{"health_rate":1.827114105224609,"consumable_item":"BrakePad"},
+				{"health_rate":0.248724842071533,"consumable_item":"BrakeOil"},
+				{"health_rate":0.127114105224609,"consumable_item":"BrakePad"},
 				{"health_rate":0.789798736572266,"consumable_item":"EngineOil"},
-				{"health_rate":1.148724842071533,"consumable_item":"IgniterPlug"},
-				{"health_rate":0.827114105224609,"consumable_item":"MissionOil"},
+				{"health_rate":0.148724842071533,"consumable_item":"IgniterPlug"},
+				{"health_rate":0.227114105224609,"consumable_item":"MissionOil"},
 				{"health_rate":0.4243624210357666,"consumable_item":"TimingBelt"},
-				{"health_rate":0.98089075088501,"consumable_item":"Tire"},
+				{"health_rate":0.18089075088501,"consumable_item":"Tire"},
 				{"health_rate":0.131633758544922,"consumable_item":"WheeAlignment"}
 			],
 			"vehicle": {

@@ -57,11 +57,14 @@ Ext.define('HatioBB.view.chart.driver.EcoRadar', {
 			callback : function(records) {
 				var groups = this.getGroups();
 				var data = {
-					ecoDrvTime : { name : T('label.x_time', {x : T('label.eco_driving')}) },
+					overSpdTime : { name : T('label.ovr_spd_time') },
+					sudAccelCnt : { name : T('label.sud_accel_cnt') },
+					sudBrakeCnt : { name : T('label.sud_brake_cnt') },
+					idleTime : { name : T('label.idle_time') },					
+					ecoDrvTime : { name : T('label.eco_drv_time') },
 					efficiency : { name : T('label.fuel_efficiency') },
-					overSpdCnt : { name : T('label.x_time', {x : T('label.over_speeding')}) },
-					sudAccelCnt : { name : T('label.x_count', {x : T('label.sudden_accel')}) },
-					sudBrakeCnt : { name : T('label.x_count', {x : T('label.sudden_brake')}) },
+					ecoIndex : { name : T('label.eco_index') },
+					co2Emss : { name : T('label.co2_emissions') }
 				};
 				var fields = [];
 
@@ -72,9 +75,12 @@ Ext.define('HatioBB.view.chart.driver.EcoRadar', {
 					var totalRecordCnt = 0;
 					var ecoDrvTime = 0;
 					var efficiency = 0;
-					var overSpdCnt = 0;
+					var overSpdTime = 0;
 					var sudAccelCnt = 0;
 					var sudBrakeCnt = 0;
+					var ecoIndex = 0;
+					var co2Emss = 0;
+					var idleTime = 0;
 
 					Ext.each(records, function(record) {
 						if(record.get('driver'))
@@ -87,26 +93,41 @@ Ext.define('HatioBB.view.chart.driver.EcoRadar', {
 							efficiency += record.get('effcc');
 
 						if(record.get('ovr_spd_time'))
-							overSpdCnt += record.get('ovr_spd_time');
+							overSpdTime += record.get('ovr_spd_time');
 
 						if(record.get('sud_accel_cnt'))
 							sudAccelCnt += record.get('sud_accel_cnt');
 
 						if(record.get('sud_brake_cnt'))
-							sudBrakeCnt += record.get('sud_brake_cnt');			
+							sudBrakeCnt += record.get('sud_brake_cnt');
+							
+						if(record.get('eco_index'))
+							ecoIndex += record.get('eco_index');
+							
+						if(record.get('co2_emss'))
+							co2Emss += record.get('co2_emss');
+							
+						if(record.get('idle_time'))
+							idleTime += record.get('idle_time');
 					});
 
 					ecoDrvTime = ecoDrvTime / totalRecordCnt;
 					efficiency = efficiency / totalRecordCnt;
-					overSpdCnt = overSpdCnt / totalRecordCnt;
+					overSpdTime = overSpdTime / totalRecordCnt;
 					sudAccelCnt = sudAccelCnt / totalRecordCnt;
 					sudBrakeCnt = sudBrakeCnt / totalRecordCnt;
+					ecoIndex = ecoIndex / totalRecordCnt;
+					co2Emss = co2Emss / totalRecordCnt;
+					idleTime = idleTime / totalRecordCnt;
 
+					data['ecoIndex'][year] = Math.floor(ecoIndex / 5);
 					data['ecoDrvTime'][year] = ecoDrvTime;
 					data['efficiency'][year] = efficiency;
-					data['overSpdCnt'][year] = overSpdCnt;
+					data['co2Emss'][year] = Math.floor(co2Emss / 10);
+					data['overSpdTime'][year] = overSpdTime;
 					data['sudAccelCnt'][year] = sudAccelCnt;
 					data['sudBrakeCnt'][year] = sudBrakeCnt;
+					data['idleTime'][year] = idleTime;
 				
 					fields.push(year);
 				});
