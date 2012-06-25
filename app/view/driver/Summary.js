@@ -22,8 +22,9 @@ Ext.define('HatioBB.view.driver.Summary', {
 			itemId : 'links',
 			height : 45,
 			cls : 'shotHList marginT10 divHAlign',
-			html : [
-				'<div class="iconTime">Total Drive Time<span>5,500 min</span></div>',
+			data: null,
+            tpl: [
+				'<div class="iconTime">Total Drive Time<span>{total_run_time} min</span></div>',
 				'<div class="iconMap">Move to<span>Current Position Map</span></div>',
 				'<div class="iconTrack">Move to<span>Recent Running Track</span></div>',
 			].join('')
@@ -80,7 +81,7 @@ Ext.define('HatioBB.view.driver.Summary', {
 		if(HatioBB.setting.get('driver') === this.driver) 
 			return;
 			
-		var store = Ext.getStore('DriverStore');
+		var store = Ext.getStore('DriverSummaryStore');
 		this.driver = HatioBB.setting.get('driver');
 		
 		store.clearFilter(true);
@@ -90,23 +91,27 @@ Ext.define('HatioBB.view.driver.Summary', {
 			
 			self.down('[itemId=briefInfo]').setData(data);
 			self.down('[itemId=briefInfo2]').setData(data);
+			self.down('[itemId=links]').setData(data);
 			
-			data.eff_rate = Math.floor(50 + Math.random() * 40);
-			data.eco_rate = Math.floor(10 + data.eff_rate / 4);
-			var idx = Math.floor(data.eff_rate / 20);
+			// Driver Info ...
+			
+			if(data.eco_run_rate == 0) {
+				data.eco_run_rate = Math.floor((data.eco_drv_time_of_month / data.run_time_of_month) * 100);
+			}
+			
+			var idx = Math.floor(data.eco_run_rate / 20);
 			data.eco_level = ['E', 'D', 'C', 'B', 'A'][idx];
 			data.cost_reduction = [50, 40, 30, 20, 10][idx];
 			self.down('[itemId=ecoInfo]').setData(data);
 
-			var run_data = self.down('[itemId=runningInfo]').getData() || {};
-			// run_data.total_distance = data.total_distance; /* 아직 관련 데이타가 없으므로 임의의 데이타로 */
-			run_data.total_distance = 120349;
-			run_data.total_distance_mile = (run_data.total_distance * 0.621371192237334).toFixed(2);
-			self.down('[itemId=runningInfo]').setData(run_data);
+			data.total_distance_mile = (data.total_distance * 0.621371192237334).toFixed(2);
+			data.run_dist_mile = (data.run_dist * 0.621371192237334).toFixed(2);
+			data.run_dist_mile_of_month = (data.run_dist_of_month * 0.621371192237334).toFixed(2);
+			self.down('[itemId=runningInfo]').setData(data);
 			
 
 			// ImageClip을 리프레쉬한다.
-			var imageClip = records[0].get('image_clip');
+			var imageClip = data.image_clip;
 			var dimage = self.down('[itemId=driverImage]');
 			if(imageClip) {
 				if(HatioBB.setting.get('app_mode'))
@@ -116,31 +121,6 @@ Ext.define('HatioBB.view.driver.Summary', {
 			} else {
 				dimage.setSrc('resources/images/bgDriver.png');
 			}
-		});
-
-		var run_store = Ext.getStore('DriverRunStore');
-		
-		var now = new Date();
-		run_store.clearFilter(true);
-		run_store.filter([{
-			property : 'driver',
-			value : this.driver
-		}, {
-			property : 'year',
-			value : now.getFullYear()
-		}, {
-			property : 'month',
-			value : now.getMonth() + 1
-		}]);
-		
-		run_store.load(function(records) {
-			var data = records[0].getData();
-
-			var run_data = self.down('[itemId=runningInfo]').getData() || {};
-			Ext.apply(run_data, data);
-			run_data.run_dist_mile = (run_data.run_dist * 0.621371192237334).toFixed(2);
-			run_data.effcc = run_data.effcc.toFixed(1);
-			self.down('[itemId=runningInfo]').setData(run_data);
 		});
 	},
 	
@@ -195,11 +175,11 @@ Ext.define('HatioBB.view.driver.Summary', {
 			tpl : [
 			'<div class="distance">',
 				'<div class="total">'+ T('label.total_distance') +'<span class="km">{total_distance} km</span><span class="mile">{total_distance_mile} mile</span></div>',
-				'<div class="current">이달 주행거리<span class="km">{run_dist} km</span><span class="mile">{run_dist_mile} mile</span></div>',
+				'<div class="current">이달 주행거리<span class="km">{run_dist_of_month} km</span><span class="mile">{run_dist_mile_of_month} mile</span></div>',
 			'</div>',
 			'<div class="fuel">',
-				'<div>이달 연료 소모량 : <span>{consmpt} ℓ</span></div>',
-				'<div>연비 : <span>{effcc} km/ℓ</span></div>',
+				'<div>이달 연료 소모량 : <span>{consmpt_of_month} ℓ</span></div>',
+				'<div>연비 : <span>{effcc_of_month} km/ℓ</span></div>',
 			'</div>'	
 			]
 		}
@@ -216,8 +196,8 @@ Ext.define('HatioBB.view.driver.Summary', {
 			'<div class="subtitle">eco level</div>',
 			'<div class="ecoLevel {eco_level}"></div>',
 			'<div class="ecoHBox">',
-				'<div>'+ T('label.avg_effcc') + '/' + T('label.official_effcc') +' <span>{eff_rate}%</span></div>',
-				'<div>경제주행 비율<span>{eco_rate}%</span></div>',
+				'<div>'+ T('label.avg_effcc') + '/' + T('label.official_effcc') +' <span>{eco_index}%</span></div>',
+				'<div>경제주행 비율<span>{eco_run_rate}%</span></div>',
 			'</div>',	
 			'<div class="ecoComment">이 운전자의 에코드라이브 지수는 {eco_level}레벨입니다.<br/> 운전습관을 적절하게 관리하면, <span>연간 {cost_reduction}만원 이상의</span>유류비 절약이 가능하며, 사고 위험을 현저히 낮출 수 있습니다.'
 			].join('')

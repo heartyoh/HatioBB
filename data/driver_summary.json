@@ -1,0 +1,24 @@
+{
+"total": 1,
+"items": [
+{
+"id":"PD-001",
+"name":"홍길동",
+"title":"사장",
+"division":"Driver",
+"social_id":"761105-5691725",
+"phone_no_1":"010-3237-2286",
+"image_clip":"data/image/D001.jpg",
+"total_distance":293021.0,
+"total_run_time":2252,
+"avg_effcc":12.0,
+"eco_index":70,
+"eco_run_rate":0,
+"run_time_of_month":1600,
+"run_dist_of_month":1700.0,
+"consmpt_of_month":610.0,
+"effcc_of_month":2.95,
+"eco_drv_time_of_month": 350,
+}],
+"success": true
+}
