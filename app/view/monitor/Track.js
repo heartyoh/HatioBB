@@ -136,9 +136,9 @@ Ext.define('HatioBB.view.monitor.Track', {
 						'<div class="close"></div>',
 						'<div class="trackBubble">',
 							'<div>' + address + '</div>',
-							'<div><span>위도/경도</span>' + trace.get('lat').toFixed(2) + ' / ' + trace.get('lng').toFixed(2) + '</div>',
-							'<div><span>속도</span>' + trace.get('velocity') + ' KM/H' + '</div>',
-							'<div><span>시간</span>' + Ext.Date.format(trace.get('datetime'), 'Y-m-d H:i:s') + '</div>',
+							'<div><span>'+ T('label.latitude') + '/' + T('label.longitude') +'</span>' + trace.get('lat').toFixed(2) + ' / ' + trace.get('lng').toFixed(2) + '</div>',
+							'<div><span>'+ T('label.velocity') +'</span>' + trace.get('velocity') + ' KM/H' + '</div>',
+							'<div><span>'+ T('label.time') +'</span>' + Ext.Date.format(trace.get('datetime'), 'Y-m-d H:i:s') + '</div>',
 						'</div>',
 					'</div>'
 				].join('');
@@ -183,12 +183,12 @@ Ext.define('HatioBB.view.monitor.Track', {
 				'<div class="bubbleWrap">',
 					'<div class="close"></div>',
 					'<div class="trackBubble">',
-						'<div><span>차량</span>' + vehicleId + ' - ' + vehicle.get('registration_number') + '</div>',
-						'<div><span>운전자</span>' + driverId + ' - ' + driver.get('name') + '</div>',
+						'<div><span>'+ T('label.vehicle') +'</span>' + vehicleId + ' - ' + vehicle.get('registration_number') + '</div>',
+						'<div><span>'+ T('label.driver') +'</span>' + driverId + ' - ' + driver.get('name') + '</div>',
 						'<div><span>주행시작</span>' + startTime + '</div>',
 						'<div><span>주행종료</span>' + endTime + '</div>',
-						'<div><span>평균시속</span>' + Math.floor(avg_v) + ' KM/H</div>',
-						'<div><span>주행거리</span>' + distance.toFixed(2) + ' KM</div>',
+						'<div><span>'+ T('label.average_speed') +'</span>' + Math.floor(avg_v) + ' KM/H</div>',
+						'<div><span>'+ T('label.run_dist') +'</span>' + distance.toFixed(2) + ' KM</div>',
 					'</div>',
 				'</div>'
 			].join('');

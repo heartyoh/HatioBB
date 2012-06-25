@@ -22,16 +22,16 @@ Ext.define('HatioBB.view.driver.Driver', {
 		}, {
 			xtype : 'chart_d_running',
 			iconCls : 'iconsTab tabDrive',
-			title : 'Running'
+			title : T('label.running')
 		}, {
 			xtype : 'chart_d_eco_radar',
 			iconCls : 'iconsTab tabEco',
-			title : 'Eco-Driving'
+			title : T('label.eco_driving')
 		}, {
 			xtype : 'track',
 			iconCls : 'iconsTab tabTrack',
 			queryOn : 'driver',
-			title : 'Track'
+			title : T('menu.track')
 		}]
 	},
 	

@@ -26,24 +26,7 @@ Ext.define('HatioBB.view.report.DailyReport', {
 		var self = this;
 		
 		var data = {};
-
-		/* 어제 일자를 구힌다 */
-		/*var yesterday = new Date();
-		yesterday.setDate(yesterday.getDate() - 1);
-		data.date = Ext.Date.format(yesterday, T('format.date'));
-
-		var dstore = Ext.getStore('DriverBriefStore');*/
 		var run_store = Ext.getStore('DailyReportStore');
-		
-		/* TODO 실제로는 어제 날짜 정보를 가져와야 하지만, 아직 서비스가 없는 관계로 이와 같이 샘플로 대체함 */
-		/*run_store.clearFilter(true);
-		run_store.filter([{
-			property : 'year',
-			value : yesterday.getFullYear()
-		}, {
-			property : 'month',
-			value : yesterday.getMonth() + 1
-		}]);*/
 		
 		run_store.load(function(records) {
 			/* 주행 데이타를 설정한다 */
@@ -51,17 +34,6 @@ Ext.define('HatioBB.view.report.DailyReport', {
 			for(var i = 0;i < records.length;i++) {
 				var run_data = records[i].getData();
 				data.driving.push(run_data);
-				/*var driver = dstore.getById(run_data.driver).getData();
-				data.driving.push({
-					driver_id : driver.id,
-					name : driver.name,
-					vehicle_id : '',
-					reg_no : '',
-					run_dist : Math.floor(run_data.run_dist),
-					run_time : Math.floor(run_data.run_time),
-					consmpt : Math.floor(run_data.consmpt),
-					effcc : run_data.effcc.toFixed(1)
-				});*/
 			}
 
 			/* 정비정보를 설정한다 */

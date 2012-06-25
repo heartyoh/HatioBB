@@ -22,7 +22,7 @@ Ext.define('HatioBB.view.vehicle.Summary', {
 			data : {},
 			cls : 'shotHList marginT10 divHAlign',
 			tpl : [
-				'<div class="iconFuel">Remaining Fuel<span>{remaining_fuel}</span></div>',
+				'<div class="iconFuel">' + T('label.remaining_fuel') + '<span>{remaining_fuel}</span></div>',
 				'<div class="iconTime">Total Drive Time<span>5,500 min</span></div>',
 				'<div class="iconMap">Move to<span>Current Position Map</span></div>',
 				'<div class="iconTrack">Move to<span>Recent Running Track</span></div>'
@@ -218,7 +218,7 @@ Ext.define('HatioBB.view.vehicle.Summary', {
 			cls : 'paddingT25 paddingR10 paddingL10',
 			tpl : [
 			'<div class="distance">',
-				'<div class="total">총 주행거리<span class="km">{total_distance} km</span><span class="mile">{total_distance_mile} mile</span></div>',
+				'<div class="total">'+ T('label.total_distance') +'<span class="km">{total_distance} km</span><span class="mile">{total_distance_mile} mile</span></div>',
 				'<div class="current">이달 주행거리<span class="km">{run_dist} km</span><span class="mile">{run_dist_mile} mile</span></div>',
 			'</div>',
 			'<div class="fuel">',
@@ -250,7 +250,7 @@ Ext.define('HatioBB.view.vehicle.Summary', {
 			flex : 1,
 			cls : 'summaryRepair',
 			html : [
-			'<div class="subtitle">repair</div>',
+			'<div class="subtitle">'+ T('label.repair') +'</div>',
 			'<div class="itemCell">2012년 1월 31일에 정비를 하였으며,<br/>다음 정비 예정일은 2012년 6월 30일 입니다.</div>'
 			].join('')
 		}
@@ -266,7 +266,7 @@ Ext.define('HatioBB.view.vehicle.Summary', {
 			'<div class="subtitle">eco level</div>',
 			'<div class="ecoLevel {eco_level}"></div>',
 			'<div class="ecoHBox">',
-				'<div>평균/공인 연비 <span>{eff_rate}%</span></div>',
+				'<div>'+ T('label.avg_effcc') + '/' + T('label.official_effcc') +' <span>{eff_rate}%</span></div>',
 				'<div>경제주행 비율<span>{eco_rate}%</span></div>',
 			'</div>',	
 			'<div class="ecoComment">이 차의 에코드라이브 지수는 {eco_level}레벨입니다.<br/> 공회전시간을 적절하게 관리하면, <span>연간 {cost_reduction}만원 이상의</span>유류비 절약이 가능합니다.'

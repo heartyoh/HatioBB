@@ -167,7 +167,7 @@ Ext.define('HatioBB.view.monitor.Map', {
 							dr ? '<div class="showDriverInfo">ID : ' + dr.get('id') + '<br/>'+ dr.get('name') + '</div>'
 							: '<div class="showDriverInfo">' + T('label.nodriver') + '</div>',
 					'</div>',	
-					'<div class="showVehicleTrack">Show Recent Track</div>',
+					'<div class="showVehicleTrack">'+ T('title.tracking_recent_driving') +'</div>',
 				'</div>'
 			].join('');
 

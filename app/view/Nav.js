@@ -27,21 +27,21 @@ Ext.define('HatioBB.view.Nav', {
             {
                 xtype: 'button',
                 id: 'nav_vehicle',
-                text: 'Vehicle',
+                text: T('menu.vehicle'),
 				cls : 'navBtn',
                 iconCls: 'iconVehicle'
             },
             {
                 xtype: 'button',
                 id: 'nav_driver',
-                text: 'Driver',
+                text: T('menu.driver'),
 				cls : 'navBtn',
                 iconCls: 'iconDriver'
             },
             {
                 xtype: 'button',
                 id: 'nav_report',
-                text: 'Report',
+                text: T('menu.report'),
 				cls : 'navBtn',
                 iconCls: 'iconReport'
             },

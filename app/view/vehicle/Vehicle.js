@@ -23,7 +23,7 @@ Ext.define('HatioBB.view.vehicle.Vehicle', {
 		}, {
 			xtype : 'chart_v_running',
 			iconCls : 'iconsTab tabDrive',
-			title : 'Running'
+			title : T('label.running')
 		}, {
 			xtype : 'chart_v_consumable',
 			iconCls : 'iconsTab tabConsumable',
@@ -31,16 +31,16 @@ Ext.define('HatioBB.view.vehicle.Vehicle', {
 		}, {
 			xtype : 'vehicle_repair',
 			iconCls : 'iconsTab tabRepair',
-			title : 'Repair'
+			title : T('label.repair')
 		}, {
 			xtype : 'chart_v_eco_radar',
 			iconCls : 'iconsTab tabEco',
-			title : 'Eco-Driving'
+			title : T('label.eco_driving')
 		}, {
 			xtype : 'track',
 			iconCls : 'iconsTab tabTrack',
 			queryOn : 'vehicle',
-			title : 'Track'
+			title : T('menu.track')
 		}]
 	},
 	

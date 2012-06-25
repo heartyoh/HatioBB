@@ -348,7 +348,7 @@ Ext.define('HatioBB.view.monitor.Incident', {
 	zInfo : {
 		xtype : 'panel',
 		itemId : 'info',
-		title : '개요',
+		title : T('menu.overview'),
 		iconCls : 'iconsTab tabMap',
 		cls : 'grayBg',
 		layout : {
@@ -381,8 +381,8 @@ Ext.define('HatioBB.view.monitor.Incident', {
 				},
 				tpl : [
 				'<div class="infoID">{driver_id}({driver_name}) , {vehicle_id}({registration_number})</div>',
-                '<div class="infoText">Location : {location}</div>',
-                '<div class="infoText">Time : {datetime} </div>'
+                '<div class="infoText">'+ T('label.location') +' : {location}</div>',
+                '<div class="infoText">'+ T('label.time') +' : {datetime} </div>'
 				]
 			}]
 		}, {
@@ -406,8 +406,8 @@ Ext.define('HatioBB.view.monitor.Incident', {
 						impulse_abs : '',
 						engine_temp : ''
 					},
-					tpl : ['<div class="iconImplus">Impulse <span>{impulse_abs}({impulse_x},{impulse_y},{impulse_z})/{impulse_threshold}</span></div>',
-					'<div class="iconETemp">Engine Temp <span>{engine_temp}/{engine_temp_threshold}</span></div>',
+					tpl : ['<div class="iconImplus">'+ T('label.impulse') +' <span>{impulse_abs}({impulse_x},{impulse_y},{impulse_z})/{impulse_threshold}</span></div>',
+					'<div class="iconETemp">'+ T('label.engine_temp') +' <span>{engine_temp}/{engine_temp_threshold}</span></div>',
 					'<div class="iconVelocity">Velocity <span>{velocity}</span></div>',
 					'<div class="iconOBD">OBD Connected <span>{obd_connected_text}</span></div>']
 				}
@@ -442,7 +442,7 @@ Ext.define('HatioBB.view.monitor.Incident', {
 	
 	zChart : {
 		xtype : 'chart_v_accel',
-		title : 'Chart',
+		title : T('label.chart'),
 		layout : 'fit',
 		iconCls : 'iconsTab tabChart',
 	}

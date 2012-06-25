@@ -194,7 +194,7 @@ Ext.define('HatioBB.view.driver.Summary', {
 			cls : 'paddingT25 paddingR10 paddingL10',
 			tpl : [
 			'<div class="distance">',
-				'<div class="total">총 주행거리<span class="km">{total_distance} km</span><span class="mile">{total_distance_mile} mile</span></div>',
+				'<div class="total">'+ T('label.total_distance') +'<span class="km">{total_distance} km</span><span class="mile">{total_distance_mile} mile</span></div>',
 				'<div class="current">이달 주행거리<span class="km">{run_dist} km</span><span class="mile">{run_dist_mile} mile</span></div>',
 			'</div>',
 			'<div class="fuel">',
@@ -216,7 +216,7 @@ Ext.define('HatioBB.view.driver.Summary', {
 			'<div class="subtitle">eco level</div>',
 			'<div class="ecoLevel {eco_level}"></div>',
 			'<div class="ecoHBox">',
-				'<div>평균/공인 연비 <span>{eff_rate}%</span></div>',
+				'<div>'+ T('label.avg_effcc') + '/' + T('label.official_effcc') +' <span>{eff_rate}%</span></div>',
 				'<div>경제주행 비율<span>{eco_rate}%</span></div>',
 			'</div>',	
 			'<div class="ecoComment">이 운전자의 에코드라이브 지수는 {eco_level}레벨입니다.<br/> 운전습관을 적절하게 관리하면, <span>연간 {cost_reduction}만원 이상의</span>유류비 절약이 가능하며, 사고 위험을 현저히 낮출 수 있습니다.'
