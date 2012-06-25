@@ -1,7 +1,5 @@
 {
-"total": 1,
-"items": [
-{
+"total":1,
 "id":"PD-001",
 "name":"홍길동",
 "title":"사장",
@@ -19,6 +17,5 @@
 "consmpt_of_month":610.0,
 "effcc_of_month":2.95,
 "eco_drv_time_of_month": 350,
-}],
 "success": true
 }

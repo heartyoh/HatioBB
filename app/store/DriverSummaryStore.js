@@ -66,7 +66,6 @@ Ext.define('HatioBB.store.DriverSummaryStore', {
 			url : window.location.pathname.indexOf('/m/') === 0 ? '/driver/summary' : 'data/driver_summary.json',
 			reader : {
 				type : 'json',
-				rootProperty : 'items',
 				totalProperty : 'total',
 				successProperty : 'success'
 			}

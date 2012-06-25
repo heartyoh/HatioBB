@@ -87,7 +87,7 @@ Ext.define('HatioBB.view.driver.Summary', {
 		store.clearFilter(true);
 		store.filter('id', this.driver);
 		store.load(function(records) {
-			var data = records[0].getData();
+			var data = records[0].data;
 			
 			self.down('[itemId=briefInfo]').setData(data);
 			self.down('[itemId=briefInfo2]').setData(data);
