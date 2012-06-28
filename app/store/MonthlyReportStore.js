@@ -19,6 +19,7 @@ Ext.define('HatioBB.store.MonthlyReportStore', {
 			type : 'ajax',
 			url : window.location.pathname.indexOf('/m/') === 0 ? '/report/service' : 'data/monthly_report.json',
 			extraParams : {
+				id : 'monthly_driving_log'
 			},
 			reader : {
 				type : 'json',
