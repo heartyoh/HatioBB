@@ -9,6 +9,7 @@ Ext.define('HatioBB.controller.Report', {
 		'HatioBB.view.report.PieChart',
 		'HatioBB.view.report.DailyReport',
 		'HatioBB.view.report.DailyReport2',
+		'HatioBB.view.report.DailyReport3',
 		'HatioBB.view.report.MonthlyReport',
 		'HatioBB.view.chart.vehicle.VehicleHealth'
 	 ],

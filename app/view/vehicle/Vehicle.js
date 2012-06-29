@@ -27,7 +27,7 @@ Ext.define('HatioBB.view.vehicle.Vehicle', {
 		}, {
 			xtype : 'chart_v_consumable',
 			iconCls : 'iconsTab tabConsumable',
-			title : 'Consumable'
+			title : T('menu.consumables')
 		}, {
 			xtype : 'vehicle_repair',
 			iconCls : 'iconsTab tabRepair',

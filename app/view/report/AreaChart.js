@@ -109,7 +109,7 @@ Ext.define('HatioBB.view.report.AreaChart', {
 			tpl: [
 				'<table class=dataGrid>',
 					'<tr>',
-						'<th>Name</th>',
+						'<th>'+ T('label.name') +'</th>',
 						'<th>Data1</th>',
 						'<th>Data2</th>',
 						'<th>Data3</th>',

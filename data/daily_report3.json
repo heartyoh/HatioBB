@@ -1,0 +1,71 @@
+{
+	"total": 5,
+	"items": [
+	{
+		"driver_id": "PD-001", 
+		"driver_name": "홍길동",
+		"average_speed": 24.0,
+		"max_speed": 133,
+		"fuel_efficiency": 13.9, 
+		"co2_emissions": 90.0, 
+		"running_time": 250,
+		"eco_driving_time": 39,
+		"idle_time": 31,
+		"over_speed_time": 29,
+		"sudden_accel_count": 24,
+		"sudden_brake_count": 21
+	},{
+		"driver_id": "PD-002", 
+		"driver_name": "최철민",
+		"average_speed": 22.0,
+		"max_speed": 143,
+		"fuel_efficiency": 11.0, 
+		"co2_emissions": 89.0,
+		"running_time": 277,
+		"eco_driving_time": 33,
+		"idle_time": 29,
+		"over_speed_time": 23,
+		"sudden_accel_count": 25,
+		"sudden_brake_count": 30
+	},{
+		"driver_id": "PD-003", 
+		"driver_name": "삼천리",
+		"average_speed": 32.0,
+		"max_speed": 121,
+		"fuel_efficiency": 13.0, 
+		"co2_emissions": 90.0,
+		"running_time": 257,
+		"eco_driving_time": 39,
+		"idle_time": 28,
+		"over_speed_time": 23,
+		"sudden_accel_count": 27,
+		"sudden_brake_count": 20
+	},{
+		"driver_id": "PD-004", 
+		"driver_name": "김상구",
+		"average_speed": 35.0,
+		"max_speed": 140,
+		"fuel_efficiency": 10.0, 
+		"co2_emissions": 83.0,
+		"running_time": 254,
+		"eco_driving_time": 25,
+		"idle_time": 25,
+		"over_speed_time": 30,
+		"sudden_accel_count": 29,
+		"sudden_brake_count": 28
+	},{
+		"driver_id": "PD-005", 
+		"driver_name": "박한희",
+		"average_speed": 27.0,
+		"max_speed": 143,
+		"fuel_efficiency": 13.0, 
+		"co2_emissions": 83.0,
+		"running_time": 264,
+		"eco_driving_time": 37,
+		"idle_time": 35,
+		"over_speed_time": 29,
+		"sudden_accel_count": 23,
+		"sudden_brake_count": 25
+	}],
+	"success": true
+}
