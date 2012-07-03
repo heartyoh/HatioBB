@@ -52,7 +52,7 @@ Ext.define('HatioBB.view.nav.NavReport', {
 				name : 'Driving Report',
 				desc : 'Driving Report'
 			}, {
-				reportId : 'rpt_pie',
+				reportId : 'efficiencyreport',
 				name : 'Efficiency Report',
 				desc : 'Efficiency Report'
 			}]
