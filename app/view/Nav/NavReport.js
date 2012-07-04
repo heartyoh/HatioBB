@@ -36,7 +36,7 @@ Ext.define('HatioBB.view.nav.NavReport', {
 				name : 'Vehicle Health Report',
 				desc : 'Vehicle Health Report'
 			}, {
-				reportId : 'rpt_area',
+				reportId : 'ecodrivingreport',
 				name : 'Eco-Driving Report',
 				desc : 'Eco-Driving Report'
 			}, {
