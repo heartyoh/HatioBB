@@ -33,7 +33,7 @@ Ext.application({
 			'IncidentByVehicleStore', 'IncidentLogStore', 'DashboardVehicleStore', 'VehicleConsumableStore', 
 			'DriverRunStore', 'VehicleRunStore', 'YearStore', 'DashboardConsumableStore', 'TrackStore', 
 			'DailyReportStore', 'VehicleSummaryStore', 'DriverSummaryStore', 'MonthlyReportStore', 'VehicleRepairStore', 'DailyReportStore3', 'EfficiencyReportStore',
-			'EcoDrivingReportStore' ],
+			'EcoDrivingReportStore', 'DrivingReportStore' ],
 
     icon: {
         57: 'resources/icons/Icon.png',

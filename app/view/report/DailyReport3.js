@@ -53,7 +53,7 @@ Ext.define('HatioBB.view.report.DailyReport3', {
 			
 			'<div class="reportWrap type2">',
 				'<div class="reportLayoutFull">',
-					'<div class="reportTitle"> 일일 운전습관 리포트<span>{date}</span></div>',
+					'<div class="reportTitle"> 일일 운전습관 리포트<span>{driver_id}</span></div>',
 					'<div class="reportItem">',
 						'<table frame="hsides" rules="rows">',
 						'<tr>',

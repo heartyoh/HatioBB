@@ -1,13 +1,13 @@
-Ext.define('HatioBB.view.report.EfficiencyReport', {
+Ext.define('HatioBB.view.report.DrivingReport', {
 	extend : 'Ext.Carousel',
 	
-	xtype : 'efficiencyreport',
+	xtype : 'drivingreport',
 	
 	requires: ['Ext.Carousel',
 		'Ext.chart.Chart',
-	    'Ext.chart.axis.Numeric',
-	    'Ext.chart.axis.Category',
-		'Ext.chart.series.Column',
+        'Ext.chart.axis.Numeric',
+        'Ext.chart.axis.Category',
+        'Ext.chart.series.Column',
 		'Ext.chart.series.Line',
 		'Ext.data.JsonStore'],
 		
@@ -27,7 +27,7 @@ Ext.define('HatioBB.view.report.EfficiencyReport', {
 		
 		this.callParent(arguments);
 		
-		var run_store = Ext.getStore('EfficiencyReportStore');
+		var run_store = Ext.getStore('DrivingReportStore');
 		
 		run_store.load({
 			scope : this,
@@ -47,61 +47,59 @@ Ext.define('HatioBB.view.report.EfficiencyReport', {
 		return {
 			xtype : 'chart',
 			itemId : 'xxx',
-		    theme: 'Demo',
-            animate: true,
+	        theme: 'Demo',
+	        animate: true,
             shadow: false,
 			toolbar : null,
 			flex : 1,
-            legend: {
-                position: {
-                    portrait: 'bottom',
-                    landscape: 'bottom'
-                },
-                labelFont: '17px Arial'
-            },
-
+	        legend: {
+	            position: {
+	                portrait: 'bottom',
+	                landscape: 'bottom'
+	            },
+	            labelFont: '20px Arial'
+	        },
+	
 			store: Ext.create('Ext.data.JsonStore', {
-			    fields: ['year', 'month', 'effcc', 'consmpt', 'yearmonth'],
+			    fields: ['year', 'month', 'run_dist', 'run_time', 'yearmonth'],
 				data : []
 			}),
 			
-            axes: [
+	        axes: [
                 {
                     type: 'Category',
                     position: 'bottom',
                     fields: ['yearmonth'],
-                    title: T('label.month'),
-					label: {
-						rotate: {
-							degrees: 315
-						}
-					}
+                    title: T('label.month')
                 },
                 {
                     type: 'Numeric',
                     position: 'left',
-                    fields: ['consmpt'],
-                    title: T('label.fuel_consumption') + '(ℓ)',
+                    fields: ['run_dist'],
+                    title: T('label.run_dist'),
                     minimum: 0
                 },
                 {
                     type: 'Numeric',
                     position: 'right',
-                    fields: ['effcc'],
-                    title: T('label.fuel_efficiency') + '(km/h)',
+                    fields: ['run_time'],
+                    title: T('label.run_time'),
                     minimum: 0
                 }
             ],
             series: [
             {
                 type: 'column',
+                highlight: {
+                    size: 7,
+                    radius: 7
+                },
                 // fill: true,
                 smooth: true,
                 axis: 'left',
-				highlight: true,
                 xField: 'yearmonth',
-                yField: ['consmpt'],
-                title: T('label.fuel_consumption')
+                yField: ['run_dist'],
+                title: T('label.run_dist')
             }, {
                 type: 'line',
                 highlight: {
@@ -112,8 +110,8 @@ Ext.define('HatioBB.view.report.EfficiencyReport', {
                 smooth: true,
                 axis: 'right',
                 xField: 'yearmonth',
-                yField: 'effcc',
-                title: T('label.fuel_efficiency')
+                yField: 'run_time',
+                title: T('label.run_time')
             }
             ]
 		};
@@ -122,25 +120,26 @@ Ext.define('HatioBB.view.report.EfficiencyReport', {
 	buildTable : function(){
 		return {
             xtype : 'panel',
-			itemId : 'report',
 			cls : 'paddingAll15',
+			itemId : 'report',
 			data : {},
 			tpl: [
 				'<table class=dataGrid>',
 					'<tr>',
-						'<th>'+ T('label.year') + '/' + T('label.month') +'</th>',
-						'<th>'+ T('label.fuel_efficiency') +'</th>',
-						'<th>'+ T('label.fuel_consumption') +'</th>',
+						'<th>'+ T('label.year') +'</th>',
+						'<th>'+ T('label.month') +'</th>',
+						'<th>'+ T('label.run_dist') +'</th>',
+						'<th>'+ T('label.run_time') +'</th>',
 					'</tr>',
 					'<tpl for=".">',
 					'<tr>',
-						'<td class="alignCenter">{year}/{month}</td>',
-						'<td class="alignCenter">{effcc}</td>',
-						'<td class="alignCenter">{consmpt}</td>',
+						'<td class="alignCenter">{year}</td>',
+						'<td class="alignCenter">{month}</td>',
+						'<td class="alignCenter">{run_dist}</td>',
+						'<td class="alignCenter">{run_time}</td>',
 					'</tr>',
 					'</tpl>',
-				'</table>',
-				
+				'</table>'
 			]	
         };
 	}

@@ -24,7 +24,8 @@ Ext.define('HatioBB.store.MonthlyReportStore', {
 			reader : {
 				type : 'json',
 				rootProperty : 'items',
-				totalProperty : 'total'
+				totalProperty : 'total',
+				successProperty : 'success'
 			}
 		}
 	}

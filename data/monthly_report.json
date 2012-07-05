@@ -1,25 +1,29 @@
 {
-	"total":1,
-	"success":true,	
-	"items":[ 
-		{
-		"driving" : [
-			{"year":2012,"month":6,"run_dist":203.0,"run_time":277,"consmpt":20,"effcc":8.0},
-			{"year":2012,"month":5,"run_dist":187.0,"run_time":256,"consmpt":18,"effcc":10.0},
-			{"year":2012,"month":4,"run_dist":198.0,"run_time":261,"consmpt":19,"effcc":14.0}
-		],
-		"maint" : [
-			{"year": 2012, "month" : 6, "count": 2},
-			{"year": 2012, "month" : 5, "count": 1},
-			{"year": 2012, "month" : 4, "count": 8}
-		],
-		"consumable" : [
-			{"part":"엔진오일","count":3},
-			{"part":"에어컨필터","count":12},
-			{"part":"브레이크오일","count":3},
-			{"part":"냉각수","count":5},
-			{"part":"타이밍벨트","count":7}					
-		]
-		}
-	]
+"total":1,
+"items":[
+{
+"maint":[
+{"vehicle":"PV-001","year":2012,"month":6,"mnt_cnt":0},
+{"vehicle":"PV-002","year":2012,"month":6,"mnt_cnt":0},
+{"vehicle":"PV-003","year":2012,"month":6,"mnt_cnt":0},
+{"vehicle":"PV-004","year":2012,"month":6,"mnt_cnt":0},
+{"vehicle":"PV-005","year":2012,"month":6,"mnt_cnt":0}
+],
+"consumable":[
+{"part":"엔진오일","count":3},
+{"part":"에어컨필터","count":12},
+{"part":"브레이크오일","count":3},
+{"part":"냉각수","count":5},
+{"part":"타이밍벨트","count":7}
+],
+"driving":[
+{"vehicle":"PV-001","year":2012,"month":6,"run_dist":305.0,"run_time":960,"consmpt":70.0,"effcc":5.0},
+{"vehicle":"PV-002","year":2012,"month":6,"run_dist":305.0,"run_time":960,"consmpt":70.0,"effcc":5.0},
+{"vehicle":"PV-003","year":2012,"month":6,"run_dist":305.0,"run_time":960,"consmpt":70.0,"effcc":5.0},
+{"vehicle":"PV-004","year":2012,"month":6,"run_dist":305.0,"run_time":960,"consmpt":70.0,"effcc":5.0},
+{"vehicle":"PV-005","year":2012,"month":6,"run_dist":305.0,"run_time":960,"consmpt":70.0,"effcc":5.0}
+]
+}
+],
+"success":true
 }

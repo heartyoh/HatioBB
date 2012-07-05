@@ -1,4 +1,4 @@
-Ext.define('HatioBB.store.EfficiencyReportStore', {
+Ext.define('HatioBB.store.DrivingReportStore', {
 	extend : 'Ext.data.Store',
 
 	config : {
@@ -11,10 +11,10 @@ Ext.define('HatioBB.store.EfficiencyReportStore', {
 			name : 'month',
 			type : 'int'
 		}, {
-			name : 'effcc',
+			name : 'run_dist',
 			type : 'float'
 		}, {
-			name : 'consmpt',
+			name : 'run_time',
 			type : 'float'
 		}, {
 			name : 'yearmonth',
@@ -23,10 +23,9 @@ Ext.define('HatioBB.store.EfficiencyReportStore', {
 
 		proxy : {
 			type : 'ajax',
-			url : window.location.pathname.indexOf('/m/') === 0 ? '/report/service' : 'data/efficiency_report.json',
+			url : window.location.pathname.indexOf('/m/') === 0 ? '/report/service' : 'data/driving_report.json',
 			extraParams : {
-				id : 'fuel',
-				type : 'report'
+				id : 'driving'
 			},
 			reader : {
 				type : 'json',

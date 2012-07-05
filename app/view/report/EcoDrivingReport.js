@@ -61,7 +61,7 @@ Ext.define('HatioBB.view.report.EcoDrivingReport', {
 	        },
 	
 			store: Ext.create('Ext.data.JsonStore', {
-			    fields: ['year', 'month', 'eco_index', 'eco_driving'],
+			    fields: ['year', 'month', 'eco_index', 'eco_driving', 'yearmonth'],
 				data : []
 			}),
 			
@@ -69,8 +69,8 @@ Ext.define('HatioBB.view.report.EcoDrivingReport', {
                 {
                     type: 'Category',
                     position: 'bottom',
-                    fields: ['month'],
-                    title: 'Month of the Year'
+                    fields: ['yearmonth'],
+                    title: T('label.month')
                 },
                 {
                     type: 'Numeric',
@@ -90,14 +90,11 @@ Ext.define('HatioBB.view.report.EcoDrivingReport', {
             series: [
             {
                 type: 'column',
-                highlight: {
-                    size: 7,
-                    radius: 7
-                },
+                highlight: true,
                 // fill: true,
                 smooth: true,
                 axis: 'left',
-                xField: 'month',
+                xField: 'yearmonth',
                 yField: ['eco_index'],
                 title: T('label.eco_index')
             }, {
@@ -109,7 +106,7 @@ Ext.define('HatioBB.view.report.EcoDrivingReport', {
                 fill: true,
                 smooth: true,
                 axis: 'right',
-                xField: 'month',
+                xField: 'yearmonth',
                 yField: 'eco_driving',
                 title: T('label.eco_driving')
             }

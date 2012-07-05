@@ -16,6 +16,9 @@ Ext.define('HatioBB.store.EcoDrivingReportStore', {
 		}, {
 			name : 'eco_driving',
 			type : 'float'
+		}, {
+			name : 'yearmonth',
+			type : 'string'
 		}],
 
 		proxy : {
