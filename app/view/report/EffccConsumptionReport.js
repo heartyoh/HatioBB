@@ -26,8 +26,7 @@ Ext.define('HatioBB.view.report.EffccConsumptionReport', {
 		
 		this.callParent(arguments);
 
-	/*	var dashboardStore = Ext.getStore('EffccConsumptionReportStore');
-
+		/*var dashboardStore = Ext.getStore('EffccConsumptionReportStore');
 		dashboardStore.load({
 			scope : this,
 			callback: function(records, operation, success) {
@@ -39,14 +38,18 @@ Ext.define('HatioBB.view.report.EffccConsumptionReport', {
 
 				self.down('chart').getStore().setData(data);
 			}
-		});		*/
+		});	*/
 
 		Ext.Ajax.request({
 			url: window.location.pathname.indexOf('/m/') === 0 ? '/report/service' : 'data/efficiency_report.json',
 			method : 'GET',
 			params : { 
 				id : 'fuel',
+<<<<<<< HEAD
 				type : 'effcc_trend',
+=======
+				type : 'effcc_consmpt',
+>>>>>>> 리포트 수정
 				duration : 12
 			},
 			success: function(response) {		    	
