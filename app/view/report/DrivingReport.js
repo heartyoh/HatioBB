@@ -27,7 +27,7 @@ Ext.define('HatioBB.view.report.DrivingReport', {
 		
 		this.callParent(arguments);
 		
-		var run_store = Ext.getStore('DrivingReportStore');
+/*		var run_store = Ext.getStore('DrivingReportStore');
 		
 		run_store.load({
 			scope : this,
@@ -39,6 +39,30 @@ Ext.define('HatioBB.view.report.DrivingReport', {
 				}
 				self.down('chart').getStore().setData(data);
 				self.down('[itemId=report]').setData(data);
+			}
+		});*/
+		
+		Ext.Ajax.request({
+			url: window.location.pathname.indexOf('/m/') === 0 ? '/report/service' : 'data/driving_report.json',
+			method : 'GET',
+			params : { 
+				id : 'driving',
+				duration : 12
+			},
+			success: function(response) {		    	
+			    var resultObj = Ext.JSON.decode(response.responseText);
+
+			    if(resultObj.success) {
+					var records = resultObj.items;
+					self.down('chart').getStore().setData(records);
+					self.down('[itemId=report]').setData(records);
+
+				} else {
+				   	Ext.MessageBox.alert(T('label.failure'), resultObj.msg);
+				}
+			},
+			failure: function(response) {
+				Ext.MessageBox.alert(T('label.failure'), response.responseText);
 			}
 		});
 	},

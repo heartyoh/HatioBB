@@ -129,14 +129,14 @@ Ext.define('HatioBB.view.chart.vehicle.Consumable', {
                             return Math.floor(v * 100);
                         }
                     },
-                    title: 'Health Rate',
+                    title: T('label.health_rate'),
 					majorTickSteps : 10
                 },
                 {
                     type: 'Category',
                     position: 'bottom',
                     fields: ['consumable_item'],
-                    title: 'Consumable Item',
+                    title: T('label.consumable_item'),
 					label: {
 				        rotate: {
 				            degrees: 315

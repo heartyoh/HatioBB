@@ -26,7 +26,7 @@ Ext.define('HatioBB.view.report.EcoDrivingHabitReport', {
 		
 		this.callParent(arguments);
 
-		var dashboardStore = Ext.getStore('EcoDrivingHabitReportStore');
+/*		var dashboardStore = Ext.getStore('EcoDrivingHabitReportStore');
 
 		dashboardStore.load({
 			scope : this,
@@ -39,7 +39,31 @@ Ext.define('HatioBB.view.report.EcoDrivingHabitReport', {
 
 				self.down('chart').getStore().setData(data);
 			}
-		});		
+		});		*/
+		
+		Ext.Ajax.request({
+			url: window.location.pathname.indexOf('/m/') === 0 ? '/report/service' : 'data/eco_driving_habit_report.json',
+			method : 'GET',
+			params : { 
+				id : 'eco',
+				type : 'habit_ecoindex',
+				duration : 12
+			},
+			success: function(response) {		    	
+			    var resultObj = Ext.JSON.decode(response.responseText);
+
+			    if(resultObj.success) {
+					var records = resultObj.items;
+					self.down('chart').getStore().setData(records);
+
+				} else {
+				   	Ext.MessageBox.alert(T('label.failure'), resultObj.msg);
+				}
+			},
+			failure: function(response) {
+				Ext.MessageBox.alert(T('label.failure'), response.responseText);
+			}
+		});
 	},
 
 	buildChart : function() {

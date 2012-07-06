@@ -98,20 +98,20 @@ Ext.define('HatioBB.view.chart.vehicle.Running', {
                     type: 'Category',
                     position: 'bottom',
                     fields: ['month_str'],
-                    title: 'Month of the Year'
+                    title: T('label.month')
                 },
                 {
                     type: 'Numeric',
                     position: 'left',
                     fields: ['run_time'],
-                    title: 'Run Minutes',
+                    title: T('label.run_time'),
                     minimum: 0
                 },
                 {
                     type: 'Numeric',
                     position: 'right',
                     fields: ['run_dist'],
-                    title: 'Run Distance',
+                    title: T('label.run_dist'),
                     minimum: 0
                 }
             ],
@@ -127,7 +127,7 @@ Ext.define('HatioBB.view.chart.vehicle.Running', {
                 axis: 'left',
                 xField: 'month_str',
                 yField: 'run_time',
-                title: 'Run Minutes'
+                title: T('label.run_time')
             },
             {
                 type: 'line',
@@ -140,7 +140,7 @@ Ext.define('HatioBB.view.chart.vehicle.Running', {
                 axis: 'right',
                 xField: 'month_str',
                 yField: 'run_dist',
-                title: 'Run Distance'
+                title: T('label.run_dist')
             }
             ]
 		};
@@ -166,20 +166,20 @@ Ext.define('HatioBB.view.chart.vehicle.Running', {
                     type: 'Category',
                     position: 'bottom',
                     fields: ['month_str'],
-                    title: 'Month of the Year'
+                    title: T('label.month')
                 },
                 {
                     type: 'Numeric',
                     position: 'left',
                     fields: ['consmpt'],
-                    title: 'Fuel Consumption',
+                    title: T('label.fuel_consumption'),
                     minimum: 0
                 },
                 {
                     type: 'Numeric',
                     position: 'right',
                     fields: ['effcc'],
-                    title: 'Fuel Efficiency',
+                    title: T('label.fuel_efficiency'),
                     minimum: 0
                 }
             ],
@@ -195,7 +195,7 @@ Ext.define('HatioBB.view.chart.vehicle.Running', {
                 axis: 'left',
                 xField: 'month_str',
                 yField: ['consmpt'],
-                title: 'Fuel Consumption'
+                title: T('label.fuel_consumption')
             }, {
                 type: 'line',
                 highlight: {
@@ -207,7 +207,7 @@ Ext.define('HatioBB.view.chart.vehicle.Running', {
                 axis: 'right',
                 xField: 'month_str',
                 yField: 'effcc',
-                title: 'Fuel Efficiency'
+                title: T('label.fuel_efficiency')
             }
             ]
 		};

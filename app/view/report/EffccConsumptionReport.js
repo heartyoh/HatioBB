@@ -47,7 +47,7 @@ Ext.define('HatioBB.view.report.EffccConsumptionReport', {
 			params : { 
 				id : 'fuel',
 				type : 'effcc_trend',
-						duration : 12
+				duration : 12
 			},
 			success: function(response) {		    	
 			    var resultObj = Ext.JSON.decode(response.responseText);

@@ -17,12 +17,12 @@ Ext.define('HatioBB.view.nav.NavReport', {
 			fields : ['reportId', 'desc'],
 			data : [{
 				reportId : 'dailyreport',
-				name : 'Daily Report',
-				desc : 'Daily Report'
+				name : T('report.daily_driving_report'),
+				desc : T('report.daily_driving_report')
 			}, {
 				reportId : 'dailyreport2',
-				name : 'Daily Report2',
-				desc : 'Daily Report2'
+				name : T('report.daily_driving_report'),
+				desc : T('report.daily_driving_report')
 			}, {
 				reportId : 'dailyreport3',
 				name : 'Daily Report3',
@@ -33,28 +33,28 @@ Ext.define('HatioBB.view.nav.NavReport', {
 				desc : 'Monthly Report'
 			}, {
 				reportId : 'chart_v_health',
-				name : 'Vehicle Health Report',
-				desc : 'Vehicle Health Report'
+				name : T('menu.vehicle_health'),
+				desc : T('menu.vehicle_health')
 			}, {
 				reportId : 'ecodrivingreport',
-				name : '에코 드라이빙',
-				desc : '에코 드라이빙'
+				name : 'Ecodriving Report',
+				desc : 'Ecodriving Report'
 			}, {
 				reportId : 'effccconsumptionreport',
-				name : '연비-소모량 관계',
-				desc : '연비-소모량 관계'
+				name : T('report.effcc_consmpt'),
+				desc : T('report.effcc_consmpt')
 			}, {
 				reportId : 'ecodrivinghabitreport',
-				name : '운전습관-Eco지수관계',
-				desc : '운전습관-Eco지수관계'
+				name : T('report.habit_ecoindex'),
+				desc : T('report.habit_ecoindex')
 			}, {
 				reportId : 'drivingreport',
 				name : 'Driving Report',
 				desc : 'Driving Report'
 			}, {
 				reportId : 'efficiencyreport',
-				name : '연비추이',
-				desc : '연비추이'
+				name : T('report.effcc_trend'),
+				desc : T('report.effcc_trend')
 			}]
 		}),
 

@@ -25,7 +25,7 @@ Ext.define('HatioBB.view.chart.vehicle.VehicleHealth', {
 		
 		this.callParent(arguments);
 
-		var dashboardStore = Ext.getStore('DashboardVehicleStore');
+/*		var dashboardStore = Ext.getStore('DashboardVehicleStore');
 
 		dashboardStore.load({
 			scope : this,
@@ -40,7 +40,38 @@ Ext.define('HatioBB.view.chart.vehicle.VehicleHealth', {
 
 				self.down('chart').getStore().setData(data);
 			}
-		});		
+		});		*/
+		
+		Ext.Ajax.request({
+			url: window.location.pathname.indexOf('/m/') === 0 ? '/report/service' : 'data/dashboard/health/vehicle.json',
+			method : 'GET',
+			params : { 
+				id : 'vehicle_health',
+				health_type : 'health'
+			},
+			success: function(response) {		    	
+			    var resultObj = Ext.JSON.decode(response.responseText);
+
+			    if(resultObj.success) {
+					var records = resultObj.items;
+					var data = [];
+					for(var i = 0 ; i < records.length ; i++) {
+						if(records[i].name === 'health') {
+							data = records[i].summary;
+							break;
+						}
+					}
+
+					self.down('chart').getStore().setData(data);
+
+				} else {
+				   	Ext.MessageBox.alert(T('label.failure'), resultObj.msg);
+				}
+			},
+			failure: function(response) {
+				Ext.MessageBox.alert(T('label.failure'), response.responseText);
+			}
+		});
 	},
 
 	buildChart : function() {

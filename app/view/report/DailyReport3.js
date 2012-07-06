@@ -24,7 +24,7 @@ Ext.define('HatioBB.view.report.DailyReport3', {
 	
 	refresh : function() {
 		var self = this;
-		var run_store = Ext.getStore('DailyReportStore3');
+/*		var run_store = Ext.getStore('DailyReportStore3');
 		
 		run_store.load(function(records) {
 			var data = [];
@@ -34,6 +34,28 @@ Ext.define('HatioBB.view.report.DailyReport3', {
 			}
 
 			self.down('[itemId=report]').setData(data);
+		});*/
+		
+		Ext.Ajax.request({
+			url: window.location.pathname.indexOf('/m/') === 0 ? '/report/service' : 'data/daily_report3.json',
+			method : 'GET',
+			params : { 
+				id : 'daily_driving_habit'
+			},
+			success: function(response) {		    	
+			    var resultObj = Ext.JSON.decode(response.responseText);
+
+			    if(resultObj.success) {
+					var records = resultObj.items;
+					self.down('[itemId=report]').setData(records);
+
+				} else {
+				   	Ext.MessageBox.alert(T('label.failure'), resultObj.msg);
+				}
+			},
+			failure: function(response) {
+				Ext.MessageBox.alert(T('label.failure'), response.responseText);
+			}
 		});
 	},
 	

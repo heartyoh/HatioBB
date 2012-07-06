@@ -26,18 +26,45 @@ Ext.define('HatioBB.view.report.MonthlyReport', {
 	refresh : function() {
 		var self = this;
 		var data = {};
-		var run_store = Ext.getStore('MonthlyReportStore');
+/*		var run_store = Ext.getStore('MonthlyReportStore');
 		
 		run_store.load(function(records) {
 			var record = records[0].data;
-			/* 주행 데이타를 설정한다 */
+			// 주행 데이타를 설정한다
 			data.driving = record.driving;
-			/* 정비정보를 설정한다 */
+			// 정비정보를 설정한다 
 			data.maint = record.maint;
-			/* 소모품 교체 정보를 설정한다 */
+			// 소모품 교체 정보를 설정한다 
 			data.consummable = record.consumable;
 
 			self.down('[itemId=report]').setData(data);
+		});*/
+		
+		Ext.Ajax.request({
+			url: window.location.pathname.indexOf('/m/') === 0 ? '/report/service' : 'data/monthly_report.json',
+			method : 'GET',
+			params : { 
+				id : 'monthly_driving_log'
+			},
+			success: function(response) {		    	
+			    var resultObj = Ext.JSON.decode(response.responseText);
+
+			    if(resultObj.success) {
+					var records = resultObj.items;
+					
+				//	alert(Ext.JSON.encode(records[0].driving));
+					
+					data.driving = records[0].driving;
+					data.maint = records[0].maint;
+					data.consummable = records[0].consumable;
+					self.down('[itemId=report]').setData(data);
+				} else {
+				   	Ext.MessageBox.alert(T('label.failure'), resultObj.msg);
+				}
+			},
+			failure: function(response) {
+				Ext.MessageBox.alert(T('label.failure'), response.responseText);
+			}
 		});
 	},
 	

@@ -32,8 +32,8 @@ Ext.application({
 			'DriverStore', 'DriverBriefStore', 'VehicleGroupStore', 'DriverGroupStore', 'TrackByVehicleStore', 
 			'IncidentByVehicleStore', 'IncidentLogStore', 'DashboardVehicleStore', 'VehicleConsumableStore', 
 			'DriverRunStore', 'VehicleRunStore', 'YearStore', 'DashboardConsumableStore', 'TrackStore', 
-			'DailyReportStore', 'VehicleSummaryStore', 'DriverSummaryStore', 'MonthlyReportStore', 'VehicleRepairStore', 'DailyReportStore3', 'EfficiencyReportStore',
-			'EcoDrivingReportStore', 'DrivingReportStore', 'EffccConsumptionReportStore', 'EcoDrivingHabitReportStore' ],
+			'VehicleSummaryStore', 'DriverSummaryStore', 'VehicleRepairStore'
+			],
 
     icon: {
         57: 'resources/icons/Icon.png',
