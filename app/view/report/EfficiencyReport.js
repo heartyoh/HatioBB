@@ -88,7 +88,7 @@ Ext.define('HatioBB.view.report.EfficiencyReport', {
                     type: 'Numeric',
                     position: 'right',
                     fields: ['effcc'],
-                    title: T('label.fuel_efficiency') + '(km/h)',
+                    title: T('label.fuel_efficiency') + '(km/ℓ)',
                     minimum: 0
                 }
             ],
