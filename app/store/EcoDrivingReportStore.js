@@ -25,7 +25,9 @@ Ext.define('HatioBB.store.EcoDrivingReportStore', {
 			type : 'ajax',
 			url : window.location.pathname.indexOf('/m/') === 0 ? '/report/service' : 'data/eco_driving_report.json',
 			extraParams : {
-				id : 'eco'
+				id : 'eco',
+				type : 'ecoindex_ecorate',
+				duration : '12'
 			},
 			reader : {
 				type : 'json',

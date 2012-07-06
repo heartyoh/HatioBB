@@ -26,7 +26,8 @@ Ext.define('HatioBB.store.EfficiencyReportStore', {
 			url : window.location.pathname.indexOf('/m/') === 0 ? '/report/service' : 'data/efficiency_report.json',
 			extraParams : {
 				id : 'fuel',
-				type : 'effcc_trend'
+				type : 'effcc_trend',
+				duration : '12'
 			},
 			reader : {
 				type : 'json',

@@ -25,7 +25,8 @@ Ext.define('HatioBB.store.DrivingReportStore', {
 			type : 'ajax',
 			url : window.location.pathname.indexOf('/m/') === 0 ? '/report/service' : 'data/driving_report.json',
 			extraParams : {
-				id : 'driving'
+				id : 'driving',
+				duration : '12'
 			},
 			reader : {
 				type : 'json',

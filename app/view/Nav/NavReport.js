@@ -37,24 +37,24 @@ Ext.define('HatioBB.view.nav.NavReport', {
 				desc : 'Vehicle Health Report'
 			}, {
 				reportId : 'ecodrivingreport',
-				name : 'Eco-Driving Report',
-				desc : 'Eco-Driving Report'
+				name : '에코 드라이빙',
+				desc : '에코 드라이빙'
 			}, {
 				reportId : 'effccconsumptionreport',
-				name : 'EffccConsumption Report',
-				desc : 'EffccConsumption Report'
+				name : '연비-소모량 관계',
+				desc : '연비-소모량 관계'
 			}, {
-				reportId : 'rpt_pie',
-				name : 'Driver Stat. Report',
-				desc : 'Driver Stat. Report'
+				reportId : 'ecodrivinghabitreport',
+				name : '운전습관-Eco지수관계',
+				desc : '운전습관-Eco지수관계'
 			}, {
 				reportId : 'drivingreport',
 				name : 'Driving Report',
 				desc : 'Driving Report'
 			}, {
 				reportId : 'efficiencyreport',
-				name : 'Efficiency Report',
-				desc : 'Efficiency Report'
+				name : '연비추이',
+				desc : '연비추이'
 			}]
 		}),
 

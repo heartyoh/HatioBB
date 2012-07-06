@@ -15,7 +15,8 @@ Ext.define('HatioBB.controller.Report', {
 		'HatioBB.view.report.EfficiencyReport',
 		'HatioBB.view.report.EcoDrivingReport',
 		'HatioBB.view.report.DrivingReport',
-		'HatioBB.view.report.EffccConsumptionReport'
+		'HatioBB.view.report.EffccConsumptionReport',
+		'HatioBB.view.report.EcoDrivingHabitReport'
 	 ],
 
     config: {
