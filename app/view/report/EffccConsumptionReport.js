@@ -45,11 +45,7 @@ Ext.define('HatioBB.view.report.EffccConsumptionReport', {
 			method : 'GET',
 			params : { 
 				id : 'fuel',
-<<<<<<< HEAD
-				type : 'effcc_trend',
-=======
 				type : 'effcc_consmpt',
->>>>>>> 리포트 수정
 				duration : 12
 			},
 			success: function(response) {		    	
