@@ -232,6 +232,7 @@ T({
 		run_time : 'Run. Time.',
 		location : 'Location',		
 		image : 'Image',
+		driving : 'Driving',
 		reg_no : 'Reg. No.',
 		manufacturer : 'Manufacturer',	
 		ownership : 'Ownership',

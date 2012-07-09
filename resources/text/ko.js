@@ -232,6 +232,7 @@ T({
 		run_time : '주행시간',
 		location : '위치',		
 		image : '사진',
+		driving : '주행',
 		reg_no : '등록번호',
 		manufacturer : '제조사',	
 		ownership : '소유자',
