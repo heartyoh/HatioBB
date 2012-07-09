@@ -84,7 +84,7 @@ Ext.define('HatioBB.view.report.MonthlyReport', {
 			
 			'<div class="reportWrap type2">',
 				'<div class="reportLayoutFull">',
-					'<div class="reportTitle"> 주행 리포트 ('+ Ext.Date.format(new Date(new Date().getFullYear(), new Date().getMonth()-1), 'Y년-n월') +')</div>',
+					'<div class="reportTitle">'+ T('report.driving_trend') +' '+ T('report.report') +' ('+ Ext.Date.format(new Date(new Date().getFullYear(), new Date().getMonth()-1), 'Y년-n월') +')</div>',
 					'<div class="reportItem">',
 						'<table frame="hsides" rules="rows">',
 						'<tr>',
@@ -108,7 +108,7 @@ Ext.define('HatioBB.view.report.MonthlyReport', {
 				'</div>',
 
 				'<div class="reportLayoutHalf">',
-					'<div class="reportTitle">정비 리포트 ('+ Ext.Date.format(new Date(new Date().getFullYear(), new Date().getMonth()-1), 'Y년-n월') +')</div>',
+					'<div class="reportTitle">'+ T('label.maintenance') +' '+ T('report.report') +' ('+ Ext.Date.format(new Date(new Date().getFullYear(), new Date().getMonth()-1), 'Y년-n월') +')</div>',
 						'<div class="reportItem">',
 						'<table frame="hsides" rules="rows">',
 						'<tr>',
@@ -128,7 +128,7 @@ Ext.define('HatioBB.view.report.MonthlyReport', {
 				'</div>',	
 
 				'<div class="reportLayoutHalf">',	
-					'<div class="reportTitle">소모품 교체 리포트 ('+ Ext.Date.format(new Date(new Date().getFullYear(), new Date().getMonth()-1), 'Y년-n월') +')</div>',
+					'<div class="reportTitle">'+ T('label.consumable_repl') +' '+ T('report.report') +' ('+ Ext.Date.format(new Date(new Date().getFullYear(), new Date().getMonth()-1), 'Y년-n월') +')</div>',
 						'<div class="reportItem">',
 						'<table frame="hsides" rules="rows">',
 						'<tr>',

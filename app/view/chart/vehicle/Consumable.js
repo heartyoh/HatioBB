@@ -56,6 +56,9 @@ Ext.define('HatioBB.view.chart.vehicle.Consumable', {
 				vehicle_id : this.vehicle
 			},
 			callback : function(records) {
+				Ext.each(records, function(record){
+					record.data.status = T('label.'+ record.data.status );
+				});
 				self.getChart().getStore().setData(records);
 			}
 		});

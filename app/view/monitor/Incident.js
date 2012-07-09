@@ -430,7 +430,7 @@ Ext.define('HatioBB.view.monitor.Incident', {
 	
 	zVideo : {
 		xtype : 'panel',
-		title : 'Movie',
+		title : T('label.movie'),
 		layout : 'fit',
 		iconCls : 'iconsTab tabMovie',
 		items : [{

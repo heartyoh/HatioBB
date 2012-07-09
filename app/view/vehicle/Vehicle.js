@@ -19,7 +19,7 @@ Ext.define('HatioBB.view.vehicle.Vehicle', {
 		items : [{
 			xtype : 'vehicle_summary',
 			iconCls : 'iconsTab tabSummary',
-			title : 'Summary'
+			title : T('label.summary')
 		}, {
 			xtype : 'chart_v_running',
 			iconCls : 'iconsTab tabDrive',

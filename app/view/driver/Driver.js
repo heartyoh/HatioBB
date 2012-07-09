@@ -18,7 +18,7 @@ Ext.define('HatioBB.view.driver.Driver', {
 		items : [{
 			xtype : 'driver_summary',
 			iconCls : 'iconsTab tabSummary',
-			title : 'Summary'
+			title : T('label.summary')
 		}, {
 			xtype : 'chart_d_running',
 			iconCls : 'iconsTab tabDrive',
