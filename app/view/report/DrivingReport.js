@@ -100,14 +100,14 @@ Ext.define('HatioBB.view.report.DrivingReport', {
                     type: 'Numeric',
                     position: 'left',
                     fields: ['run_dist'],
-                    title: T('label.run_dist'),
+                    title: T('label.run_dist') + '(km)',
                     minimum: 0
                 },
                 {
                     type: 'Numeric',
                     position: 'right',
                     fields: ['run_time'],
-                    title: T('label.run_time'),
+                    title: T('label.run_time') + T('label.parentheses_min'),
                     minimum: 0
                 }
             ],

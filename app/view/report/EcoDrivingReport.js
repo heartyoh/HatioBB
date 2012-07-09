@@ -101,14 +101,14 @@ Ext.define('HatioBB.view.report.EcoDrivingReport', {
                     type: 'Numeric',
                     position: 'left',
                     fields: ['eco_index'],
-                    title: T('label.eco_index'),
+                    title: T('label.eco_index') + '(%)',
                     minimum: 0
                 },
                 {
                     type: 'Numeric',
                     position: 'right',
                     fields: ['eco_driving'],
-                    title: T('label.eco_driving'),
+                    title: T('label.eco_driving') + '(%)',
                     minimum: 0
                 }
             ],

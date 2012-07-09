@@ -130,7 +130,7 @@ Ext.define('HatioBB.view.report.MaintTrendReport', {
                     type: 'Numeric',
                     position: 'bottom',
                     fields: ["PV-001", "PV-002", "PV-003", "PV-004", "PV-005"],
-                    title: T('label.vehicle'),
+                    title: T('label.maintenance_count'),
                     minimum: 0
                 }
             ],

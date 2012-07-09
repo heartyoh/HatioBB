@@ -58,6 +58,11 @@ Ext.define('HatioBB.view.chart.vehicle.VehicleHealth', {
 					for(var i = 0 ; i < records.length ; i++) {
 						if(records[i].name === 'health') {
 							data = records[i].summary;
+							if(data.length > 0) {
+								Ext.each(data, function(summary) {
+									summary.name = T('label.' + summary.name);
+								});
+							}							
 							break;
 						}
 					}

@@ -40,14 +40,6 @@ Ext.define('HatioBB.view.nav.NavReport', {
 				name : T('report.eco_driving_trend'),
 				desc : T('report.eco_driving_trend')
 			}, {
-				reportId : 'effccconsumptionreport',
-				name : T('report.effcc_consmpt'),
-				desc : T('report.effcc_consmpt')
-			}, {
-				reportId : 'ecodrivinghabitreport',
-				name : T('report.habit_ecoindex'),
-				desc : T('report.habit_ecoindex')
-			}, {
 				reportId : 'drivingreport',
 				name : T('report.driving_trend'),
 				desc : T('report.driving_trend')
@@ -59,6 +51,14 @@ Ext.define('HatioBB.view.nav.NavReport', {
 				reportId : 'mainttrendreport',
 				name : T('report.maint_trend'),
 				desc : T('report.maint_trend')
+			}, {
+				reportId : 'effccconsumptionreport',
+				name : T('report.effcc_consmpt'),
+				desc : T('report.effcc_consmpt')
+			}, {
+				reportId : 'ecodrivinghabitreport',
+				name : T('report.habit_ecoindex'),
+				desc : T('report.habit_ecoindex')
 			}]
 		}),
 
