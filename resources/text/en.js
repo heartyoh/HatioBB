@@ -4,7 +4,7 @@ T({
 		ko : 'Korean',
 		cn : 'Chinese'
 	},
-	
+
 	menu : {
 		overview : 'Overview',
 		schedule : 'Schedule',
@@ -154,7 +154,7 @@ T({
         mnt_time_by_vehicles : 'Maintenance Time By Vehicles',
         mttr_by_vehicles : 'MTTR By Vehicles',
         mtbf_by_vehicles : 'MTBF By Vehicles',
-		effcc_trend : 'Fuel Efficiency Trand',
+		effcc_trend : 'Fuel Efficiency Trend',
 		maint_trend : 'Maintenance Trend',
 		driving_trend : 'Driving Trend',
 		eco_driving_trend : 'Eco Driving Trend',
