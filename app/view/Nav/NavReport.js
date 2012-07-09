@@ -21,24 +21,24 @@ Ext.define('HatioBB.view.nav.NavReport', {
 				desc : T('report.daily_driving_report')
 			}, {
 				reportId : 'dailyreport2',
-				name : T('report.daily_driving_report'),
-				desc : T('report.daily_driving_report')
+				name : T('report.daily_driving_report') + '-2',
+				desc : T('report.daily_driving_report') + '-2'
 			}, {
 				reportId : 'dailyreport3',
-				name : 'Daily Report3',
-				desc : 'Daily Report3'
+				name : T('report.daily_driving_habit'),
+				desc : T('report.daily_driving_habit')
 			}, {
 				reportId : 'monthlyreport',
-				name : 'Monthly Report',
-				desc : 'Monthly Report'
+				name : T('report.monthly_driving'),
+				desc : T('report.monthly_driving')
 			}, {
 				reportId : 'chart_v_health',
 				name : T('menu.vehicle_health'),
 				desc : T('menu.vehicle_health')
 			}, {
 				reportId : 'ecodrivingreport',
-				name : 'Ecodriving Report',
-				desc : 'Ecodriving Report'
+				name : T('report.eco_driving_trend'),
+				desc : T('report.eco_driving_trend')
 			}, {
 				reportId : 'effccconsumptionreport',
 				name : T('report.effcc_consmpt'),
@@ -49,16 +49,16 @@ Ext.define('HatioBB.view.nav.NavReport', {
 				desc : T('report.habit_ecoindex')
 			}, {
 				reportId : 'drivingreport',
-				name : 'Driving Report',
-				desc : 'Driving Report'
+				name : T('report.driving_trend'),
+				desc : T('report.driving_trend')
 			}, {
 				reportId : 'efficiencyreport',
 				name : T('report.effcc_trend'),
 				desc : T('report.effcc_trend')
 			}, {
 				reportId : 'mainttrendreport',
-				name : 'mainttrendreport',
-				desc : 'mainttrendreport'
+				name : T('report.maint_trend'),
+				desc : T('report.maint_trend')
 			}]
 		}),
 
