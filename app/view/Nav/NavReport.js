@@ -55,6 +55,10 @@ Ext.define('HatioBB.view.nav.NavReport', {
 				reportId : 'efficiencyreport',
 				name : T('report.effcc_trend'),
 				desc : T('report.effcc_trend')
+			}, {
+				reportId : 'mainttrendreport',
+				name : 'mainttrendreport',
+				desc : 'mainttrendreport'
 			}]
 		}),
 
