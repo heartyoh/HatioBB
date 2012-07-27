@@ -5,12 +5,14 @@
 		"vehicle_id": "PV-002",
 		"repair_date":1330560000000,
 		"repair_time":"100",
-		"repair_mileage":"99000"
+		"repair_mileage":"99000",
+		"next_repair_date": 1347321600000
 	},{
 		"vehicle_id": "PV-001",
 		"repair_date":1330560000000,
 		"repair_time":"222",
-		"repair_mileage":"88899"
+		"repair_mileage":"88899",
+		"next_repair_date": 1347321600000
 	}],
 	"success": true
 }

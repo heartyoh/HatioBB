@@ -27,7 +27,7 @@ Ext.define('HatioBB.view.report.EcoDrivingReport', {
 		
 		this.callParent(arguments);
 		
-/*		var run_store = Ext.getStore('EcoDrivingReportStore');
+		/*var run_store = Ext.getStore('EcoDrivingReportStore');
 		
 		run_store.load({
 			scope : this,

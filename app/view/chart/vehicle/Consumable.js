@@ -43,12 +43,14 @@ Ext.define('HatioBB.view.chart.vehicle.Consumable', {
 	refresh : function() {
 		if(HatioBB.setting.get('vehicle') === this.vehicle) 
 			return;
-			
+		
+		this.refreshPage();
+	},
+	
+	refreshPage : function() {
 		var self = this;		
 		this.vehicle = HatioBB.setting.get('vehicle');
-		
 		var store = Ext.getStore('VehicleConsumableStore');
-		
 		this.vehicle = HatioBB.setting.get('vehicle');
 		
 		store.load({
@@ -56,15 +58,18 @@ Ext.define('HatioBB.view.chart.vehicle.Consumable', {
 				vehicle_id : this.vehicle
 			},
 			callback : function(records) {
-				Ext.each(records, function(record){
-					record.data.status = T('label.'+ record.data.status );
+				Ext.each(records, function(record) {
+					record.data.status = T('label.'+ record.data.status);
+					record.data.health_rate = record.data.health_rate.toFixed(2);
 				});
+				
 				self.getChart().getStore().setData(records);
 			}
-		});
+		});		
 	},
 	
 	buildChart : function(store) {
+		var self = this;
 		var store = new Ext.create('Ext.data.JsonStore', {
 		    fields: ['consumable_item', 'health_rate', 'repl_unit', 'status', 'next_repl_mileage', 'miles_since_last_repl', 'repl_mileage', 'accrued_cost', 'repl_time', 'miles_last_repl'],
 		    data: []
@@ -125,8 +130,6 @@ Ext.define('HatioBB.view.chart.vehicle.Consumable', {
 					grid : {
 						stroke : '#ccc'
 					},
-                    // minimum: 0,
-                    // maximum: 1,
                     label: {
                         renderer: function (v) {
                             return Math.floor(v * 100);
@@ -164,32 +167,70 @@ Ext.define('HatioBB.view.chart.vehicle.Consumable', {
 
                         return barAttr;
                     },
-					listeners : {
-						itemtap : function(series, item) {
-							;
-						}
-					},
                     label: {
 						display: 'outside',
 						'text-anchor': 'middle',
-                        // field: 'health_rate',
                         field: 'status',
 						orientation: 'horizontal',
-						color: '#333',
-						// renderer: function (v) {
-						//                             return Math.floor(v.toFixed(1) * 100);
-						//                         }
+						color: '#333'
                     },
                     xField: 'consumable_item',
                     yField: 'health_rate'
                 }
-            // ],
-            // interactions: [
-            //     {
-            //         type: 'panzoom',
-            //         axes: ['bottom']
-            //     }
-            ]
+            ],
+			interactions: [{
+			    type: 'iteminfo',
+			    gesture: 'tap',
+			    listeners: {
+			        show: function(interaction, item, panel) {
+			            var record = item.storeItem;
+						var title = record.data.consumable_item + ' : ' + (record.data.health_rate * 100) + '% (' + record.data.status + ')';
+						var msg = record.data.consumable_item + ' ' + T('button.reset') + ' ' + T('msg.confirm_run');
+						Ext.Msg.show({
+							title : title,
+							message : msg,
+							buttons: Ext.MessageBox.OKCANCEL,
+							animEl: 'elId',
+							icon: Ext.MessageBox.QUESTION,
+							fn : function(btn) {
+								if(btn == "ok") {
+									Ext.Msg.confirm(
+										T('label.confirm'),
+										msg,
+										function(answer) {
+											if(answer == "yes") {
+												self.resetConsumable(record.data.consumable_item);
+											}
+										});
+								}								
+							}
+						});
+			        }
+			    }
+			}]
 		};	
+	},
+	
+	resetConsumable : function(consumableItem) {
+		var self = this;
+		Ext.Ajax.request({
+			url : '/vehicle_consumable/reset',
+			method : 'POST',
+			params : {
+				vehicle_id : this.vehicle,
+				consumable_item : consumableItem
+			},
+			success : function(response) {
+				var resultObj = Ext.JSON.decode(response.responseText);
+				if (resultObj.success) {
+					self.refreshPage();
+				} else {
+					Ext.Msg.alert(T('label.failure'), resultObj.msg);
+				}
+			},
+			failure : function(response) {
+				Ext.Msg.alert(T('label.failure'), response.responseText);
+			}
+		});
 	}
 });

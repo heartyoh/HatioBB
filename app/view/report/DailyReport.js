@@ -8,14 +8,7 @@ Ext.define('HatioBB.view.report.DailyReport', {
 	},
 	
 	constructor : function(config) {
-		config.items = [{
-			//html : '일일 리포트',
-			docked : 'top'
-		}, this.buildReport(), {
-			//html : '일일 리포트',
-			docked : 'bottom'
-		}];
-		
+		config.items = [ this.buildReport() ];		
 		this.callParent(arguments);		
 		this.refresh();
 	},
@@ -23,17 +16,13 @@ Ext.define('HatioBB.view.report.DailyReport', {
 	refresh : function() {
 		var self = this;
 		var data = {};
-/*		var run_store = Ext.getStore('DailyReportStore');
 		
+		/*var run_store = Ext.getStore('DailyReportStore');		
 		run_store.load(function(records) {
 			var record = records[0].data;
-			// 주행 데이타를 설정한다
 			data.driving = record.driving;
-			// 정비정보를 설정한다
 			data.maint = record.maint;
-			// 소모품 교체 정보를 설정한다 //
 			data.consummable = record.consumable;
-
 			self.down('[itemId=report]').setData(data);
 		});*/
 		
@@ -47,10 +36,7 @@ Ext.define('HatioBB.view.report.DailyReport', {
 			    var resultObj = Ext.JSON.decode(response.responseText);
 
 			    if(resultObj.success) {
-					var records = resultObj.items;
-					
-				//	alert(Ext.JSON.encode(records[0].driving));
-					
+					var records = resultObj.items;					
 					data.driving = records[0].driving;
 					data.maint = records[0].maint;
 					data.consummable = records[0].consumable;
@@ -67,10 +53,10 @@ Ext.define('HatioBB.view.report.DailyReport', {
 	
 	buildReport : function() {
 		return {
-			xtype : 'panel',			
-			
+			xtype : 'panel',
+
 			itemId : 'report',
-						
+
 			data : {},
 			
 			cls : 'bgHGradient',
@@ -146,8 +132,7 @@ Ext.define('HatioBB.view.report.DailyReport', {
 				'</table>',
 			'</div>',	
 			'</div>',	
-			]
-			
+			]			
 		};
 	}
 });

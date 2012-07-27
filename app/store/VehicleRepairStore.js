@@ -11,7 +11,7 @@ Ext.define('HatioBB.store.VehicleRepairStore', {
 		fields : [ {
 			name : 'repair_date',
 			type : 'date',
-			dateFormat:'time'
+			dateFormat : 'time'
 		}, {
 			name : 'vehicle_id',
 			type : 'string'
@@ -21,8 +21,17 @@ Ext.define('HatioBB.store.VehicleRepairStore', {
 		}, {
 			name : 'repair_mileage',
 			type : 'string'
+		}, {
+			name : 'next_repair_date',
+			type : 'date',
+			dateFormat : 'time'
 		}],
 
+		sorters : [ {
+			property : 'repair_date',
+			direction : 'DESC'
+		} ],
+		
 		proxy : {
 			type : 'ajax',
 			url : window.location.pathname.indexOf('/m/') === 0 ? '/repair' : 'data/vehicle_repair.json',
