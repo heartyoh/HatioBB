@@ -3,7 +3,9 @@ Ext.define('HatioBB.view.vehicle.Repair', {
 	
 	requires : [
 		'HatioBB.view.vehicle.RepairOverview',
-		'HatioBB.view.vehicle.RepairHistory'
+		'HatioBB.view.vehicle.RepairHistory',
+		'HatioBB.view.chart.vehicle.Mttr',
+		'HatioBB.view.chart.vehicle.Mtbf'
 	],
 	
 	xtype : 'vehicle_repair',
@@ -21,6 +23,14 @@ Ext.define('HatioBB.view.vehicle.Repair', {
 			xtype : 'vehicle_repair_history',
 			iconCls : 'iconsTab tabTrack',
 			title : T('title.maintenance_history')
+		}, {
+			xtype : 'vehicle_chart_mttr',
+			iconCls : 'iconsTab tabTrack',
+			title : T('report.mttr')
+		}, {
+			xtype : 'vehicle_chart_mtbf',
+			iconCls : 'iconsTab tabTrack',
+			title : T('report.mtbf')
 		}]
 	},
 		

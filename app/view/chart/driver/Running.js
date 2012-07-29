@@ -127,7 +127,7 @@ Ext.define('HatioBB.view.chart.driver.Running', {
                 axis: 'left',
                 xField: 'month_str',
                 yField: 'run_time',
-                title: T('label.run_time'),
+                title: T('label.run_time')
             },
             {
                 type: 'line',

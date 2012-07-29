@@ -289,7 +289,7 @@ Ext.define('HatioBB.controller.Nav', {
             }
         });
 
-        this.getStateRunning().setHtml(T('label.state_driving') + '</br><span>' + running + '</span>');
+        this.getStateRunning().setHtml(T('label.state_running') + '</br><span>' + running + '</span>');
         this.getStateIdle().setHtml(T('label.state_idle') + '</br><span>' + idle + '</span>');
         this.getStateIncident().setHtml(T('label.state_incident') + '</br><span>' + incident + '</span>');
         this.getStateMaint().setHtml(T('label.state_maint') + '</br><span>' + maint + '</span>');

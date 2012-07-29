@@ -69,19 +69,31 @@ Ext.define('HatioBB.view.vehicle.RepairHistory', {
 		
 	refreshPage : function() {
 		var self = this;
-		var run_store = Ext.getStore('VehicleRepairStore');
-		this.vehicle = HatioBB.setting.get('vehicle');
-		run_store.clearFilter(true);
-		run_store.filter('vehicle_id', this.vehicle);
-		
-		run_store.load(function(records) {
-			var items = [];
-			for(var i = 0 ; i < records.length ; i++) {
-				var item = records[i].data;
-				item.repair_date = Ext.util.Format.date(item.repair_date, 'Y-m-d');
-				items.push(item);
+		this.vehicle = HatioBB.setting.get('vehicle');		
+		Ext.Ajax.request({
+			url : window.location.pathname.indexOf('/m/') === 0 ? '/repair' : 'data/vehicle_repair.json',
+			method : 'GET',
+			params : {
+				limit : 1000,
+				start : 0,
+				vehicle_id : this.vehicle
+			},
+			success : function(response) {
+				var resultObj = Ext.JSON.decode(response.responseText);
+				if (resultObj.success) {
+					var records = resultObj.items;
+					for(var i = 0 ; i < records.length ; i++) {
+						var repairDate = new Date(records[0].repair_date)
+						records[i].repair_date = Ext.util.Format.date(repairDate, 'Y-m-d');
+					}
+					self.down('[itemId=report]').setData(records);
+				} else {
+					Ext.Msg.alert(T('label.failure'), resultObj.msg);
+				}
+			},
+			failure : function(response) {
+				Ext.Msg.alert(T('label.failure'), response.responseText);
 			}
-			self.down('[itemId=report]').setData(items);
-		});
+		});		
 	}
 });

@@ -57,7 +57,7 @@ Ext.define('HatioBB.view.vehicle.RepairOverview', {
 								return;
 							}
 							
-							var actionUrl = '/repair/' + ((btnText == self.getRepairStartText()) ? 'end' : 'start');
+							var actionUrl = '/repair/' + ((btnText == self.getRepairStartText()) ? 'start' : 'end');
 							Ext.Ajax.request({
 								url : actionUrl,
 								method : 'POST',
@@ -148,7 +148,7 @@ Ext.define('HatioBB.view.vehicle.RepairOverview', {
 		
 		store.load(function(records) {
 			var record = records[0].getData();
-			data['vehicle_status'] = record.status;
+			data['vehicle_status'] = T('label.state_' + record.status.toLowerCase());
 			
 			// Vehicle Status 에 따 라 button text 변 경 
 			if('Incident' == record.status || 'Idle' == record.status || 'Running' == record.status) {
