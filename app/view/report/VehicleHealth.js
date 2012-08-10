@@ -1,7 +1,7 @@
-Ext.define('HatioBB.view.chart.vehicle.VehicleHealth', {
+Ext.define('HatioBB.view.report.VehicleHealth', {
 	extend : 'Ext.Panel',
 	
-	xtype : 'chart_v_health',
+	xtype : 'rpt_vehicle_health',
 	
 	requires: [
 		'Ext.chart.Chart',
@@ -24,24 +24,6 @@ Ext.define('HatioBB.view.chart.vehicle.VehicleHealth', {
 		];
 		
 		this.callParent(arguments);
-
-/*		var dashboardStore = Ext.getStore('DashboardVehicleStore');
-
-		dashboardStore.load({
-			scope : this,
-			callback: function(records, operation, success) {
-				var data = [];
-				for(var i = 0 ; i < records.length ; i++) {
-					if(records[i].data.name === 'health') {
-						data = records[i].get('summary');
-						break;
-					}
-				}
-
-				self.down('chart').getStore().setData(data);
-			}
-		});		*/
-		
 		Ext.Ajax.request({
 			url: window.location.pathname.indexOf('/m/') === 0 ? '/report/service' : 'data/dashboard/health/vehicle.json',
 			method : 'GET',
@@ -82,7 +64,6 @@ Ext.define('HatioBB.view.chart.vehicle.VehicleHealth', {
 	buildChart : function() {
 		return {
 			xtype : 'chart',
-			itemId : 'xxx',
 		    themeCls: 'pie1',
 		    theme: 'Demo',
 		    // theme: 'Base:gradients',

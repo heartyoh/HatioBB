@@ -1,7 +1,7 @@
 Ext.define('HatioBB.view.report.EffccConsumptionReport', {
 	extend : 'Ext.Panel',
 	
-	xtype : 'effccconsumptionreport',
+	xtype : 'rpt_effcc_consmpt',
 	
 	requires: [
 		'Ext.chart.Chart',
@@ -25,21 +25,6 @@ Ext.define('HatioBB.view.report.EffccConsumptionReport', {
 		];
 		
 		this.callParent(arguments);
-
-		/*var dashboardStore = Ext.getStore('EffccConsumptionReportStore');
-		dashboardStore.load({
-			scope : this,
-			callback: function(records, operation, success) {
-				var data = [];
-				for(var i = 0 ; i < records.length ; i++) {
-					var item = records[i].data;
-					data.push(item);
-				}
-
-				self.down('chart').getStore().setData(data);
-			}
-		});	*/
-
 		Ext.Ajax.request({
 			url: window.location.pathname.indexOf('/m/') === 0 ? '/report/service' : 'data/efficiency_report.json',
 			method : 'GET',

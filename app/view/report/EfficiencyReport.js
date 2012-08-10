@@ -1,7 +1,7 @@
 Ext.define('HatioBB.view.report.EfficiencyReport', {
 	extend : 'Ext.Carousel',
 	
-	xtype : 'efficiencyreport',
+	xtype : 'rpt_effcc_trend',
 	
 	requires: ['Ext.Carousel',
 		'Ext.chart.Chart',
@@ -25,23 +25,7 @@ Ext.define('HatioBB.view.report.EfficiencyReport', {
 			this.buildTable()
 		];
 		
-		this.callParent(arguments);
-		
-/*		var run_store = Ext.getStore('EfficiencyReportStore');
-		
-		run_store.load({
-			scope : this,
-			callback: function(records, operation, success) {
-				var data = [];
-				for(var i = 0 ; i < records.length ; i++) {
-					var item = records[i].data;
-					data.push(item);
-				}
-				self.down('chart').getStore().setData(data);
-				self.down('[itemId=report]').setData(data);
-			}
-		});*/
-		
+		this.callParent(arguments);		
 		Ext.Ajax.request({
 			url: window.location.pathname.indexOf('/m/') === 0 ? '/report/service' : 'data/efficiency_report.json',
 			method : 'GET',
@@ -71,7 +55,6 @@ Ext.define('HatioBB.view.report.EfficiencyReport', {
 	buildChart : function() {
 		return {
 			xtype : 'chart',
-			itemId : 'xxx',
 		    theme: 'Demo',
             animate: true,
             shadow: false,

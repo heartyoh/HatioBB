@@ -1,7 +1,7 @@
 Ext.define('HatioBB.view.report.EcoDrivingHabitReport', {
 	extend : 'Ext.Panel',
 	
-	xtype : 'ecodrivinghabitreport',
+	xtype : 'rpt_habit_ecoindex',
 	
 	requires: [
 		'Ext.chart.Chart',
@@ -18,29 +18,9 @@ Ext.define('HatioBB.view.report.EcoDrivingHabitReport', {
 	},
 
 	constructor : function(config) {
-		var self = this;
-		
-		config.items = [
-			this.buildChart()
-		];
-		
+		var self = this;		
+		config.items = [ this.buildChart() ];		
 		this.callParent(arguments);
-
-/*		var dashboardStore = Ext.getStore('EcoDrivingHabitReportStore');
-
-		dashboardStore.load({
-			scope : this,
-			callback: function(records, operation, success) {
-				var data = [];
-				for(var i = 0 ; i < records.length ; i++) {
-					var item = records[i].data;
-					data.push(item);
-				}
-
-				self.down('chart').getStore().setData(data);
-			}
-		});		*/
-		
 		Ext.Ajax.request({
 			url: window.location.pathname.indexOf('/m/') === 0 ? '/report/service' : 'data/eco_driving_habit_report.json',
 			method : 'GET',
@@ -69,7 +49,6 @@ Ext.define('HatioBB.view.report.EcoDrivingHabitReport', {
 	buildChart : function() {
 		return {
 			xtype : 'chart',
-			itemId : 'xxx',
 		    theme: 'Demo',
             animate: true,
             shadow: false,
@@ -98,19 +77,19 @@ Ext.define('HatioBB.view.report.EcoDrivingHabitReport', {
                 }
             ],
             series: [
-            {
-                type: 'scatter',
-                // fill: true,
-                smooth: true,
-				markerConfig: {
-					radius: 5,
-					size: 5
-				},
-                axis: 'left',
-				highlight: true,
-                xField: 'sud_cnt',
-                yField: ['eco_index']
-            }
+            	{
+                	type: 'scatter',
+                	// fill: true,
+                	smooth: true,
+					markerConfig: {
+						radius: 5,
+						size: 5
+					},
+                	axis: 'left',
+					highlight: true,
+                	xField: 'sud_cnt',
+                	yField: ['eco_index']
+            	}
             ]
 		};
 	}

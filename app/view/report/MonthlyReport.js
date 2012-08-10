@@ -1,7 +1,7 @@
 Ext.define('HatioBB.view.report.MonthlyReport', {
 	extend : 'Ext.Panel',
 	
-	xtype : 'monthlyreport',
+	xtype : 'rpt_monthly_driving',
 	
 	config : {
 		cls : 'grayBg',
@@ -26,20 +26,6 @@ Ext.define('HatioBB.view.report.MonthlyReport', {
 	refresh : function() {
 		var self = this;
 		var data = {};
-/*		var run_store = Ext.getStore('MonthlyReportStore');
-		
-		run_store.load(function(records) {
-			var record = records[0].data;
-			// 주행 데이타를 설정한다
-			data.driving = record.driving;
-			// 정비정보를 설정한다 
-			data.maint = record.maint;
-			// 소모품 교체 정보를 설정한다 
-			data.consummable = record.consumable;
-
-			self.down('[itemId=report]').setData(data);
-		});*/
-		
 		Ext.Ajax.request({
 			url: window.location.pathname.indexOf('/m/') === 0 ? '/report/service' : 'data/monthly_report.json',
 			method : 'GET',
@@ -50,10 +36,7 @@ Ext.define('HatioBB.view.report.MonthlyReport', {
 			    var resultObj = Ext.JSON.decode(response.responseText);
 
 			    if(resultObj.success) {
-					var records = resultObj.items;
-					
-				//	alert(Ext.JSON.encode(records[0].driving));
-					
+					var records = resultObj.items;					
 					data.driving = records[0].driving;
 					data.maint = records[0].maint;
 					data.consummable = records[0].consumable;
@@ -71,17 +54,11 @@ Ext.define('HatioBB.view.report.MonthlyReport', {
 	buildReport : function() {
 		return {
 			xtype : 'panel',			
-			
-			itemId : 'report',
-						
-			data : {},
-			
-			cls : 'bgHGradient',
-			
+			itemId : 'report',						
+			data : {},			
+			cls : 'bgHGradient',			
 			scrollable : 'vertical',
-
-			tpl : [
-			
+			tpl : [			
 			'<div class="reportWrap type2">',
 				'<div class="reportLayoutFull">',
 					'<div class="reportTitle">'+ T('report.driving_trend') +' '+ T('report.report') +' ('+ Ext.Date.format(new Date(new Date().getFullYear(), new Date().getMonth()-1), 'Y년-n월') +')</div>',
@@ -106,7 +83,6 @@ Ext.define('HatioBB.view.report.MonthlyReport', {
 						'</table>',
 					'</div>',	
 				'</div>',
-
 				'<div class="reportLayoutHalf">',
 					'<div class="reportTitle">'+ T('label.maintenance') +' '+ T('report.report') +' ('+ Ext.Date.format(new Date(new Date().getFullYear(), new Date().getMonth()-1), 'Y년-n월') +')</div>',
 						'<div class="reportItem">',
@@ -125,8 +101,7 @@ Ext.define('HatioBB.view.report.MonthlyReport', {
 						'</tpl>',
 						'</table>',
 					'</div>',	
-				'</div>',	
-
+				'</div>',
 				'<div class="reportLayoutHalf">',	
 					'<div class="reportTitle">'+ T('label.consumable_repl') +' '+ T('report.report') +' ('+ Ext.Date.format(new Date(new Date().getFullYear(), new Date().getMonth()-1), 'Y년-n월') +')</div>',
 						'<div class="reportItem">',
@@ -146,7 +121,6 @@ Ext.define('HatioBB.view.report.MonthlyReport', {
 				'</div>',	
 			'</div>',
 			]
-			
 		};
 	}
 });

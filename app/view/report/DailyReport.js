@@ -1,7 +1,7 @@
 Ext.define('HatioBB.view.report.DailyReport', {
 	extend : 'Ext.Panel',
 	
-	xtype : 'dailyreport',
+	xtype : 'rpt_daily_driving',
 	
 	config : {
 		layout : 'fit',
@@ -15,17 +15,7 @@ Ext.define('HatioBB.view.report.DailyReport', {
 	
 	refresh : function() {
 		var self = this;
-		var data = {};
-		
-		/*var run_store = Ext.getStore('DailyReportStore');		
-		run_store.load(function(records) {
-			var record = records[0].data;
-			data.driving = record.driving;
-			data.maint = record.maint;
-			data.consummable = record.consumable;
-			self.down('[itemId=report]').setData(data);
-		});*/
-		
+		var data = {};		
 		Ext.Ajax.request({
 			url: window.location.pathname.indexOf('/m/') === 0 ? '/report/service' : 'data/daily_report.json',
 			method : 'GET',
@@ -54,17 +44,11 @@ Ext.define('HatioBB.view.report.DailyReport', {
 	buildReport : function() {
 		return {
 			xtype : 'panel',
-
 			itemId : 'report',
-
 			data : {},
-			
 			cls : 'bgHGradient',
-			
 			scrollable : 'vertical',
-
-			tpl : [
-			
+			tpl : [			
 			'<div class="reportWrap">',
 			'<div class="reportMain">',
 				'<div class="reportTitle">' + T('report.daily_driving_report') + ' <span>{date}</span></div>',
@@ -97,8 +81,7 @@ Ext.define('HatioBB.view.report.DailyReport', {
 				'</tr>',
 				'</tpl>',
 				'</table>',
-			'</div>',
-			
+			'</div>',			
 			'<div class="reportSub">',
 				'<div class="reportTitle">' + T('title.maintenance') + T('report.report') + '</div>',
 				'<table frame="hsides" rules="rows">',

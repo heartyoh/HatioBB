@@ -29,10 +29,10 @@ Ext.application({
     controllers: ['Main', 'Nav', 'Report', 'monitor.Track', 'monitor.Info'],
     views: ['Main', 'Setting'],
     stores: ['VehicleFilteredStore', 'VehicleStore', 'RecentIncidentStore', 'VehicleMapStore', 
-			'DriverStore', 'DriverBriefStore', 'VehicleGroupStore', 'DriverGroupStore', 'TrackByVehicleStore', 
-			'IncidentByVehicleStore', 'IncidentLogStore', 'DashboardVehicleStore', 'VehicleConsumableStore', 
-			'DriverRunStore', 'VehicleRunStore', 'YearStore', 'DashboardConsumableStore', 'TrackStore', 
-			'VehicleSummaryStore', 'DriverSummaryStore', 'VehicleRepairStore'
+			'DriverStore', 'DriverBriefStore', 'VehicleGroupStore', 'DriverGroupStore', 
+			'TrackByVehicleStore', 'IncidentByVehicleStore', 'IncidentLogStore', 
+			'VehicleConsumableStore', 'DriverRunStore', 'VehicleRunStore', 'YearStore', 
+			'TrackStore', 'VehicleSummaryStore', 'DriverSummaryStore', 'VehicleRepairStore'
 			],
 
     icon: {

@@ -1,7 +1,7 @@
 Ext.define('HatioBB.view.report.DrivingReport', {
 	extend : 'Ext.Carousel',
 	
-	xtype : 'drivingreport',
+	xtype : 'rpt_driving_trend',
 	
 	requires: ['Ext.Carousel',
 		'Ext.chart.Chart',
@@ -25,23 +25,7 @@ Ext.define('HatioBB.view.report.DrivingReport', {
 			this.buildTable()
 		];
 		
-		this.callParent(arguments);
-		
-/*		var run_store = Ext.getStore('DrivingReportStore');
-		
-		run_store.load({
-			scope : this,
-			callback: function(records, operation, success) {
-				var data = [];
-				for(var i = 0 ; i < records.length ; i++) {
-					var item = records[i].data;
-					data.push(item);
-				}
-				self.down('chart').getStore().setData(data);
-				self.down('[itemId=report]').setData(data);
-			}
-		});*/
-		
+		this.callParent(arguments);		
 		Ext.Ajax.request({
 			url: window.location.pathname.indexOf('/m/') === 0 ? '/report/service' : 'data/driving_report.json',
 			method : 'GET',
@@ -70,7 +54,6 @@ Ext.define('HatioBB.view.report.DrivingReport', {
 	buildChart : function() {
 		return {
 			xtype : 'chart',
-			itemId : 'xxx',
 	        theme: 'Demo',
 	        animate: true,
             shadow: false,
@@ -112,31 +95,31 @@ Ext.define('HatioBB.view.report.DrivingReport', {
                 }
             ],
             series: [
-            {
-                type: 'column',
-                highlight: {
-                    size: 7,
-                    radius: 7
-                },
-                // fill: true,
-                smooth: true,
-                axis: 'left',
-                xField: 'yearmonth',
-                yField: ['run_dist'],
-                title: T('label.run_dist')
-            }, {
-                type: 'line',
-                highlight: {
-                    size: 7,
-                    radius: 7
-                },
-                fill: true,
-                smooth: true,
-                axis: 'right',
-                xField: 'yearmonth',
-                yField: 'run_time',
-                title: T('label.run_time')
-            }
+            	{
+                	type: 'column',
+                	highlight: {
+                    	size: 7,
+                    	radius: 7
+                	},
+                	// fill: true,
+                	smooth: true,
+                	axis: 'left',
+                	xField: 'yearmonth',
+                	yField: ['run_dist'],
+                	title: T('label.run_dist')
+            	}, {
+                	type: 'line',
+                	highlight: {
+                    	size: 7,
+                    	radius: 7
+                	},
+                	fill: true,
+                	smooth: true,
+                	axis: 'right',
+                	xField: 'yearmonth',
+                	yField: 'run_time',
+                	title: T('label.run_time')
+            	}
             ]
 		};
 	},

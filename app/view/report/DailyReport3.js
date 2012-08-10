@@ -1,7 +1,7 @@
 Ext.define('HatioBB.view.report.DailyReport3', {
 	extend : 'Ext.Panel',
 	
-	xtype : 'dailyreport3',
+	xtype : 'rpt_daily_habit',
 	
 	config : {
 		cls : 'grayBg',
@@ -11,10 +11,8 @@ Ext.define('HatioBB.view.report.DailyReport3', {
 	
 	constructor : function(config) {
 		config.items = [{
-			//html : '일일 리포트',
 			docked : 'top'
 		}, this.buildReport(), {
-			//html : '일일 리포트',
 			docked : 'bottom'
 		}];
 		
@@ -24,18 +22,6 @@ Ext.define('HatioBB.view.report.DailyReport3', {
 	
 	refresh : function() {
 		var self = this;
-/*		var run_store = Ext.getStore('DailyReportStore3');
-		
-		run_store.load(function(records) {
-			var data = [];
-			for(var i = 0 ; i < records.length ; i++) {
-				var item = records[i].data;
-				data.push(item);
-			}
-
-			self.down('[itemId=report]').setData(data);
-		});*/
-		
 		Ext.Ajax.request({
 			url: window.location.pathname.indexOf('/m/') === 0 ? '/report/service' : 'data/daily_report3.json',
 			method : 'GET',
@@ -62,17 +48,11 @@ Ext.define('HatioBB.view.report.DailyReport3', {
 	buildReport : function() {
 		return {
 			xtype : 'panel',			
-			
-			itemId : 'report',
-						
-			data : {},
-			
-			cls : 'bgHGradient',
-			
+			itemId : 'report',						
+			data : {},			
+			cls : 'bgHGradient',			
 			scrollable : 'vertical',
-
-			tpl : [
-			
+			tpl : [			
 			'<div class="reportWrap type2">',
 				'<div class="reportLayoutFull">',
 					'<div class="reportTitle"> 일일 운전습관 리포트<span>{driver_id}</span></div>',
@@ -112,8 +92,7 @@ Ext.define('HatioBB.view.report.DailyReport3', {
 					'</div>',	
 				'</div>',	
 			'</div>',
-			]
-			
+			]			
 		};
 	}
 });
